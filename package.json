@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^16.0.4",
     "@angular/platform-browser-dynamic": "^16.0.4",
     "@angular/router": "^16.0.4",
-    "@auth0/angular-jwt": "^5.1.2",
     "@babel/plugin-transform-async-generator-functions": "^7.24.3",
     "@babel/plugin-transform-unicode-property-regex": "^7.24.1",
     "@babel/runtime": "^7.24.4",

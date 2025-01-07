@@ -1,6 +1,5 @@
 import { Subject } from 'rxjs';
 import { Component, OnInit, Output } from '@angular/core';
-import { DigiSealService } from 'src/app/services/digi-seal/digi-seal.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 
@@ -18,7 +17,6 @@ export class GenericFileUploadComponent implements OnInit {
   fileData: ByteDataDto = {};
 
   constructor(
-    private digiSealService: DigiSealService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -61,17 +59,6 @@ export class GenericFileUploadComponent implements OnInit {
       this.files.fileName = file.name;
       this.files.content = [base64String];
       this.files.embedded = false;
-      this.digiSealService.signPdfEmbedded(this.files).subscribe({
-        next: (res) => {
-          this.backendResponse = res;
-          console.log("backend Response",this.backendResponse);
-          this.showSuccessToast();
-          
-        },
-        error: (err: any) => {
-          this.showErrorToast('Error signing/uploading the file. Please try again.');
-        },
-      });
     };
     reader.readAsArrayBuffer(file);
   }
@@ -79,13 +66,13 @@ export class GenericFileUploadComponent implements OnInit {
   onFileDownload() {
     // Get the response payload
     let sealedResponse = this.backendResponse.body.payload;
-  
+
     // Strip off any Base64 data URL prefix if present
     //sealedResponse = sealedResponse.split(',')[1] || sealedResponse;
-  
+
     // Decode the Base64 string
     console.log("sealed Response2",sealedResponse);
-    
+
     let binary_string = '';
     try {
       binary_string = window.atob(sealedResponse);
@@ -93,7 +80,7 @@ export class GenericFileUploadComponent implements OnInit {
       console.error('Invalid Base64 string:', e.message);
       return;
     }
-  
+
     // Convert binary string to ArrayBuffer
     const len = binary_string.length;
     const arrayBuffer = new ArrayBuffer(len);
@@ -101,12 +88,12 @@ export class GenericFileUploadComponent implements OnInit {
     for (let i = 0; i < len; i++) {
       bytes[i] = binary_string.charCodeAt(i);
     }
-  
+
     // Create a blob with the specified MIME type
     const blob = new Blob([bytes], {
       type: this.backendResponse.body.mimeType,
     });
-  
+
     // Create a temporary download link
     let a = document.createElement('a');
     document.body.appendChild(a);
@@ -114,15 +101,15 @@ export class GenericFileUploadComponent implements OnInit {
     a.href = url;
     a.download = this.backendResponse.body.fileName;
     a.click();
-  
+
     // Clean up
     window.URL.revokeObjectURL(url);
     a.remove();
-  
+
     // Optionally, show a download notification
     this.showDownloadToast();
   }
-  
+
 
   private showSuccessToast(): void {
     this._snackBar.open('File signed and uploaded successfully!', 'Close', {
@@ -151,37 +138,3 @@ export class GenericFileUploadComponent implements OnInit {
     });
   }
 }
-
-
-/* filename: string;
-customText: string;
-file: File | undefined;
-uploadfunction: Function; 
-
-
-constructor(
-   public dialogRef: MatDialogRef<GenericFileUploadComponent>,
-  @Inject(MAT_DIALOG_DATA) data: any 
-) {
-   this.filename = "";
-  this.customText = data.text;
-  this.uploadfunction = data.uploadFunction; 
-}
-
- close() {
-  this.dialogRef.close();
-} 
-
-onFileUploaded(file: File) {
-  console.log('file Uploaded:',file)
-   if (event.target && event.target.files[0]) {
-    this.filename = event.target.files[0].name;
-    //TODO implement functionality if needed
-  } 
-}
-
- upload() {
-
-  this.uploadfunction(this.filename);
- }
- */

@@ -32,7 +32,6 @@ export class NavigationComponent {
   }
 
   ngOnInit(): void {
-    this.fullName = this.keycloakService.getFullName();
   }
 
   updateVersion() {
@@ -43,10 +42,9 @@ export class NavigationComponent {
 
     }
   }
+
   updateLastFrontend() {
     const currentDate = new Date();
     this.lastFrontendUpdate = currentDate.toLocaleString();
   }
-
-
 }

@@ -383,12 +383,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
 
   }
 
-  ngAfterViewInit(): void {
-    this.ObjectsService.getWorklist().subscribe(response => {
-      this.procedures = response;
-    })
-  }
-
   getEmptyItemDto(): ItemDto {
     var result = <ItemDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();

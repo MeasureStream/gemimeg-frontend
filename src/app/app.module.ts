@@ -1,6 +1,6 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -61,6 +61,7 @@ import { ErrorComponent } from './components/common/error/error.component';
 import { GlobalErrorHandler } from './utils/global.error.handler';
 import { PageNotFoundComponent } from './components/common/not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SimpleTestComponent } from './simple-test/simple-test.component';
 import { VersionComponent } from './version/version.component';
 import { MathmlComponent } from './mathml/mathml.component';
 import { MathModule } from './mathml/math/math.module';
@@ -110,13 +111,13 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccMeasurementMetadataComponent,
     DccQuantityComponent,
     DccDataComponent,
-    DccRichcontentComponent,
-    DccByteDataComponent,
     ErrorComponent,
     PageNotFoundComponent,
     SimpleTestComponent,
     VersionComponent,
-    MathmlComponent
+    MathmlComponent,
+    DccRichcontentComponent,
+    DccByteDataComponent,
   ],
   imports: [
     BrowserModule,
@@ -160,13 +161,15 @@ export class AppDateAdapter extends NativeDateAdapter {
   ],
   providers: [
     {
+      // processes all errors
       provide: ErrorHandler,
+      // GlobalErrorHandler uses components/ErrorHandler and services/ErrorService for display of error messages
       useClass: GlobalErrorHandler,
     },
     { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     DccService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
