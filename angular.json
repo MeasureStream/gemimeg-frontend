@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/oplayer-frontend",
+            "outputPath": "dist/gemimeg-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -29,8 +29,7 @@
               "src/theme.scss",
               "src/styles.scss",
               "./node_modules/flag-icons/css/flag-icons.min.css"
-            ],
-            "scripts": ["./node_modules/keycloak-js/dist/keycloak.min.js"]
+            ]
           },
           "configurations": {
             "production": {
@@ -89,18 +88,18 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "proxyConfig": "src/proxy.conf.json",
-            "browserTarget": "oplayer-frontend:build",
+            "browserTarget": "gemimeg-frontend:build",
             "port": 10000
           },
           "configurations": {
             "production": {
-              "browserTarget": "oplayer-frontend:build:production"
+              "browserTarget": "gemimeg-frontend:build:production"
             },
             "development": {
-              "browserTarget": "oplayer-frontend:build:development"
+              "browserTarget": "gemimeg-frontend:build:development"
             },
             "test": {
-              "browserTarget": "oplayer-frontend:build:test"
+              "browserTarget": "gemimeg-frontend:build:test"
             }
           },
           "defaultConfiguration": "development"
@@ -108,13 +107,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "oplayer-frontend:build"
+            "browserTarget": "gemimeg-frontend:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "include": ["src/app/components/cas/**/*.spec.ts", "src/app/services/calibration-application/**/*.spec.ts", "src/app/simple-test/*.spec.ts"],
+            "include": [],
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",

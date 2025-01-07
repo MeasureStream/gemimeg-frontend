@@ -1,5 +1,5 @@
 {
-  "name": "oplayer-frontend",
+  "name": "gemimeg-frontend",
   "version": "1.0",
   "scripts": {
     "test": "jasmine-browser-runner runSpecs",
@@ -39,7 +39,7 @@
     "mathjax-full": "^3.2.2",
     "ngx-layer": "^0.0.1",
     "ngx-logger": "^5.0.12",
-    "oplayer-frontend": "file:",
+    "gemimeg-frontend": "file:",
     "rxjs": "~7.8.1",
     "ts-evaluator": "^1.2.0",
     "tslib": "^2.5.3",
