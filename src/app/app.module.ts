@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { JwtModule } from '@auth0/angular-jwt';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -37,11 +36,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { KeycloakService } from './services/common/keycloak/keycloak.service';
-import { TokenInterceptorService } from './services/common/token-interceptor/token-interceptor.service';
 
+import { NavigationComponent } from './components/common/navigation/navigation.component';
 import { DccComponent } from './components/dcc/dcc.component';
-import { DataproviderService } from './services/dataprovider/dataprovider.service';
 import { DccService } from './services/dcc/dcc.service';
 import { GenericFileUploadComponent } from './components/common/generic-file-upload/generic-file-upload.component';
 import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
@@ -99,6 +96,7 @@ export class AppDateAdapter extends NativeDateAdapter {
 @NgModule({
   declarations: [
     AppComponent,
+    NavigationComponent,
     DccComponent,
     GenericFileUploadComponent,
     DccLocalisedStringComponent,
@@ -167,7 +165,6 @@ export class AppDateAdapter extends NativeDateAdapter {
     },
     { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    DataproviderService,
     DccService
   ],
   bootstrap: [AppComponent]

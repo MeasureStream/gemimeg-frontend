@@ -21,11 +21,9 @@ import { ResultDto } from '../../generated/dcc/model/resultDto';
 import { RichContentDto } from '../../generated/dcc/model/richContentDto';
 import { SoftwareDto } from '../../generated/dcc/model/softwareDto';
 import { StatementDto } from '../../generated/dcc/model/statementDto';
-import { ProcedureDto } from '../../generated/efile/model/procedureDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 
 import { DccService } from 'src/app/services/dcc/dcc.service';
-import { ObjectsService } from '../../services/efile/objects.service';
 import { GenericFileUploadComponent } from '../common/generic-file-upload/generic-file-upload.component';
 import { NGXLogger } from "ngx-logger";
 import { ErrorService } from 'src/app/services/common/error/error.service';
@@ -47,7 +45,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
   exampleFileUrl!: string;
   validPerformanceLocations = ["LABORATORY", "CUSTOMER", "LABORATORY_BRANCH", "CUSTOMER_BRANCH", "OTHER"];
   validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
-  procedures: ProcedureDto[] = [];
   header_meta_data = "Meta-Data";
   header_statement = "Statement";
   statement!: StatementDto;
@@ -67,7 +64,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
     public dccService: DccService,
     public dialog: MatDialog,
     private http: HttpClient,
-    private ObjectsService: ObjectsService,
     private errorService: ErrorService,
     private sanitizer: DomSanitizer,
     public logger: NGXLogger,
@@ -129,7 +125,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
 
   public showStatement() {
     this.showEmptyStatement = true;
-
   }
 
   public add_cipmmra(value: any) {
@@ -392,35 +387,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
     this.ObjectsService.getWorklist().subscribe(response => {
       this.procedures = response;
     })
-  }
-
-  selectProcedure(procedure: ProcedureDto) {
-    if (!procedure.contacts) {
-      //TODO alert/notify
-      return;
-    }
-    procedure.contacts!.forEach((contact: any) => {
-      //TODO find out which fields we should actually use
-      switch (contact.type) {
-        case "E_SERVICE_ORIGINATOR":
-          this.dcc.administrativeData!.customer!.emailAddress = contact.email;
-          this.dcc.administrativeData!.customer!.phoneNumber = contact.phone;
-          break;
-        case "E_SERVICE_PRINCIPAL":
-          this.dcc.administrativeData!.customer!.location!.stateCode = contact.state;
-          break;
-        case "E_SERVICE_CLIENT":
-          this.dcc.administrativeData!.customer!.location!.city = contact.city;
-          this.dcc.administrativeData!.customer!.location!.street = contact.street;
-          this.dcc.administrativeData!.customer!.location!.postalCode = contact.zipcode;
-          this.dcc.administrativeData!.customer!.name = this.getEmptyLanguageSpecificStringsDto();
-          if (this.dcc.administrativeData!.customer!.name.content != undefined) {
-            this.dcc.administrativeData!.customer!.name.content[0].lang = "de";
-            this.dcc.administrativeData!.customer!.name.content[0].text = contact.companyname;
-          }
-          break;
-      }
-    });
   }
 
   getEmptyItemDto(): ItemDto {

@@ -119,19 +119,6 @@
           </div>
         </mat-card-header>
         <mat-card-content *ngIf="isExpanded['Kunde']">
-          <mat-form-field id="dcc-efile-customer-selection">
-            <mat-icon color="accent" matPrefix matTooltip="Kundendaten automatisch aus Vorgang übernehmen">
-              precision_manufacturing
-            </mat-icon>
-            <mat-select (selectionChange)="selectProcedure($event.value)" placeholder="">
-              <ng-container *ngFor="let procedure of procedures">
-                <mat-option *ngIf="procedure.contacts != null" [value]="procedure">
-                  {{ procedure.contacts[2].companyname }} (Vorgang {{ procedure.name }})
-                </mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-          <mat-divider></mat-divider>
           <app-dcc-contact [contact]="dcc.administrativeData!.customer!"></app-dcc-contact>
         </mat-card-content>
       </mat-card>

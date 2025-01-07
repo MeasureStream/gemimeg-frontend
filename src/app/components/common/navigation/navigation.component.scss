@@ -1,0 +1,127 @@
+.sidenav {
+  width: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  min-height: relative;
+  
+}
+.sidenav a:hover {
+  color: #d8d4d4;
+  background:  hsl(240, 3%, 87%) ;
+  box-shadow: 2px 2px 5px rgba(5, 5, 5, 0.2);
+}
+.logo-top {
+  height: 70%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar.mat-primary {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.active-link {
+  background-color: rgb(182, 178, 178); 
+  color: #313ee9; 
+}
+
+.angular-version-first-item {
+  font-weight: bold;
+  color: #000000;
+  margin-top: 520px; 
+  margin-left: 15px;
+  font-size: 9px;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+  margin-left: 17px;
+  font-size: 10px;
+line-height: 1.3;
+
+}
+.sidenav-container {
+  height: relative;
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-item-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.display-icon {
+  margin-right: 10px;
+}
+
+.menu-text {
+  margin-right: 10px;
+  font-size:  83%;
+
+}
+
+.main-menu-toggler {
+
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.main-menu-toggler mat-icon {
+  display: flex;
+
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.list-item:hover {
+  background: hsl(240, 3%, 87%);
+}
+
+.list-item:hover .main-menu-toggler mat-icon {
+  transform: translateX(10px); 
+}
+
+.angular-version-other-items {
+  color: #000000;
+  margin-left: 15px;
+  font-size: 9px;
+}
+
+.timestamp {
+  font-style: italic;
+  color: hsl(0, 0%, 0%);
+}
+
+.list-item {
+  text-decoration: none; // Remove default link underline
+  color: #333; // Example text color
+}
+
+.main-item-wrapper {
+  display: flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 10px; // Adjust padding as needed
+}
+
+.menu-text {
+  justify-content:left;
+  font-size: 14px; // Example font size
+}
+
+.arrow-icon {
+  justify-content:center;
+  font-size: 18px; // Example font size
+}
+

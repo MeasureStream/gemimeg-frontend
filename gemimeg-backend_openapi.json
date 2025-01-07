@@ -131,6 +131,37 @@
         }
       }
     },
+    "/api/v1/{pathPart}/version": {
+      "get": {
+        "tags": [
+          "VersionController"
+        ],
+        "description": "Get the version information of the service.",
+        "operationId": "getVersion",
+        "parameters": [
+          {
+            "name": "pathPart",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/dcc/xsd/dcc/{id}": {
       "get": {
         "tags": [
@@ -1681,6 +1712,20 @@
             "items": {
               "$ref": "#/components/schemas/CoverageIntervalDto"
             }
+          }
+        }
+      },
+      "VersionDto": {
+        "type": "object",
+        "properties": {
+          "artifactId": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
           }
         }
       }

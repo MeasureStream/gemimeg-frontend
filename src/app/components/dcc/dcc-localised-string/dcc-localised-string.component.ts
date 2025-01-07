@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 
@@ -38,19 +38,16 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
     this.initializeLanguageMap();
   }
 
-
   ngAfterContentChecked() {
     // console.log('strings',this.strings)
     this.cdref.detectChanges();
   }
-
 
   initializeLanguageMap() {
 
     this.languageMap.clear();
     if (this.strings.content) {
     this.strings.content!.forEach(item => {
-
       if (item.lang) {
         const locale = this.locales.find(locale => locale.lang === item.lang);
         this.languageMap.set(item.lang, locale || this.locales[0]);
@@ -59,10 +56,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   }
   }
 
-
-
   getEmptyStringWithLangDto(): LanguageSpecificStringsDto {
-
     var result = <LanguageSpecificStringsDto>{};
     result.content = new Array<LangTextPair>;
     var preselected = <LangTextPair>{};
@@ -82,7 +76,6 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
 
   updateLanguageMap(item: LangTextPair) {
     if (item.lang) {
-
       const selectedLang = this.locales.find(locale => locale.lang === item.lang);
       if (selectedLang) {
         this.languageMap.set(item.lang, selectedLang);
@@ -91,6 +84,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
       }
     }
   }
+
   getOrSetLang(item: any): string {
 
     if (item.lang === '**' || item.lang === undefined) {
