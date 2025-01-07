@@ -1,0 +1,40 @@
+<mat-card *ngFor="let item of list; let i = index" class="blue-card">
+  <mat-card-header>
+    <div class="header-title">
+      <mat-card-title class="title"> Messinstrument {{i+1}}</mat-card-title>
+    </div>
+    <div class="header-menu">
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+        <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content *ngIf="isExpanded[i]">
+    <p>
+      <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+                                [strings]="item.name!"></app-dcc-localised-string>
+      <mat-form-field>
+        <mat-label>Klassifikation</mat-label>
+        <input [(ngModel)]=item.classId matInput name="classID">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Norm</mat-label>
+        <input [(ngModel)]=item.classReference matInput name="classReference">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Modell</mat-label>
+        <input [(ngModel)]=item.model matInput name="model">
+      </mat-form-field>
+    </p>
+    <h3 mat-subheader matLine>Hersteller</h3>
+    <p matLine>
+      <app-dcc-contact [contact]="item.manufacturer!" [strict]="true"></app-dcc-contact>
+    </p>
+    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" mat-icon-button>
+      <mat-icon>remove</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
+<button (click)="list.push(getEmptyMeasuringEquipmentDto()); addExpanded()" color="accent" mat-icon-button>
+  <mat-icon>add</mat-icon>
+</button>

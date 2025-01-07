@@ -1,0 +1,7 @@
+<h1>Seite nicht gefunden</h1>
+<div mat-card-content>
+  <p *ngIf="currentUrl">
+    <b>Die Seite {{ currentUrl }} ist unbekannt</b>
+  </p>
+  <button [routerLink]="['/dashboard']" color="primary" mat-raised-button>Zum Dashboard</button>
+</div>

@@ -1,0 +1,23 @@
+<div *ngFor="let item of list; let i = index">
+  <p>
+    <mat-form-field>
+      <mat-label>Issuer</mat-label>
+      <mat-select [(value)]="item.issuer" required>
+        <mat-option *ngFor="let entry of validIdentificationIssuers" [value]="entry" required>
+          {{ entry }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Identifier</mat-label>
+      <input [(ngModel)]=item.value matInput name="value" required>
+    </mat-form-field>
+    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
+  </p>
+  <button (click)="list.splice(i, 1)" *ngIf="list.length > 1" mat-icon-button>
+    <mat-icon>remove</mat-icon>
+  </button>
+</div>
+<button (click)="list.push(getEmptyIdentifictionDto())" color="accent" mat-icon-button>
+  <mat-icon>add</mat-icon>
+</button>

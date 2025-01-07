@@ -1,0 +1,26 @@
+<div *ngFor="let item of list; let i = index">
+  <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name der Bedingung'"
+                            [strings]="item.name!"></app-dcc-localised-string>
+  <mat-form-field>
+    <mat-select [(value)]="item.status" placeholder="Status" required>
+      <mat-option *ngFor="let entry of validRestrictions" [value]="entry">
+        {{ entry }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-icon *ngIf="item.description"
+            matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten.">
+    question_mark
+  </mat-icon>
+  <div *ngIf="item.data != null && item.data.length > 0">
+    <!-- <app-dcc-quantity *ngIf="isQuantity(item.data[0])" [dataType]="item.data[0]"></app-dcc-quantity> -->
+  </div>
+  <mat-divider></mat-divider>
+  <button (click)="list.splice(i, 1)" mat-icon-button>
+    <mat-icon>remove</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+<button (click)="list.push(getEmptyConditionDto())" color="accent" mat-icon-button>
+  <mat-icon>add</mat-icon>
+</button>

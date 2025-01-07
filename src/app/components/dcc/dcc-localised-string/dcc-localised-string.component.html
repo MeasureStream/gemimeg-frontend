@@ -1,0 +1,25 @@
+<div *ngFor="let item of strings.content; let i = index">
+  <ng-container *ngIf="getOrSetLang(item)">
+
+    <mat-form-field class="custom-form-field">
+      <mat-label>{{placeholder}}</mat-label>
+      <input [(ngModel)]="item.text" [required]=" isRequired " matInput name="item"/>
+      <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" mat-icon-button matSuffix
+                  required>
+        <mat-select-trigger>
+          <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }}"></span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{
+          lang.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="strings.content?.push( getEmptyStringWithLangText())" color="accent" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button (click)="strings.content?.splice(i, 1)" *ngIf="strings.content?.length! >=2" mat-icon-button>
+      <mat-icon>remove</mat-icon>
+    </button>
+  </ng-container>
+
+</div>

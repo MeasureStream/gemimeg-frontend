@@ -1,0 +1,558 @@
+<form #dccForm="ngForm">
+  <mat-card class="blue-card cockpit">
+    <mat-card-header>
+      <div class="header-title">
+        <mat-card-title class="title">DCC-Vorlagen</mat-card-title>
+      </div>
+      <div class="header-menu">
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="full-width">
+        <mat-select [(value)]="exampleFileUrl" placeholder="DCC-Vorlage auswählen">
+          <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category" style="color: blue">
+            <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      <button (click)="dummydata()" [disabled]="exampleFileUrl == undefined" color="primary" mat-raised-button>Vorlage
+        anwenden
+      </button>
+      <button (click)="submit()" [disabled]="dccForm.invalid" color="primary" mat-raised-button>DCC
+        herunterladen
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-stepper #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Administrative Daten*</ng-template>
+      <mat-card class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">
+              DCC-Software*
+            </mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCard('DCC-Software')" class="blue-card-btn" mat-icon-button>
+              <mat-icon>
+                <i class="material-icons">{{isExpanded['DCC-Software']?'keyboard_arrow_up' :'keyboard_arrow_down'}}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content *ngIf="isExpanded['DCC-Software']">
+          <app-dcc-software [list]="dcc.administrativeData!.dccSoftware!"></app-dcc-software>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">Basis-Daten*</mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button>
+              <mat-icon>
+                <i class="material-icons">{{isExpanded['Basis-Daten']?'keyboard_arrow_up' :'keyboard_arrow_down'}}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content *ngIf="isExpanded['Basis-Daten']">
+          <mat-form-field>
+            <mat-label>Land der Kalibrierung</mat-label>
+            <input [(ngModel)]="dcc.administrativeData!.countryCode" matInput name="countryCode"
+                   oninput="this.value = this.value.toUpperCase()" required/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Verwendete Sprachen</mat-label>
+            <input (ngModelChange)="dcc.administrativeData!.languageCodes = $event.split(',')"
+                   [ngModel]="dcc.administrativeData!.languageCodes" matInput name="languageCodes" required/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Kalibrierscheinnummer</mat-label>
+            <input [(ngModel)]="dcc.administrativeData!.uniqueIdentifier" matInput name="uniqueIdentifier" required/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Eingang des Kalibriergegenstandes</mat-label>
+            <input (ngModelChange)="dcc.administrativeData!.receiptDate = dccService.marshalCustomDate($event)"
+                   [matDatepicker]="receiptDate" [ngModel]="dcc.administrativeData!.receiptDate" matInput
+                   name="receiptDate"
+                   readonly/>
+            <mat-hint>JJJJ-MM-TT</mat-hint>
+            <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #receiptDate></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Beginn der Labortätigkeit</mat-label>
+            <input (ngModelChange)="dcc.administrativeData!.startDate = dccService.marshalCustomDate($event)"
+                   [matDatepicker]="beginPerformanceDate" [ngModel]="dcc.administrativeData!.startDate" matInput
+                   name="startDate" readonly required/>
+            <mat-hint>JJJJ-MM-TT</mat-hint>
+            <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #beginPerformanceDate></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Ende der Labortätigkeit</mat-label>
+            <input (ngModelChange)="dcc.administrativeData!.endDate = dccService.marshalCustomDate($event)"
+                   [matDatepicker]="endPerformanceDate" [ngModel]="dcc.administrativeData!.endDate" matInput
+                   name="endDate"
+                   readonly required/>
+            <mat-hint>JJJJ-MM-TT</mat-hint>
+            <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #endPerformanceDate></mat-datepicker>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">Kunde*</mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button>
+              <mat-icon>
+                <i class="material-icons">{{isExpanded['Kunde']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content *ngIf="isExpanded['Kunde']">
+          <mat-form-field id="dcc-efile-customer-selection">
+            <mat-icon color="accent" matPrefix matTooltip="Kundendaten automatisch aus Vorgang übernehmen">
+              precision_manufacturing
+            </mat-icon>
+            <mat-select (selectionChange)="selectProcedure($event.value)" placeholder="">
+              <ng-container *ngFor="let procedure of procedures">
+                <mat-option *ngIf="procedure.contacts != null" [value]="procedure">
+                  {{ procedure.contacts[2].companyname }} (Vorgang {{ procedure.name }})
+                </mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <mat-divider></mat-divider>
+          <app-dcc-contact [contact]="dcc.administrativeData!.customer!"></app-dcc-contact>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">Kalibrierlabor*</mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button>
+              <mat-icon>
+                <i class="material-icons">{{isExpanded['Kalibrierlabor']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content *ngIf="isExpanded['Kalibrierlabor']">
+          <mat-form-field>
+            <mat-label>Kennung des Kalibrierlabores</mat-label>
+            <input [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode" matInput
+                   name="calibrationLaboratoryCode"/>
+          </mat-form-field>
+          <mat-divider></mat-divider>
+          <app-dcc-contact [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!"></app-dcc-contact>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">Verantwortliche Personen*</mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" mat-icon-button>
+              <mat-icon>
+                <i class="material-icons">{{isExpanded['Verantwortliche-Personen']?'keyboard_arrow_up'
+                  :'keyboard_arrow_down'}}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content *ngIf="isExpanded['Verantwortliche-Personen']">
+          <div *ngFor="let respPers of dcc.administrativeData!.responsiblePersons; let i = index">
+            <p>
+              <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+                                        [strings]="respPers.name!"></app-dcc-localised-string>
+              <mat-form-field>
+                <mat-label>E-Mail</mat-label>
+                <input [(ngModel)]="respPers.emailAddress" matInput name="emailAddress"/>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Telefon</mat-label>
+                <input [(ngModel)]="respPers.phoneNumber" matInput name="phoneNumber"/>
+              </mat-form-field>
+            </p>
+            <button (click)="dcc.administrativeData!.responsiblePersons!.splice(i, 1)"
+                    *ngIf="dcc.administrativeData!.responsiblePersons!.length > 1" mat-icon-button>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <button (click)="dcc.administrativeData!.responsiblePersons!.push(getEmptyRespPersonDto())" color="accent"
+                  mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Kalibriergegenstände*</ng-template>
+      <div *ngFor="let item of dcc.administrativeData!.items; let i = index">
+        <mat-card class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <mat-card-title class="title">Kalibriergut {{ i + 1 }}</mat-card-title>
+            </div>
+            <div class="header-menu">
+              <button (click)="toggleCard('Kalibriergut'+(i+1))" class="blue-card-btn" mat-icon-button>
+                <mat-icon>
+                  <i class="material-icons">{{isExpanded['Kalibriergut'+(i+1)]?'keyboard_arrow_up'
+                    :'keyboard_arrow_down'}}</i>
+                </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Kalibriergut'+(i+1)]">
+            <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+                                      [strings]="item.name!"></app-dcc-localised-string>
+            <mat-form-field>
+              <mat-label>Modell / Sonstiges</mat-label>
+              <input [(ngModel)]="item.model" matInput name="model"/>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Norm der Klassifikation</mat-label>
+              <input [(ngModel)]="item.classReference" matInput name="classReference"/>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Klassifikation</mat-label>
+              <input [(ngModel)]="item.classId" matInput name="classId"/>
+            </mat-form-field>
+            <mat-divider></mat-divider>
+            <br/>
+            <h4 mat-subheader>Beschreibung</h4>
+            <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
+            <br/>
+            <mat-divider></mat-divider>
+            <h4 mat-subheader>Hersteller</h4>
+            <app-dcc-contact [contact]="item.manufacturer!" [strict]="false"></app-dcc-contact>
+            <mat-divider></mat-divider>
+            <h4 mat-subheader>Identifikatoren des Kalibrierguts*</h4>
+
+            <app-dcc-identifications [list]="item.identifications!"></app-dcc-identifications>
+            <mat-divider></mat-divider>
+            <h4 mat-subheader>Installierte Software</h4>
+
+            <app-dcc-software [list]="item.installedSoftwares!"></app-dcc-software>
+            <mat-divider></mat-divider>
+            <button (click)="dcc.administrativeData!.items!.splice(i, 1)"
+                    *ngIf="dcc.administrativeData!.items!.length > 1" mat-mini-fab>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+        <button
+            (click)="dcc.administrativeData!.items!.push(getEmptyItemDto());addCalibrationCard('Kalibriergut' + (i + 2) )"
+            mat-mini-fab>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Statements</ng-template>
+      <ng-container *ngIf="!showEmptyStatement">
+        <mat-card appearance="outlined" class="statements">
+          <mat-card-content>
+            <button (click)="showStatement()" class="statements-btn" color="accent" mat-flat-button>Statements
+              hinzufügen
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-container *ngIf="showEmptyStatement">
+        <mat-card appearance="outlined" class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <p class="title">CIPM-MRA</p>
+            </div>
+            <div class="header-menu">
+              <button (click)="toggleCard('CIPM-MRA')" class="blue-card-btn" mat-icon-button><i
+                  class="material-icons">{{isExpanded['CIPM-MRA']?'keyboard_arrow_up'
+                :'keyboard_arrow_down'}}</i></button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['CIPM-MRA']">
+            <form [formGroup]="cipmForm" novalidate>
+              <mat-radio-group formControlName="cipmType">
+                <mat-radio-button *ngFor="let cipm of cipmTypes" [value]="cipm">
+                  {{ cipm }}
+                </mat-radio-button>
+              </mat-radio-group>
+              <ng-container [ngSwitch]="getCIPMType()">
+                <div *ngSwitchCase="'CIPM-MRA / 391 00A p'">
+                  <ul>
+                    <li>
+                      Die Physikalisch-Technische Bundesanstalt (PTB) in Braunschweig und Berlin ist das nationale
+                      Metrologieinstitut und die technische
+                      Oberbehörde der Bundesrepublik Deutschland für das Messwesen. Die PTB gehört zum Geschäftsbereich
+                      des Bundesministeriums für Wirtschaft und
+                      Klimaschutz. Sie erfüllt die Anforderungen an Kalibrier- und Prüflaboratorien auf der Grundlage
+                      der
+                      DIN EN ISO/IEC 17025.
+                    </li>
+                    <li>
+                      Zentrale Aufgabe der PTB ist es, die gesetzlichen Einheiten in Übereinstimmung mit dem
+                      Internationalen Einheitensystem (SI) darzustellen, zu
+                      bewahren und weiterzugeben. Die PTB steht damit an oberster Stelle der metrologischen Hierarchie
+                      in
+                      Deutschland. Die Kalibrierscheine der
+                      PTB dokumentieren eine auf nationale Normale rückgeführte Kalibrierung.
+                    </li>
+                    <li>
+                      Zur Sicherstellung der weltweiten Einheitlichkeit der Maßeinheiten arbeitet die PTB mit anderen
+                      nationalen metrologischen Instituten auf
+                      regionaler europäischer Ebene in EURAMET und auf internationaler Ebene im Rahmen der
+                      Meterkonvention
+                      zusammen. Dieses Ziel wird durch einen
+                      intensiven Austausch von Forschungsergebnissen und durch umfangreiche internationale
+                      Vergleichsmessungen erreicht.
+                    </li>
+                  </ul>
+                  <button (click)="add_cipmmra('CIPM-MRA / 391 00A p')" color="accent"
+                          mat-flat-button>Hinzufügen
+                  </button>
+                </div>
+                <div *ngSwitchCase="'CIPM-MRA / 391 00B p'">
+                  <ul>
+                    <li>
+                      Die Physikalisch-Technische Bundesanstalt(PTB) in Braunschweig und Berlin ist das nationale
+                      Metrologieinstitut und die technische
+                      Oberbehörde der Bundesrepublik Deutschland für das Messwesen. Die PTB gehört zum Geschäftsbereich
+                      des Bundesministeriums für Wirtschaft und
+                      Klimaschutz. Sie erfüllt die Anforderungen an Kalibrier- und Prüflaboratorien auf der Grundlage
+                      der
+                      DIN EN ISO/IEC 17025.
+                    </li>
+                    <li>
+                      Zentrale Aufgabe der PTB ist es, die gesetzlichen Einheiten in Übereinstimmung mit dem
+                      Internationalen Einheitensystem (SI) darzustellen, zu
+                      bewahren und weiterzugeben. Die PTB steht damit an oberster Stelle der metrologischen Hierarchie
+                      in
+                      Deutschland. Die Kalibrierscheine der
+                      PTB dokumentieren eine auf nationale Normale rückgeführte Kalibrierung.
+                    </li>
+                    <li>
+                      Dieser Ergebnisbericht ist in Übereinstimmung mit den Kalibrier- und Messmöglichkeiten (CMCs), wie
+                      sie im Anhang C des gegenseitigen
+                      Abkommens (MRA) des Internationalen Komitees für Maße und Gewichte enthalten sind. Im Rahmen des
+                      MRA
+                      wird die Gültigkeit der
+                      Ergebnisberichte von allen teilnehmenden Instituten für die im Anhang C spezifizierten Messgrößen,
+                      Messbereiche und Messunsicherheiten
+                      gegenseitig anerkannt (nähere Informationen unter http://www.bipm.org).
+                    </li>
+                    <li>Diese Aussage und das CIPM-MRA-Logo beziehen sich nur auf die Messergebnisse in diesem
+                      Kalibrierschein.
+                    </li>
+                  </ul>
+                  <button (click)="add_cipmmra('CIPM-MRA / 391 00B p')" color="accent"
+                          mat-flat-button>Hinzufügen
+                  </button>
+                </div>
+              </ng-container>
+            </form>
+          </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <p class="title">Anschrift</p>
+            </div>
+            <div class="header-menu">
+              <button (click)="toggleCard('Anschrift')" class="blue-card-btn" mat-icon-button><i
+                  class="material-icons">{{isExpanded['CIPM-MRA']?'keyboard_arrow_up'
+                :'keyboard_arrow_down'}}</i></button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Anschrift']">
+            <form [formGroup]="addressForm" novalidate>
+              <mat-radio-group formControlName="addressType">
+                <mat-radio-button *ngFor="let address of addressTypes" [value]="address">
+                  {{ address }}
+                </mat-radio-button>
+              </mat-radio-group>
+              <ng-container [ngSwitch]="getAddressType()">
+                <div *ngSwitchCase="'Braunschweig'">
+                  <ul>
+                    <li>Bundesallee 100, 38116 Braunschweig</li>
+                  </ul>
+                  <button (click)="add_address('Braunschweig')" color="accent" mat-flat-button>Hinzufügen</button>
+                </div>
+                <div *ngSwitchCase="'Berlin-Adlershof'">
+                  <ul>
+                    <li>Magnusstraße 9, 12489 Berlin</li>
+                  </ul>
+                  <button (click)="add_address('Berlin-Adlershof')" color="accent" mat-flat-button>Hinzufügen</button>
+                </div>
+                <div *ngSwitchCase="'Berlin-Charlottenburg'">
+                  <ul>
+                    <li>Abbestraße 2-12, 10587 Berlin</li>
+                  </ul>
+                  <button (click)="add_address('Berlin-Charlottenburg')" color="accent" mat-flat-button>Hinzufügen
+                  </button>
+                </div>
+              </ng-container>
+            </form>
+          </mat-card-content>
+        </mat-card>
+        <app-dcc-measurement-metadata [header]="header_statement"
+                                      [list]="dcc.administrativeData!.statements!"></app-dcc-measurement-metadata>
+      </ng-container>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Messergebnisse*</ng-template>
+      <div *ngFor="let item of dcc.measurementResults; let i=index">
+        <mat-card class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <mat-card-title class="title">Messergebnis {{ i + 1 }}</mat-card-title>
+            </div>
+            <div class="header-menu">
+              <button (click)="toggleCard('Messergebnis'+(i+1))" class="blue-card-btn" mat-icon-button>
+                <mat-icon><i
+                    class="material-icons">{{isExpanded['Messergebnis'+(i+1)]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Messergebnis'+(i+1)]">
+            <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+                                      [strings]="item.name!"></app-dcc-localised-string>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Verwendete Software</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Verwendete-Software']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Verwendete-Software']">
+                <app-dcc-software [list]="item.usedSoftware!"></app-dcc-software>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Verwendete Methoden</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Verwendete-Methoden']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Verwendete-Methoden']">
+                <app-dcc-used-methods [list]="item.usedMethods!"></app-dcc-used-methods>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Verwendete Messinstrumente</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Verwendete-Messinstrumente')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Verwendete-Messinstrumente']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Verwendete-Messinstrumente']">
+                <app-dcc-measurement-equipment [list]="item.equipment!"></app-dcc-measurement-equipment>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Einflussfaktoren</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Einflussfaktoren']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Einflussfaktoren']">
+                <app-dcc-influence-conditions [list]="item.influenceConditions!"></app-dcc-influence-conditions>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Ergebnisse*</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Ergebnisse']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Ergebnisse']">
+                <app-dcc-results [list]="item.results!"></app-dcc-results>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">Meta-Daten</mat-card-title>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i
+                          class="material-icons">{{isExpanded['Meta-Daten']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Meta-Daten']">
+                <app-dcc-measurement-metadata [header]="header_meta_data"
+                                              [list]="item.statements!"></app-dcc-measurement-metadata>
+              </mat-card-content>
+            </mat-card>
+            <mat-divider [inset]="true"></mat-divider>
+            <button (click)="dcc.measurementResults!.splice(i, 1)" *ngIf="dcc.measurementResults!.length > 1"
+                    mat-mini-fab>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+        <button
+            (click)="dcc.measurementResults!.push(getEmptyMeasurementResultDto());addCalibrationCard('Messergebnis'+(i+2))"
+            mat-mini-fab>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</form>
+<app-version pathPart="dcc"></app-version>

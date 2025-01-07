@@ -1,0 +1,136 @@
+<mat-card *ngFor="let item of list; let i = index" class="blue-card">
+
+  <mat-card-header>
+    <div class="header-title">
+      <mat-card-title class="title">{{ header }} {{i + 1}}</mat-card-title>
+    </div>
+    <div class="header-menu">
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+        <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="isExpanded[i]">
+    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!" required></app-dcc-localised-string>
+
+    <h4 mat-subheader>Beschreibung</h4>
+    <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
+    <mat-divider></mat-divider>
+    <h4 mat-subheader>Deklaration</h4>
+    <app-dcc-richcontent [richContent]="item.declaration!"></app-dcc-richcontent>
+    <mat-divider></mat-divider>
+    <mat-form-field>
+      <mat-label>Ländercode</mat-label>
+      <input (blur)="string2Arr($event,'countryCodes',i)" [(ngModel)]=item.countryCodes class="toUpperCase" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Konvention</mat-label>
+      <input [(ngModel)]=item.convention matInput name="convention">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Referenz</mat-label>
+      <input (blur)="string2Arr($event,'references',i)" [(ngModel)]=item.references matInput>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Norm</mat-label>
+      <input (blur)="string2Arr($event,'norms',i)" [(ngModel)]=item.norms matInput name="norm">
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Datum</mat-label>
+      <input (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
+             [(ngModel)]=item.date
+             [matDatepicker]="statementDate" matInput name="date"
+             readonly>
+      <mat-hint>JJJJ-MM-TT</mat-hint>
+      <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #statementDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Periode</mat-label>
+      <input [(ngModel)]=item.period matInput>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Konformität</mat-label>
+      <mat-select [(value)]="item.conformity">
+        <mat-option *ngFor="let entry of validConformityStatementStatusTypes" [value]="entry">
+          {{ entry }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Non-SI Unit</mat-label>
+      <input [(ngModel)]=item.nonSIUnit matInput name="nonSIUnit">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Non-SI Definition</mat-label>
+      <input [(ngModel)]=item.nonSIDefinition matInput name="nonSIDefinition">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]=item.valid>valide</mat-checkbox>
+    <mat-checkbox [(ngModel)]=item.traceable>rückführbares Messergebnis</mat-checkbox>
+
+    <mat-divider></mat-divider>
+
+    <h4 mat-subheader>Location</h4>
+
+    <ng-container *ngIf="item.location">
+      <mat-form-field>
+        <mat-label>Stadt</mat-label>
+        <input [(ngModel)]=item.location!.city matInput name="city" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Ländercode</mat-label>
+        <input [(ngModel)]=item.location!.countryCode matInput name="countryCode"
+               oninput="this.value = this.value.toUpperCase()" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Postleitzahl</mat-label>
+        <input [(ngModel)]=item.location!.postalCode matInput name="postalCode" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Bundesland</mat-label>
+        <input [(ngModel)]=item.location!.stateCode matInput name="stateCode">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Straße</mat-label>
+        <input [(ngModel)]=item.location!.street matInput name="street" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nummer</mat-label>
+        <input [(ngModel)]=item.location!.houseNumber matInput name="houseNumber" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Postfach</mat-label>
+        <input [(ngModel)]=item.location!.poBox matInput name="poBox">
+      </mat-form-field>
+      <h5 mat-subheader>Weitere Informationen</h5>
+      <app-dcc-richcontent [richContent]="item.location!.additionalInformation!"></app-dcc-richcontent>
+      <mat-divider></mat-divider>
+      <h4 mat-subheader>Verantwortliche Stelle</h4>
+      <app-dcc-contact [contact]="item.responsibleAuthority!"></app-dcc-contact>
+      <mat-divider></mat-divider>
+      <app-dcc-data [dataTypes]="item.data!"></app-dcc-data>
+    </ng-container>
+    <mat-divider></mat-divider>
+    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" color="accent" mat-mini-fab>
+      <mat-icon>remove</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
+<button (click)="list.push(getEmptyStatementMetaDataDto());addExpanded()" color="accent" mat-mini-fab>
+  <mat-icon>add</mat-icon>
+</button>

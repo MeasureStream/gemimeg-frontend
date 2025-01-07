@@ -1,0 +1,17 @@
+<div class="flex-container">
+  <h3>Math-ML:</h3>
+
+  <mat-form-field class="flex-item">
+    <textarea [(ngModel)]="mathml" class="custom-textarea" id="mathml" matInput name="mathml"
+              placeholder="Ihr MathML-Ausdruck hier"></textarea>
+  </mat-form-field>
+
+  <div #mathContainer style="padding-bottom: 10px;"></div>
+  <button (click)="renderMathML()" class="math-button" color="accent" mat-flat-button style="  font-size: 15px;">Render
+    MathML
+  </button>
+
+  <!-- <ng-container *ngIf="!mathml">
+    <div class="no-expression">Ausdruck nicht verfügbar</div>
+  </ng-container> -->
+</div>

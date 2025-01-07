@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Fehler <p *ngIf="currentUrl">{{ currentUrl }}</p></h1>
+<div mat-dialog-content>
+  <p *ngIf="data?.status">
+    <b>Status Code: {{ data.status }}</b>
+  </p>
+  <p>Ein Fehler ist aufgetreten!</p>
+  <p *ngIf="data?.message" class="error-message" style="white-space: pre-wrap">{{ data.message }}</p>
+  <p *ngIf="data?.stack" class="error-message" style="white-space: pre-wrap">{{ data.stack }}</p>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-dialog-close mat-raised-button>Zurück</button>
+</div>

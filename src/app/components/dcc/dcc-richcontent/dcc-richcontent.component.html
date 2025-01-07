@@ -1,0 +1,67 @@
+<!--
+<mat-toolbar color="light">
+    <div class="icon-container">
+      <button mat-icon-button matTooltip="Select Language" (click)="toggleComponent('language')">
+        <mat-icon>language</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Upload File" (click)="toggleComponent('file')">
+        <mat-icon>file_upload</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="MathML Editor" (click)="toggleComponent('mathml')">
+        <mat-icon>functions</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  {{description.name|json}}
+  <div class="elements">
+
+    <app-dcc-localised-string  [strings]="description.name!" *ngIf="showLanguageComponent" [placeholder]="'Name'"></app-dcc-localised-string>
+
+      <ng-container *ngIf="showLanguageComponent">
+
+      <div *ngFor="let item of description.name?.content; let i = index">
+        <app-dcc-localised-string  [strings]="description.name!" *ngIf="showLanguageComponent" [placeholder]="'Name'"></app-dcc-localised-string>
+        <p>
+          {{i|json}} {{'hello: '+i}} {{item|json}}
+
+        </p>
+        <button (click)="description.name?.content!.splice(i, 1)" mat-icon-button>
+        <button mat-icon-button (click)="removeLanguageItem(i)">
+          <mat-icon>remove</mat-icon>
+        </button>
+
+      </div>
+
+      <button (click)="addLanguageItem()" color="accent" mat-icon-button>  <mat-icon>add</mat-icon></button>
+      <button (click)="description.name?.content!.push({})" color="accent" mat-icon-button>add</button>
+
+    </ng-container>
+    <mat-divider></mat-divider>
+    <app-generic-file-upload *ngIf="showFileComponent"></app-generic-file-upload>
+    <mat-divider></mat-divider>
+    <app-mathml *ngIf="showMathmlComponent"></app-mathml>
+  </div>
+   -->
+
+<mat-toolbar color="light">
+  <div class="icon-container">
+    <button (click)="toggleComponent('language')" mat-icon-button matTooltip="Select Language">
+      <mat-icon>language</mat-icon>
+    </button>
+    <button (click)="toggleComponent('file')" mat-icon-button matTooltip="Upload File">
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <button (click)="toggleComponent('mathml')" mat-icon-button matTooltip="MathML Editor">
+      <mat-icon>functions</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="elements">
+  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'Name'"
+                            [strings]="richContent.name!"></app-dcc-localised-string>
+  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'Inhalt'"
+                            [strings]="richContent.textContent!"></app-dcc-localised-string>
+  <app-generic-file-upload *ngIf="showFileComponent"></app-generic-file-upload>
+  <app-mathml *ngIf="showMathmlComponent"></app-mathml>
+</div>

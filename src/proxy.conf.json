@@ -1,0 +1,17 @@
+{
+  "/api/v1/dcc/*": {
+    "target": "http://localhost:10001",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/dcc/v3/api-docs/*": {
+    "target": "http://localhost:10001",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dcc": ""
+    }
+  }
+}

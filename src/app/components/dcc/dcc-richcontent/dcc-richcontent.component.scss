@@ -1,0 +1,24 @@
+div {
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin-right: 8px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  app-dcc-localised-string,
+  app-generic-file-upload,
+  app-mathml {
+    margin-bottom: 16px;
+  }
+  .icon-container button:hover mat-icon {
+    color: #4a55ec;
+  }
+  .elements{
+    margin-top: 10px;
+  }
