@@ -5,22 +5,117 @@
 # Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+
+.set_environmentvariables: &set_environmentvariables
+  - export HTTP_PROXY="http://194.94.94.194:8080/"
+  - export HTTPS_PROXY="http://194.94.94.194:8080/"
+  - export http_proxy="http://194.94.94.194:8080/"
+  - export https_proxy="http://194.94.94.194:8080/"
+  - export no_proxy="localhost,*.bs.ptb.de,*.berlin.ptb.de,*.ptb.de"
+
+variables:
+  APP_OUTPUT_PATH: "$CI_PROJECT_DIR/dist/gemimeg-frontend"
+  IMAGE_TAG: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+
+
 stages:
 - build
-- test
+- package
 - deploy
-- review
-- dast
-- staging
-- canary
-- production
-- incremental rollout 10%
-- incremental rollout 25%
-- incremental rollout 50%
-- incremental rollout 100%
-- performance
-- cleanup
-sast:
-  stage: test
-include:
-- template: Auto-DevOps.gitlab-ci.yml
+- release
+
+cache:
+  key: npm
+  policy: pull-push
+  paths:
+    - .npm/
+
+ng-build:
+  stage: build
+  tags:
+    - oplayer-berlin
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:20-alpine
+  before_script:
+    - *set_environmentvariables
+    - export NODE_OPTIONS="--max-old-space-size=8192"
+  script:
+    - npm install --cache .npm
+    # - npm run ng test -- --watch=false
+    - npm run ng build
+  after_script:
+    - mkdir -p $APP_OUTPUT_PATH
+    - cp $CI_PROJECT_DIR/nginx.conf $APP_OUTPUT_PATH
+    - cp $CI_PROJECT_DIR/Dockerfile $APP_OUTPUT_PATH
+  artifacts:
+    name: "oplayer-frontend"
+    paths:
+      - $APP_OUTPUT_PATH
+    expire_in: 1 hour
+
+build-image:
+  stage: package
+  tags:
+    - oplayer-berlin
+  only:
+    - tags
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  before_script:
+    - *set_environmentvariables
+  script:
+    - /kaniko/executor
+      --context "${APP_OUTPUT_PATH}"
+      --dockerfile "${APP_OUTPUT_PATH}/Dockerfile"
+      --destination "${IMAGE_TAG}"
+      --verbosity=debug
+
+deploy-production:
+  variables:
+    DEPLOYMENT_ENVIRONMENT: gmg
+  environment:
+    name: gmg
+  stage: deploy
+  tags:
+    - oplayer-berlin
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+-?.*$/
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
+  before_script:
+    - *set_environmentvariables
+    # install envsubst and ssh-add
+    - apk add --no-cache gettext openssh-client
+  script:
+    # create the new docker-compose.yml
+    - envsubst < docker-compose.tmpl > docker-compose.yml
+    - echo "==== Contents of docker-compose-production ====" ; cat docker-compose.yml;
+    # start ssh-agent and import ssh private key
+    - eval `ssh-agent`
+    - ssh-add <(echo "$a94083")
+    # add server to list of known hosts
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+    - echo $a94083_HOST_KEY >> ~/.ssh/known_hosts
+    - ssh duser@a94083.berlin.ptb.de "cd /home/duser/oplayer/gmg/frontend;docker-compose -p gmg -f docker-compose.yml down";
+    # upload docker-compose to the server
+    - scp docker-compose.yml duser@a94083.berlin.ptb.de:/home/duser/oplayer/gmg/frontend/docker-compose.yml
+    # docker login and restart services
+    - ssh duser@a94083.berlin.ptb.de "cd /home/duser/oplayer/gmg/frontend;docker-compose -p gmg -f docker-compose.yml up -d";
+
+release-job:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+-?.*$/
+  script:
+    - echo "running release_job"
+  release:
+    tag_name: "$CI_COMMIT_TAG"
+    description: "$CI_COMMIT_TAG"
+
+#sast:
+#  stage: test
+#include:
+#- template: Auto-DevOps.gitlab-ci.yml

@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+
+  gemimeg-frontend:
+    environment:
+      - $DEPLOYMENT_ENVIRONMENT
+    image: $IMAGE_TAG
+    container_name: $DEPLOYMENT_ENVIRONMENT-gemimeg-frontend
+    networks:
+      - $DEPLOYMENT_ENVIRONMENT
+    restart: unless-stopped
+
+
+networks:
+  docker:
+    name: docker
+    external: true
+  $DEPLOYMENT_ENVIRONMENT:
+    name: $DEPLOYMENT_ENVIRONMENT
