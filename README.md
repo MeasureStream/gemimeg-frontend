@@ -1,5 +1,6 @@
 # Gemimeg Frontend
-
+[![pipeline status](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/badges/master/pipeline.svg)](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/-/commits/master)
+[![coverage report](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/badges/master/coverage.svg)](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/-/commits/master) [![Latest Release](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/-/badges/release.svg)](https://itgit.bs.ptb.de/op-layer/gemimeg-frontend/-/releases)
 
 
 ## Getting started
