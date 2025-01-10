@@ -38,5 +38,5 @@
   <mat-label>Postfach</mat-label>
   <input [(ngModel)]=contact.location!.poBox matInput name="poBox">
 </mat-form-field>
-<h5 mat-subheader>Weitere Informationen</h5>
+<h5 class="further" mat-subheader>Weitere Informationen</h5>
 <app-dcc-richcontent [richContent]="contact.location!.additionalInformation!"></app-dcc-richcontent>

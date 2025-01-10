@@ -32,6 +32,7 @@
             <mat-card-title class="title">
               DCC-Software*
             </mat-card-title>
+            <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
           </div>
           <div class="header-menu">
             <button (click)="toggleCard('DCC-Software')" class="blue-card-btn" mat-icon-button>
@@ -50,6 +51,7 @@
         <mat-card-header>
           <div class="header-title">
             <mat-card-title class="title">Basis-Daten*</mat-card-title>
+            <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dcccoredata"></app-info-button>
           </div>
           <div class="header-menu">
             <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button>
@@ -109,6 +111,7 @@
         <mat-card-header>
           <div class="header-title">
             <mat-card-title class="title">Kunde*</mat-card-title>
+            <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dcccustomer"></app-info-button>
           </div>
           <div class="header-menu">
             <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button>
@@ -126,6 +129,7 @@
         <mat-card-header>
           <div class="header-title">
             <mat-card-title class="title">Kalibrierlabor*</mat-card-title>
+            <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dcccalibrationLaboratory"></app-info-button>
           </div>
           <div class="header-menu">
             <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button>
@@ -149,6 +153,7 @@
         <mat-card-header>
           <div class="header-title">
             <mat-card-title class="title">Verantwortliche Personen*</mat-card-title>
+            <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccrespPerson"></app-info-button>
           </div>
           <div class="header-menu">
             <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" mat-icon-button>
@@ -192,6 +197,7 @@
           <mat-card-header>
             <div class="header-title">
               <mat-card-title class="title">Kalibriergut {{ i + 1 }}</mat-card-title>
+              <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Kalibriergut'+(i+1))" class="blue-card-btn" mat-icon-button>
@@ -405,6 +411,7 @@
           <mat-card-header>
             <div class="header-title">
               <mat-card-title class="title">Messergebnis {{ i + 1 }}</mat-card-title>
+              <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccmeasurementResult"></app-info-button>
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Messergebnis'+(i+1))" class="blue-card-btn" mat-icon-button>
@@ -421,6 +428,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Verwendete Software</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button>
@@ -439,6 +447,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Verwendete Methoden</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccusedMethodType"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button>
@@ -457,6 +466,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Verwendete Messinstrumente</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Messinstrumente')" class="blue-card-btn" mat-icon-button>
@@ -475,6 +485,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Einflussfaktoren</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccinfluenceConditionType"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn" mat-icon-button>
@@ -493,6 +504,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Ergebnisse*</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccresultListType"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn" mat-icon-button>
@@ -511,6 +523,7 @@
               <mat-card-header>
                 <div class="header-title">
                   <mat-card-title class="title">Meta-Daten</mat-card-title>
+                  <app-info-button  tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn" mat-icon-button>

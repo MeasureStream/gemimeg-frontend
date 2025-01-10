@@ -54,6 +54,7 @@ import { DccQuantityComponent } from './components/dcc/dcc-quantity/dcc-quantity
 import { DccDataComponent } from './components/dcc/dcc-data/dcc-data.component';
 import { DccRichcontentComponent } from './components/dcc/dcc-richcontent/dcc-richcontent.component';
 import { DccByteDataComponent } from './components/dcc/dcc-byte-data/dcc-byte-data.component';
+ import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
@@ -118,7 +119,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     MathmlComponent,
     DccRichcontentComponent,
     DccByteDataComponent,
-  ],
+    InfoButtonComponent
+ ],
   imports: [
     BrowserModule,
     AppRoutingModule,
