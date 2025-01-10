@@ -1,6 +1,12 @@
 <mat-toolbar class="toolbar" color="primary">
-  <img alt="" class="logo-top" src="assets/gemimeg_zentirert_mittig.png"/>
+  <img alt="GEMIMEG-Tool powered by OP-Layer" class="logo-top" src="assets/gemimeg_oplayer_logo.png"/>
   <span class="spacer"></span>
+  <button (click)="openSettingsDialog()" mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button (click)="openInfoDialog()" mat-icon-button>
+    <mat-icon>info</mat-icon>
+  </button>
 </mat-toolbar>
 <main>
   <router-outlet></router-outlet>

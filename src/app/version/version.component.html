@@ -1,8 +1,6 @@
 <div class="version-info">
-  <p>Service: {{ appVersion.artifactId }}</p>
-  <p>Version: {{ appVersion.version }}</p>
-  <p>Zeitstempel: {{ appVersion.timestamp }}</p>
-</div>
-<div *ngIf="errorMessage">
-  <p>Error: {{errorMessage}}</p>
+  <p>Angular-Version: {{ angularVersion }}</p>
+  <p>Frontend-Version: {{ frontendVersion }}</p>
+  <p>Backend-Version: {{ backendVersion.version }}</p>
+  <p>Backend-Zeitstempel: {{ backendVersion.timestamp }}</p>
 </div>

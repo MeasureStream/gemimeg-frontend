@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { VERSION } from '@angular/core';
+import * as packageJson from 'package.json';
 
 interface VersionResponse {
   artifactId: string;
@@ -13,22 +15,23 @@ interface VersionResponse {
   styleUrls: ['./version.component.scss'],
 })
 export class VersionComponent implements OnInit {
-  appVersion: VersionResponse | any = '';
-  errorMessage: string | any;
+  backendVersion: VersionResponse | any = '';
   pathPart: string | any;
+  angularVersion = VERSION.full;
+  frontendVersion: string = (packageJson as any).version;
 
   constructor(private http: HttpClient, private elementRef: ElementRef) {
     this.pathPart = this.elementRef.nativeElement.getAttribute('pathPart');
+    this.updateFrontendVersion();
   }
 
   ngOnInit(): void {
-    this.fetchVersion().subscribe({
+    this.fetchBackendVersion().subscribe({
       next: (responseData) => {
-        this.appVersion = responseData;
+        this.backendVersion = responseData;
         console.log(responseData);
       },
       error: (error: any) => {
-        this.errorMessage = 'error fetching version:' + error.message;
         console.log('error fetching version:' + error.message);
       },
       complete: () => {
@@ -37,7 +40,14 @@ export class VersionComponent implements OnInit {
     });
   }
 
-  fetchVersion() {
+  fetchBackendVersion() {
     return this.http.get<any>('/api/v1/' + this.pathPart + '/version');
+  }
+
+  updateFrontendVersion() {
+    const currentVersion = (packageJson as any).version;
+    if (currentVersion !== this.frontendVersion) {
+      this.frontendVersion = currentVersion;
+    }
   }
 }
