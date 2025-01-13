@@ -8,8 +8,8 @@
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="language" placeholder="Sprache auswählen">
-            <mat-option *ngFor="let language of languages" [value]="language.value" ng-size="15">{{ language.name }}
+          <mat-select [(ngModel)]="userLanguage" placeholder="Sprache auswählen">
+            <mat-option *ngFor="let lang of displaylanguages" [value]="lang.value" ng-size="15">{{ lang.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
