@@ -8,17 +8,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {NavigationComponent} from './navigation.component';
-import { KeycloakService } from 'src/app/services/common/keycloak/keycloak.service';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
-  let keyCloakServiceSpy: jasmine.SpyObj<KeycloakService>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: KeycloakService, useValue: jasmine.createSpyObj("KeycloakService",['logout','getUsername'])}
       ],
       declarations: [NavigationComponent],
       imports: [
@@ -31,9 +28,6 @@ describe('NavigationComponent', () => {
         MatToolbarModule,
       ]
     }).compileComponents();
-
-    keyCloakServiceSpy = TestBed.inject(KeycloakService) as jasmine.SpyObj<KeycloakService>;
-
   }));
 
   beforeEach(() => {

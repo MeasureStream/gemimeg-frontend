@@ -50,7 +50,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
   statement!: StatementDto;
   addressForm!: FormGroup;
   showEmptyStatement = false;
-  cardTitles:string[]=['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor','CIPM-MRA','Anschrift',
+  cardTitles:string[]=['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor',
     'Kalibriergut1','Messergebnis1','Verwendete-Methoden','Verwendete-Messinstrumente','Einflussfaktoren','Ergebnisse','Meta-Daten','Verwendete-Software']
   isExpanded:{[title:string]:boolean}={'DCC-Software*': true};
 

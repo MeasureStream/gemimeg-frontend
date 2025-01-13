@@ -1,1 +1,20 @@
-<p>settings-dialog works!</p>
+<div class="dialog-overlay" (click)="closeDialog()">
+  <div class="dialog-content" (click)="$event.stopPropagation()">
+    <mat-card class="blue-card cockpit">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">Sprachauswahl</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <mat-select [(ngModel)]="language" placeholder="Sprache auswählen">
+            <mat-option *ngFor="let language of languages" [value]="language.value" ng-size="15">{{ language.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="applyLanguage()" color="primary" mat-raised-button>Sprache anwenden</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

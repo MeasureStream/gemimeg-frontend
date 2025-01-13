@@ -9,7 +9,10 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
+  userLanguage = 'de';
   fullName = '';
+  isInfoDialogVisible = false;
+  isSettingsDialogVisible = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     ?.observe(Breakpoints.Handset)
@@ -25,8 +28,26 @@ export class NavigationComponent {
   }
 
   openInfoDialog() {
+    this.isInfoDialogVisible = true;
+  }
+
+  hideInfoDialog() {
+    this.isInfoDialogVisible = false;
   }
 
   openSettingsDialog() {
+    this.isSettingsDialogVisible = true;
+  }
+
+  hideSettingsDialog() {
+    this.isSettingsDialogVisible = false;
+  }
+
+  getUserLanguage(): string {
+    return this.userLanguage;
+  }
+
+  setUserLanguage(lang: string): void {
+    this.userLanguage = lang;
   }
 }
