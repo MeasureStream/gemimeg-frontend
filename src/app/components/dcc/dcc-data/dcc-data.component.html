@@ -37,11 +37,16 @@
         <ng-container *ngIf="type.quantity">Quantity</ng-container>
         <ng-container *ngIf="type.list">Liste</ng-container>
       </h4>
-      <app-info-button *ngIf="type.byteData" tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccbyteDataType"></app-info-button>
-      <app-info-button *ngIf="type.formula" tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccformulaType"></app-info-button>
-      <app-info-button *ngIf="type.richContent" tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccrichContentType"></app-info-button>
-      <app-info-button *ngIf="type.quantity" tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccquantityType"></app-info-button>
-      <app-info-button *ngIf="type.list" tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dcclistType"></app-info-button>
+      <app-info-button *ngIf="type.byteData" tooltipText="Zeige das DCC-Wiki"
+                       url="https://wiki.dcc.ptb.de/en/dccbyteDataType"></app-info-button>
+      <app-info-button *ngIf="type.formula" tooltipText="Zeige das DCC-Wiki"
+                       url="https://wiki.dcc.ptb.de/en/dccformulaType"></app-info-button>
+      <app-info-button *ngIf="type.richContent" tooltipText="Zeige das DCC-Wiki"
+                       url="https://wiki.dcc.ptb.de/en/dccrichContentType"></app-info-button>
+      <app-info-button *ngIf="type.quantity" tooltipText="Zeige das DCC-Wiki"
+                       url="https://wiki.dcc.ptb.de/en/dccquantityType"></app-info-button>
+      <app-info-button *ngIf="type.list" tooltipText="Zeige das DCC-Wiki"
+                       url="https://wiki.dcc.ptb.de/en/dcclistType"></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>

@@ -1,11 +1,11 @@
 <mat-toolbar class="toolbar" color="primary">
   <img alt="GEMIMEG-Tool powered by OP-Layer" class="logo-top" src="assets/gemimeg_oplayer_logo.png"/>
   <span class="spacer"></span>
-  <app-settings-dialog *ngIf="isSettingsDialogVisible" (close)="hideSettingsDialog()"></app-settings-dialog>
+  <app-settings-dialog (close)="hideSettingsDialog()" *ngIf="isSettingsDialogVisible"></app-settings-dialog>
   <button (click)="openSettingsDialog()" mat-icon-button>
     <mat-icon>settings</mat-icon>
   </button>
-  <app-info-dialog *ngIf="isInfoDialogVisible" (close)="hideInfoDialog()"></app-info-dialog>
+  <app-info-dialog (close)="hideInfoDialog()" *ngIf="isInfoDialogVisible"></app-info-dialog>
   <button (click)="openInfoDialog()" mat-icon-button>
     <mat-icon>info</mat-icon>
   </button>

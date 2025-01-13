@@ -1,5 +1,5 @@
-<div class="dialog-overlay" (click)="closeDialog()">
-  <div class="dialog-content" (click)="$event.stopPropagation()">
+<div (click)="closeDialog()" class="dialog-overlay">
+  <div (click)="$event.stopPropagation()" class="dialog-content">
     <mat-card class="blue-card cockpit">
       <mat-card-header>
         <div class="header-title">
