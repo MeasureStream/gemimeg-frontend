@@ -167,9 +167,7 @@ export class AppDateAdapter extends NativeDateAdapter {
   ],
   providers: [
     {
-      // processes all errors
       provide: ErrorHandler,
-      // GlobalErrorHandler uses components/ErrorHandler and services/ErrorService for display of error messages
       useClass: GlobalErrorHandler,
     },
     { provide: DateAdapter, useClass: AppDateAdapter },
