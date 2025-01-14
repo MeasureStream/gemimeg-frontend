@@ -35,6 +35,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
+import { NgxTranslateModule } from './translate/translate.module';
 import { AppComponent } from './app.component';
 
 import { NavigationComponent } from './components/common/navigation/navigation.component';
@@ -163,7 +164,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     LoggerModule.forRoot({
       level: NgxLoggerLevel.TRACE,
       serverLogLevel: NgxLoggerLevel.OFF,
-    })
+    }),
+    NgxTranslateModule
   ],
   providers: [
     {
