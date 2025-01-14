@@ -131,6 +131,37 @@
         }
       }
     },
+    "/api/v1/cache": {
+      "post": {
+        "tags": [
+          "CacheController"
+        ],
+        "description": "Stores a file in the cache.",
+        "operationId": "store",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/{pathPart}/version": {
       "get": {
         "tags": [
@@ -217,6 +248,37 @@
               "application/xml": {
                 "schema": {
                   "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cache/{id}": {
+      "get": {
+        "tags": [
+          "CacheController"
+        ],
+        "description": "Gets the cached item by its ID.",
+        "operationId": "findById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadResponseDto"
                 }
               }
             }
@@ -1715,6 +1777,32 @@
           }
         }
       },
+      "RequestDto": {
+        "type": "object",
+        "properties": {
+          "callbackUrl": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
+          }
+        }
+      },
+      "StoreResponseDto": {
+        "type": "object",
+        "properties": {
+          "retrievalUrl": {
+            "type": "string"
+          }
+        }
+      },
       "VersionDto": {
         "type": "object",
         "properties": {
@@ -1726,6 +1814,21 @@
           },
           "timestamp": {
             "type": "string"
+          }
+        }
+      },
+      "ReadResponseDto": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
           }
         }
       }

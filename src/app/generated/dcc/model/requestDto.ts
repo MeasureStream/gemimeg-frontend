@@ -9,8 +9,10 @@
  */
 
 
-export interface KeyInfo { 
-    id?: string;
-    content?: { [key: string]: object; };
+export interface RequestDto { 
+    callbackUrl?: string;
+    fileName?: string;
+    mimeType?: string;
+    fileContent?: string;
 }
 

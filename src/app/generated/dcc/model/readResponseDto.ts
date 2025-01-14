@@ -9,8 +9,9 @@
  */
 
 
-export interface KeyInfo { 
-    id?: string;
-    content?: { [key: string]: object; };
+export interface ReadResponseDto { 
+    fileName?: string;
+    mimeType?: string;
+    fileContent?: string;
 }
 
