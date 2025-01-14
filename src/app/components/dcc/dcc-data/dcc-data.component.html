@@ -1,23 +1,6 @@
-<!-- <mat-list *ngIf="dataType != null">
-  <p *ngIf="dataType.quantity != null">
-     <app-dcc-quantity [dataType]="dataType.quantity"></app-dcc-quantity>
-  </p>
-  <p *ngIf="dataType.list != null && dataType.list.quantities != null && dataType.list.quantities.length > 0">
-    <mat-list-item *ngFor="let item of dataType.list.quantities; let i = index">
-      <p matLine>
-        <app-dcc-quantity [dataType]="item"></app-dcc-quantity>
-      </p>
-    </mat-list-item>
-    <mat-icon *ngIf="dataType.list.list != null && dataType.list.list.length > 0"
-              matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ 'Liste von Quantities', das aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten.">
-      question_mark
-    </mat-icon>
-  </p>
-</mat-list> -->
-
 <div>
   <div>
-    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button><span>Daten
+    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button i18n><span>Daten
         hinzufügen</span><i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #menu="matMenu">
       <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item>{{option}}</button>
@@ -25,28 +8,26 @@
     </mat-menu>
   </div>
 </div>
-
 <mat-card *ngFor="let type of dataTypes;let i=index" class="blue-card">
-
   <mat-card-header>
     <div class="header-title">
       <h4 class="title">
-        <ng-container *ngIf="type.byteData">ByteData</ng-container>
-        <ng-container *ngIf="type.formula">Formel</ng-container>
-        <ng-container *ngIf="type.richContent">RichContent</ng-container>
-        <ng-container *ngIf="type.quantity">Quantity</ng-container>
-        <ng-container *ngIf="type.list">Liste</ng-container>
+        <ng-container *ngIf="type.byteData" i18n>ByteData</ng-container>
+        <ng-container *ngIf="type.formula" i18n>Formel</ng-container>
+        <ng-container *ngIf="type.richContent" i18n>RichContent</ng-container>
+        <ng-container *ngIf="type.quantity" i18n>Quantity</ng-container>
+        <ng-container *ngIf="type.list" i18n>Liste</ng-container>
       </h4>
       <app-info-button *ngIf="type.byteData" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccbyteDataType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dccbyteDataType" i18n></app-info-button>
       <app-info-button *ngIf="type.formula" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccformulaType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dccformulaType" i18n></app-info-button>
       <app-info-button *ngIf="type.richContent" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccrichContentType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dccrichContentType" i18n></app-info-button>
       <app-info-button *ngIf="type.quantity" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccquantityType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dccquantityType" i18n></app-info-button>
       <app-info-button *ngIf="type.list" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dcclistType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dcclistType" i18n></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>
@@ -59,22 +40,11 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
       <ng-container *ngIf="type">
-        <!-- <app-dcc-richcontent *ngIf="type.richContent" [richContent]="{}"></app-dcc-richcontent>
-        <app-mathml *ngIf="type.formula"></app-mathml>
-        <app-dcc-byte-data *ngIf="type.byteData"></app-dcc-byte-data> -->
         <div *ngIf="type.formula"><i class="material-icons">construction</i></div>
         <div *ngIf="type.byteData"><i class="material-icons">construction</i></div>
         <div *ngIf="type.richContent"><i class="material-icons">construction</i></div>
         <div *ngIf="type.quantity"><i class="material-icons">construction</i></div>
         <div *ngIf="type.list"><i class="material-icons">construction</i></div>
-
-        <!-- TODO: Include objects if they are present and functional -->
-        <!--
-        <app-mathml *ngIf="type.formula"></app-mathml>
-        <app-dcc-byte-data [byteData]=type.byteData *ngIf="type.byteData"></app-dcc-byte-data>
-        <app-dcc-richcontent *ngIf="type.richContent" [richContent]="{}"></app-dcc-richcontent>
-        -->
-
       </ng-container>
     </div>
   </mat-card-content>

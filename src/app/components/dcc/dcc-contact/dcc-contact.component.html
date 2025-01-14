@@ -1,42 +1,42 @@
 <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
                           [strings]="contact.name!"></app-dcc-localised-string>
 <mat-form-field>
-  <mat-label>Telefon</mat-label>
+  <mat-label i18n>Telefon</mat-label>
   <input [(ngModel)]=contact.phoneNumber matInput name="phoneNumber">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>E-Mail</mat-label>
+  <mat-label i18n>E-Mail</mat-label>
   <input [(ngModel)]=contact.emailAddress matInput name="emailAddress">
 </mat-form-field>
-<h5 mat-subheader>Location</h5>
+<h5 mat-subheader i18n>Anschrift</h5>
 <mat-form-field>
-  <mat-label>Stadt</mat-label>
+  <mat-label i18n>Stadt</mat-label>
   <input [(ngModel)]=contact.location!.city [required]="strict" matInput name="city">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Ländercode</mat-label>
+  <mat-label i18n>Ländercode</mat-label>
   <input [(ngModel)]=contact.location!.countryCode [required]="strict" matInput name="countryCode"
          oninput="this.value = this.value.toUpperCase()">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Postleitzahl</mat-label>
+  <mat-label i18n>Postleitzahl</mat-label>
   <input [(ngModel)]=contact.location!.postalCode [required]="strict" matInput name="postalCode">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Bundesland</mat-label>
+  <mat-label i18n>Bundesland</mat-label>
   <input [(ngModel)]=contact.location!.stateCode matInput name="stateCode">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Straße</mat-label>
+  <mat-label i18n>Straße</mat-label>
   <input [(ngModel)]=contact.location!.street [required]="strict" matInput name="street">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Nummer</mat-label>
+  <mat-label i18n>Hausnummer</mat-label>
   <input [(ngModel)]=contact.location!.houseNumber [required]="strict" matInput name="houseNumber">
 </mat-form-field>
 <mat-form-field>
-  <mat-label>Postfach</mat-label>
+  <mat-label i18n>Postfach</mat-label>
   <input [(ngModel)]=contact.location!.poBox matInput name="poBox">
 </mat-form-field>
-<h5 class="further" mat-subheader>Weitere Informationen</h5>
+<h5 class="further" mat-subheader i18n>Weitere Informationen</h5>
 <app-dcc-richcontent [richContent]="contact.location!.additionalInformation!"></app-dcc-richcontent>

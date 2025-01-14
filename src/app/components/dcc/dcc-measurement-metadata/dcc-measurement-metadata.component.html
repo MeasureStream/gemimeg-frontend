@@ -2,10 +2,9 @@
 
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{ header }} {{i + 1}}</mat-card-title>
-      <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
-
-
+      <mat-card-title class="title" i18n>{{ header }} {{i + 1}}</mat-card-title>
+      <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccstatement"
+                       i18n></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
@@ -13,35 +12,28 @@
       </button>
     </div>
   </mat-card-header>
-
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!" required></app-dcc-localised-string>
-
-    <h4 mat-subheader>Beschreibung</h4>
+    <h4 mat-subheader i18n>Beschreibung</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
-    <h4 mat-subheader>Deklaration</h4>
+    <h4 mat-subheader i18n>Deklaration</h4>
     <app-dcc-richcontent [richContent]="item.declaration!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
     <mat-form-field>
-      <mat-label>Ländercode</mat-label>
+      <mat-label i18n>Ländercode</mat-label>
       <input (blur)="string2Arr($event,'countryCodes',i)" [(ngModel)]=item.countryCodes class="toUpperCase" matInput>
     </mat-form-field>
-
     <mat-form-field>
-      <mat-label>Konvention</mat-label>
+      <mat-label i18n>Konvention</mat-label>
       <input [(ngModel)]=item.convention matInput name="convention">
     </mat-form-field>
-
-
     <mat-form-field>
-      <mat-label>Referenz</mat-label>
+      <mat-label i18n>Referenz</mat-label>
       <input (blur)="string2Arr($event,'references',i)" [(ngModel)]=item.references matInput>
     </mat-form-field>
-
-
     <mat-form-field>
-      <mat-label>Norm</mat-label>
+      <mat-label i18n>Norm</mat-label>
       <input (blur)="string2Arr($event,'norms',i)" [(ngModel)]=item.norms matInput name="norm">
     </mat-form-field>
 

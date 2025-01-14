@@ -2,14 +2,15 @@
   <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name der Bedingung'"
                             [strings]="item.name!"></app-dcc-localised-string>
   <mat-form-field>
-    <mat-select [(value)]="item.status" placeholder="Status" required>
+    <mat-select [(value)]="item.status" placeholder="Status" required i18n>
       <mat-option *ngFor="let entry of validRestrictions" [value]="entry">
         {{ entry }}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <mat-icon *ngIf="item.description"
-            matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten.">
+            matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten."
+            i18n>
     question_mark
   </mat-icon>
   <div *ngIf="item.data != null && item.data.length > 0">

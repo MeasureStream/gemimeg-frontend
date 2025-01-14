@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="de-DE" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="8768587564829430913" datatype="html">
+        <source>Fehler <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p *ngIf=&quot;currentUrl&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentUrl }}"/><x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/error/error.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8794353861007980268" datatype="html">
+        <source>Ein Fehler ist aufgetreten!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/error/error.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8930526198656004715" datatype="html">
+        <source>Zurück</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/error/error.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3917478945369751915" datatype="html">
+        <source>Bitte klicken, um Datei hochzuladen:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/generic-file-upload/generic-file-upload.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7340419959006319580" datatype="html">
+        <source>Ausgewählte Datei: <x id="INTERPOLATION" equiv-text="{{ selectedFile.name }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/generic-file-upload/generic-file-upload.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="472335994569796287" datatype="html">
+        <source>Datei hochladen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/generic-file-upload/generic-file-upload.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3597364669898472083" datatype="html">
+        <source>Datei herunterladen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/generic-file-upload/generic-file-upload.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8364980545753716243" datatype="html">
+        <source>Datei: <x id="INTERPOLATION" equiv-text="{{ backendResponse.fileName }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/generic-file-upload/generic-file-upload.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5037437391296624618" datatype="html">
+        <source>Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68646097714412263" datatype="html">
+        <source>DCC-Wiki</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1412355152364354970" datatype="html">
+        <source>API-Dokumentation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1547876271716599756" datatype="html">
+        <source>Impressum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4082114936887396529" datatype="html">
+        <source>Datenschutz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1455245545678364251" datatype="html">
+        <source>Über uns</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8183476381446897959" datatype="html">
+        <source>Schließen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/info-dialog/info-dialog.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6523585524940820841" datatype="html">
+        <source>Sprachauswahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/settings-dialog/settings-dialog.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8323422358213440128" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ lang.name }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/settings-dialog/settings-dialog.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1948363058941485070" datatype="html">
+        <source>Sprache anwenden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/common/settings-dialog/settings-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1847257889959287160" datatype="html">
+        <source>Dateiname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-byte-data/dcc-byte-data.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2314849930197678409" datatype="html">
+        <source>MIME-Typ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-byte-data/dcc-byte-data.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1578329818296386415" datatype="html">
+        <source>Telefon</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">182</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8115083664628466958" datatype="html">
+        <source>E-Mail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5341727937978513496" datatype="html">
+        <source>Anschrift</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8611105092360342021" datatype="html">
+        <source>Stadt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3007252679074907342" datatype="html">
+        <source>Ländercode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3749857632446690851" datatype="html">
+        <source>Postleitzahl</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6644453561360907310" datatype="html">
+        <source>Bundesland</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8957405583825584558" datatype="html">
+        <source>Straße</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="817291718712497991" datatype="html">
+        <source>Hausnummer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7181832355905084053" datatype="html">
+        <source>Postfach</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2536459430897575775" datatype="html">
+        <source>Weitere Informationen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-contact/dcc-contact.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2023695450184713029" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Daten hinzufügen<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;material-icons&quot;&gt;"/>arrow_drop_down<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2413734569475231418" datatype="html">
+        <source>ByteData</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2081370667358374625" datatype="html">
+        <source>Formel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mathml/mathml.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="554744538417511764" datatype="html">
+        <source>RichContent</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6762504134540024018" datatype="html">
+        <source>Quantity</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8396108165390443070" datatype="html">
+        <source>Liste</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-data/dcc-data.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8414432700145381629" datatype="html">
+        <source><x id="START_TAG_MAT_OPTION" ctype="x-mat_option" equiv-text="&lt;mat-option *ngFor=&quot;let entry of validRestrictions&quot; [value]=&quot;entry&quot;&gt;"/> <x id="INTERPOLATION" equiv-text="{{ entry }}"/> <x id="CLOSE_TAG_MAT_OPTION" ctype="x-mat_option" equiv-text="&lt;/mat-option&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-influence-conditions/dcc-influence-conditions.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3992401133060165568" datatype="html">
+        <source> question_mark </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-influence-conditions/dcc-influence-conditions.component.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-used-methods/dcc-used-methods.component.html</context>
+          <context context-type="linenumber">25,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="187187500641108332" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{placeholder}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-localised-string/dcc-localised-string.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="783442280633516200" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;{{ lang.icon }}&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>   <x id="INTERPOLATION" equiv-text="{{
+          lang.name }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-localised-string/dcc-localised-string.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8649728764052354102" datatype="html">
+        <source> Messinstrument <x id="INTERPOLATION" equiv-text="{{i+1}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7603767381311316696" datatype="html">
+        <source>Klassifikation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">229</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="845551939670847169" datatype="html">
+        <source>Norm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-used-methods/dcc-used-methods.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1673547830389838964" datatype="html">
+        <source>Modell</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7776650749055009884" datatype="html">
+        <source>Hersteller</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">238</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8968543130328972761" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ header }}"/> <x id="INTERPOLATION_1" equiv-text="{{i + 1}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3282235563480269560" datatype="html">
+        <source>Beschreibung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4633981186566740213" datatype="html">
+        <source>Deklaration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5845874675386731365" datatype="html">
+        <source>Konvention</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5786692609092303225" datatype="html">
+        <source>Referenz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4077520913910941990" datatype="html">
+        <source>Label</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-quantity/dcc-quantity.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5422814021855947257" datatype="html">
+        <source>Wert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-quantity/dcc-quantity.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="56228327617948862" datatype="html">
+        <source>Einheit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-quantity/dcc-quantity.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4127921176601919283" datatype="html">
+        <source>Verwendete Software <x id="INTERPOLATION" equiv-text="{{i+1}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-software/dcc-software.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2724055831234181057" datatype="html">
+        <source>Version</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-software/dcc-software.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3084756500721365312" datatype="html">
+        <source>Verwendete Methode <x id="INTERPOLATION" equiv-text="{{i+1}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc-used-methods/dcc-used-methods.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="860174895135120128" datatype="html">
+        <source>DCC-Vorlagen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5705774128240794638" datatype="html">
+        <source>Vorlage anwenden </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5974805843128930789" datatype="html">
+        <source>DCC herunterladen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5492872146990462633" datatype="html">
+        <source>Administrative Daten*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8165294426563036718" datatype="html">
+        <source> DCC-Software* </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">32,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6251523104566582660" datatype="html">
+        <source>Basis-Daten*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2154649337293977464" datatype="html">
+        <source>Land der Kalibrierung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1635987098755204921" datatype="html">
+        <source>Verwendete Sprachen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8251131687807699397" datatype="html">
+        <source>Kalibrierscheinnummer</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2649781678766967349" datatype="html">
+        <source>Eingang des Kalibriergegenstandes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="393295589930948766" datatype="html">
+        <source>JJJJ-MM-TT</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6317528157851178659" datatype="html">
+        <source>Beginn der Labortätigkeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4093625000443903214" datatype="html">
+        <source>Ende der Labortätigkeit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8692419748833746356" datatype="html">
+        <source>Kunde*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="477700972139445434" datatype="html">
+        <source>Kalibrierlabor*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8720852028108650915" datatype="html">
+        <source>Kennung des Kalibrierlabores</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3106452234595816802" datatype="html">
+        <source>Verantwortliche Personen*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5984554860177293110" datatype="html">
+        <source>Kalibriergegenstände*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4174692771931970599" datatype="html">
+        <source>Kalibriergut <x id="INTERPOLATION" equiv-text="{{ i + 1 }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6568381662054323739" datatype="html">
+        <source>Modell / Sonstiges</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">221</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3442245595536381354" datatype="html">
+        <source>Norm der Klassifikation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">225</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4511858842661099400" datatype="html">
+        <source>Identifikatoren des Kalibrierguts*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">241</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1358107302114089301" datatype="html">
+        <source>Installierte Software</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">245</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3872011783980566092" datatype="html">
+        <source>Statements</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="986899092790537230" datatype="html">
+        <source>Statements hinzufügen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">267,269</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7712732948470031339" datatype="html">
+        <source>Messergebnisse*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">279</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5501674876433606928" datatype="html">
+        <source>Messergebnis <x id="INTERPOLATION" equiv-text="{{ i + 1 }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">284</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7566431180040355909" datatype="html">
+        <source>Verwendete Software</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">302</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1189682632138586573" datatype="html">
+        <source>Verwendete Methoden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">322</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3732243421672773049" datatype="html">
+        <source>Verwendete Messinstrumente</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">342</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5992267204572151586" datatype="html">
+        <source>Einflussfaktoren</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">362</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="506166191083938354" datatype="html">
+        <source>Ergebnisse*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">382</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1060929875571028414" datatype="html">
+        <source>Meta-Daten</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dcc/dcc.component.html</context>
+          <context context-type="linenumber">402</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1986990589292661100" datatype="html">
+        <source> MathML erzeugen </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/mathml/mathml.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

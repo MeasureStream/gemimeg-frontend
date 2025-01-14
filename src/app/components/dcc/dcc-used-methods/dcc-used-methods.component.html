@@ -1,9 +1,9 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">Verwendete Methode {{i+1}}</mat-card-title>
+      <mat-card-title class="title" i18n>Verwendete Methode {{i+1}}</mat-card-title>
       <app-info-button tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccusedMethodType"></app-info-button>
+                       url="https://wiki.dcc.ptb.de/en/dccusedMethodType" i18n></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
@@ -15,14 +15,14 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <p>
       <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
-                                [strings]="item.name!"></app-dcc-localised-string>
+                                [strings]="item.name!" i18n></app-dcc-localised-string>
       <mat-form-field>
-        <mat-label>Norm</mat-label>
+        <mat-label i18n>Norm</mat-label>
         <input [(ngModel)]=item.norms![0] matInput name="norm" required>
       </mat-form-field>
 
       <mat-icon *ngIf="item.description"
-                matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten.">
+                matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten." i18n>
         question_mark
       </mat-icon>
     </p>

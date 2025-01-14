@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <h2 class="text">Bitte klicken, um Datei hochzuladen:</h2>
+    <h2 class="text" i18n>Bitte klicken, um Datei hochzuladen:</h2>
     <div
         (click)="fileInput.click()"
         (onFileDropped)="onUploadFile($event)"
@@ -16,17 +16,17 @@
 </div>
 <div *ngIf="selectedFile" class="row">
   <div class="col-xs-12 selected-file">
-    <h3>Ausgewählte Datei: {{ selectedFile.name }}</h3>
+    <h3 i18n>Ausgewählte Datei: {{ selectedFile.name }}</h3>
   </div>
 </div>
 <div *ngIf="selectedFile" class="button-container">
-  <button (click)="uploadFile()" color="primary" mat-raised-button>Datei hochladen</button>
-  <button (click)="onFileDownload()" color="primary" mat-raised-button>Datei herunterladen</button>
+  <button (click)="uploadFile()" color="primary" mat-raised-button i18n>Datei hochladen</button>
+  <button (click)="onFileDownload()" color="primary" mat-raised-button i18n>Datei herunterladen</button>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <div *ngIf="backendResponse" class="selected-file">
-      <h3>Datei: {{ backendResponse.fileName }}</h3>
+      <h3 i18n>Datei: {{ backendResponse.fileName }}</h3>
     </div>
   </div>
 </div>

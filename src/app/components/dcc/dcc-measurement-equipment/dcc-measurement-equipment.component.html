@@ -1,7 +1,7 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title"> Messinstrument {{i+1}}</mat-card-title>
+      <mat-card-title class="title" i18n> Messinstrument {{i+1}}</mat-card-title>
       <app-info-button tooltipText="Zeige das DCC-Wiki"
                        url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"></app-info-button>
     </div>
@@ -16,19 +16,19 @@
       <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
                                 [strings]="item.name!"></app-dcc-localised-string>
       <mat-form-field>
-        <mat-label>Klassifikation</mat-label>
+        <mat-label i18n>Klassifikation</mat-label>
         <input [(ngModel)]=item.classId matInput name="classID">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Norm</mat-label>
+        <mat-label i18n>Norm</mat-label>
         <input [(ngModel)]=item.classReference matInput name="classReference">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Modell</mat-label>
+        <mat-label i18n>Modell</mat-label>
         <input [(ngModel)]=item.model matInput name="model">
       </mat-form-field>
     </p>
-    <h3 mat-subheader matLine>Hersteller</h3>
+    <h3 mat-subheader matLine i18n>Hersteller</h3>
     <p matLine>
       <app-dcc-contact [contact]="item.manufacturer!" [strict]="true"></app-dcc-contact>
     </p>

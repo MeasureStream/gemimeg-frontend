@@ -1,9 +1,9 @@
 <app-dcc-localised-string [placeholder]="'Name'" [strings]="byteData.name!" required></app-dcc-localised-string>
 <mat-form-field>
-  <mat-label>Dateiname</mat-label>
-  <input [(ngModel)]=byteData.fileName matInput placeholder="Dateiname">
+  <mat-label i18n>Dateiname</mat-label>
+  <input [(ngModel)]=byteData.fileName matInput placeholder="Dateiname" i18n>
 </mat-form-field>
 <mat-form-field>
-  <mat-label>MIME-Typ</mat-label>
-  <input [(ngModel)]=byteData.mimeType matInput placeholder="MIME-Typ">
+  <mat-label i18n>MIME-Typ</mat-label>
+  <input [(ngModel)]=byteData.mimeType matInput placeholder="MIME-Typ" i18n>
 </mat-form-field>

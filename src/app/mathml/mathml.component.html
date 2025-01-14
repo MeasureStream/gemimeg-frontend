@@ -1,13 +1,12 @@
 <div class="flex-container">
-  <h3>Math-ML:</h3>
-
+  <h3 i18n>Formel</h3>
   <mat-form-field class="flex-item">
     <textarea [(ngModel)]="mathml" class="custom-textarea" id="mathml" matInput name="mathml"
-              placeholder="Ihr MathML-Ausdruck hier"></textarea>
+              placeholder="Ihr MathML-Ausdruck hier" i18n></textarea>
   </mat-form-field>
 
   <div #mathContainer style="padding-bottom: 10px;"></div>
-  <button (click)="renderMathML()" class="math-button" color="accent" mat-flat-button style="  font-size: 15px;">Render
-    MathML
+  <button (click)="renderMathML()" class="math-button" color="accent" mat-flat-button style="  font-size: 15px;" i18n>
+    MathML erzeugen
   </button>
 </div>
