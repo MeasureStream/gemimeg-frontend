@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="de-DE" datatype="plaintext" original="ng2.template">
+  <file source-language="de" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="8768587564829430913" datatype="html">
         <source>Fehler <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p *ngIf=&quot;currentUrl&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentUrl }}"/><x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>

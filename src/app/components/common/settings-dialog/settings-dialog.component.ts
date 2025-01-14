@@ -17,16 +17,16 @@ export class SettingsDialogComponent {
     this.displaylanguages = new Array<Language>;
     this.displaylanguages[0] = <Language>{};
     this.displaylanguages[0].name = "Deutsch";
-    this.displaylanguages[0].value = "de-DE";
+    this.displaylanguages[0].value = "de";
     this.displaylanguages[1] = <Language>{};
     this.displaylanguages[1].name = "English";
-    this.displaylanguages[1].value = "en-GB";
+    this.displaylanguages[1].value = "en";
     this.displaylanguages[2] = <Language>{};
     this.displaylanguages[2].name = "Français";
-    this.displaylanguages[2].value = "fr-FR";
+    this.displaylanguages[2].value = "fr";
     this.displaylanguages[3] = <Language>{};
     this.displaylanguages[3].name = "Español";
-    this.displaylanguages[3].value = "es-ES";
+    this.displaylanguages[3].value = "es";
     this.userLanguage = this.navigation.getUserLanguage();
   }
 

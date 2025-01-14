@@ -9,7 +9,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  userLanguage = 'de-DE';
+  userLanguage = 'de';
   fullName = '';
   isInfoDialogVisible = false;
   isSettingsDialogVisible = false;
