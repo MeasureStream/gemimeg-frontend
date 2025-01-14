@@ -1,3 +1,4 @@
+import { FileUploadService } from './file-upload.service';
 import { Subject } from 'rxjs';
 import { Component, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,17 +9,17 @@ import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
   templateUrl: './generic-file-upload.component.html',
   styleUrls: ['./generic-file-upload.component.scss'],
 })
-
 export class GenericFileUploadComponent implements OnInit {
   files: any = {};
   backendResponse: any;
-  selectedFile: File | null = null; // New property to store the selected file
+  selectedFile: File | null = null;
   @Output() fileUpload = new Subject<File>();
   fileData: ByteDataDto = {};
+  cacheEnabled = true;
+  response: any;
+  binary_string: any;
 
-  constructor(
-    private _snackBar: MatSnackBar
-  ) {}
+  constructor(private fileUploadService: FileUploadService, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {}
 
@@ -31,7 +32,7 @@ export class GenericFileUploadComponent implements OnInit {
         alert('File size exceeds the limit. Please choose a smaller file.');
         return;
       }
-      this.selectedFile = file; // Store the selected file
+      this.selectedFile = file;
     }
   }
 
@@ -49,16 +50,22 @@ export class GenericFileUploadComponent implements OnInit {
     reader.onload = () => {
       const arrayBuffer = reader.result as ArrayBuffer;
       const uint8Array = new Uint8Array(arrayBuffer);
-      const binaryString = String.fromCharCode.apply(
-        null,
-        Array.from(uint8Array)
-      );
+      const binaryString = String.fromCharCode.apply(null, Array.from(uint8Array));
 
       const base64String = window.btoa(binaryString);
+
       this.files.mimeType = file.type;
       this.files.fileName = file.name;
       this.files.content = [base64String];
-      this.files.embedded = false;
+      this.fileUploadService.uploadFile(this.files, this.cacheEnabled).subscribe({
+              next: (res) => {
+                this.backendResponse = res;
+                console.log("backend Response",this.backendResponse);
+                this.showSuccessToast();
+
+              },
+              error: (err: any) => {
+                this.showErrorToast('Error signing/uploading the file. Please try again.');
     };
     reader.readAsArrayBuffer(file);
   }
@@ -108,6 +115,42 @@ export class GenericFileUploadComponent implements OnInit {
 
     // Optionally, show a download notification
     this.showDownloadToast();
+      const fullUrl = this.backendResponse.body.retrievalUrl;
+
+
+      this.fileUploadService.retrieveFile(fullUrl).subscribe({
+        next: (res) => {
+          let parsedJSON = JSON.parse(res);
+          this.backendResponse = parsedJSON;
+
+
+          this.binary_string = atob(this.backendResponse.fileContent);
+
+          const len = this.binary_string.length;
+          const arrayBuffer = new ArrayBuffer(len);
+          const bytes = new Uint8Array(arrayBuffer);
+          for (let i = 0; i < len; i++) {
+            bytes[i] = this.binary_string.charCodeAt(i);
+          }
+          //Blobbinary large objects
+          const blob = new Blob([bytes], { type: this.backendResponse.mimeType });
+
+          let a = document.createElement('a');
+          document.body.appendChild(a);
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = this.backendResponse.fileName;
+          a.click();
+
+          window.URL.revokeObjectURL(url);
+          a.remove();
+
+          this.showDownloadToast();
+        },
+        error: (err: any) => {
+          this.showErrorToast('Error downloading the file. Please try again.');
+        },
+      });
   }
 
 

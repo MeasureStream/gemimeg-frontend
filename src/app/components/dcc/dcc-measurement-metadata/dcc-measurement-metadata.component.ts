@@ -14,21 +14,24 @@ import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
   selector: 'app-dcc-measurement-metadata',
   templateUrl: './dcc-measurement-metadata.component.html',
   styleUrls: ['./dcc-measurement-metadata.component.scss'],
-
 })
 export class DccMeasurementMetadataComponent implements OnInit {
 
   @Input() list: Array<StatementDto>;
   @Input() header: string;
 
-
+  item = { date: '' };
+  statementDate:Date|any= "2022-09-09"
+  startDate = new Date(2024, 1, 1)
   validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
 
   isExpanded: boolean[] = [true];
 
-  constructor(public dccService: DccService) {
+  constructor(  public dccService:DccService) {
     this.list = new Array<StatementDto>;
     this.header = "";
+   
+   
   }
 
   ngOnInit(): void {
@@ -98,8 +101,28 @@ export class DccMeasurementMetadataComponent implements OnInit {
         (statement[fieldName] as string[]) = processedArray.filter(code => code !== '');
       }
     }
-
+  
   }
+
+
+
+
+  // Method to format the date to 'YYYY-MM-DD'
+  
+  marshalCustomDate(value: Date): string {
+    const result = new Array<string>();
+    if (value) {
+      result.push(value.getFullYear().toString());
+      result.push((value.getMonth() + 1).toString());
+      result.push(value.getDate().toString());
+    }
+    // Append leading zeros for single-digit month and day
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].length === 1) {
+        result[i] = '0' + result[i];
+      }
+    }
+    return result[0] + '-' + result[1] + '-' + result[2];}
 
   toggleCard(index: number) {
     this.isExpanded[index] = !this.isExpanded[index];
@@ -108,4 +131,9 @@ export class DccMeasurementMetadataComponent implements OnInit {
     this.isExpanded.push(true);
   }
 
+  // Handles the date change event
+  onDateChange(event: any) {
+    const date: Date = event.value;
+    this.item.date = this.marshalCustomDate(date); // Format the date immediately
+  }
 }

@@ -73,4 +73,7 @@ export class DccRichcontentComponent implements OnInit {
     var result = <LangTextPair>{};
     return result;
   }
+  onFileUploading(file:File){
+    console.log('file uploaded', file);
+  }
 }
