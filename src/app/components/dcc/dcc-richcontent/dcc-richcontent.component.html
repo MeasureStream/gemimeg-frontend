@@ -12,7 +12,7 @@
   </div>
 </mat-toolbar>
 <div class="elements">
-  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'Name'"
+  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'dcc.name' | translate"
                             [strings]="richContent.name!"></app-dcc-localised-string>
   <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'Inhalt'"
                             [strings]="richContent.textContent!"></app-dcc-localised-string>

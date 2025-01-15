@@ -12,7 +12,7 @@
       <mat-label>{{'dcc.identifications.identifier' | translate}}</mat-label>
       <input [(ngModel)]=item.value matInput name="value" required>
     </mat-form-field>
-    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
+    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="item.name!"></app-dcc-localised-string>
   </p>
   <button (click)="list.splice(i, 1)" *ngIf="list.length > 1" mat-icon-button>
     <mat-icon>remove</mat-icon>

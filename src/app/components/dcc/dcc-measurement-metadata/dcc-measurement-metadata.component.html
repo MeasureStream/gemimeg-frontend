@@ -13,7 +13,7 @@
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!" required></app-dcc-localised-string>
+    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="item.name!" required></app-dcc-localised-string>
     <h4 mat-subheader>{{'dcc.description' | translate}}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
     <mat-divider></mat-divider>

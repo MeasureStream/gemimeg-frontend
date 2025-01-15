@@ -13,7 +13,7 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <p>
-      <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+      <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                                 [strings]="item.name!"></app-dcc-localised-string>
       <mat-form-field>
         <mat-label>{{'dcc.classification' | translate}}</mat-label>
