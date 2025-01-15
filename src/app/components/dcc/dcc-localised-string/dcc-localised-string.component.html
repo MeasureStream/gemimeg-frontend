@@ -1,6 +1,5 @@
 <div *ngFor="let item of strings.content; let i = index">
   <ng-container *ngIf="getOrSetLang(item)">
-
     <mat-form-field class="custom-form-field">
       <mat-label>{{placeholder}}</mat-label>
       <input [(ngModel)]="item.text" [required]=" isRequired " matInput name="item"/>

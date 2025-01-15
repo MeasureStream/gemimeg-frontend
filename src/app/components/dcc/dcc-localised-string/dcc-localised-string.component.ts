@@ -1,7 +1,9 @@
 
 import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
+import { NavigationComponent } from '../../common/navigation/navigation.component';
 
 @Component({
   selector: 'app-dcc-localised-string',
@@ -16,22 +18,19 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
 
   locales = [
     { lang: "de", name: "Deutsch", icon: "fi fi-de" },
-    { lang: "en", name: "Englisch", icon: "fi fi-us" },
-    { lang: "fr", name: "Französisch", icon: "fi fi-fr" },
-    { lang: "es", name: "Spanisch", icon: "fi fi-es" }
+    { lang: "en", name: "English", icon: "fi fi-us" },
+    { lang: "fr", name: "Français", icon: "fi fi-fr" },
+    { lang: "es", name: "Español", icon: "fi fi-es" }
   ];
 
   languageMap = new Map<string, any>();
-  // lang:string='';
-  // text:string='';
 
-  constructor(private cdref: ChangeDetectorRef) {
+  constructor(private cdref: ChangeDetectorRef, private navigation: NavigationComponent) {
     this.strings = <LanguageSpecificStringsDto>{};
     this.placeholder = "";
   }
 
   ngOnInit(): void {
-
     if (!this.strings) {
       this.strings = this.getEmptyStringWithLangDto();
     }
@@ -39,12 +38,10 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   }
 
   ngAfterContentChecked() {
-    // console.log('strings',this.strings)
     this.cdref.detectChanges();
   }
 
   initializeLanguageMap() {
-
     this.languageMap.clear();
     if (this.strings.content) {
     this.strings.content!.forEach(item => {
@@ -64,7 +61,6 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
     preselected.text = this.placeholder;
     result.content.push(preselected)
     return result;
-
   }
 
   getEmptyStringWithLangText(): LangTextPair {
@@ -86,9 +82,8 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   }
 
   getOrSetLang(item: any): string {
-
     if (item.lang === '**' || item.lang === undefined) {
-      item.lang = 'de';
+      item.lang = this.navigation.getUserLanguage();
     }
     return item.lang;
   }
