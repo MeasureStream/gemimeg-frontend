@@ -39,83 +39,74 @@
 
 
     <mat-form-field>
-      <mat-label>Datum</mat-label>
+      <mat-label>{{'dcc.date' | translate}}</mat-label>
       <input (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
              [(ngModel)]=item.date
              [matDatepicker]="statementDate" matInput name="date"
              readonly>
-      <mat-hint>JJJJ-MM-TT</mat-hint>
+      <mat-hint>{{'dcc.YYYYMMDD' | translate}}</mat-hint>
       <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #statementDate></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Periode</mat-label>
+      <mat-label>{{'dcc.period' | translate}}</mat-label>
       <input [(ngModel)]=item.period matInput>
     </mat-form-field>
-
-
     <mat-form-field>
-      <mat-label>Konformität</mat-label>
+      <mat-label>{{'dcc.conformity' | translate}}</mat-label>
       <mat-select [(value)]="item.conformity">
         <mat-option *ngFor="let entry of validConformityStatementStatusTypes" [value]="entry">
           {{ entry }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-form-field>
-      <mat-label>Non-SI Unit</mat-label>
+      <mat-label>{{'dcc.nonSIUnit' | translate}}</mat-label>
       <input [(ngModel)]=item.nonSIUnit matInput name="nonSIUnit">
     </mat-form-field>
-
     <mat-form-field>
-      <mat-label>Non-SI Definition</mat-label>
+      <mat-label>{{'dcc.nonSIDefinition' | translate}}</mat-label>
       <input [(ngModel)]=item.nonSIDefinition matInput name="nonSIDefinition">
     </mat-form-field>
-
-    <mat-checkbox [(ngModel)]=item.valid>valide</mat-checkbox>
-    <mat-checkbox [(ngModel)]=item.traceable>rückführbares Messergebnis</mat-checkbox>
-
+    <mat-checkbox [(ngModel)]=item.valid>{{'dcc.valid' | translate}}</mat-checkbox>
+    <mat-checkbox [(ngModel)]=item.traceable>{{'dcc.traceableResult' | translate}}</mat-checkbox>
     <mat-divider></mat-divider>
-
-    <h4 mat-subheader>Location</h4>
-
+    <h4 mat-subheader>{{'dcc.location' | translate}}</h4>
     <ng-container *ngIf="item.location">
       <mat-form-field>
-        <mat-label>Stadt</mat-label>
+        <mat-label>{{'dcc.city' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.city matInput name="city" required>
       </mat-form-field>
-
       <mat-form-field>
-        <mat-label>Ländercode</mat-label>
+        <mat-label>{{'dcc.countryCode' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.countryCode matInput name="countryCode"
                oninput="this.value = this.value.toUpperCase()" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Postleitzahl</mat-label>
+        <mat-label>{{'dcc.postalCode' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.postalCode matInput name="postalCode" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Bundesland</mat-label>
+        <mat-label>{{'dcc.state' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.stateCode matInput name="stateCode">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Straße</mat-label>
+        <mat-label>{{'dcc.street' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.street matInput name="street" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Nummer</mat-label>
+        <mat-label>{{'dcc.streetNumber' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.houseNumber matInput name="houseNumber" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Postfach</mat-label>
+        <mat-label>{{'dcc.poBox' | translate}}</mat-label>
         <input [(ngModel)]=item.location!.poBox matInput name="poBox">
       </mat-form-field>
-      <h5 mat-subheader>Weitere Informationen</h5>
+      <h5 mat-subheader>{{'dcc.furtherInformation' | translate}}</h5>
       <app-dcc-richcontent [richContent]="item.location!.additionalInformation!"></app-dcc-richcontent>
       <mat-divider></mat-divider>
-      <h4 mat-subheader>Verantwortliche Stelle</h4>
+      <h4 mat-subheader>{{'dcc.responsibleAuthority' | translate}}</h4>
       <app-dcc-contact [contact]="item.responsibleAuthority!"></app-dcc-contact>
       <mat-divider></mat-divider>
       <app-dcc-data [dataTypes]="item.data!"></app-dcc-data>
