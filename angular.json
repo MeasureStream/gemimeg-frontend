@@ -13,20 +13,6 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "i18n": {
-        "sourceLocale": "de",
-        "locales": {
-          "en": {
-            "translation": "src/locale/messages.en.xlf"
-          },
-          "fr": {
-            "translation": "src/locale/messages.fr.xlf"
-          },
-          "es": {
-            "translation": "src/locale/messages.es.xlf"
-          }
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -43,9 +29,7 @@
               "src/theme.scss",
               "src/styles.scss",
               "./node_modules/flag-icons/css/flag-icons.min.css"
-            ],
-            "localize": true,
-            "i18nMissingTranslation": "warning"
+            ]
           },
           "configurations": {
             "production": {
@@ -64,7 +48,6 @@
               "outputHashing": "all"
             },
             "development": {
-              "localize": false,
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -73,7 +56,6 @@
               "namedChunks": true
             },
             "test": {
-              "localize": false,
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

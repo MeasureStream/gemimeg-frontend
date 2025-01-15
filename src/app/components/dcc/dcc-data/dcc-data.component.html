@@ -1,7 +1,7 @@
 <div>
   <div>
-    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button i18n><span>Daten
-        hinzufügen</span><i class="material-icons">arrow_drop_down</i></button>
+    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button><span>{{'dcc.data.addData' | translate}}</span><i
+        class="material-icons">arrow_drop_down</i></button>
     <mat-menu #menu="matMenu">
       <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item>{{option}}</button>
 
@@ -12,22 +12,22 @@
   <mat-card-header>
     <div class="header-title">
       <h4 class="title">
-        <ng-container *ngIf="type.byteData" i18n>ByteData</ng-container>
-        <ng-container *ngIf="type.formula" i18n>Formel</ng-container>
-        <ng-container *ngIf="type.richContent" i18n>RichContent</ng-container>
-        <ng-container *ngIf="type.quantity" i18n>Quantity</ng-container>
-        <ng-container *ngIf="type.list" i18n>Liste</ng-container>
+        <ng-container *ngIf="type.byteData">{{'dcc.data.byteData' | translate}}</ng-container>
+        <ng-container *ngIf="type.formula">{{'dcc.data.formula' | translate}}</ng-container>
+        <ng-container *ngIf="type.richContent">{{'dcc.data.richContent' | translate}}</ng-container>
+        <ng-container *ngIf="type.quantity">{{'dcc.data.quantity' | translate}}</ng-container>
+        <ng-container *ngIf="type.list">{{'dcc.data.list' | translate}}</ng-container>
       </h4>
-      <app-info-button *ngIf="type.byteData" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccbyteDataType" i18n></app-info-button>
-      <app-info-button *ngIf="type.formula" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccformulaType" i18n></app-info-button>
-      <app-info-button *ngIf="type.richContent" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccrichContentType" i18n></app-info-button>
-      <app-info-button *ngIf="type.quantity" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccquantityType" i18n></app-info-button>
-      <app-info-button *ngIf="type.list" tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dcclistType" i18n></app-info-button>
+      <app-info-button *ngIf="type.byteData" tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccbyteDataType"></app-info-button>
+      <app-info-button *ngIf="type.formula" tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccformulaType"></app-info-button>
+      <app-info-button *ngIf="type.richContent" tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccrichContentType"></app-info-button>
+      <app-info-button *ngIf="type.quantity" tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccquantityType"></app-info-button>
+      <app-info-button *ngIf="type.list" tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dcclistType"></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>

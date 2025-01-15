@@ -1,42 +1,42 @@
-<app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
+<app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                           [strings]="contact.name!"></app-dcc-localised-string>
 <mat-form-field>
-  <mat-label i18n>Telefon</mat-label>
+  <mat-label>{{'dcc.phone' | translate}}</mat-label>
   <input [(ngModel)]=contact.phoneNumber matInput name="phoneNumber">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>E-Mail</mat-label>
+  <mat-label>{{'dcc.eMail' | translate}}</mat-label>
   <input [(ngModel)]=contact.emailAddress matInput name="emailAddress">
 </mat-form-field>
-<h5 mat-subheader i18n>Anschrift</h5>
+<h5 mat-subheader>{{'dcc.contact.address' | translate}}</h5>
 <mat-form-field>
-  <mat-label i18n>Stadt</mat-label>
+  <mat-label>{{'dcc.contact.city' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.city [required]="strict" matInput name="city">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Ländercode</mat-label>
+  <mat-label>{{'dcc.countryCode' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.countryCode [required]="strict" matInput name="countryCode"
          oninput="this.value = this.value.toUpperCase()">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Postleitzahl</mat-label>
+  <mat-label>{{'dcc.contact.postalCode' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.postalCode [required]="strict" matInput name="postalCode">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Bundesland</mat-label>
+  <mat-label>{{'dcc.contact.state' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.stateCode matInput name="stateCode">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Straße</mat-label>
+  <mat-label>{{'dcc.contact.street' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.street [required]="strict" matInput name="street">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Hausnummer</mat-label>
+  <mat-label>{{'dcc.contact.streetNumber' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.houseNumber [required]="strict" matInput name="houseNumber">
 </mat-form-field>
 <mat-form-field>
-  <mat-label i18n>Postfach</mat-label>
+  <mat-label>{{'dcc.contact.poBox' | translate}}</mat-label>
   <input [(ngModel)]=contact.location!.poBox matInput name="poBox">
 </mat-form-field>
-<h5 class="further" mat-subheader i18n>Weitere Informationen</h5>
+<h5 class="further" mat-subheader>{{'dcc.contact.furtherInformation' | translate}}</h5>
 <app-dcc-richcontent [richContent]="contact.location!.additionalInformation!"></app-dcc-richcontent>

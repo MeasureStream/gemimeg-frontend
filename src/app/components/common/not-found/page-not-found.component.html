@@ -1,7 +1,7 @@
-<h1>Seite nicht gefunden</h1>
+<h1>{{'not-found.title' | translate}}</h1>
 <div mat-card-content>
   <p *ngIf="currentUrl">
-    <b>Die Seite {{ currentUrl }} ist unbekannt</b>
+    <b>{{'not-found.thePage' | translate}} {{ currentUrl }} {{'not-found.isUnknown' | translate}}</b>
   </p>
-  <button [routerLink]="['/dashboard']" color="primary" mat-raised-button>Zum Dashboard</button>
+  <button [routerLink]="['/dashboard']" color="primary" mat-raised-button>{{'button.toDashboard' | translate}}</button>
 </div>

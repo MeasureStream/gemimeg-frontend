@@ -1,9 +1,9 @@
 <mat-card *ngFor="let software of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title" i18n>Verwendete Software {{i+1}}</mat-card-title>
-      <app-info-button tooltipText="Zeige das DCC-Wiki"
-                       url="https://wiki.dcc.ptb.de/en/dccdccSoftware" i18n></app-info-button>
+      <mat-card-title class="title">{{'dcc.usedSoftware' | translate}} {{i+1}}</mat-card-title>
+      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
@@ -17,7 +17,7 @@
       <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
                                 [strings]="software.name!"></app-dcc-localised-string>
       <mat-form-field>
-        <mat-label i18n>Version</mat-label>
+        <mat-label>{{'dcc.software.version' | translate}}</mat-label>
         <input [(ngModel)]=software.version matInput name="version" required>
       </mat-form-field>
     </p>

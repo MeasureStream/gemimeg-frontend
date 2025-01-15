@@ -1,7 +1,7 @@
 <div *ngFor="let item of list; let i = index">
   <p>
     <mat-form-field>
-      <mat-label>Issuer</mat-label>
+      <mat-label>{{'dcc.identifications.issuer' | translate}}</mat-label>
       <mat-select [(value)]="item.issuer" required>
         <mat-option *ngFor="let entry of validIdentificationIssuers" [value]="entry" required>
           {{ entry }}
@@ -9,7 +9,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Identifier</mat-label>
+      <mat-label>{{'dcc.identifications.identifier' | translate}}</mat-label>
       <input [(ngModel)]=item.value matInput name="value" required>
     </mat-form-field>
     <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>

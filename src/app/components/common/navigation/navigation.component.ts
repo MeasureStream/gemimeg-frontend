@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -21,7 +23,7 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -49,5 +51,6 @@ export class NavigationComponent {
 
   setUserLanguage(lang: string): void {
     this.userLanguage = lang;
+    this.translate.use(this.userLanguage);
   }
 }
