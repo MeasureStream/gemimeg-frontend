@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
 
 import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
 import { LanguageSpecificStringsDto } from '../../generated/dcc/model/languageSpecificStringsDto';
@@ -33,7 +34,6 @@ import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { ListDto } from 'src/app/generated/dcc/model/listDto';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
-import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-dcc',
@@ -83,6 +83,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
   ngAfterContentChecked(): void {
     this.changeDetect.detectChanges();
   }
+
   onCheckboxChange() {
     this.changeDetect.detectChanges();
     setTimeout(() => {
@@ -95,8 +96,9 @@ export class DccComponent implements OnInit,AfterContentChecked {
       addressType: [null]
     });
   }
+
   public toggleCard(title:string){
-    console.log('isExpandend: ',this.isExpanded[title])
+    console.log('isExpanded: ',this.isExpanded[title])
     if(this.isExpanded[title]===undefined){
       this.isExpanded[title]=true;
     }
@@ -108,33 +110,12 @@ export class DccComponent implements OnInit,AfterContentChecked {
     this.isExpanded[title]=true;
   }
 
- addExpandedInMetadataComponent() {
-  this.metadataComponent.addExpanded();
-}
+  addExpandedInMetadataComponent() {
+    this.metadataComponent.addExpanded();
+  }
 
   public showStatement() {
     this.showEmptyStatement = true;
-  }
-
-  public add_cipmmra(value: any) {
-    let isCipmAdded = false;
-    let cipmIndex: number | null = null;
-
-    for (let i = 0; i < this.dcc.administrativeData!.statements!.length; i++) {
-      const statement = this.dcc.administrativeData!.statements![i];
-      if (!statement.convention) {
-        cipmIndex = i;
-        isCipmAdded = true;
-        break;
-      }
-    }
-
-    let statementToUpdate = isCipmAdded ? this.dcc.administrativeData!.statements![cipmIndex!] : this.getEmptyStatementMetaDataDto();
-    statementToUpdate.convention = "CIPM-MRA";
-    statementToUpdate.declaration!.textContent = this.getEmptyLanguageSpecificStringsDto();
-      console.log("statements-push",this.dcc.administrativeData?.statements);
-      this.addExpandedInMetadataComponent();
-      this.dcc.administrativeData!.statements!.push(statementToUpdate);
   }
 
   public add_address(value: string) {
