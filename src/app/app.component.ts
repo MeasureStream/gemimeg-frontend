@@ -11,8 +11,8 @@ export class AppComponent {
   title = 'gemimeg-frontend';
 
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('de');
-    this.translate.addLangs(['de', 'en', 'fr', 'es']);
-    this.translate.use('de');
+    this.translate.setDefaultLang('en');
+    this.translate.addLangs(['de', 'en', 'fr', 'es', 'pt']);
+    this.translate.use('en');
   }
 }

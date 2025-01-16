@@ -17,10 +17,11 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   @Input() isRequired!: boolean;
 
   locales = [
+    { lang: "en", name: "English", icon: "fi fi-gb" },
     { lang: "de", name: "Deutsch", icon: "fi fi-de" },
-    { lang: "en", name: "English", icon: "fi fi-us" },
     { lang: "fr", name: "Français", icon: "fi fi-fr" },
-    { lang: "es", name: "Español", icon: "fi fi-es" }
+    { lang: "es", name: "Español", icon: "fi fi-es" },
+    { lang: "pt", name: "Português", icon: "fi fi-br" }
   ];
 
   languageMap = new Map<string, any>();

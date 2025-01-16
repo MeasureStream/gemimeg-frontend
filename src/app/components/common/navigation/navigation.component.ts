@@ -11,7 +11,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  userLanguage = 'de';
+  userLanguage = 'en';
   fullName = '';
   isInfoDialogVisible = false;
   isSettingsDialogVisible = false;

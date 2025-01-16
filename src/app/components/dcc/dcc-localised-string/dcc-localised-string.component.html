@@ -6,7 +6,7 @@
       <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" mat-icon-button matSuffix
                   required>
         <mat-select-trigger>
-          <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }}"></span>
+          <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-gb' }}"></span>
         </mat-select-trigger>
         <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{
           lang.name }}
