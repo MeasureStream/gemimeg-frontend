@@ -1,6 +1,8 @@
 {
 	"button.applyLanguage": "Sprache anwenden",
 	"button.close": "Schließen",
+	"button.nextStep": "Nächster Schritt",
+	"button.previousStep": "Vorheriger Schritt",
 	"button.toDashboard": "Zum Dashboard",
 	"dcc.addStatements": "Statements hinzufügen",
 	"dcc.administrativeData": "Administrative Daten",

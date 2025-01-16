@@ -33,6 +33,7 @@ import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { ListDto } from 'src/app/generated/dcc/model/listDto';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-dcc',
@@ -53,6 +54,8 @@ export class DccComponent implements OnInit,AfterContentChecked {
   cardTitles:string[]=['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor',
     'Kalibriergut1','Messergebnis1','Verwendete-Methoden','Verwendete-Messinstrumente','Einflussfaktoren','Ergebnisse','Meta-Daten','Verwendete-Software']
   isExpanded:{[title:string]:boolean}={'DCC-Software*': true};
+  currentStepIndex = 0;
+  totalSteps = 4;
 
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
 
@@ -76,6 +79,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
 
   ngOnInit(): void {
   }
+
   ngAfterContentChecked(): void {
     this.changeDetect.detectChanges();
   }
@@ -540,6 +544,19 @@ export class DccComponent implements OnInit,AfterContentChecked {
   renderMathML(mathML: string) {
     return this.sanitizer.sanitize(SecurityContext.HTML, mathML);
   }
-}
 
+  previousStep(stepper: MatStepper): void {
+    if (this.currentStepIndex > 0) {
+      this.currentStepIndex--;
+      stepper.previous();
+    }
+  }
+
+  nextStep(stepper: MatStepper): void {
+    if (this.currentStepIndex < this.totalSteps - 1) {
+      this.currentStepIndex++;
+      stepper.next();
+    }
+  }
+}
 

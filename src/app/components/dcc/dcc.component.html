@@ -23,7 +23,7 @@
       </button>
     </mat-card-content>
   </mat-card>
-  <mat-stepper #stepper>
+  <mat-stepper #stepper linear [selectedIndex]="currentStepIndex">
     <mat-step>
       <ng-template matStepLabel>{{'dcc.administrativeData' | translate}}*</ng-template>
       <mat-card class="blue-card">
@@ -433,3 +433,21 @@
     </mat-step>
   </mat-stepper>
 </form>
+<div class="footer-navigation">
+  <button
+      mat-button
+      color="primary"
+      (click)="previousStep(stepper)"
+      [disabled]="currentStepIndex === 0"
+      class="previous-button">
+    {{'button.previousStep' | translate}}
+  </button>
+  <button
+      mat-button
+      color="accent"
+      (click)="nextStep(stepper)"
+      [disabled]="currentStepIndex === totalSteps - 1"
+      class="next-button">
+    {{'button.nextStep' | translate}}
+  </button>
+</div>
