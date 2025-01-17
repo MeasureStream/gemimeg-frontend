@@ -23,7 +23,7 @@
       </button>
     </mat-card-content>
   </mat-card>
-  <mat-stepper #stepper linear [selectedIndex]="currentStepIndex">
+  <mat-stepper #stepper linear [selectedIndex]="currentStepIndex" (selectionChange)="onStepChange($event)">
     <mat-step>
       <ng-template matStepLabel>{{'dcc.administrativeData' | translate}}*</ng-template>
       <mat-card class="blue-card">

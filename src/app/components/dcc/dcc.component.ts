@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
 import { LanguageSpecificStringsDto } from '../../generated/dcc/model/languageSpecificStringsDto';
@@ -56,7 +57,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
   isExpanded:{[title:string]:boolean}={'DCC-Software*': true};
   currentStepIndex = 0;
   totalSteps = 4;
-
+  isLastStep =false
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
 
   constructor(
@@ -538,6 +539,15 @@ export class DccComponent implements OnInit,AfterContentChecked {
       this.currentStepIndex++;
       stepper.next();
     }
+  }
+
+  onStepChange(event: StepperSelectionEvent): void {
+    this.currentStepIndex = event.selectedIndex;
+    this.updateStepState();
+  }
+
+  private updateStepState(): void {
+    this.isLastStep = this.currentStepIndex === this.totalSteps - 1;
   }
 }
 
