@@ -1,7 +1,7 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">Quantity {{ i + 1 }}</mat-card-title>
+      <mat-card-title class="title">{{'dcc.quantity' | translate}} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
@@ -45,7 +45,7 @@
           </div>
           <div class="row">
             <div class="label-container">
-              <label for="value-{{ i + 1 }}">Value {{ i + 1 }}</label>
+              <label for="value-{{ i + 1 }}">{{'dcc.value' | translate}} {{ i + 1 }}</label>
             </div>
             <mat-form-field appearance="fill">
               <input [(ngModel)]="dimension.value" id="value-{{ i + 1 }}" matInput />
@@ -53,7 +53,7 @@
           </div>
           <div class="row">
             <div class="label-container">
-              <label for="unit-{{ i + 1 }}">Unit {{ i + 1 }}</label>
+              <label for="unit-{{ i + 1 }}">{{'dcc.unit' | translate}} {{ i + 1 }}</label>
             </div>
             <mat-form-field appearance="fill">
               <input [(ngModel)]="dimension.unit" matInput id="unit-{{ i + 1 }}" />
@@ -64,7 +64,7 @@
       <ng-template #dimensionAsObject>
         <div class="row">
           <div class="label-container">
-            <label for="value">Value</label>
+            <label for="value">{{'dcc.value' | translate}}</label>
           </div>
           <mat-form-field appearance="fill">
             <input [(ngModel)]="(dataItem.quantity || defaultQuantity).dimension.value" matInput id="value" />
@@ -72,7 +72,7 @@
         </div>
         <div class="row">
           <div class="label-container">
-            <label for="unit">Unit</label>
+            <label for="unit">{{'dcc.unit' | translate}}</label>
           </div>
           <mat-form-field appearance="fill">
             <input [(ngModel)]="(dataItem.quantity || defaultQuantity).dimension.unit" matInput id="unit" />
@@ -85,14 +85,14 @@
       <div class="label-container">
       </div>
       <mat-radio-group [(ngModel)]="selectedOption">
-        <mat-radio-button value="real">Real</mat-radio-button>
-        <mat-radio-button value="expanded">Expanded Measurement Uncertainty</mat-radio-button>
+        <mat-radio-button value="real">{{'dcc.real' | translate}}</mat-radio-button>
+        <mat-radio-button value="expanded">{{'dcc.expandedUnc' | translate}}</mat-radio-button>
       </mat-radio-group>
     </div>
     <div *ngIf="selectedOption === 'real'">
       <div class="row">
         <div class="label-container">
-          <label for="real-label">Label</label>
+          <label for="real-label">{{'dcc.name' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="text" [(ngModel)]="realData.label" matInput id="real-label" />
@@ -100,7 +100,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="real-value">Value</label>
+          <label for="real-value">{{'dcc.value' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="number" [(ngModel)]="realData.value" matInput id="real-value" />
@@ -108,7 +108,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="real-unit">Unit</label>
+          <label for="real-unit">{{'dcc.unit' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="text" [(ngModel)]="realData.unit" matInput id="real-unit" />
@@ -116,7 +116,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="real-date">Date/Time</label>
+          <label for="real-date">{{'dcc.dateTime' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="" [(ngModel)]="realData.dateTime" matInput id="real-date" />
@@ -126,7 +126,7 @@
     <div *ngIf="selectedOption === 'expanded'">
       <div class="row">
         <div class="label-container">
-          <label for="expanded-value"> Expanded MU</label>
+          <label for="expanded-value">{{'dcc.expandedUnc' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="number" [(ngModel)]="expandedData.valueExpanded" matInput id="expanded-value" />
@@ -134,7 +134,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="expanded-factor">Coverage Factor</label>
+          <label for="expanded-factor">{{'dcc.coverageFactor' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="number" [(ngModel)]="expandedData.coverageFactor" matInput id="expanded-factor" />
@@ -142,7 +142,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="expanded-probability">Coverage Prob</label>
+          <label for="expanded-probability">{{'dcc.coverageProbability' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="number" [(ngModel)]="expandedData.coverageProbability" matInput id="expanded-probability" />
@@ -150,7 +150,7 @@
       </div>
       <div class="row">
         <div class="label-container">
-          <label for="expanded-distribution">Distribution</label>
+          <label for="expanded-distribution">{{'dcc.distribution' | translate}}</label>
         </div>
         <mat-form-field appearance="fill">
           <input type="text" [(ngModel)]="expandedData.distribution" matInput id="expanded-distribution" />

@@ -1,9 +1,9 @@
-import { FileUploadService } from 'src/app/services/common/generic-file-upload/file-upload.service';
 import { Subject } from 'rxjs';
-import { Component, OnInit, Output , EventEmitter,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { DccService } from 'src/app/services/dcc/dcc.service';
+import { FileUploadService } from './file-upload.service';
 
 @Component({
   selector: 'app-generic-file-upload',
@@ -24,27 +24,25 @@ export class GenericFileUploadComponent implements OnInit {
 
   ngOnInit() {}
 
-onFileSelected(event:any){
+  onUploadFile(event: any) {
     const file = event.target.files[0];
-    this.cdRef.detectChanges()
-    this.selectedFile = file
     if (file) {
-      const fileSizeLimit = 4 * 1024 * 1024; // 4MB limit
-
+      const fileSizeLimit = 10 * 1024 * 1024; // 10MB limit
       if (file.size > fileSizeLimit) {
-        alert('Die Dateigröße überschreitet 4 MB. Bitte wählen Sie eine kleinere Datei aus.');
+        alert('File size exceeds the limit. Please choose a smaller file.');
         return;
       }
-      this.convertBase64(file).then((base64File) => {
-        const fileData: ByteDataDto = {
-          fileName: file.name,
-          mimeType: file.type,
-          content: base64File
-        };
-        console.log("ByteDataDto emitted:", fileData);
-        this.fileSelected.emit(fileData);
-      });
+      this.selectedFile = file;
     }
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) {
+      this.showErrorToast('No file selected for upload.');
+      return;
+    }
+    this.convertBase64(this.selectedFile);
+    this.fileUpload.next(this.selectedFile);
   }
 
   convertBase64(file: File) {
@@ -63,7 +61,7 @@ onFileSelected(event:any){
           this.showSuccessToast();
         },
         error: (err: any) => {
-          this.showErrorToast('Error signing/uploading the file. Please try again.');
+          this.showErrorToast('Error uploading the file. Please try again.');
         },
       });
     };
