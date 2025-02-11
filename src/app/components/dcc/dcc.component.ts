@@ -44,7 +44,8 @@ import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-
 export class DccComponent implements OnInit,AfterContentChecked {
   dcc: CalibrationCertificateDto;
   xml!: string;
-  exampleFileUrl!: string;
+  templateFileUrl!: string;
+  uploadedFileUrl!: string;
   validPerformanceLocations = ["LABORATORY", "CUSTOMER", "LABORATORY_BRANCH", "CUSTOMER_BRANCH", "OTHER"];
   validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
   header_meta_data = "Meta-Data";
@@ -52,7 +53,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
   statement!: StatementDto;
   addressForm!: FormGroup;
   showEmptyStatement = false;
-  cardTitles:string[]=['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor',
+  cardTitles: string[] = ['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor','Identifikatoren','Installierte-Software','CIPM-MRA','Anschrift',
     'Kalibriergut1','Messergebnis1','Verwendete-Methoden','Verwendete-Messinstrumente','Einflussfaktoren','Ergebnisse','Meta-Daten','Verwendete-Software']
   isExpanded:{[title:string]:boolean}={'DCC-Software*': true};
   currentStepIndex = 0;
@@ -69,11 +70,9 @@ export class DccComponent implements OnInit,AfterContentChecked {
     public logger: NGXLogger,
     private changeDetect: ChangeDetectorRef,
     private formBuilder: FormBuilder) {
-
     this.cardTitles.forEach(title=>{
       this.isExpanded[title]=true;
       })
-
     this.dcc = this.initialiseEmptyFields(<CalibrationCertificateDto>{});
     this.buildForm();
   }
@@ -148,24 +147,29 @@ export class DccComponent implements OnInit,AfterContentChecked {
     }
   }
 
-  /* used to initialize all required fields for
-   *   - a new entry or
-   *   - after loading a template
-   * ... should initialize any required but missing fields
-   * NOTE: really important to fulfill defaults for retrieving a valid XML in the end
-   */
   initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
     if (!dcc.administrativeData) dcc.administrativeData = <AdministrativeDataDto>{};
     if (!dcc.administrativeData.dccSoftware) dcc.administrativeData.dccSoftware = new Array<SoftwareDto>;
     if (dcc.administrativeData.dccSoftware.length == 0) dcc.administrativeData.dccSoftware.push(this.getEmptySoftwareDto());
     if (!dcc.administrativeData.customer) dcc.administrativeData.customer = this.getEmptyContactDto();
+    if (!dcc.administrativeData.customer.location?.additionalInformation?.name){
+      dcc.administrativeData.customer.location!.additionalInformation!.name=this.getEmptyLanguageSpecificStringsDto();
+    }
+    if (!dcc.administrativeData.customer.location?.additionalInformation?.textContent){
+      dcc.administrativeData.customer.location!.additionalInformation!.textContent=this.getEmptyLanguageSpecificStringsDto();
+    }
     if (!dcc.administrativeData.calibrationLaboratory) dcc.administrativeData.calibrationLaboratory = this.getEmptyCalibrationLaboratoryDto();
+    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name){
+      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name=this.getEmptyLanguageSpecificStringsDto();
+    }
+    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent){
+      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent=this.getEmptyLanguageSpecificStringsDto();
+    }
     if (!dcc.administrativeData.responsiblePersons) dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
     if (dcc.administrativeData.responsiblePersons.length == 0) dcc.administrativeData.responsiblePersons.push(this.getEmptyRespPersonDto());
     if (!dcc.administrativeData.items) dcc.administrativeData.items = new Array<ItemDto>;
     if (dcc.administrativeData.items.length == 0) dcc.administrativeData.items.push(this.getEmptyItemDto());
     dcc.administrativeData.items.forEach((entry: any) => {
-      console.log('Item: ',entry)
       if (entry.installedSoftwares == null) {
         entry.installedSoftwares = new Array<SoftwareDto>;
       }
@@ -177,10 +181,14 @@ export class DccComponent implements OnInit,AfterContentChecked {
       }
       if (entry.manufacturer.location == null) {
         entry.manufacturer.location = <LocationDto>{};
+        entry.manufacturer.location.additionalInformation = this.getEmptyRichContentDto();
+        entry.manufacturer.location.additionalInformation.name = this.getEmptyLanguageSpecificStringsDto();
+        entry.manufacturer.location.additionalInformation.textContent = this.getEmptyLanguageSpecificStringsDto();
       }
       if (entry.description == null) {
         entry.description = <RichContentDto>{};
         entry.description.name = this.getEmptyLanguageSpecificStringsDto();
+        entry.description.textContent = this.getEmptyLanguageSpecificStringsDto();
       }
     });
     if (!dcc.administrativeData.statements) dcc.administrativeData.statements = new Array<StatementDto>();
@@ -472,52 +480,39 @@ export class DccComponent implements OnInit,AfterContentChecked {
     );
   }
 
-  dummydata() {
+  useTemplate() {
     this.showEmptyStatement = true;
-    this.http.get(this.exampleFileUrl, { responseType: 'text' }).subscribe(
+    this.http.get(this.templateFileUrl, { responseType: 'text' }).subscribe(
       {
         next: (xml: string) => {
           this.dccService.xmlToJson(xml.toString()).subscribe(
             {
               next: (json: CalibrationCertificateDto) => {
-                this.logger.trace("Got json from dcc.xmlToJson: " + JSON.stringify(json, null, 2));
                 this.dcc = this.initialiseEmptyFields(json);
               },
               error: (error: any) => {
                 this.errorService.logError(error);
               },
-              complete: () => { }
+              complete: () => {}
             }
           );
         },
         error: (error: any) => {
           this.errorService.logError(error);
         },
-        complete: () => { }
-      });
-  }
-  preview() {
-    // TODO: rewrite for observer pattern
-    this.dccService.jsonToHtml(this.dcc).subscribe(response => {
-      this.logger.trace("Got html preview from dcc.jsonToHtml: " + response);
-    },
-      error => {
-        this.errorService.logError(error);
+        complete: () => {}
       });
   }
 
-  openFileUploadDialog(): void {
-    const dialogRef = this.dialog.open(GenericFileUploadComponent, {
-      width: '500px',
-      data: {
-        text: "lokalen Kalibrierschein (.xml) auswählen, der als Vorlage benutzt werden soll",
-        uploadFunction: this.dccService.xmlToJson
-      }
+  preview() {
+    this.dccService.jsonToHtml(this.dcc).subscribe(response => {
+    },
+    error => {
+      this.errorService.logError(error);
     });
   }
 
   formula: FormulaDto | any = {
-    // Hier setzen Sie die Werte entsprechend Ihrer Anforderungen
     id: '1',
     content: ['<math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mi>z</mi></mrow></math>'],
     type: FormulaDto.TypeEnum.Mathml

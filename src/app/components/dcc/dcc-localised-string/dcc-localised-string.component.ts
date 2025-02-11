@@ -1,5 +1,4 @@
-
-import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from '@angular/core';
 
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
@@ -8,13 +7,15 @@ import { NavigationComponent } from '../../common/navigation/navigation.componen
 @Component({
   selector: 'app-dcc-localised-string',
   templateUrl: './dcc-localised-string.component.html',
-  styleUrls: ['./dcc-localised-string.component.scss']
+  styleUrls: ['./dcc-localised-string.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DccLocalisedStringComponent implements OnInit, AfterContentChecked {
   @Input() strings: LanguageSpecificStringsDto;
   @Input() placeholder: string;
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
+  selectedLang: string = 'en';
 
   locales = [
     { lang: "en", name: "English", icon: "fi fi-gb" },
@@ -25,10 +26,11 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   ];
 
   languageMap = new Map<string, any>();
+  inputType: string | undefined;
 
   constructor(private cdref: ChangeDetectorRef, private navigation: NavigationComponent) {
     this.strings = <LanguageSpecificStringsDto>{};
-    this.placeholder = "";
+    this.placeholder = '';
   }
 
   ngOnInit(): void {
@@ -56,18 +58,18 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
 
   getEmptyStringWithLangDto(): LanguageSpecificStringsDto {
     var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
+    result.content = new Array<LangTextPair>();
     var preselected = <LangTextPair>{};
     preselected.lang = this.locales[0].lang;
     preselected.text = this.placeholder;
-    result.content.push(preselected)
+    result.content.push(preselected);
     return result;
   }
 
   getEmptyStringWithLangText(): LangTextPair {
     var result = <LangTextPair>{};
     result.lang = this.locales[0].lang;
-    result.text = "";
+    result.text = '';
     return result;
   }
 

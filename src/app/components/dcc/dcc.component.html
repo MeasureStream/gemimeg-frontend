@@ -9,18 +9,19 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field class="full-width">
-        <mat-select [(value)]="exampleFileUrl" placeholder="{{'dcc.selectDccTemplate' | translate}}">
+        <mat-select [(value)]="templateFileUrl" placeholder="{{'dcc.selectDccTemplate' | translate}}">
           <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category" style="color: blue">
             <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
-      <button (click)="dummydata()" [disabled]="exampleFileUrl == undefined" color="primary" mat-raised-button>
+      <button (click)="useTemplate()" [disabled]="templateFileUrl == undefined" color="primary" mat-raised-button>
         {{'dcc.applyTemplate' | translate}}
       </button>
       <button (click)="submit()" [disabled]="dccForm.invalid" color="primary" mat-raised-button>{{'dcc.downloadDcc' |
         translate}}
       </button>
+      <app-dcc-upload requiredFileType="application/xml" buttonLabel="DCC hochladen..."></app-dcc-upload>
     </mat-card-content>
   </mat-card>
   <mat-stepper #stepper linear [selectedIndex]="currentStepIndex" (selectionChange)="onStepChange($event)">
@@ -169,28 +170,7 @@
           </div>
         </mat-card-header>
         <mat-card-content *ngIf="isExpanded['Verantwortliche-Personen']">
-          <div *ngFor="let respPers of dcc.administrativeData!.responsiblePersons; let i = index">
-            <p>
-              <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-                                        [strings]="respPers.name!"></app-dcc-localised-string>
-              <mat-form-field>
-                <mat-label>{{'dcc.eMail' | translate}}</mat-label>
-                <input [(ngModel)]="respPers.emailAddress" matInput name="emailAddress"/>
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>{{'dcc.phone' | translate}}</mat-label>
-                <input [(ngModel)]="respPers.phoneNumber" matInput name="phoneNumber"/>
-              </mat-form-field>
-            </p>
-            <button (click)="dcc.administrativeData!.responsiblePersons!.splice(i, 1)"
-                    *ngIf="dcc.administrativeData!.responsiblePersons!.length > 1" mat-icon-button>
-              <mat-icon>remove</mat-icon>
-            </button>
-          </div>
-          <button (click)="dcc.administrativeData!.responsiblePersons!.push(getEmptyRespPersonDto())" color="accent"
-                  mat-icon-button>
-            <mat-icon>add</mat-icon>
-          </button>
+          <app-dcc-responsible-person [list]="dcc.administrativeData!.responsiblePersons!"></app-dcc-responsible-person>
         </mat-card-content>
       </mat-card>
     </mat-step>
@@ -216,45 +196,69 @@
           <mat-card-content *ngIf="isExpanded['Kalibriergut'+(i+1)]">
             <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                                       [strings]="item.name!"></app-dcc-localised-string>
-            <mat-form-field>
-              <mat-label i18n>{{'dcc.modelOrOther' | translate}}</mat-label>
-              <input [(ngModel)]="item.model" matInput name="model"/>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label i18n>{{'dcc.normOfClassification' | translate}}</mat-label>
-              <input [(ngModel)]="item.classReference" matInput name="classReference"/>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label i18n>{{'dcc.classification' | translate}}</mat-label>
-              <input [(ngModel)]="item.classId" matInput name="classId"/>
-            </mat-form-field>
+            <div class="row">
+              <div class="label-container">
+                <label for="model">{{'dcc.modelOrOther' | translate}}</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input [(ngModel)]="item.model" matInput id="model" name="model"/>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="label-container">
+                <label for="classReference">{{'dcc.normOfClassification' | translate}}</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input [(ngModel)]="item.classReference" matInput id="classReference" name="classReference"/>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="label-container">
+                <label for="classId">{{'dcc.reference' | translate}}</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input [(ngModel)]="item.classId" matInput id="classId" name="classId"/>
+              </mat-form-field>
+            </div>
             <mat-divider></mat-divider>
-            <br/>
-            <h4 mat-subheader>{{'dcc.description' | translate}}</h4>
+            <h4>{{'dcc.description' | translate}}</h4>
             <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
-            <br/>
             <mat-divider></mat-divider>
-            <h4 mat-subheader>{{'dcc.manufacturer' | translate}}</h4>
+            <h4>{{'dcc.manufacturer' | translate}}</h4>
             <app-dcc-contact [contact]="item.manufacturer!" [strict]="false"></app-dcc-contact>
             <mat-divider></mat-divider>
-            <h4 mat-subheader>{{'dcc.identifiersOfCalibrationItem' | translate}}*</h4>
-
+            <h4>{{'dcc.identifiersOfCalibrationItem' | translate}}*</h4>
             <app-dcc-identifications [list]="item.identifications!"></app-dcc-identifications>
-            <mat-divider></mat-divider>
-            <h4 mat-subheader>{{'dcc.installedSoftware' | translate}}</h4>
-
-            <app-dcc-software [list]="item.installedSoftwares!"></app-dcc-software>
-            <mat-divider></mat-divider>
-            <button (click)="dcc.administrativeData!.items!.splice(i, 1)"
-                    *ngIf="dcc.administrativeData!.items!.length > 1" mat-mini-fab>
-              <mat-icon>remove</mat-icon>
+            <mat-card class="blue-card">
+              <mat-card-header>
+                <div class="header-title">
+                  <mat-card-title class="title">{{'dcc.installedSoftware' | translate}}</mat-card-title>
+                  <app-info-button tooltipText="Zeige das DCC-Wiki"
+                                   url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
+                </div>
+                <div class="header-menu">
+                  <button (click)="toggleCard('Installierte-Software')" class="blue-card-btn" mat-icon-button>
+                    <mat-icon>
+                      <i class="material-icons">{{isExpanded['Installierte-Software']?'keyboard_arrow_up'
+                        :'keyboard_arrow_down'}}</i>
+                    </mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content *ngIf="isExpanded['Installierte-Software']">
+                <app-dcc-software [list]="item.installedSoftwares!"></app-dcc-software>
+              </mat-card-content>
+            </mat-card>
+            <button class="custom-circle-button-lg" (click)="dcc.administrativeData!.items!.splice(i, 1)"
+                    *ngIf="dcc.administrativeData!.items!.length > 1" color="accent" mat-icon-button>
+              <mat-icon>remove_circle</mat-icon>
             </button>
           </mat-card-content>
         </mat-card>
-        <button
-            (click)="dcc.administrativeData!.items!.push(getEmptyItemDto());addCalibrationCard('Kalibriergut' + (i + 2) )"
-            mat-mini-fab>
-          <mat-icon>add</mat-icon>
+        <button class="custom-circle-button-lg"
+                (click)="dcc.administrativeData!.items!.push(getEmptyItemDto());addCalibrationCard('Kalibriergut' + (i + 2) )"
+                color="primary" mat-icon-button>
+          <mat-icon>add_circle</mat-icon>
         </button>
       </div>
     </mat-step>
@@ -305,8 +309,7 @@
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button>
                     <mat-icon>
-                      <i
-                          class="material-icons">{{isExpanded['Verwendete-Software']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                      <i class="material-icons">{{isExpanded['Verwendete-Software']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
                     </mat-icon>
                   </button>
                 </div>
@@ -325,8 +328,7 @@
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button>
                     <mat-icon>
-                      <i
-                          class="material-icons">{{isExpanded['Verwendete-Methoden']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                      <i class="material-icons">{{isExpanded['Verwendete-Methoden']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
                     </mat-icon>
                   </button>
                 </div>
@@ -345,8 +347,7 @@
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Messinstrumente')" class="blue-card-btn" mat-icon-button>
                     <mat-icon>
-                      <i
-                          class="material-icons">{{isExpanded['Verwendete-Messinstrumente']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+                      <i class="material-icons">{{isExpanded['Verwendete-Messinstrumente']?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
                     </mat-icon>
                   </button>
                 </div>
@@ -417,36 +418,26 @@
               </mat-card-content>
             </mat-card>
             <mat-divider [inset]="true"></mat-divider>
-            <button (click)="dcc.measurementResults!.splice(i, 1)" *ngIf="dcc.measurementResults!.length > 1"
-                    mat-mini-fab>
-              <mat-icon>remove</mat-icon>
+            <button class="custom-circle-button-lg" (click)="dcc.measurementResults!.splice(i, 1)"
+                    *ngIf="dcc.measurementResults!.length > 1" color="accent" mat-icon-button>
+              <mat-icon>remove_circle</mat-icon>
             </button>
           </mat-card-content>
         </mat-card>
-        <button
-            (click)="dcc.measurementResults!.push(getEmptyMeasurementResultDto());addCalibrationCard('Messergebnis'+(i+2))"
-            mat-mini-fab>
-          <mat-icon>add</mat-icon>
+        <button class="custom-circle-button-lg"
+                (click)="dcc.measurementResults!.push(getEmptyMeasurementResultDto());addCalibrationCard('Messergebnis'+(i+2))"
+                color="primary" mat-icon-button>
+          <mat-icon>add_circle</mat-icon>
         </button>
       </div>
     </mat-step>
   </mat-stepper>
 </form>
 <div class="footer-navigation">
-  <button
-      mat-button
-      color="primary"
-      (click)="previousStep(stepper)"
-      [disabled]="currentStepIndex === 0"
-      class="previous-button">
-    {{'button.previousStep' | translate}}
+  <button mat-button color="primary" (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0"
+          class="previous-button">{{'button.previousStep' | translate}}
   </button>
-  <button
-      mat-button
-      color="accent"
-      (click)="nextStep(stepper)"
-      [disabled]="currentStepIndex === totalSteps - 1"
-      class="next-button">
-    {{'button.nextStep' | translate}}
+  <button mat-button color="accent" (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1"
+          class="next-button">{{'button.nextStep' | translate}}
   </button>
 </div>

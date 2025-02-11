@@ -1,24 +1,36 @@
-<div *ngFor="let item of strings.content; let i = index">
+<div class="row" *ngFor="let item of strings.content; let i = index">
   <ng-container *ngIf="getOrSetLang(item)">
-    <mat-form-field class="custom-form-field">
-      <mat-label>{{placeholder}}</mat-label>
-      <input [(ngModel)]="item.text" [required]=" isRequired " matInput name="item"/>
-      <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" mat-icon-button matSuffix
-                  required>
-        <mat-select-trigger>
-          <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-gb' }}"></span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{
-          lang.name }}
-        </mat-option>
-      </mat-select>
+    <div class="button-container">
+      <button class="custom-circle-button-sm" (click)="strings.content?.push( getEmptyStringWithLangText())"
+              color="primary" mat-icon-button>
+        <mat-icon>add_circle</mat-icon>
+      </button>
+      <button class="custom-circle-button-sm" (click)=" strings.content?.splice(i, 1)"
+              [disabled]="strings.content?.length! < 2" color="accent" mat-icon-button>
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+    </div>
+    <div class="label-container">
+      <label [for]="placeholder.toLowerCase()">{{placeholder}}<span class="asterix">*</span>
+      </label>
+      <mat-form-field appearance="outline" class="mat-form-field-flag">
+        <mat-select class="mat-select-flag" (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang"
+                    mat-icon-button required panelClass="custom-dropdown-panel">
+          <mat-select-trigger class="mat-select-trigger">
+            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }} icon-flag"></span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let lang of locales" [value]="lang.lang">
+            <span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{ lang.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field id="localised-string" appearance="fill">
+      <input *ngIf="placeholder.toLocaleLowerCase()==='name'" [id]="placeholder.toLowerCase()" [(ngModel)]="item.text"
+             [required]=" isRequired " matInput name="item"/>
+      <textarea *ngIf="placeholder.toLocaleLowerCase()==='inhalt'" matInput [id]="placeholder.toLowerCase()"
+                class="localise-textarea" [(ngModel)]="item.text" [required]="isRequired" rows="4">
+      </textarea>
     </mat-form-field>
-    <button (click)="strings.content?.push( getEmptyStringWithLangText())" color="accent" mat-icon-button>
-      <mat-icon>add</mat-icon>
-    </button>
-    <button (click)="strings.content?.splice(i, 1)" *ngIf="strings.content?.length! >=2" mat-icon-button>
-      <mat-icon>remove</mat-icon>
-    </button>
   </ng-container>
-
 </div>

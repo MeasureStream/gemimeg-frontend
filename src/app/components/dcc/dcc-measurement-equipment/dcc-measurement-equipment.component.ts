@@ -64,4 +64,8 @@ export class DccMeasurementEquipmentComponent implements OnInit {
   addExpanded(){
     this.isExpanded.push(true)
   }
+  addItem() {
+    this.list.push(this.getEmptyMeasuringEquipmentDto());
+  }
+
 }

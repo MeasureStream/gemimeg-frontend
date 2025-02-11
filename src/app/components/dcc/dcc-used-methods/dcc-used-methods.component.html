@@ -7,30 +7,32 @@
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <mat-icon>
-          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
+        <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content *ngIf="isExpanded[i]">
-    <p>
-      <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-                                [strings]="item.name!"></app-dcc-localised-string>
-      <mat-form-field>
-        <mat-label>{{'dcc.norm' | translate}}</mat-label>
-        <input [(ngModel)]=item.norms![0] matInput name="norm" required>
-      </mat-form-field>
 
-      <mat-icon *ngIf="item.description"
-                matTooltip="An diesem Element hängt ein weiteres Objekt vom Typ Rich Content, dass aber aktuell in diesem Frontend weder bearbeitet noch angezeigt werden kann. Es bleibt aber bei der Erzeugung des DCC erhalten.">
-        question_mark
-      </mat-icon>
-    </p>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" mat-icon-button>
-      <mat-icon>remove</mat-icon>
+  <mat-card-content *ngIf="isExpanded[i]">
+    <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
+                              [strings]="item.name!"></app-dcc-localised-string>
+    <div class="row">
+      <div class="label-container">
+        <label for="refTypes"> {{'dcc.norm' | translate}}</label>
+      </div>
+      <mat-form-field class="full-width" appearance="fill">
+        <input [(ngModel)]="item.norms![0]" matInput name="norm"/>
+      </mat-form-field>
+    </div>
+    <h4>{{'dcc.description' | translate}}</h4>
+    <app-dcc-richcontent class="full-width" [richContent]="item.description"></app-dcc-richcontent>
+    <mat-divider></mat-divider>
+    <button class="custom-circle-button-md" (click)="list.splice(i, 1);isExpanded.splice(i,1)"
+            mat-icon-button color="accent">
+      <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="list.push(getEmptyUsedMethodDto()); addExpanded()" color="accent" mat-icon-button>
-  <mat-icon>add</mat-icon>
+<button class="custom-circle-button-md" (click)="list.push(getEmptyUsedMethodDto()); addExpanded()" color="primary"
+        mat-icon-button>
+  <mat-icon>add_circle</mat-icon>
 </button>

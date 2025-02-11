@@ -7,7 +7,7 @@
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+        <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
   </mat-card-header>
@@ -32,11 +32,53 @@
     <p matLine>
       <app-dcc-contact [contact]="item.manufacturer!" [strict]="true"></app-dcc-contact>
     </p>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" mat-icon-button>
-      <mat-icon>remove</mat-icon>
+    <div class="row">
+      <div class="label-container">
+        <label for="refTypes"> RefType</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.refTypes" matInput id="refType" name="refType"/>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="label-container">
+        <label for="referralId"> Referral ID</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.certificateReferralId" matInput id="referralId" name="ReferralId"
+        />
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="label-container">
+        <label for="procedure"> Procedure</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.certificateProcedure" matInput id="procedure" name="procedure"/>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="label-container">
+        <label for="value"> Value</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <label>
+          <input [(ngModel)]="item.certificateValue" matInput name="value"/>
+        </label>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="row-checkbox">
+        <mat-checkbox [(ngModel)]="item.inValidityRange">In Validity Range</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.traceable">Traceable</mat-checkbox>
+      </div>
+    </div>
+    <button class="custom-circle-button-md" (click)="list.splice(i, 1)" mat-icon-button color="accent">
+      <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="list.push(getEmptyMeasuringEquipmentDto()); addExpanded()" color="accent" mat-icon-button>
-  <mat-icon>add</mat-icon>
+<button class="custom-circle-button-md"  (click)="list.push(getEmptyMeasuringEquipmentDto());addExpanded()" mat-icon-button color="primary">
+  <mat-icon>add_circle</mat-icon>
 </button>
+

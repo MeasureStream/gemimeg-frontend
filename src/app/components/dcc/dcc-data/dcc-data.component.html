@@ -33,8 +33,9 @@
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon><i class="material-icons">delete</i></mat-icon>
       </button>
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button><i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up'
-        :'keyboard_arrow_down'}}</i></button>
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button><i
+          class="material-icons">{{isExpanded[i]?'keyboard_arrow_up'
+          :'keyboard_arrow_down'}}</i></button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">

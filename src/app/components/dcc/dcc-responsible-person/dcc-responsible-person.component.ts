@@ -1,6 +1,5 @@
-import { Component, Input, OnInit,Output, EventEmitter} from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-
 import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
@@ -8,32 +7,27 @@ import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/language
 import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
 import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 
-@Component({
-  selector: 'app-dcc-contact, [app-dcc-contact]',
-  templateUrl: './dcc-contact.component.html',
-  styleUrls: ['./dcc-contact.component.scss']
-})
-export class DccContactComponent implements OnInit {
-  @Input() contact: ContactDto;
-  @Input() strict: boolean;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
-  onFileSelected(fileData: ByteDataDto) {
-    console.log("ByteDataDto received in DccContactComponent:", fileData);
-    this.fileSelected.emit(fileData);
-  }
-  // hasAddress: boolean = false;
+@Component({
+  selector: 'app-dcc-responsible-person',
+  templateUrl: './dcc-responsible-person.component.html',
+  styleUrls: ['./dcc-responsible-person.component.scss']
+})
+export class DccResponsiblePersonComponent {
+  @Input() list: Array<ContactDto>;
+  isExpanded: boolean[] = [true];
 
   constructor() {
-    this.strict = true;
-    this.contact = <ContactDto>{};
-    this.getEmptyContactDto();
+    this.list = new Array<ContactDto>;
   }
 
   ngOnInit(): void {
 
   }
-  getEmptyContactDto(): ContactDto {
+
+
+
+  getEmptyRespPersonDto(): ContactDto {
     var result = <ContactDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.location = this.getEmptyLocationDto();
@@ -50,12 +44,19 @@ export class DccContactComponent implements OnInit {
     result.additionalInformation = this.getEmptyRichContentDto();
     return result;
   }
-  getEmptyRichContentDto(): RichContentDto {
-    var result = <RichContentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.textContent = this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent = <ByteDataDto>{};
-    result.formulaContent = <FormulaDto>{};
-    return result;
-  }
+    getEmptyRichContentDto(): RichContentDto {
+      var result = <RichContentDto>{};
+      result.name = this.getEmptyLanguageSpecificStringsDto();
+      result.textContent = this.getEmptyLanguageSpecificStringsDto();
+      result.byteDataContent = <ByteDataDto>{};
+      result.formulaContent = <FormulaDto>{};
+      return result;
+    }
+
+    toggleCard(index:number){
+      this.isExpanded[index]=!this.isExpanded[index];
+    }
+    addExpanded() {
+      this.isExpanded.push(true);
+    }
 }

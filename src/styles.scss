@@ -1,18 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+ /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 html,
 body {
   height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.mat-form-field {
-  margin-right: 10px;
 }
 
 .nested-list {
@@ -21,24 +12,31 @@ body {
   border-left: 1px solid #ccc;
 }
 
-html,
 body {
-  height: 100%;
-}
-body {
-  height: 100%;
+  margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+h4 {
+  font-size:14px !important;
+  font-weight:500 !important;
+}
+
+mat-divider {
+  margin-bottom: 22px !important;
 }
 
 .mdc-snackbar {
   text-align: center;
 }
+
 .notif-success {
   .mdc-snackbar__surface {
     background-color: rgb(5, 175, 5) !important;
   }
 }
+
 .notif-fail {
   .mdc-snackbar__surface {
     background-color: rgb(220, 53, 69) !important;
@@ -55,7 +53,7 @@ mat-card.blue-card {
   border-radius: 4px;
 
   mat-card-header {
-    height:36px;
+    height: 36px;
     background-color: #0071ce;
     color: white;
     border-top-left-radius: 4px;
@@ -81,26 +79,81 @@ mat-card.blue-card {
       width: 20%;
 
       .blue-card-btn {
-        height:36px;
+        height: 36px;
         width: 36px;
-        display:flex;
+        display: flex;
         align-items: center;
         justify-content: center;
 
-          .material-icons{
-            font-size: 20px;
-            display:flex;
-            align-items: center;
-            justify-content: center;
-          }
+        .material-icons {
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+      }
 
     }
   }
 
   mat-card-content {
-    margin: 20px 0;
+    margin-top: 20px;
   }
+
+}
+  /* ------ Gui-Design-Inputs-----*/
+
+  .row {
+    display: flex;
+    width: 100%;
+
+  .label-container,
+  .label-container-big {
+    min-width: 120px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .label-container-big {
+    min-width: 190px;
+
+  }
+
+  mat-form-field {
+    flex-grow: 1;
+    margin: 0;
+    margin-right: 120px;
+
+  }
+  #localised-string {
+    margin: 0;
+  }
+  .row-checkbox{
+    margin-left: 120px;
+
+  }
+  .button-container,
+  .dummy-container {
+    min-width: 120px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+  }
+}
+
+.custom-circle-button-lg {
+  transform:scale(1.4);
+}
+
+.custom-circle-button-md {
+  transform:scale(1.1);
+}
+
+.custom-circle-button-sm {
+  transform:scale(0.9);
 }
 
 @import "./node_modules/bootstrap/scss/bootstrap";

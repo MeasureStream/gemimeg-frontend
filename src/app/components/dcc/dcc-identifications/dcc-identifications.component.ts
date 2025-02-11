@@ -12,6 +12,7 @@ import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 export class DccIdentificationsComponent implements OnInit {
 
   @Input() list: Array<IdentificationDto>;
+  isExpanded:boolean[]=[true];
   validIdentificationIssuers = ["manufacturer", "calibrationLaboratory", "customer", "owner", "other"];
 
 
@@ -35,5 +36,14 @@ export class DccIdentificationsComponent implements OnInit {
     result.content = new Array<LangTextPair>;
     result.content.push(<LangTextPair>{})
     return result;
+  }
+  toggleCard(index:number){
+    console.log('toggle: ',index)
+    this.isExpanded[index]=!this.isExpanded[index];
+    console.log('index: ',this.isExpanded[index])
+  }
+  addExpanded(){
+    this.isExpanded.push(true);
+    console.log('isExpanded', this.isExpanded)
   }
 }

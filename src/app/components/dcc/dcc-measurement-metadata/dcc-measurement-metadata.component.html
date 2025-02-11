@@ -3,8 +3,8 @@
   <mat-card-header>
     <div class="header-title">
       <mat-card-title class="title">{{ header }} {{i + 1}}</mat-card-title>
-      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}" url="https://wiki.dcc.ptb.de/en/dccstatement"
-                      ></app-info-button>
+      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
@@ -13,7 +13,8 @@
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="item.name!" required></app-dcc-localised-string>
+    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="item.name!"
+                              required></app-dcc-localised-string>
     <h4 mat-subheader>{{'dcc.description' | translate}}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
@@ -36,8 +37,6 @@
       <mat-label>{{'dcc.norm' | translate}}</mat-label>
       <input (blur)="string2Arr($event,'norms',i)" [(ngModel)]=item.norms matInput name="norm">
     </mat-form-field>
-
-
     <mat-form-field>
       <mat-label>{{'dcc.date' | translate}}</mat-label>
       <input (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
@@ -48,7 +47,6 @@
       <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #statementDate></mat-datepicker>
     </mat-form-field>
-
     <mat-form-field>
       <mat-label>{{'dcc.period' | translate}}</mat-label>
       <input [(ngModel)]=item.period matInput>
@@ -112,11 +110,13 @@
       <app-dcc-data [dataTypes]="item.data!"></app-dcc-data>
     </ng-container>
     <mat-divider></mat-divider>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" color="accent" mat-mini-fab>
-      <mat-icon>remove</mat-icon>
+    <button class="custom-circle-button-lg" (click)="list.splice(i, 1);isExpanded.splice(i,1)" color="accent"
+            mat-icon-button>
+      <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="list.push(getEmptyStatementMetaDataDto());addExpanded()" color="accent" mat-mini-fab>
-  <mat-icon>add</mat-icon>
+<button class="custom-circle-button-lg" (click)="list.push(getEmptyStatementMetaDataDto());addExpanded()"
+        color="primary" mat-icon-button>
+  <mat-icon>add_circle</mat-icon>
 </button>

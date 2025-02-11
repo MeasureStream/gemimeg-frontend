@@ -8,24 +8,24 @@
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon>
-          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
+          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <p>
-      <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-                                [strings]="software.name!"></app-dcc-localised-string>
-      <mat-form-field>
-        <mat-label>{{'dcc.software.version' | translate}}</mat-label>
-        <input [(ngModel)]=software.version matInput name="version" required>
-      </mat-form-field>
-    </p>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" mat-icon-button>
-      <mat-icon>remove</mat-icon>
+    <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
+                              [strings]="software.name!"></app-dcc-localised-string>
+    <mat-form-field>
+      <mat-label>{{'dcc.software.version' | translate}}</mat-label>
+      <input [(ngModel)]=software.version matInput name="version" required>
+    </mat-form-field>
+    <button class="custom-circle-button-md" (click)="list.splice(i, 1);isExpanded.splice(i,1)" color="accent"
+            mat-icon-button>
+      <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="list.push(getEmptySoftwareDto());addExpanded()" color="accent" mat-icon-button>
-  <mat-icon>add</mat-icon>
+<button class="custom-circle-button-md" (click)=" list.push(getEmptySoftwareDto());addExpanded()" color="primary"
+        mat-icon-button>
+  <mat-icon>add_circle</mat-icon>
 </button>

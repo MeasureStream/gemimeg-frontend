@@ -1,4 +1,4 @@
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit,Output, EventEmitter} from '@angular/core';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
@@ -12,7 +12,12 @@ import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 })
 export class DccRichcontentComponent implements OnInit {
   @Input() richContent: RichContentDto | any;
- 
+  @Output() fileSelected = new EventEmitter<ByteDataDto>();
+
+  onFileSelected(fileData: ByteDataDto) {
+    console.log("ByteDataDto received in DccRichContentComponent:", fileData);
+    this.fileSelected.emit(fileData);
+  }
 
   showLanguageComponent = false;
   showFileComponent = false;

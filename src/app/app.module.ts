@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -55,6 +56,8 @@ import { DccQuantityComponent } from './components/dcc/dcc-quantity/dcc-quantity
 import { DccDataComponent } from './components/dcc/dcc-data/dcc-data.component';
 import { DccRichcontentComponent } from './components/dcc/dcc-richcontent/dcc-richcontent.component';
 import { DccByteDataComponent } from './components/dcc/dcc-byte-data/dcc-byte-data.component';
+import { DccUploadComponent } from './components/dcc/dcc-upload/dcc-upload.component';
+import { DccResponsiblePersonComponent } from './components/dcc/dcc-responsible-person/dcc-responsible-person.component';
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
 import { SettingsDialogComponent } from './components/common/settings-dialog/settings-dialog.component';
@@ -115,6 +118,10 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccMeasurementMetadataComponent,
     DccQuantityComponent,
     DccDataComponent,
+    DccRichcontentComponent,
+    DccByteDataComponent,
+    DccUploadComponent,
+    DccResponsiblePersonComponent,
     ErrorComponent,
     PageNotFoundComponent,
     SimpleTestComponent,
@@ -146,6 +153,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     MatMenuModule,
     MatTooltipModule,
     MatInputModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatRadioModule,
     MatDialogModule,

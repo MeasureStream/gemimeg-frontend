@@ -14,7 +14,7 @@
 <div class="elements">
   <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'dcc.name' | translate"
                             [strings]="richContent.name!"></app-dcc-localised-string>
-  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'Inhalt'"
+  <app-dcc-localised-string *ngIf="showLanguageComponent" [placeholder]="'dcc.contents' | translate"
                             [strings]="richContent.textContent!"></app-dcc-localised-string>
   <app-generic-file-upload *ngIf="showFileComponent"></app-generic-file-upload>
   <app-mathml *ngIf="showMathmlComponent"></app-mathml>

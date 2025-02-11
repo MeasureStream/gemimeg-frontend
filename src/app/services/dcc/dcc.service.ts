@@ -17,10 +17,10 @@ export class DccService {
   constructor(private http: HttpClient, private logger: NGXLogger) {
   }
 
+  //ugly hack to solve https://github.com/angular/angular/issues/18586
   jsonToXml(dcc: CalibrationCertificateDto) {
     let head = new HttpHeaders();
     head = head.set('Content-Type', 'application/json; charset=utf-8');
-    //ugly hack to solve https://github.com/angular/angular/issues/18586
     const options = {responseType: 'text' as 'json', headers: head};
     let result = this.http.post<any>(
       this.dccServicePath + "xsd/dcc/xml",
