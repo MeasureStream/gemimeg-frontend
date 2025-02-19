@@ -11,11 +11,10 @@
  */
 
 
-export interface LangTextPair { 
-    id?: string;
-    refIds?: Array<string>;
-    refTypes?: Array<string>;
-    lang?: string;
-    text?: string;
+export interface ExpandedMUDto { 
+    uncertainty?: number;
+    coverageFactor?: number;
+    coverageProbability?: number;
+    distribution?: string;
 }
 

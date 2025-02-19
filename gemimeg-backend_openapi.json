@@ -38,37 +38,6 @@
         }
       }
     },
-    "/api/v1/dcc/xsd/dcc/selfSign": {
-      "post": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
-        "description": "Self-signs a CalibrationCertificate (JSON) using SHA-256",
-        "operationId": "selfSign",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CalibrationCertificateDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CalibrationCertificateDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/v1/dcc/xsd/dcc/json": {
       "post": {
         "tags": [
@@ -808,6 +777,46 @@
           }
         }
       },
+      "ExpandedMUDto": {
+        "type": "object",
+        "properties": {
+          "uncertainty": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverageFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverageProbability": {
+            "type": "number",
+            "format": "double"
+          },
+          "distribution": {
+            "type": "string"
+          }
+        }
+      },
+      "ExpandedUncDto": {
+        "type": "object",
+        "properties": {
+          "uncertainty": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverageFactor": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverageProbability": {
+            "type": "number",
+            "format": "double"
+          },
+          "distribution": {
+            "type": "string"
+          }
+        }
+      },
       "FormulaDto": {
         "type": "object",
         "properties": {
@@ -877,21 +886,38 @@
               "format": "date-time"
             }
           },
-          "uncertaintyList": {
+          "expandedUncList": {
             "type": "array",
             "properties": {
               "empty": {
                 "type": "boolean"
               },
               "first": {
-                "$ref": "#/components/schemas/UncertaintyDto"
+                "$ref": "#/components/schemas/ExpandedUncDto"
               },
               "last": {
-                "$ref": "#/components/schemas/UncertaintyDto"
+                "$ref": "#/components/schemas/ExpandedUncDto"
               }
             },
             "items": {
-              "$ref": "#/components/schemas/UncertaintyDto"
+              "$ref": "#/components/schemas/ExpandedUncDto"
+            }
+          },
+          "expandedMUList": {
+            "type": "array",
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              },
+              "first": {
+                "$ref": "#/components/schemas/ExpandedMUDto"
+              },
+              "last": {
+                "$ref": "#/components/schemas/ExpandedMUDto"
+              }
+            },
+            "items": {
+              "$ref": "#/components/schemas/ExpandedMUDto"
             }
           },
           "coverageIntervalList": {
@@ -1399,8 +1425,11 @@
               "$ref": "#/components/schemas/MethodDto"
             }
           },
-          "uncertainty": {
-            "$ref": "#/components/schemas/UncertaintyDto"
+          "expandedUnc": {
+            "$ref": "#/components/schemas/ExpandedUncDto"
+          },
+          "expandedMU": {
+            "$ref": "#/components/schemas/ExpandedMUDto"
           },
           "coverageInterval": {
             "$ref": "#/components/schemas/CoverageIntervalDto"
@@ -1712,26 +1741,6 @@
           }
         }
       },
-      "UncertaintyDto": {
-        "type": "object",
-        "properties": {
-          "uncertainty": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageFactor": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageProbability": {
-            "type": "number",
-            "format": "double"
-          },
-          "distribution": {
-            "type": "string"
-          }
-        }
-      },
       "XmlValuesDto": {
         "type": "object",
         "properties": {
@@ -1741,21 +1750,38 @@
               "$ref": "#/components/schemas/DimensionDto"
             }
           },
-          "uncertainties": {
+          "expandedUncList": {
             "type": "array",
             "properties": {
               "empty": {
                 "type": "boolean"
               },
               "first": {
-                "$ref": "#/components/schemas/UncertaintyDto"
+                "$ref": "#/components/schemas/ExpandedUncDto"
               },
               "last": {
-                "$ref": "#/components/schemas/UncertaintyDto"
+                "$ref": "#/components/schemas/ExpandedUncDto"
               }
             },
             "items": {
-              "$ref": "#/components/schemas/UncertaintyDto"
+              "$ref": "#/components/schemas/ExpandedUncDto"
+            }
+          },
+          "expandedMUList": {
+            "type": "array",
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              },
+              "first": {
+                "$ref": "#/components/schemas/ExpandedMUDto"
+              },
+              "last": {
+                "$ref": "#/components/schemas/ExpandedMUDto"
+              }
+            },
+            "items": {
+              "$ref": "#/components/schemas/ExpandedMUDto"
             }
           },
           "coverageIntervals": {

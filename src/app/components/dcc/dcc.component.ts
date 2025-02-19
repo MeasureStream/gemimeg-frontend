@@ -308,7 +308,6 @@ export class DccComponent implements OnInit,AfterContentChecked {
     if (statement.responsibleAuthority.location?.additionalInformation == null || undefined) {
       statement.responsibleAuthority.location.additionalInformation = this.getEmptyRichContentDto();
     }
-
   }
 
   getEmptyItemDto(): ItemDto {
