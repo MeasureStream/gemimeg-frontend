@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { ConditionDto } from 'src/app/generated/dcc/model/conditionDto';
 import { DataDto } from 'src/app/generated/dcc/model/dataDto';
+import { DimensionDto } from 'src/app/generated/dcc/model/dimensionDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-influence-conditions',
@@ -15,51 +16,16 @@ export class DccInfluenceConditionsComponent implements OnInit {
   isExpanded: boolean[] = [true];
   
   selectedOption: string = 'real';
-  defaultDimension = { value: 0, unit: '' };
-  item: DataDto | any = {
-    refTypes: '',
-    data: [{
-      quantity: {
-        refTypes: '',
-        hybridValues: {
-          dimensions: [{ value: 0, unit: '' }],
-        },
-        dimension: { value: 0, unit: '' },
-      },
-    }]
-  };
+  defaultDimension: DimensionDto;
+  item: DataDto;
   
-  constructor(private http: HttpClient) {
+  constructor(private initializationService: InitializationService) {
     this.list = new Array<ConditionDto>;
+    this.defaultDimension = initializationService.getEmptyDimensionDto();
+    this.item = initializationService.getEmptyDataDto();
   }
 
   ngOnInit(): void {
-  }
-
-  getEmptyConditionDto(): ConditionDto {
-    const result: ConditionDto = {
-      name: {
-        content: [{
-          lang: 'en',
-          text: '',
-        },
-        {
-          lang: 'de',
-          text: '',
-        }],
-      },
-      status: '',
-      refTypes: [],
-      data: [{
-        quantity: {
-          refTypes:  [],
-          hybridValues: {
-            dimensions: [{ value: 0, unit: '' }],
-          },
-        },
-      }],
-    };
-    return result;
   }
 
   isQuantity(data: DataDto): boolean {
@@ -67,7 +33,7 @@ export class DccInfluenceConditionsComponent implements OnInit {
   }
 
   addNewCondition(): void {
-    this.list.push(this.getEmptyConditionDto());
+    this.list.push(this.initializationService.getEmptyConditionDto());
   }
 
   toggleCard(index: number) {
@@ -87,15 +53,15 @@ export class DccInfluenceConditionsComponent implements OnInit {
 
   realData = {
     label: '',
-    quantityType: '',
-    value: null,
+    quantityType: this.selectedOption,
+    value: 0,
     unit: '',
     dateTime: new Date()
   };
 
   defaultQuantity = {
-    refTypes: '',
-    hybridValues: { dimensions: [{ value: '', unit: '' }] },
-    dimension: { value: '', unit: '' },
+    refTypes: [],
+    hybridValues: { dimensions: [{ value: 0, unit: '' }] },
+    dimension: { value: 0, unit: '' }
   };
 }
