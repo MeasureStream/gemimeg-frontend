@@ -11,7 +11,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
-  userLanguage = 'en';
+  userLanguage = Intl.DateTimeFormat().resolvedOptions().locale.split('-')[0];
   fullName = '';
   isInfoDialogVisible = false;
   isSettingsDialogVisible = false;
@@ -24,6 +24,12 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private translate: TranslateService) {
+    if (this.translate.langs.includes(this.userLanguage)) {
+      this.translate.use(this.userLanguage);
+    }else{
+      this.userLanguage = 'en';
+      this.translate.use('en');
+    }
   }
 
   ngOnInit(): void {
