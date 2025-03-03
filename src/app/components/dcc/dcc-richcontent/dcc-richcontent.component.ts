@@ -1,9 +1,7 @@
-import { Component, Input, OnInit,Output, EventEmitter} from '@angular/core';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
+import { Component, Input,OnInit } from '@angular/core';
+
 import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-richcontent',
@@ -12,44 +10,25 @@ import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 })
 export class DccRichcontentComponent implements OnInit {
   @Input() richContent: RichContentDto | any;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
-
-  onFileSelected(fileData: ByteDataDto) {
-    console.log("ByteDataDto received in DccRichContentComponent:", fileData);
-    this.fileSelected.emit(fileData);
-  }
 
   showLanguageComponent = false;
   showFileComponent = false;
   showMathmlComponent = false;
   languageItems: any[] = [];
 
-  constructor() {
-
+  constructor(private initializationService: InitializationService) {
   }
 
   ngOnInit(): void {
-   
     if (!this.richContent) {
-      this.richContent = this.getEmptyRichContent();
+      this.richContent = this.initializationService.getEmptyRichContentDto();
     }
   }
-
-  getEmptyRichContent():RichContentDto{
-    var result = <RichContentDto>{};
-    result.name=<LanguageSpecificStringsDto>{};
-    result.textContent=<LanguageSpecificStringsDto>{};
-    result.byteDataContent= <ByteDataDto>{};
-    result.formulaContent=<FormulaDto>{};
-    return result;
-  }
-
 
   toggleComponent(component: string) {
     switch (component) {
       case 'language':
         this.showLanguageComponent = !this.showLanguageComponent;
-
         break;
       case 'file':
         this.showFileComponent = !this.showFileComponent;
@@ -59,26 +38,8 @@ export class DccRichcontentComponent implements OnInit {
         break;
     }
   }
-  getEmptyRichContentDto():RichContentDto{
-    var result = <RichContentDto>{};
-    result.name=this.getEmptyLanguageSpecificStringsDto();
-    result.textContent=this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent= <ByteDataDto>{};
-    result.formulaContent=<FormulaDto>{};
-    return result;
-  }
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-      var result = <LanguageSpecificStringsDto>{};
-      result.content = new Array<LangTextPair>;
-      result.content.push(<LangTextPair>{})
-      return result;
-    }
 
-  getEmptyContent(): LangTextPair {
-    var result = <LangTextPair>{};
-    return result;
-  }
-  onFileUploading(file:File){
+  onFileUploading(file: File) {
     console.log('file uploaded', file);
   }
 }

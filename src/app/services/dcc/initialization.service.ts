@@ -14,6 +14,7 @@ import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
 import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
+import { ResultDto } from 'src/app/generated/dcc/model/resultDto';
 import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 import { StatementDto } from 'src/app/generated/dcc/model/statementDto';
 
@@ -188,6 +189,17 @@ export class InitializationService {
     result.data.push(this.getEmptyDataDto());
     result.location = this.getEmptyLocationDto();
     result.responsibleAuthority = this.getEmptyContactDto();
+    return result;
+  }
+
+  getEmptyResultDto(): ResultDto {
+    var result = <ResultDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.data = new Array<DataDto>;
+    result.data.push(this.getEmptyDataDto());
     return result;
   }
 }

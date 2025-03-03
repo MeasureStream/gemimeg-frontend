@@ -479,6 +479,33 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.contents</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.convention</name>
 						<description/>
 						<comment/>
@@ -965,6 +992,33 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.emailAddress</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.endDateOfLaboratoryProcedure</name>
 						<description/>
 						<comment/>
@@ -1182,6 +1236,33 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.influenceConditions.name</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.influenceFactor</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -1721,6 +1802,33 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.phoneNumber</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.poBox</name>
 						<description/>
 						<comment/>
@@ -1910,6 +2018,87 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.rich-content.file</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.rich-content.language</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.rich-content.mathml</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.selectDccTemplate</name>
 						<description/>
 						<comment/>
@@ -1992,6 +2181,33 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.statements</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.status</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -2423,6 +2639,33 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>fileUpload.downloadFile</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>fileUpload.pleaseClickToUploadFile</name>
 						<description/>
 						<comment/>
@@ -2451,6 +2694,33 @@
 					</concept_node>
 					<concept_node>
 						<name>fileUpload.selectedFile</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>fileUpload.uploadFile</name>
 						<description/>
 						<comment/>
 						<translations>
