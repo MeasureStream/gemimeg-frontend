@@ -1,7 +1,7 @@
 <mat-card *ngFor="let respPers of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{dcc.responsiblePerson | translate}} {{i+1}}</mat-card-title>
+      <mat-card-title class="title">{{'dcc.responsiblePerson' | translate}} {{i+1}}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>

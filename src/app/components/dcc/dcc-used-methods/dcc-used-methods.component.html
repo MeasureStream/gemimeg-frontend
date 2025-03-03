@@ -7,32 +7,31 @@
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
+        <mat-icon>
+          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
       </button>
     </div>
   </mat-card-header>
-
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-                              [strings]="item.name!"></app-dcc-localised-string>
-    <div class="row">
-      <div class="label-container">
-        <label for="refTypes"> {{'dcc.norm' | translate}}</label>
+    <div>
+      <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
+                                [strings]="item.name!"></app-dcc-localised-string>
+      <div class="row">
+        <div class="label-container">
+          <label for="norm">Norm<span class="asterix">*</span></label>
+        </div>
+        <mat-form-field appearance="fill">
+          <input [(ngModel)]=item.norms![0] id="norm" matInput name="norm" required>
+        </mat-form-field>
       </div>
-      <mat-form-field class="full-width" appearance="fill">
-        <input [(ngModel)]="item.norms![0]" matInput name="norm"/>
-      </mat-form-field>
     </div>
-    <h4>{{'dcc.description' | translate}}</h4>
-    <app-dcc-richcontent class="full-width" [richContent]="item.description"></app-dcc-richcontent>
-    <mat-divider></mat-divider>
-    <button class="custom-circle-button-md" (click)="list.splice(i, 1);isExpanded.splice(i,1)"
-            mat-icon-button color="accent">
+    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" class="custom-circle-button-md" color="accent"
+            mat-icon-button>
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button class="custom-circle-button-md" (click)="list.push(getEmptyUsedMethodDto()); addExpanded()" color="primary"
+<button (click)="addEmptyMethodDto();addExpanded()" class="custom-circle-button-md" color="primary"
         mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

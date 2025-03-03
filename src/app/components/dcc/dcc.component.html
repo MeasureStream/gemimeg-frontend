@@ -21,7 +21,7 @@
       <button (click)="submit()" [disabled]="dccForm.invalid" color="primary" mat-raised-button>{{'dcc.downloadDcc' |
         translate}}
       </button>
-      <app-dcc-upload requiredFileType="application/xml" buttonLabel="DCC hochladen..."></app-dcc-upload>
+      <app-dcc-upload></app-dcc-upload>
     </mat-card-content>
   </mat-card>
   <mat-stepper #stepper linear [selectedIndex]="currentStepIndex" (selectionChange)="onStepChange($event)">

@@ -13,9 +13,11 @@ import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
+import { MethodDto } from 'src/app/generated/dcc/model/methodDto';
 import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
 import { ResultDto } from 'src/app/generated/dcc/model/resultDto';
 import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { SoftwareDto } from 'src/app/generated/dcc/model/softwareDto';
 import { StatementDto } from 'src/app/generated/dcc/model/statementDto';
 
 @Injectable({
@@ -200,6 +202,27 @@ export class InitializationService {
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.data = new Array<DataDto>;
     result.data.push(this.getEmptyDataDto());
+    return result;
+  }
+
+  getEmptySoftwareDto(): SoftwareDto {
+    var result = <SoftwareDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.version = '';
+    return result;
+  }
+
+  getEmptyMethodDto(): MethodDto {
+    var result = <MethodDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.description = this.getEmptyRichContentDto();
+    result.norms = new Array<string>;
     return result;
   }
 }

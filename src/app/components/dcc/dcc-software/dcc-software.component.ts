@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { SoftwareDto } from 'src/app/generated/dcc/model/softwareDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-software',
@@ -10,28 +9,26 @@ import { SoftwareDto } from 'src/app/generated/dcc/model/softwareDto';
   styleUrls: ['./dcc-software.component.scss']
 })
 export class DccSoftwareComponent implements OnInit {
-
   @Input() list: SoftwareDto[];
-  isExpanded:boolean[]=[true];
-  constructor() {
+  isExpanded: boolean[] = [true];
+
+  constructor(private initializationService: InitializationService) {
     this.list = new Array<SoftwareDto>;
+    this.addEmptySoftwareDto();
+    this.addExpanded();
   }
 
   ngOnInit(): void {
-
   }
 
-  getEmptySoftwareDto(): SoftwareDto {
-    var result = <SoftwareDto>{};
-    result.name = <LanguageSpecificStringsDto>{};
-    result.name.content = new Array<LangTextPair>;
-    result.name.content.push(<LangTextPair>{})
-    return result;
+  addEmptySoftwareDto() {
+    this.list.push(this.initializationService.getEmptySoftwareDto());
   }
 
-  toggleCard(index:number){
+  toggleCard(index: number) {
     this.isExpanded[index]=!this.isExpanded[index];
   }
+
   addExpanded() {
     this.isExpanded.push(true);
   }
