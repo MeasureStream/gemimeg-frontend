@@ -1,34 +1,30 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from '@angular/core';
-
+import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from '@angular/core';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { NavigationComponent } from '../../common/navigation/navigation.component';
 
 @Component({
   selector: 'app-dcc-localised-string',
   templateUrl: './dcc-localised-string.component.html',
   styleUrls: ['./dcc-localised-string.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class DccLocalisedStringComponent implements OnInit, AfterContentChecked {
   @Input() strings: LanguageSpecificStringsDto;
   @Input() placeholder: string;
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
-  selectedLang: string = 'en';
 
   locales = [
     { lang: "en", name: "English", icon: "fi fi-gb" },
     { lang: "de", name: "Deutsch", icon: "fi fi-de" },
     { lang: "fr", name: "Français", icon: "fi fi-fr" },
     { lang: "es", name: "Español", icon: "fi fi-es" },
-    { lang: "pt", name: "Português", icon: "fi fi-br" }
+    { lang: "pt", name: "Português ", icon: "fi fi-br" }
   ];
 
   languageMap = new Map<string, any>();
-  inputType: string | undefined;
 
-  constructor(private cdref: ChangeDetectorRef, private navigation: NavigationComponent) {
+  constructor(private cdref: ChangeDetectorRef) {
     this.strings = <LanguageSpecificStringsDto>{};
     this.placeholder = '';
   }
@@ -58,18 +54,18 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
 
   getEmptyStringWithLangDto(): LanguageSpecificStringsDto {
     var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>();
+    result.content = new Array<LangTextPair>;
     var preselected = <LangTextPair>{};
     preselected.lang = this.locales[0].lang;
     preselected.text = this.placeholder;
-    result.content.push(preselected);
+    result.content.push(preselected)
     return result;
   }
 
   getEmptyStringWithLangText(): LangTextPair {
     var result = <LangTextPair>{};
     result.lang = this.locales[0].lang;
-    result.text = '';
+    result.text = "";
     return result;
   }
 
@@ -83,10 +79,9 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
       }
     }
   }
-
   getOrSetLang(item: any): string {
     if (item.lang === '**' || item.lang === undefined) {
-      item.lang = this.navigation.getUserLanguage();
+      item.lang = 'en';
     }
     return item.lang;
   }

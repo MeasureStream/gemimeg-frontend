@@ -1,20 +1,22 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{'dcc.quantity' | translate}} {{ i + 1 }}</mat-card-title>
+      <mat-card-title class="title">{{'dcc.influenceFactor' | translate}} {{i+1}}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon>
-          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon>
+          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+        </mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
+    <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
+                              [strings]="item.name!"></app-dcc-localised-string>
     <div class="row">
       <div class="label-container">
-        <label for="status">Status</label>
+        <label for="status">{{'dcc.status' | translate}}</label>
       </div>
       <mat-form-field appearance="fill">
         <mat-select [(value)]="item.status" id="status" required>
@@ -24,144 +26,20 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="row">
-      <div class="label-container">
-        <label for="refType">RefType</label>
-      </div>
-      <mat-form-field class="full-width" appearance="fill">
-        <input [(ngModel)]="item.refTypes" matInput id="refType" name="refType" />
-      </mat-form-field>
+    <div *ngIf="item.description">
+      <app-dcc-richcontent richContent="item.description"></app-dcc-richcontent>
     </div>
-    <div *ngFor="let dataItem of (item.data && item.data.length > 0 ? item.data : [{}])">
-      <ng-container *ngIf="dataItem.quantity?.hybridValues?.dimensions?.length > 0; else dimensionAsObject">
-        <div *ngFor="let dimension of (dataItem.quantity?.hybridValues?.dimensions || defaultQuantity.hybridValues.dimensions); let i = index">
-          <div class="row">
-            <div class="label-container">
-              <label for="refType">RefType</label>
-            </div>
-            <mat-form-field *ngIf="i === 0" appearance="fill">
-              <input [(ngModel)]="(dataItem.quantity || defaultQuantity).refTypes" matInput id="refType" name="refType" />
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <div class="label-container">
-              <label for="value-{{ i + 1 }}">{{'dcc.value' | translate}} {{ i + 1 }}</label>
-            </div>
-            <mat-form-field appearance="fill">
-              <input [(ngModel)]="dimension.value" id="value-{{ i + 1 }}" matInput />
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <div class="label-container">
-              <label for="unit-{{ i + 1 }}">{{'dcc.unit' | translate}} {{ i + 1 }}</label>
-            </div>
-            <mat-form-field appearance="fill">
-              <input [(ngModel)]="dimension.unit" matInput id="unit-{{ i + 1 }}" />
-            </mat-form-field>
-          </div>
-        </div>
-      </ng-container>
-      <ng-template #dimensionAsObject>
-        <div class="row">
-          <div class="label-container">
-            <label for="value">{{'dcc.value' | translate}}</label>
-          </div>
-          <mat-form-field appearance="fill">
-            <input [(ngModel)]="(dataItem.quantity || defaultQuantity).dimension.value" matInput id="value"/>
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <div class="label-container">
-            <label for="unit">{{'dcc.unit' | translate}}</label>
-          </div>
-          <mat-form-field appearance="fill">
-            <input [(ngModel)]="(dataItem.quantity || defaultQuantity).dimension.unit" matInput id="unit"/>
-          </mat-form-field>
-        </div>
-      </ng-template>
+    <div *ngIf="item.data != null && item.data.length > 0">
+      <app-dcc-quantity *ngIf="isQuantity(item.data[0])" [dataType]="item.data[0]"></app-dcc-quantity>
     </div>
     <mat-divider></mat-divider>
-    <div class="row">
-      <div class="label-container">
-      </div>
-      <mat-radio-group [(ngModel)]="selectedOption">
-        <mat-radio-button value="real">{{'dcc.real' | translate}}</mat-radio-button>
-        <mat-radio-button value="expanded">{{'dcc.expandedUnc' | translate}}</mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <div *ngIf="selectedOption === 'real'">
-      <div class="row">
-        <div class="label-container">
-          <label for="real-label">{{'dcc.name' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="text" [(ngModel)]="realData.label" matInput id="real-label" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="real-value">{{'dcc.value' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="number" [(ngModel)]="realData.value" matInput id="real-value" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="real-unit">{{'dcc.unit' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="text" [(ngModel)]="realData.unit" matInput id="real-unit" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="real-date">{{'dcc.dateTime' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="" [(ngModel)]="realData.dateTime" matInput id="real-date" />
-        </mat-form-field>
-      </div>
-    </div>
-    <div *ngIf="selectedOption === 'expanded'">
-      <div class="row">
-        <div class="label-container">
-          <label for="expanded-value">{{'dcc.expandedUnc' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="number" [(ngModel)]="expandedData.valueExpanded" matInput id="expanded-value" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="expanded-factor">{{'dcc.coverageFactor' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="number" [(ngModel)]="expandedData.coverageFactor" matInput id="expanded-factor" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="expanded-probability">{{'dcc.coverageProbability' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="number" [(ngModel)]="expandedData.coverageProbability" matInput id="expanded-probability" />
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="label-container">
-          <label for="expanded-distribution">{{'dcc.distribution' | translate}}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input type="text" [(ngModel)]="expandedData.distribution" matInput id="expanded-distribution" />
-        </mat-form-field>
-      </div>
-    </div>
-    <button class="custom-circle-button-md" (click)="list.splice(i, 1)" mat-icon-button color="accent">
+    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button>
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button class="custom-circle-button-md" (click)="addNewCondition()" color="primary" mat-icon-button>
+<mat-divider></mat-divider>
+<button (click)="this.addEmptyConditionDto();addExpanded()" class="custom-circle-button-md" color="primary"
+        mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

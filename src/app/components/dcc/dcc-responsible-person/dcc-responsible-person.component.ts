@@ -1,11 +1,7 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
+import { Component, Input } from '@angular/core';
+
 import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
-import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 
 @Component({
@@ -17,46 +13,24 @@ export class DccResponsiblePersonComponent {
   @Input() list: Array<ContactDto>;
   isExpanded: boolean[] = [true];
 
-  constructor() {
+  constructor(private initializationService: InitializationService) {
     this.list = new Array<ContactDto>;
+    this.addEmptyContactDto();
+    this.addExpanded();
   }
 
   ngOnInit(): void {
-
   }
 
-
-
-  getEmptyRespPersonDto(): ContactDto {
-    var result = <ContactDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.location = this.getEmptyLocationDto();
-    return result;
+  toggleCard(index: number) {
+    this.isExpanded[index]=!this.isExpanded[index];
   }
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-    var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
-    result.content.push(<LangTextPair>{})
-    return result;
+  
+  addExpanded() {
+    this.isExpanded.push(true);
   }
-  getEmptyLocationDto(): LocationDto {
-    var result = <LocationDto>{}
-    result.additionalInformation = this.getEmptyRichContentDto();
-    return result;
-  }
-    getEmptyRichContentDto(): RichContentDto {
-      var result = <RichContentDto>{};
-      result.name = this.getEmptyLanguageSpecificStringsDto();
-      result.textContent = this.getEmptyLanguageSpecificStringsDto();
-      result.byteDataContent = <ByteDataDto>{};
-      result.formulaContent = <FormulaDto>{};
-      return result;
-    }
 
-    toggleCard(index:number){
-      this.isExpanded[index]=!this.isExpanded[index];
-    }
-    addExpanded() {
-      this.isExpanded.push(true);
-    }
+  addEmptyContactDto() {
+    this.list.push(this.initializationService.getEmptyContactDto());
+  }
 }

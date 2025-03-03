@@ -1,13 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
 import { EquipmentDto } from 'src/app/generated/dcc/model/equipmentDto';
-import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-measurement-equipment',
@@ -17,55 +11,26 @@ import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 export class DccMeasurementEquipmentComponent implements OnInit {
 
   @Input() list: Array<EquipmentDto>;
-  isExpanded:boolean[]=[true];
+  isExpanded:boolean[] = [true];
 
-  constructor() {
+  constructor(private initializationService: InitializationService) {
     this.list = new Array<EquipmentDto>;
+    this.addEmptyEquipmentDto();
+    this.addExpanded();
   }
 
   ngOnInit(): void {
-
   }
-
-  getEmptyMeasuringEquipmentDto(): EquipmentDto {
-    var result = <EquipmentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.manufacturer=this.getEmptyContactDto();
-    return result;
+  
+  toggleCard(index: number) {
+    this.isExpanded[index] = !this.isExpanded[index];
   }
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-    var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
-    result.content.push(<LangTextPair>{})
-    return result;
-  }
-  getEmptyContactDto(): ContactDto {
-    var result = <ContactDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.location = this.getEmptyLocationDto();
-    return result;
-  }
-  getEmptyLocationDto(): LocationDto {
-    var result = <LocationDto>{}
-    result.additionalInformation = this.getEmptyRichContentDto();
-    return result;
-  }
-  getEmptyRichContentDto(): RichContentDto {
-    var result = <RichContentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.textContent = this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent = <ByteDataDto>{};
-    result.formulaContent = <FormulaDto>{};
-    return result;
-  }
-  toggleCard(index:number){
-    this.isExpanded[index]=!this.isExpanded[index];
-  }
-  addExpanded(){
+  
+  addExpanded() {
     this.isExpanded.push(true)
   }
-  addItem() {
-    this.list.push(this.getEmptyMeasuringEquipmentDto());
-  }
 
+  addEmptyEquipmentDto() {
+    this.list.push(this.initializationService.getEmptyEquipmentDto());
+  }
 }

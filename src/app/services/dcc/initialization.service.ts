@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
+
 import { ConditionDto } from 'src/app/generated/dcc/model/conditionDto';
+import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
+import { CoverageIntervalDto } from 'src/app/generated/dcc/model/coverageIntervalDto';
 import { DataDto } from 'src/app/generated/dcc/model/dataDto';
 import { DimensionDto } from 'src/app/generated/dcc/model/dimensionDto';
+import { EquipmentDto } from 'src/app/generated/dcc/model/equipmentDto';
+import { ExpandedMUDto } from 'src/app/generated/dcc/model/expandedMUDto';
+import { ExpandedUncDto } from 'src/app/generated/dcc/model/expandedUncDto';
 import { HybridValues } from 'src/app/generated/dcc/model/hybridValues';
+import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto';
+import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
+import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
+import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
 import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
+import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { StatementDto } from 'src/app/generated/dcc/model/statementDto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +33,59 @@ export class InitializationService {
 
   getEmptyHybridValues(): HybridValues {
     var result = <HybridValues>{};
+    result.labelList = [];
+    result.quantitySubTypeNames = [];
     result.dimensions = new Array<DimensionDto>;
     result.dimensions.push(this.getEmptyDimensionDto());
+    return result;
+  }
+
+  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
+    var result = <LanguageSpecificStringsDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.content = new Array<LangTextPair>;
+    var langTextPair = <LangTextPair>{};
+    langTextPair.id = '';
+    langTextPair.refIds = [];
+    langTextPair.refTypes = [];
+    langTextPair.lang = 'de';
+    langTextPair.text = '';
+    result.content.push(langTextPair);
+    return result;
+  }
+
+  getLanguageSpecificStringsDto(lang: string, text: string): LanguageSpecificStringsDto {
+    var result = this.getEmptyLanguageSpecificStringsDto();
+    result.content!.at(0)!.lang = lang;
+    result.content!.at(0)!.text = text;
+    return result;
+  }
+
+  getEmptyExpandedUncDto(): ExpandedUncDto {
+    var result = <ExpandedUncDto>{};
+    result.uncertainty = 0;
+    result.coverageFactor = 1;
+    result.coverageProbability = 1;
+    result.distribution= '';
+    return result;
+  }
+
+  getEmptyExpandedMUDto(): ExpandedMUDto {
+    var result = <ExpandedMUDto>{};
+    result.uncertainty = 0;
+    result.coverageFactor = 1;
+    result.coverageProbability = 1;
+    result.distribution= '';
+    return result;
+  }
+
+  getEmptyCoverageIntervalDto(): CoverageIntervalDto {
+    var result = <CoverageIntervalDto>{};
+    result.standardUncertainty = 0;
+    result.intervalMinimum = Number.MIN_VALUE;
+    result.intervalMaximum = Number.MAX_VALUE;
+    result.coverageProbability = 1;
     return result;
   }
 
@@ -31,10 +94,23 @@ export class InitializationService {
     result.id = '';
     result.refIds = [];
     result.refTypes = [];
-    result.label = '';
     result.dimension = this.getEmptyDimensionDto();
+    result.label = '';
     result.quantityTypeName = 'real';
     result.hybridValues = this.getEmptyHybridValues();
+    result.expandedUnc = this.getEmptyExpandedUncDto();
+    result.expandedMU = this.getEmptyExpandedMUDto();
+    result.coverageInterval = this.getEmptyCoverageIntervalDto();
+    return result;
+  }
+
+  getEmptyRichContentDto(): RichContentDto {
+    var result = <RichContentDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.textContent = this.getEmptyLanguageSpecificStringsDto();
     return result;
   }
 
@@ -44,17 +120,74 @@ export class InitializationService {
     result.refIds = [];
     result.refTypes = [];
     result.quantity = this.getEmptyQuantityDto();
+    result.richContent = this.getEmptyRichContentDto();
     return result;
   }
 
   getEmptyConditionDto(): ConditionDto {
     var result = <ConditionDto>{};
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.data = new Array<DataDto>;
+    result.data.push(this.getEmptyDataDto());
+    return result;
+  }
+
+  getEmptyIdentifictionDto(): IdentificationDto {
+    var result = <IdentificationDto>{};
     result.id = '';
     result.refIds = [];
     result.refTypes = [];
-    result.data = new Array<DataDto>;
+    result.issuer='';
+    result.value='';
+    result.name=this.getEmptyLanguageSpecificStringsDto();
+    return result;
+  }
+
+  getEmptyLocationDto(): LocationDto {
+    var result = <LocationDto>{}
+    result.id = '';
+    result.countryCode = 'DE';
+    result.street = '';
+    result.city = '';
+    result.additionalInformation = this.getEmptyRichContentDto();
+    return result;
+  }
+  
+  getEmptyContactDto(): ContactDto {
+    var result = <ContactDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.location = this.getEmptyLocationDto();
+    return result;
+  }
+  
+  getEmptyEquipmentDto(): EquipmentDto {
+    var result = <EquipmentDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.manufacturer = this.getEmptyContactDto();
+    return result;
+  }
+
+  getEmptyStatementDto(): StatementDto {
+    var result = <StatementDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.countryCodes = new Array<string>
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.description = this.getEmptyRichContentDto();
+    result.declaration = this.getEmptyRichContentDto();
+    result.norms = new Array<string>;
+    result.references = new Array<string>;
+    result.data = new Array<DataDto>();
     result.data.push(this.getEmptyDataDto());
-    result.status = '';
+    result.location = this.getEmptyLocationDto();
+    result.responsibleAuthority = this.getEmptyContactDto();
     return result;
   }
 }
