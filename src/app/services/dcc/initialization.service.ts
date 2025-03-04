@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { ConditionDto } from 'src/app/generated/dcc/model/conditionDto';
 import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
 import { CoverageIntervalDto } from 'src/app/generated/dcc/model/coverageIntervalDto';
@@ -8,10 +9,12 @@ import { DimensionDto } from 'src/app/generated/dcc/model/dimensionDto';
 import { EquipmentDto } from 'src/app/generated/dcc/model/equipmentDto';
 import { ExpandedMUDto } from 'src/app/generated/dcc/model/expandedMUDto';
 import { ExpandedUncDto } from 'src/app/generated/dcc/model/expandedUncDto';
+import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 import { HybridValues } from 'src/app/generated/dcc/model/hybridValues';
 import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
+import { ListDto } from 'src/app/generated/dcc/model/listDto';
 import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
 import { MethodDto } from 'src/app/generated/dcc/model/methodDto';
 import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
@@ -127,6 +130,27 @@ export class InitializationService {
     return result;
   }
 
+  getEmptyByteDataDto(): ByteDataDto {
+    var result = <ByteDataDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.description = this.getEmptyRichContentDto();
+    result.fileName = '';
+    result.mimeType = '';
+    result.content = ''; // https://www.rfc-editor.org/rfc/rfc4648#section-10
+    return result;
+  }
+
+  getEmptyFormulaDto(): FormulaDto {
+    var result = <FormulaDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.content = '<math></math>';
+    result.type = FormulaDto.TypeEnum.Mathml;
+    return result;
+  }
+
   getEmptyConditionDto(): ConditionDto {
     var result = <ConditionDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();
@@ -223,6 +247,20 @@ export class InitializationService {
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.description = this.getEmptyRichContentDto();
     result.norms = new Array<string>;
+    return result;
+  }
+
+  getEmptyListDto(): ListDto {
+    var result = <ListDto>{};
+    result.id = '';
+    result.refIds = [];
+    result.refTypes = [];
+    result.description = this.getEmptyRichContentDto();
+    result.quantities = new Array<QuantityDto>;
+    result.quantities.push(this.getEmptyQuantityDto());
+    result.usedMethods = new Array<MethodDto>;
+    result.quantities.push(this.getEmptyMethodDto());
+    result.list = new Array<ListDto>;
     return result;
   }
 }

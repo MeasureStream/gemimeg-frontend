@@ -41,14 +41,12 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
       <ng-container *ngIf="type">
-        <div *ngIf="type.formula"><i class="material-icons">construction</i></div>
-        <div *ngIf="type.byteData"><i class="material-icons">construction</i></div>
-        <div *ngIf="type.richContent"><i class="material-icons">construction</i></div>
-        <div *ngIf="type.quantity"><i class="material-icons">construction</i></div>
+        <div *ngIf="type.formula && type.formula.type == 'MATHML'"><app-mathml mathml="type.formula.content"></app-mathml></div>
+        <div *ngIf="type.byteData"><app-dcc-byte-data byteData="type.byteData"></app-dcc-byte-data></div>
+        <div *ngIf="type.richContent"><app-dcc-richcontent richContent="type.richContent"></app-dcc-richcontent></div>
+        <div *ngIf="type.quantity"><app-dcc-quantity dataType="type.quantity"></app-dcc-quantity>></div>
         <div *ngIf="type.list"><i class="material-icons">construction</i></div>
       </ng-container>
     </div>
   </mat-card-content>
 </mat-card>
-
-

@@ -1,12 +1,7 @@
-import { Component, Input, OnInit,Output, EventEmitter} from '@angular/core';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
-import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-contact, [app-dcc-contact]',
@@ -16,46 +11,12 @@ import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 export class DccContactComponent implements OnInit {
   @Input() contact: ContactDto;
   @Input() strict: boolean;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
-  onFileSelected(fileData: ByteDataDto) {
-    console.log("ByteDataDto received in DccContactComponent:", fileData);
-    this.fileSelected.emit(fileData);
-  }
-  // hasAddress: boolean = false;
-
-  constructor() {
+  constructor(initializationService: InitializationService) {
     this.strict = true;
-    this.contact = <ContactDto>{};
-    this.getEmptyContactDto();
+    this.contact = initializationService.getEmptyContactDto();
   }
 
   ngOnInit(): void {
-
-  }
-  getEmptyContactDto(): ContactDto {
-    var result = <ContactDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.location = this.getEmptyLocationDto();
-    return result;
-  }
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-    var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
-    result.content.push(<LangTextPair>{})
-    return result;
-  }
-  getEmptyLocationDto(): LocationDto {
-    var result = <LocationDto>{}
-    result.additionalInformation = this.getEmptyRichContentDto();
-    return result;
-  }
-  getEmptyRichContentDto(): RichContentDto {
-    var result = <RichContentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.textContent = this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent = <ByteDataDto>{};
-    result.formulaContent = <FormulaDto>{};
-    return result;
   }
 }

@@ -9,7 +9,7 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
   styleUrls: ['./dcc-quantity.component.scss']
 })
 export class DccQuantityComponent implements OnInit {
-  @Input() dataType: QuantityDto;
+  @Input() dataType: QuantityDto | any;
 
   constructor(initializationService: InitializationService) {
     this.dataType = initializationService.getEmptyQuantityDto();

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 
 @Component({
@@ -8,16 +8,11 @@ import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
   styleUrls: ['./dcc-byte-data.component.scss']
 })
 export class DccByteDataComponent {
-  @Input() byteData!: ByteDataDto
+  @Input() byteData!: ByteDataDto | any;
 
-
-  constructor(private logger: NGXLogger) {
-
+  constructor() {
   }
 
   ngOnInit(): void {
-    // this.logger.trace("ngOnInit::(rawInput:{})",JSON.stringify(this.dataType))
-
-
   }
 }

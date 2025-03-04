@@ -27,13 +27,11 @@ export class MathmlComponent implements OnInit, AfterViewInit {
 
   renderMathML(): void {
     const mathMLContent = this.mathml || (this.formulaDto && this.formulaDto.content);
-
     if (mathMLContent && this.mathContainer?.nativeElement) {
       const mathContainerElement = this.mathContainer.nativeElement;
       try {
         mathContainerElement.innerHTML = '';
         mathContainerElement.innerHTML = mathMLContent;
-
         this.mathService.ready().subscribe((isReady) => {
           if (isReady) {
             window.MathJax.startup.promise

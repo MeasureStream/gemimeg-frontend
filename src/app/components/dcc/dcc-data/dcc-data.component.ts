@@ -1,14 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
 
-import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
 import { DataDto } from 'src/app/generated/dcc/model/dataDto';
-import { DimensionDto } from 'src/app/generated/dcc/model/dimensionDto';
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-data',
@@ -18,63 +12,14 @@ import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 export class DccDataComponent implements OnInit {
 
   @Input() dataTypes!: DataDto[];
-  selectedOption: string = 'RichContent';
-  options: string[] = ['RichContent', 'Formel', 'ByteData', 'Quantity', 'Liste']
+  selectedOption: string = 'richContent';
+  options: string[] = ['richContent', 'formula', 'byteData', 'quantity', 'list']
   isExpanded: boolean[] = [];
-  byteData!: any;
-  formula!: any;
-  quantity!: any;
-  richContent!: any;
-  list!: any;
 
-
-  constructor(private logger: NGXLogger) {
-    // this.dataType = <DataDto>{};
+  constructor(private initializationService: InitializationService) {
   }
 
   ngOnInit(): void {
-    // this.logger.trace("ngOnInit::(rawInput:{})",JSON.stringify(this.dataType))
-    this.getEmptyDataDto();
-    this.getEmptyByteDataDto();
-    this.getEmptyFormulaDto();
-    this.getEmptyRichContentDto();
-    this.getEmptyLanguageSpecificStringsDto();
-  }
-
-  getEmptyDataDto() {
-    var result = <DataDto>{};
-    result.quantity = <QuantityDto>{};
-    result.quantity.dimension = <DimensionDto>{};
-    return result;
-  }
-  getEmptyByteDataDto() {
-    var result = <ByteDataDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.mimeType = "";
-    result.fileName = "";
-    result.description = this.getEmptyRichContentDto();
-    return result;
-  }
-  getEmptyFormulaDto(): FormulaDto {
-    const result = <FormulaDto>{};
-    result.content = '';
-    result.type = FormulaDto.TypeEnum.Mathml;
-    return result;
-  }
-
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-    const result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
-    result.content.push(<LangTextPair>{})
-    return result;
-  }
-
-  getEmptyRichContentDto(): RichContentDto {
-    const result = <RichContentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent = <ByteDataDto>{};
-    result.formulaContent = <FormulaDto>{};
-    return result
   }
 
   onSelectionChange(event: any) {
@@ -83,36 +28,40 @@ export class DccDataComponent implements OnInit {
 
   addObject(option: string) {
     switch (option) {
-      case 'ByteData':
-        this.dataTypes.push(this.byteData = { 'byteData': this.getEmptyByteDataDto() });
+      case 'byteData':
+        var item = this.initializationService.getEmptyDataDto();
+        item.byteData = this.initializationService.getEmptyByteDataDto();
+        this.dataTypes.push(item);
         break;
-      case 'Formel':
-        this.dataTypes.push(this.formula = { 'formula': this.getEmptyFormulaDto() });
+      case 'formula':
+        var item = this.initializationService.getEmptyDataDto();
+        item.formula = this.initializationService.getEmptyFormulaDto();
+        this.dataTypes.push(item);
         break;
-      case 'RichContent':
-        this.dataTypes.push(this.richContent = { 'richContent': this.getEmptyFormulaDto() });
+      case 'richContent':
+        var item = this.initializationService.getEmptyDataDto();
+        item.richContent = this.initializationService.getEmptyRichContentDto();
+        this.dataTypes.push(item);
         break;
-      case 'Quantity':
-        this.dataTypes.push(this.quantity = { 'quantity': this.getEmptyFormulaDto() });
+      case 'quantity':
+        var item = this.initializationService.getEmptyDataDto();
+        item.quantity = this.initializationService.getEmptyQuantityDto();
+        this.dataTypes.push(item);
         break;
-      case 'Liste':
-        this.dataTypes.push(this.list = { 'list': this.getEmptyFormulaDto() });
+      case 'list':
+        var item = this.initializationService.getEmptyDataDto();
+        item.list = this.initializationService.getEmptyListDto();
+        this.dataTypes.push(item);
         break;
     }
-    console.log(this.dataTypes)
   }
 
-
-  // onOptionClick(option: string) {
-  //   this.dataTypes.push(option)
-  // }
   deleteObject(index: number) {
     this.dataTypes.splice(index, 1);
-    this.isExpanded.splice(index,1);
+    this.isExpanded.splice(index, 1);
   }
 
   toggleCard(index: number) {
     this.isExpanded[index] = !this.isExpanded[index]
-    console.log('isExpanded in Data',this.isExpanded )
   }
 }
