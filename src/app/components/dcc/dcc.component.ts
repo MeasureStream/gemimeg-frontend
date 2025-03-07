@@ -24,6 +24,9 @@ import { RichContentDto } from '../../generated/dcc/model/richContentDto';
 import { SoftwareDto } from '../../generated/dcc/model/softwareDto';
 import { StatementDto } from '../../generated/dcc/model/statementDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
+import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
+import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
+import { ListDto } from 'src/app/generated/dcc/model/listDto';
 
 import { DccService } from 'src/app/services/dcc/dcc.service';
 import { GenericFileUploadComponent } from '../common/generic-file-upload/generic-file-upload.component';
@@ -31,17 +34,15 @@ import { NGXLogger } from "ngx-logger";
 import { ErrorService } from 'src/app/services/common/error/error.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { ListDto } from 'src/app/generated/dcc/model/listDto';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc',
   templateUrl: './dcc.component.html',
   styleUrls: ['./dcc.component.scss']
 })
-export class DccComponent implements OnInit,AfterContentChecked {
+export class DccComponent implements OnInit, AfterContentChecked {
   dcc: CalibrationCertificateDto;
   xml!: string;
   templateFileUrl!: string;
@@ -66,6 +67,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
     public dialog: MatDialog,
     private http: HttpClient,
     private errorService: ErrorService,
+    private initializationService: InitializationService,
     private sanitizer: DomSanitizer,
     public logger: NGXLogger,
     private changeDetect: ChangeDetectorRef,
@@ -134,8 +136,8 @@ export class DccComponent implements OnInit,AfterContentChecked {
       }
     }
     const statementToUpdate = isAddressAdded ? this.dcc.administrativeData!.statements![emptyStatementIndex!] : this.getEmptyStatementMetaDataDto();
-    statementToUpdate.location!.additionalInformation = this.getEmptyRichContentDto();
-    statementToUpdate.location!.additionalInformation!.textContent = this.getEmptyLanguageSpecificStringsDto();
+    statementToUpdate.location!.additionalInformation = this.initializationService.getEmptyRichContentDto();
+    statementToUpdate.location!.additionalInformation!.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
     statementToUpdate.location!.additionalInformation!.textContent.content![0] = ({ lang: "de", text: "{Abteilung n}" });
     statementToUpdate.location!.additionalInformation!.textContent.content!.push({ lang: "de", text: "{Fachbereich n.m}" });
     statementToUpdate.location!.additionalInformation!.textContent.content!.push({ lang: "de", text: "{Arbeitsgruppe n.mo}" });
@@ -150,20 +152,20 @@ export class DccComponent implements OnInit,AfterContentChecked {
   initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
     if (!dcc.administrativeData) dcc.administrativeData = <AdministrativeDataDto>{};
     if (!dcc.administrativeData.dccSoftware) dcc.administrativeData.dccSoftware = new Array<SoftwareDto>;
-    if (dcc.administrativeData.dccSoftware.length == 0) dcc.administrativeData.dccSoftware.push(this.getEmptySoftwareDto());
-    if (!dcc.administrativeData.customer) dcc.administrativeData.customer = this.getEmptyContactDto();
+    if (dcc.administrativeData.dccSoftware.length == 0) dcc.administrativeData.dccSoftware.push(this.initializationService.getEmptySoftwareDto());
+    if (!dcc.administrativeData.customer) dcc.administrativeData.customer = this.initializationService.getEmptyContactDto();
     if (!dcc.administrativeData.customer.location?.additionalInformation?.name){
-      dcc.administrativeData.customer.location!.additionalInformation!.name=this.getEmptyLanguageSpecificStringsDto();
+      dcc.administrativeData.customer.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (!dcc.administrativeData.customer.location?.additionalInformation?.textContent){
-      dcc.administrativeData.customer.location!.additionalInformation!.textContent=this.getEmptyLanguageSpecificStringsDto();
+      dcc.administrativeData.customer.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (!dcc.administrativeData.calibrationLaboratory) dcc.administrativeData.calibrationLaboratory = this.getEmptyCalibrationLaboratoryDto();
     if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name){
-      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name=this.getEmptyLanguageSpecificStringsDto();
+      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent){
-      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent=this.getEmptyLanguageSpecificStringsDto();
+      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (!dcc.administrativeData.responsiblePersons) dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
     if (dcc.administrativeData.responsiblePersons.length == 0) dcc.administrativeData.responsiblePersons.push(this.getEmptyRespPersonDto());
@@ -173,22 +175,13 @@ export class DccComponent implements OnInit,AfterContentChecked {
       if (entry.installedSoftwares == null) {
         entry.installedSoftwares = new Array<SoftwareDto>;
       }
-      if (entry.installedSoftwares.length == 0) entry.installedSoftwares.push(this.getEmptySoftwareDto());
+      if (entry.installedSoftwares.length == 0) entry.installedSoftwares.push(this.initializationService.getEmptySoftwareDto());
 
       if (entry.manufacturer == null) {
-        entry.manufacturer = <ContactDto>{};
-        entry.manufacturer.name = this.getEmptyLanguageSpecificStringsDto();
-      }
-      if (entry.manufacturer.location == null) {
-        entry.manufacturer.location = <LocationDto>{};
-        entry.manufacturer.location.additionalInformation = this.getEmptyRichContentDto();
-        entry.manufacturer.location.additionalInformation.name = this.getEmptyLanguageSpecificStringsDto();
-        entry.manufacturer.location.additionalInformation.textContent = this.getEmptyLanguageSpecificStringsDto();
+        entry.manufacturer = this.initializationService.getEmptyContactDto();
       }
       if (entry.description == null) {
-        entry.description = <RichContentDto>{};
-        entry.description.name = this.getEmptyLanguageSpecificStringsDto();
-        entry.description.textContent = this.getEmptyLanguageSpecificStringsDto();
+        entry.description = this.initializationService.getEmptyRichContentDto();
       }
     });
     if (!dcc.administrativeData.statements) dcc.administrativeData.statements = new Array<StatementDto>();
@@ -202,7 +195,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
       if (entry.usedSoftware == null) {
         entry.usedSoftware = new Array<SoftwareDto>();
       }
-      if (entry.usedSoftware.length == 0) entry.usedSoftware.push(this.getEmptySoftwareDto());
+      if (entry.usedSoftware.length == 0) entry.usedSoftware.push(this.initializationService.getEmptySoftwareDto());
 
       if (entry.equipment == null) {
         entry.equipment = new Array<EquipmentDto>();
@@ -210,7 +203,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
       if (entry.equipment.length == 0) entry.equipment.push(this.getEmptyEquipmentDto());
       entry.equipment.forEach((subentry: any) => {
         if (subentry.manufacturer == null) {
-          subentry.manufacturer = this.getEmptyContactDto();
+          subentry.manufacturer = this.initializationService.getEmptyContactDto();
         }
       });
       if (entry.influenceConditions == null) {
@@ -229,7 +222,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
         entry.usedMethods = new Array<MethodDto>();
       }
       if (entry.usedMethods.length == 0) {
-        entry.usedMethods.push(this.getEmptyMethodDto());
+        entry.usedMethods.push(this.initializationService.getEmptyMethodDto());
       } else {
         entry.usedMethods.forEach((subentry: any) => {
           if (subentry.norms == null) {
@@ -261,7 +254,7 @@ export class DccComponent implements OnInit,AfterContentChecked {
       statement.countryCodes = new Array<string>();
     }
     if (statement.name == null || undefined) {
-      statement.name = this.getEmptyLanguageSpecificStringsDto();
+      statement.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.norms == null || undefined) {
       statement.norms = new Array<string>();
@@ -270,54 +263,54 @@ export class DccComponent implements OnInit,AfterContentChecked {
       statement.references = new Array<string>();
     }
     if (statement.description == null || undefined) {
-      statement.description = this.getEmptyRichContentDto();
+      statement.description = this.initializationService.getEmptyRichContentDto();
     }
     if (statement.description.name == null || undefined) {
-      statement.description.name = this.getEmptyLanguageSpecificStringsDto();
+      statement.description.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.description.textContent == null || undefined) {
-      statement.description.textContent = this.getEmptyLanguageSpecificStringsDto();
+      statement.description.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.declaration == null || undefined) {
-      statement.declaration = this.getEmptyRichContentDto();
+      statement.declaration = this.initializationService.getEmptyRichContentDto();
     }
     if (statement.declaration.name == null || undefined) {
-      statement.declaration.name = this.getEmptyLanguageSpecificStringsDto();
+      statement.declaration.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.declaration.textContent == null || undefined) {
-      statement.declaration.textContent = this.getEmptyLanguageSpecificStringsDto();
+      statement.declaration.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.location == null || undefined) {
-      statement.location = this.getEmptyLocationDto();
+      statement.location = this.initializationService.getEmptyLocationDto();
     }
     if (statement.location.additionalInformation == null || undefined) {
-      statement.location.additionalInformation = this.getEmptyRichContentDto();
+      statement.location.additionalInformation = this.initializationService.getEmptyRichContentDto();
     }
     if (statement.location.additionalInformation.name == null || undefined) {
-      statement.location.additionalInformation.name = this.getEmptyLanguageSpecificStringsDto();
+      statement.location.additionalInformation.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.location.additionalInformation.textContent == null || undefined) {
-      statement.location.additionalInformation.textContent = this.getEmptyLanguageSpecificStringsDto();
+      statement.location.additionalInformation.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (statement.responsibleAuthority == null || undefined) {
-      statement.responsibleAuthority = this.getEmptyContactDto();
+      statement.responsibleAuthority = this.initializationService.getEmptyContactDto();
     }
     if (statement.responsibleAuthority.location == null || undefined) {
-      statement.responsibleAuthority.location = this.getEmptyLocationDto();
+      statement.responsibleAuthority.location = this.initializationService.getEmptyLocationDto();
     }
     if (statement.responsibleAuthority.location?.additionalInformation == null || undefined) {
-      statement.responsibleAuthority.location.additionalInformation = this.getEmptyRichContentDto();
+      statement.responsibleAuthority.location.additionalInformation = this.initializationService.getEmptyRichContentDto();
     }
   }
 
   getEmptyItemDto(): ItemDto {
     var result = <ItemDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.identifications = new Array<IdentificationDto>();
     result.identifications.push(this.getEmptyIdentificationDto());
     result.installedSoftwares = new Array<SoftwareDto>();
-    result.manufacturer = this.getEmptyContactDto();
-    result.description = this.getEmptyRichContentDto();
+    result.manufacturer = this.initializationService.getEmptyContactDto();
+    result.description = this.initializationService.getEmptyRichContentDto();
     return result;
   }
 
@@ -325,62 +318,40 @@ export class DccComponent implements OnInit,AfterContentChecked {
     var result =<IdentificationDto>{}
     result.issuer="";
     result.value="";
-    result.name=this.getEmptyLanguageSpecificStringsDto();
-    return result;
-  }
-
-  getEmptyLanguageSpecificStringsDto(): LanguageSpecificStringsDto {
-    var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>;
-    result.content.push(<LangTextPair>{})
+    result.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
     return result;
   }
 
   getEmptyRespPersonDto(): ContactDto {
     var result = <ContactDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.location = this.getEmptyLocationDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    result.location = this.initializationService.getEmptyLocationDto();
     return result;
   }
 
   getEmptyCalibrationLaboratoryDto():CalibrationLaboratoryDto{
     var result = <CalibrationLaboratoryDto>{};
-    result.contact=this.getEmptyContactDto();
+    result.contact=this.initializationService.getEmptyContactDto();
     return result;
 
   }
   getEmptyStatementMetaDataDto(): StatementDto {
     var result = <StatementDto>{};
     result.countryCodes = new Array<string>;
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.description = this.getEmptyRichContentDto();
-    result.declaration = this.getEmptyRichContentDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    result.description = this.initializationService.getEmptyRichContentDto();
+    result.declaration = this.initializationService.getEmptyRichContentDto();
     result.norms = new Array<string>;
     result.references = new Array<string>;
     result.data = new Array<DataDto>();
-    result.location = this.getEmptyLocationDto();
-    result.responsibleAuthority = this.getEmptyContactDto();
-    return result;
-  }
-
-  getEmptyLocationDto(): LocationDto {
-    var result = <LocationDto>{}
-    result.additionalInformation = this.getEmptyRichContentDto();
-    return result;
-  }
-
-  getEmptyRichContentDto(): RichContentDto {
-    var result = <RichContentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.textContent = this.getEmptyLanguageSpecificStringsDto();
-    result.byteDataContent = <ByteDataDto>{};
-    result.formulaContent = <FormulaDto>{};
+    result.location = this.initializationService.getEmptyLocationDto();
+    result.responsibleAuthority = this.initializationService.getEmptyContactDto();
     return result;
   }
 
   getEmptyMeasurementResultDto(): MeasurementResultDto {
     var result = <MeasurementResultDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.usedMethods = new Array<MethodDto>;
     result.usedSoftware = new Array<SoftwareDto>;
     result.equipment = new Array<EquipmentDto>;
@@ -393,68 +364,34 @@ export class DccComponent implements OnInit,AfterContentChecked {
     return result;
   }
 
-  getEmptySoftwareDto(): SoftwareDto {
-    var result = <SoftwareDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    return result;
-  }
-
   getEmptyResultDto(): ResultDto {
     var result = <ResultDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.data = new Array<DataDto>();
     result.data.push(<DataDto>{});
-    result.data[0].quantity = this.getEmptyQuantityDto();
+    result.data[0].quantity = this.initializationService.getEmptyQuantityDto();
     return result;
   }
 
   getEmptyConditionDto(): ConditionDto {
     var result = <ConditionDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.data = new Array<DataDto>();
-    return result;
-  }
-
-  getEmptyQuantityDto(): QuantityDto {
-    var result = <QuantityDto>{};
-    result.dimension = <DimensionDto>{};
-    result.quantityTypeName = "REAL";
-    return result;
-  }
-
-  getEmptyDataDto(): DataDto {
-    var result = <DataDto>{};
-    result.list = this.getEmptyListDto();
     return result;
   }
 
   getEmptyListDto(): ListDto {
     var result = <ListDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.quantities = new Array<QuantityDto>();
-    result.quantities.push(this.getEmptyQuantityDto());
-    return result;
-  }
-
-  getEmptyMethodDto(): MethodDto {
-    var result = <MethodDto>{};
-    result.norms = new Array<string>();
-    result.norms.push("");
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.description = <RichContentDto>{};
+    result.quantities.push(this.initializationService.getEmptyQuantityDto());
     return result;
   }
 
   getEmptyEquipmentDto(): EquipmentDto {
     var result = <EquipmentDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.manufacturer=this.getEmptyContactDto();
-    return result;
-  }
-  getEmptyContactDto(): ContactDto {
-    var result = <ContactDto>{};
-    result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.location = this.getEmptyLocationDto();
+    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    result.manufacturer=this.initializationService.getEmptyContactDto();
     return result;
   }
 

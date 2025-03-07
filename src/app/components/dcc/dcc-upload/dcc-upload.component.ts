@@ -15,7 +15,7 @@ export class DccUploadComponent {
   xml = '';
 
   constructor(private parent: DccComponent, private dccService: DccService, private errorService: ErrorService) {
-    this.reader.addEventListener("load", () => {
+    this.reader.addEventListener("loadend", () => {
       this.xml = this.reader.result as string;
     }, false);
   }
