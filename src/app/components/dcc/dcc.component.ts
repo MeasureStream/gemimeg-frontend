@@ -135,7 +135,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
         break;
       }
     }
-    const statementToUpdate = isAddressAdded ? this.dcc.administrativeData!.statements![emptyStatementIndex!] : this.getEmptyStatementMetaDataDto();
+    const statementToUpdate = isAddressAdded ? this.dcc.administrativeData!.statements![emptyStatementIndex!] : this.initializationService.getEmptyStatementDto();
     statementToUpdate.location!.additionalInformation = this.initializationService.getEmptyRichContentDto();
     statementToUpdate.location!.additionalInformation!.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
     statementToUpdate.location!.additionalInformation!.textContent.content![0] = ({ lang: "de", text: "{Abteilung n}" });
@@ -185,7 +185,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
       }
     });
     if (!dcc.administrativeData.statements) dcc.administrativeData.statements = new Array<StatementDto>();
-    if (dcc.administrativeData?.statements?.length == 0) dcc.administrativeData.statements.push(this.getEmptyStatementMetaDataDto());
+    if (dcc.administrativeData?.statements?.length == 0) dcc.administrativeData.statements.push(this.initializationService.getEmptyStatementDto());
     dcc.administrativeData.statements.forEach((statement: any) => {
       this.initializeStatement(statement);
     });
@@ -200,7 +200,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
       if (entry.equipment == null) {
         entry.equipment = new Array<EquipmentDto>();
       }
-      if (entry.equipment.length == 0) entry.equipment.push(this.getEmptyEquipmentDto());
+      if (entry.equipment.length == 0) entry.equipment.push(this.initializationService.getEmptyEquipmentDto());
       entry.equipment.forEach((subentry: any) => {
         if (subentry.manufacturer == null) {
           subentry.manufacturer = this.initializationService.getEmptyContactDto();
@@ -209,12 +209,12 @@ export class DccComponent implements OnInit, AfterContentChecked {
       if (entry.influenceConditions == null) {
         entry.influenceConditions = new Array<ConditionDto>();
       }
-      if (entry.influenceConditions.length == 0) entry.influenceConditions.push(this.getEmptyConditionDto());
+      if (entry.influenceConditions.length == 0) entry.influenceConditions.push(this.initializationService.getEmptyConditionDto());
 
       if (entry.statements == null) {
         entry.statements = new Array<StatementDto>();
       }
-      if (entry.statements.length == 0) entry.statements.push(this.getEmptyStatementMetaDataDto());
+      if (entry.statements.length == 0) entry.statements.push(this.initializationService.getEmptyStatementDto());
       entry.statements.forEach((statement: any) => {
         this.initializeStatement(statement);
       });
@@ -235,7 +235,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
         entry.results = new Array<ResultDto>();
       }
       if (entry.results.length == 0) {
-        entry.results.push(this.getEmptyResultDto());
+        entry.results.push(this.initializationService.getEmptyResultDto());
       }
       entry.results.forEach((subentry: any) => {
         if (subentry.data == null) {
@@ -307,18 +307,10 @@ export class DccComponent implements OnInit, AfterContentChecked {
     var result = <ItemDto>{};
     result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
     result.identifications = new Array<IdentificationDto>();
-    result.identifications.push(this.getEmptyIdentificationDto());
+    result.identifications.push(this.initializationService.getEmptyIdentifictionDto());
     result.installedSoftwares = new Array<SoftwareDto>();
     result.manufacturer = this.initializationService.getEmptyContactDto();
     result.description = this.initializationService.getEmptyRichContentDto();
-    return result;
-  }
-
-  getEmptyIdentificationDto():IdentificationDto{
-    var result =<IdentificationDto>{}
-    result.issuer="";
-    result.value="";
-    result.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
     return result;
   }
 
@@ -329,24 +321,11 @@ export class DccComponent implements OnInit, AfterContentChecked {
     return result;
   }
 
-  getEmptyCalibrationLaboratoryDto():CalibrationLaboratoryDto{
+  getEmptyCalibrationLaboratoryDto(): CalibrationLaboratoryDto {
     var result = <CalibrationLaboratoryDto>{};
     result.contact=this.initializationService.getEmptyContactDto();
     return result;
 
-  }
-  getEmptyStatementMetaDataDto(): StatementDto {
-    var result = <StatementDto>{};
-    result.countryCodes = new Array<string>;
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.description = this.initializationService.getEmptyRichContentDto();
-    result.declaration = this.initializationService.getEmptyRichContentDto();
-    result.norms = new Array<string>;
-    result.references = new Array<string>;
-    result.data = new Array<DataDto>();
-    result.location = this.initializationService.getEmptyLocationDto();
-    result.responsibleAuthority = this.initializationService.getEmptyContactDto();
-    return result;
   }
 
   getEmptyMeasurementResultDto(): MeasurementResultDto {
@@ -355,43 +334,12 @@ export class DccComponent implements OnInit, AfterContentChecked {
     result.usedMethods = new Array<MethodDto>;
     result.usedSoftware = new Array<SoftwareDto>;
     result.equipment = new Array<EquipmentDto>;
-    result.equipment.push(this.getEmptyEquipmentDto());
+    result.equipment.push(this.initializationService.getEmptyEquipmentDto());
     result.influenceConditions = new Array<ConditionDto>;
     result.results = new Array<ResultDto>;
-    result.results.push(this.getEmptyResultDto());
+    result.results.push(this.initializationService.getEmptyResultDto());
     result.statements = new Array<StatementDto>;
-    result.statements.push(this.getEmptyStatementMetaDataDto());
-    return result;
-  }
-
-  getEmptyResultDto(): ResultDto {
-    var result = <ResultDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.data = new Array<DataDto>();
-    result.data.push(<DataDto>{});
-    result.data[0].quantity = this.initializationService.getEmptyQuantityDto();
-    return result;
-  }
-
-  getEmptyConditionDto(): ConditionDto {
-    var result = <ConditionDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.data = new Array<DataDto>();
-    return result;
-  }
-
-  getEmptyListDto(): ListDto {
-    var result = <ListDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.quantities = new Array<QuantityDto>();
-    result.quantities.push(this.initializationService.getEmptyQuantityDto());
-    return result;
-  }
-
-  getEmptyEquipmentDto(): EquipmentDto {
-    var result = <EquipmentDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.manufacturer=this.initializationService.getEmptyContactDto();
+    result.statements.push(this.initializationService.getEmptyStatementDto());
     return result;
   }
 
