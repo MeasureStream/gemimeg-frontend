@@ -21,7 +21,8 @@
 </div>
 <div *ngIf="selectedFile" class="button-container">
   <button (click)="uploadFile()" color="primary" mat-raised-button>{{'fileUpload.uploadFile' | translate}}</button>
-  <button (click)="onFileDownload()" color="primary" mat-raised-button>{{'fileUpload.downloadFile' | translate}}</button>
+  <button (click)="onFileDownload()" color="primary" mat-raised-button>{{'fileUpload.downloadFile' | translate}}
+  </button>
 </div>
 <div class="row">
   <div class="col-xs-12">

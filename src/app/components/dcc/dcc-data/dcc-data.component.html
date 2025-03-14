@@ -35,16 +35,25 @@
       </button>
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button><i
           class="material-icons">{{isExpanded[i]?'keyboard_arrow_up'
-          :'keyboard_arrow_down'}}</i></button>
+        :'keyboard_arrow_down'}}</i></button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
       <ng-container *ngIf="type">
-        <div *ngIf="type.formula && type.formula.type == 'MATHML'"><app-mathml mathml="type.formula.content"></app-mathml></div>
-        <div *ngIf="type.byteData"><app-dcc-byte-data byteData="type.byteData"></app-dcc-byte-data></div>
-        <div *ngIf="type.richContent"><app-dcc-richcontent richContent="type.richContent"></app-dcc-richcontent></div>
-        <div *ngIf="type.quantity"><app-dcc-quantity dataType="type.quantity"></app-dcc-quantity>></div>
+        <div *ngIf="type.formula && type.formula.type == 'MATHML'">
+          <app-mathml mathml="type.formula.content"></app-mathml>
+        </div>
+        <div *ngIf="type.byteData">
+          <app-dcc-byte-data byteData="type.byteData"></app-dcc-byte-data>
+        </div>
+        <div *ngIf="type.richContent">
+          <app-dcc-richcontent richContent="type.richContent"></app-dcc-richcontent>
+        </div>
+        <div *ngIf="type.quantity">
+          <app-dcc-quantity dataType="type.quantity"></app-dcc-quantity>
+          >
+        </div>
         <div *ngIf="type.list"><i class="material-icons">construction</i></div>
       </ng-container>
     </div>

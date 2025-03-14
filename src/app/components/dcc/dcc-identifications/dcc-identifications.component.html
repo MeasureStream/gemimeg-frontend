@@ -29,7 +29,7 @@
           <label for="value">{{'dcc.identifications.identifier' | translate}}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.value matInput id="value" name="value" required>
+          <input [(ngModel)]=item.value id="value" matInput name="value" required>
         </mat-form-field>
       </div>
       <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>

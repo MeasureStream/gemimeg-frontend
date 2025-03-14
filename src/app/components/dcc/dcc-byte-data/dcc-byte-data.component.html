@@ -1,4 +1,5 @@
-<app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="byteData.name!" required></app-dcc-localised-string>
+<app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="byteData.name!"
+                          required></app-dcc-localised-string>
 <mat-form-field>
   <mat-label>{{'dcc.fileName' | translate}}</mat-label>
   <input [(ngModel)]=byteData.fileName matInput placeholder="Dateiname">

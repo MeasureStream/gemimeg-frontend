@@ -18,7 +18,8 @@
     <mat-form-field appearance="fill" id="localised-string">
       <input *ngIf="placeholder.toLocaleLowerCase()==='name'" [(ngModel)]="item.text" [id]="placeholder.toLowerCase()"
              [required]=" isRequired " matInput name="item"/>
-      <textarea *ngIf="placeholder.toLocaleLowerCase()==='inhalt'" [(ngModel)]="item.text" [id]="placeholder.toLowerCase()"
+      <textarea *ngIf="placeholder.toLocaleLowerCase()==='inhalt'" [(ngModel)]="item.text"
+                [id]="placeholder.toLowerCase()"
                 [required]="isRequired" class="localise-textarea" matInput rows="4">
       </textarea>
     </mat-form-field>

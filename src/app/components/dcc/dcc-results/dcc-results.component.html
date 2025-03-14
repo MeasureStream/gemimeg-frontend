@@ -3,17 +3,17 @@
     <mat-list-item *ngFor="let item of list; let i = index">
       <p>
         <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-          [strings]="item.name!"></app-dcc-localised-string>
+                                  [strings]="item.name!"></app-dcc-localised-string>
         <app-dcc-richcontent *ngIf="item.description" richContent="item.description"></app-dcc-richcontent>
       </p>
-      <button class="custom-circle-button-md" (click)="list.splice(i, 1)" color="accent" mat-icon-button>
+      <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button>
         <mat-icon>remove_circle</mat-icon>
       </button>
     </mat-list-item>
   </mat-list>
 </mat-card>
 <p>
-  <button class="custom-circle-button-md" (click)="addEmptyResultDto();addExpanded()" color="primary" mat-icon-button>
+  <button (click)="addEmptyResultDto();addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
     <mat-icon>add_circle</mat-icon>
   </button>
 </p>
