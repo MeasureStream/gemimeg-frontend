@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DccRichcontentComponent } from './dcc-richcontent.component';
+import { DccRichContentComponent } from './dcc-richcontent.component';
 
 describe('DccRichcontentComponent', () => {
-  let component: DccRichcontentComponent;
-  let fixture: ComponentFixture<DccRichcontentComponent>;
+  let component: DccRichContentComponent;
+  let fixture: ComponentFixture<DccRichContentComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DccRichcontentComponent]
+      declarations: [DccRichContentComponent]
     });
-    fixture = TestBed.createComponent(DccRichcontentComponent);
+    fixture = TestBed.createComponent(DccRichContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

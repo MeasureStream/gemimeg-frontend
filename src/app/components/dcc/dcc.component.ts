@@ -98,7 +98,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
     if(this.isExpanded[title]===undefined){
       this.isExpanded[title]=true;
     }
-      this.isExpanded[title]=!this.isExpanded[title];
+    this.isExpanded[title]=!this.isExpanded[title];
   }
 
   public addCalibrationCard (title:string){

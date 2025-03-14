@@ -1,0 +1,23 @@
+.header-container {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+
+.header-title {
+  color: white;
+  margin: 0;
+}
+
+.header-button {
+  color: white;
+  margin-left: auto;
+  border: none;
+  margin-right: 20px;
+  padding: 10px;
+  color: white;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  font-size: 17px;
+}

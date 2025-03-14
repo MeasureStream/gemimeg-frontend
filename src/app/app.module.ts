@@ -34,11 +34,12 @@ import {
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgxTranslateModule } from './translate/translate.module';
 import { AppComponent } from './app.component';
-
 import { NavigationComponent } from './components/common/navigation/navigation.component';
 import { DccComponent } from './components/dcc/dcc.component';
 import { DccService } from './services/dcc/dcc.service';
@@ -54,17 +55,18 @@ import { DccResultsComponent } from './components/dcc/dcc-results/dcc-results.co
 import { DccMeasurementMetadataComponent } from './components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component';
 import { DccQuantityComponent } from './components/dcc/dcc-quantity/dcc-quantity.component';
 import { DccDataComponent } from './components/dcc/dcc-data/dcc-data.component';
-import { DccRichcontentComponent } from './components/dcc/dcc-richcontent/dcc-richcontent.component';
+import { DccRichContentComponent } from './components/dcc/dcc-richcontent/dcc-richcontent.component';
 import { DccByteDataComponent } from './components/dcc/dcc-byte-data/dcc-byte-data.component';
 import { DccUploadComponent } from './components/dcc/dcc-upload/dcc-upload.component';
 import { DccResponsiblePersonComponent } from './components/dcc/dcc-responsible-person/dcc-responsible-person.component';
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
 import { SettingsDialogComponent } from './components/common/settings-dialog/settings-dialog.component';
-
-import { MatTabsModule } from '@angular/material/tabs';
-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ErrorComponent } from './components/common/error/error.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { FooterImprintComponent } from './components/footer/footer-imprint/footer-imprint.component';
+import { FooterPrivacyComponent } from './components/footer/footer-privacy/footer-privacy.component';
+import { FooterLicenceComponent } from './components/footer/footer-licence/footer-licence.component';
 import { GlobalErrorHandler } from './utils/global.error.handler';
 import { PageNotFoundComponent } from './components/common/not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -118,16 +120,20 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccMeasurementMetadataComponent,
     DccQuantityComponent,
     DccDataComponent,
-    DccRichcontentComponent,
+    DccRichContentComponent,
     DccByteDataComponent,
     DccUploadComponent,
     DccResponsiblePersonComponent,
     ErrorComponent,
+    FooterComponent,
+    FooterImprintComponent,
+    FooterPrivacyComponent,
+    FooterLicenceComponent,
     PageNotFoundComponent,
     SimpleTestComponent,
     VersionComponent,
     MathmlComponent,
-    DccRichcontentComponent,
+    DccRichContentComponent,
     DccByteDataComponent,
     InfoButtonComponent,
     InfoDialogComponent,

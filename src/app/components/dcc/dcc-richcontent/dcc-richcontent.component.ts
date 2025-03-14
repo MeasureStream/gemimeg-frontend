@@ -1,5 +1,6 @@
-import { Component, Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
+import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
@@ -8,8 +9,9 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
   templateUrl: './dcc-richcontent.component.html',
   styleUrls: ['./dcc-richcontent.component.scss']
 })
-export class DccRichcontentComponent implements OnInit {
+export class DccRichContentComponent implements OnInit {
   @Input() richContent: RichContentDto | any;
+  @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
   showLanguageComponent = false;
   showFileComponent = false;
@@ -17,6 +19,10 @@ export class DccRichcontentComponent implements OnInit {
   languageItems: any[] = [];
 
   constructor(private initializationService: InitializationService) {
+  }
+
+  onFileSelected(fileData: ByteDataDto) {
+    this.fileSelected.emit(fileData);
   }
 
   ngOnInit(): void {
