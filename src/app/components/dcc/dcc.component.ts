@@ -5,31 +5,23 @@ import { MatStepper } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
-import { LanguageSpecificStringsDto } from '../../generated/dcc/model/languageSpecificStringsDto';
 import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
 import { CalibrationLaboratoryDto } from '../../generated/dcc/model/calibrationLaboratoryDto';
 import { ConditionDto } from '../../generated/dcc/model/conditionDto';
 import { ContactDto } from '../../generated/dcc/model/contactDto';
 import { DataDto } from '../../generated/dcc/model/dataDto';
-import { DimensionDto } from '../../generated/dcc/model/dimensionDto';
 import { EquipmentDto } from '../../generated/dcc/model/equipmentDto';
 import { IdentificationDto } from '../../generated/dcc/model/identificationDto';
 import { ItemDto } from '../../generated/dcc/model/itemDto';
-import { LocationDto } from '../../generated/dcc/model/locationDto';
 import { MeasurementResultDto } from '../../generated/dcc/model/measurementResultDto';
 import { MethodDto } from '../../generated/dcc/model/methodDto';
-import { QuantityDto } from '../../generated/dcc/model/quantityDto';
 import { ResultDto } from '../../generated/dcc/model/resultDto';
-import { RichContentDto } from '../../generated/dcc/model/richContentDto';
 import { SoftwareDto } from '../../generated/dcc/model/softwareDto';
 import { StatementDto } from '../../generated/dcc/model/statementDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { ListDto } from 'src/app/generated/dcc/model/listDto';
 
 import { DccService } from 'src/app/services/dcc/dcc.service';
-import { GenericFileUploadComponent } from '../common/generic-file-upload/generic-file-upload.component';
 import { NGXLogger } from "ngx-logger";
 import { ErrorService } from 'src/app/services/common/error/error.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -60,7 +52,9 @@ export class DccComponent implements OnInit, AfterContentChecked {
   currentStepIndex = 0;
   totalSteps = 4;
   isLastStep =false
+  chosenFileData: ByteDataDto | null = null;
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
+  selectedFile: any;
 
   constructor(
     public dccService: DccService,
@@ -325,7 +319,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
     var result = <CalibrationLaboratoryDto>{};
     result.contact=this.initializationService.getEmptyContactDto();
     return result;
-
   }
 
   getEmptyMeasurementResultDto(): MeasurementResultDto {
@@ -343,12 +336,37 @@ export class DccComponent implements OnInit, AfterContentChecked {
     return result;
   }
 
+  onFileSelected(fileData: ByteDataDto) {
+    this.chosenFileData = fileData
+  }
+  
+  attachFileToByteDataContent() {
+    if (!this.chosenFileData) {
+      return;
+    }
+    if (!this.dcc || !this.dcc.administrativeData) {
+      return;
+    }  
+    const contact = this.dcc.administrativeData.calibrationLaboratory?.contact;
+    if (!contact) {
+      return;
+    }
+    if (!contact.location) {
+      contact.location = {};
+    }
+    if (!contact.location.additionalInformation) {
+      contact.location.additionalInformation = {};
+    }
+    if (!contact.location.additionalInformation.byteDataContent) {
+      contact.location.additionalInformation.byteDataContent = {};
+    }
+    contact.location.additionalInformation.byteDataContent = this.chosenFileData;  
+  }
+  
   submit() {
-    this.logger.trace("Sending json to dcc.jsonToXml: " + JSON.stringify(this.dcc, null, 2));
     this.dccService.jsonToXml(this.dcc).subscribe(
       {
         next: (response: string) => {
-          this.logger.trace("Got XML from dcc.jsonToXml: " + response);
           const a = document.createElement('a');
           const objectUrl = URL.createObjectURL(new Blob([response], { type: "application/xml" }));
           a.href = objectUrl;
