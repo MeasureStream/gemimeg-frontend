@@ -1,8 +1,8 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
-import { NGXLogger } from 'ngx-logger';
 import dccExamples from "./examples";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class DccService {
 
   public exampleDccs = dccExamples;
 
-  constructor(private http: HttpClient, private logger: NGXLogger) {
+  constructor(private http: HttpClient) {
   }
 
   //ugly hack to solve https://github.com/angular/angular/issues/18586
@@ -89,10 +89,8 @@ export class DccService {
       }
     }
     catch (e: unknown) {
-        this.logger.trace("unmarshalCustomDate::Exception thrown: "+(e as Error).message);
     }
     return new FormControl(result);
-
   }
 }
 

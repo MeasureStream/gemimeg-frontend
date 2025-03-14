@@ -1,6 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
+
 import { NGXLogger } from 'ngx-logger';
+
 import { ErrorService } from '../services/common/error/error.service';
 
 @Injectable()

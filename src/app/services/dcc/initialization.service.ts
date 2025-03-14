@@ -55,7 +55,7 @@ export class InitializationService {
     langTextPair.id = '';
     langTextPair.refIds = [];
     langTextPair.refTypes = [];
-    langTextPair.lang = 'de';
+    langTextPair.lang = 'en';
     langTextPair.text = '';
     result.content.push(langTextPair);
     return result;
