@@ -28,6 +28,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-dcc',
@@ -49,6 +50,9 @@ export class DccComponent implements OnInit, AfterContentChecked {
   cardTitles: string[] = ['DCC-Software','Basis-Daten','Kunde','Verantwortliche-Personen','Kalibrierlabor','Identifikatoren','Installierte-Software','CIPM-MRA','Anschrift',
     'Kalibriergut1','Messergebnis1','Verwendete-Methoden','Verwendete-Messinstrumente','Einflussfaktoren','Ergebnisse','Meta-Daten','Verwendete-Software']
   isExpanded:{[title:string]:boolean}={'DCC-Software*': true};
+  humanReadableHtml = "";
+  selectedPerformanceLoc: string = '';
+  performanceLocation = ["laboratory", "customer", "laboratory branch", "customer branch","other"];
   currentStepIndex = 0;
   totalSteps = 4;
   isLastStep =false
@@ -438,9 +442,30 @@ export class DccComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  onTabChange(event: MatTabChangeEvent): void {
+    this.loadHumanReadable();
+  }
+
   onStepChange(event: StepperSelectionEvent): void {
+    if (event.selectedIndex === 4) {
+      this.onTabChange({ index: 0, tab: { textLabel: 'Human Readable' } } as MatTabChangeEvent);
+    }
     this.currentStepIndex = event.selectedIndex;
     this.updateStepState();
+  }
+
+  loadHumanReadable() {
+    this.dccService.jsonToHuman(this.dcc).subscribe(
+      {
+        next: (response: string) => {
+          this.humanReadableHtml = response;
+        },
+        error: (error: any) => {
+          this.errorService.logError(error);
+        },
+        complete: () => { }
+      }
+    );
   }
 
   private updateStepState(): void {

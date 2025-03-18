@@ -46,6 +46,7 @@ import { DccService } from './services/dcc/dcc.service';
 import { GenericFileUploadComponent } from './components/common/generic-file-upload/generic-file-upload.component';
 import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
 import { DccContactComponent } from './components/dcc/dcc-contact/dcc-contact.component';
+import { DccHumanReadableComponent } from './components/dcc/dcc-human-readable/dcc-human-readable.component';
 import { DccIdentificationsComponent } from './components/dcc/dcc-identifications/dcc-identifications.component';
 import { DccSoftwareComponent } from './components/dcc/dcc-software/dcc-software.component';
 import { DccUsedMethodsComponent } from './components/dcc/dcc-used-methods/dcc-used-methods.component';
@@ -111,6 +112,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     GenericFileUploadComponent,
     DccLocalisedStringComponent,
     DccContactComponent,
+    DccHumanReadableComponent,
     DccIdentificationsComponent,
     DccSoftwareComponent,
     DccUsedMethodsComponent,

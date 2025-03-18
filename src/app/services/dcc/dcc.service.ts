@@ -52,6 +52,19 @@ export class DccService {
     return result;
   }
 
+  jsonToHuman(dcc: CalibrationCertificateDto) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    let result =  this.http.post<string>(
+      this.dccServicePath + "/xsd/dcc/html",
+      dcc,
+      {headers: headers,
+        responseType:'text'as 'json'
+      }
+    );
+    return result;
+  }
+
   getExampleDcc(url: string) {
     return this.http.get(url);
   }
