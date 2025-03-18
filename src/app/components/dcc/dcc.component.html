@@ -246,7 +246,8 @@
             <div class="header-title">
               <mat-card-title class="title">{{'dcc.calibrationItem' | translate}} {{ i + 1 }}</mat-card-title>
               <app-info-button i18n
-                               tooltipText="{{'dcc.openDccWiki' | translate}}" url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
+                               tooltipText="{{'dcc.openDccWiki' | translate}}"
+                               url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Kalibriergut'+(i+1))" class="blue-card-btn" mat-icon-button>
@@ -396,7 +397,8 @@
                 <div class="header-title">
                   <mat-card-title class="title">{{'dcc.usedSoftware' | translate}}</mat-card-title>
                   <app-info-button i18n
-                                   tooltipText="{{'dcc.openDccWiki' | translate}}" url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
+                                   tooltipText="{{'dcc.openDccWiki' | translate}}"
+                                   url="https://wiki.dcc.ptb.de/en/dccdccSoftware"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button>
@@ -435,7 +437,8 @@
                 <div class="header-title">
                   <mat-card-title class="title">{{'dcc.usedMeasurementDevices' | translate}}</mat-card-title>
                   <app-info-button i18n
-                                   tooltipText="{{'dcc.openDccWiki' | translate}}" url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"></app-info-button>
+                                   tooltipText="{{'dcc.openDccWiki' | translate}}"
+                                   url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"></app-info-button>
                 </div>
                 <div class="header-menu">
                   <button (click)="toggleCard('Verwendete-Messinstrumente')" class="blue-card-btn" mat-icon-button>
@@ -530,6 +533,18 @@
         </button>
       </div>
     </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{'dcc.preview' | translate}}</ng-template>
+      <div class="preview-container">
+        <mat-tab-group class="preview-tab-group" (selectedTabChange)="onTabChange($event)">
+          <mat-tab label="Human Readable">
+            <app-dcc-human-readable [humanReadableHtml]="humanReadableHtml" [dcc]="this.dcc"></app-dcc-human-readable>
+          </mat-tab>
+          <mat-tab label="'dcc.xml' | translate">{{'dcc.xml' | translate}}</mat-tab>
+          <mat-tab label="'dcc.files' | translate">{{'dcc.files' | translate}}</mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-step>
   </mat-stepper>
 </form>
 <div class="footer-container">
@@ -537,7 +552,8 @@
     <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" color="primary"
             mat-button>{{'button.previousStep' | translate}}
     </button>
-    <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" color="accent"
+    <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button"
+            color="accent"
             mat-button>{{'button.nextStep' | translate}}
     </button>
   </div>

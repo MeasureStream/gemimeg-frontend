@@ -1,0 +1,38 @@
+// ------ Component ----------
+.container-humanReadable {
+
+ margin: 8px;
+ min-height: 55vh;
+}
+.blue-card.humanReadable{
+  position: relative;
+  z-index: 1;
+}
+.wrapper-humanReadable,
+.wrapper-humanreadable.message {
+  /* border: 2px solid green; */
+  width:60%;
+}
+
+.container-humanReadable.message {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.message-content {
+ color: crimson;
+ font-size: 16px;
+ font-weight: 500;
+}
+.content-humanReadable{
+  /* border: 2px solid black; */
+  width:100%;
+  display:flex;
+  justify-content: center;
+}
+
+// /* ------ humanReadable ---------- */
+// siehe unter assets/css/humanReadable.css
+// ansonsten müsste ich in dieser Komponente encapsulation: ViewEncapsulation.None
+// setzen damit ich die Klassen der humanreadable ansprechen kann

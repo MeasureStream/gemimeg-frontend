@@ -1,0 +1,43 @@
+mat-card {
+  margin: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 1.2rem;
+    margin: 8px 0;
+    color: #333;
+  }
+
+  .form-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+  }
+}
+
+.form-group2{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+mat-form-field, mat-select {
+}
+
+mat-form-field input {
+  font-size: 0.8rem;
+.button-container{
+  margin-right: 21px;
+}
+
+button {
+  margin-top: 12px;
+  background-color: #3f51b5;
+  color: #fff;
+
+  &:hover {
+    background-color: #303f9f;
+  }
+}
