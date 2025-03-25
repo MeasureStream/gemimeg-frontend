@@ -26,27 +26,13 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<div class="container-humanReadable">
-  <mat-card class="blue-card humanReadable">
-    <mat-card-header>
-      <div class="header-title">
-        <mat-card-title class="title">{{'dcc.calibration-certificate' | translate}}</mat-card-title>
-      </div>
-      <div class="header-menu">
-        <button (click)="download(true)" class="blue-card-btn" mat-icon-button>
-          <mat-icon>
-            <i class="material-icons"><i class="material-icons">download</i></i>
-          </mat-icon>
-        </button>
-      </div>
-    </mat-card-header>
-    <mat-card-content *ngIf="isExpanded">
-      <div class="content-humanReadable">
-        <div class="wrapper-humanReadable" *ngIf="humanReadableHtml!=''"></div>
-        <div class="wrapper-humanReadable message" *ngIf="humanReadableHtml==''"><p class="message-content">
-          {{'dcc.preview.attention' | translate}}:
-          {{'dcc.preview.mandatoryFields' | translate}}!</p></div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-form-field class="full-width">
+  <mat-select [(value)]="templateFileUrl" placeholder="Vorlage auswählen">
+    <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category">
+      <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>
+<button (click)="useTemplate()" [disabled]="templateFileUrl == undefined" color="primary" mat-raised-button>
+  Vorlage anwenden
+</button>

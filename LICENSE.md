@@ -1,4 +1,3 @@
-<!--
   Copyright 2025 Physikalisch-Technische Bundesanstalt
 
   Redistribution and use in source and binary forms, with or without
@@ -25,28 +24,3 @@
   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-<div class="container-humanReadable">
-  <mat-card class="blue-card humanReadable">
-    <mat-card-header>
-      <div class="header-title">
-        <mat-card-title class="title">{{'dcc.calibration-certificate' | translate}}</mat-card-title>
-      </div>
-      <div class="header-menu">
-        <button (click)="download(true)" class="blue-card-btn" mat-icon-button>
-          <mat-icon>
-            <i class="material-icons"><i class="material-icons">download</i></i>
-          </mat-icon>
-        </button>
-      </div>
-    </mat-card-header>
-    <mat-card-content *ngIf="isExpanded">
-      <div class="content-humanReadable">
-        <div class="wrapper-humanReadable" *ngIf="humanReadableHtml!=''"></div>
-        <div class="wrapper-humanReadable message" *ngIf="humanReadableHtml==''"><p class="message-content">
-          {{'dcc.preview.attention' | translate}}:
-          {{'dcc.preview.mandatoryFields' | translate}}!</p></div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>

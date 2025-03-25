@@ -56,7 +56,7 @@ export class DccService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     let result =  this.http.post<string>(
-      this.dccServicePath + "/xsd/dcc/html",
+      this.dccServicePath + "xsd/dcc/html",
       dcc,
       {headers: headers,
         responseType:'text'as 'json'
@@ -76,7 +76,6 @@ export class DccService {
       result.push((value.getMonth()+1).toString());
       result.push(value.getDate().toString());
     }
-    // append missing zeros
     for (var i=0; i<result.length;i++) {
       if (result[i].length == 1) {
         result[i] = "0"+result[i];

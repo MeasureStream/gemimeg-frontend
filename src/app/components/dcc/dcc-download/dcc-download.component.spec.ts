@@ -27,21 +27,19 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DccDataComponent} from './dcc-data.component';
+import { DccDownloadComponent } from './dcc-download.component';
 
-describe('DccDataComponent', () => {
-  let component: DccDataComponent;
-  let fixture: ComponentFixture<DccDataComponent>;
+describe('DccDownloadComponent', () => {
+  let component: DccDownloadComponent;
+  let fixture: ComponentFixture<DccDownloadComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DccDataComponent]
-    })
-      .compileComponents();
-
-    fixture = TestBed.createComponent(DccDataComponent);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [DccDownloadComponent]
+    });
+    fixture = TestBed.createComponent(DccDownloadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

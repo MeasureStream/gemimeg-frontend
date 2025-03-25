@@ -126,7 +126,6 @@ export class InitializationService {
     result.refIds = [];
     result.refTypes = [];
     result.quantity = this.getEmptyQuantityDto();
-    result.richContent = this.getEmptyRichContentDto();
     return result;
   }
 
@@ -212,7 +211,6 @@ export class InitializationService {
     result.norms = new Array<string>;
     result.references = new Array<string>;
     result.data = new Array<DataDto>();
-    result.data.push(this.getEmptyDataDto());
     result.location = this.getEmptyLocationDto();
     result.responsibleAuthority = this.getEmptyContactDto();
     return result;

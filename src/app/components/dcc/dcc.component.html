@@ -1,3 +1,31 @@
+<!--
+  Copyright 2025 Physikalisch-Technische Bundesanstalt
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its contributors
+  may be used to endorse or promote products derived from this software without
+  specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+  OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
 <form #dccForm="ngForm">
   <mat-card class="blue-card cockpit">
     <mat-card-header>
@@ -8,21 +36,10 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field class="full-width">
-        <mat-select [(value)]="templateFileUrl" placeholder="{{'dcc.selectDccTemplate' | translate}}">
-          <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category" style="color: blue">
-            <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
-          </mat-optgroup>
-        </mat-select>
-      </mat-form-field>
-      <button (click)="useTemplate()" [disabled]="templateFileUrl == undefined" color="primary" mat-raised-button>
-        {{'dcc.applyTemplate' | translate}}
-      </button>
-      <button (click)="submit()" [disabled]="!chosenFileData" color="primary" mat-raised-button>{{'dcc.downloadDcc' |
-        translate}}
-      </button>
+      <app-dcc-template-picker></app-dcc-template-picker>
       <app-dcc-upload></app-dcc-upload>
-    </mat-card-content>
+      <app-dcc-download [disabled]="dccForm.invalid"></app-dcc-download>
+  </mat-card-content>
   </mat-card>
   <mat-stepper #stepper (selectionChange)="onStepChange($event)" [selectedIndex]="currentStepIndex" linear>
     <mat-step>

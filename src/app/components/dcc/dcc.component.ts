@@ -386,30 +386,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
     );
   }
 
-  useTemplate() {
-    this.showEmptyStatement = true;
-    this.http.get(this.templateFileUrl, { responseType: 'text' }).subscribe(
-      {
-        next: (xml: string) => {
-          this.dccService.xmlToJson(xml.toString()).subscribe(
-            {
-              next: (json: CalibrationCertificateDto) => {
-                this.dcc = this.initialiseEmptyFields(json);
-              },
-              error: (error: any) => {
-                this.errorService.logError(error);
-              },
-              complete: () => {}
-            }
-          );
-        },
-        error: (error: any) => {
-          this.errorService.logError(error);
-        },
-        complete: () => {}
-      });
-  }
-
   preview() {
     this.dccService.jsonToHtml(this.dcc).subscribe(response => {
     },

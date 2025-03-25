@@ -27,26 +27,49 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {DccDataComponent} from './dcc-data.component';
+import { DccComponent } from '../dcc.component';
+import { DccService } from 'src/app/services/dcc/dcc.service';
+import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
+import { ErrorService } from 'src/app/services/common/error/error.service';
 
-describe('DccDataComponent', () => {
-  let component: DccDataComponent;
-  let fixture: ComponentFixture<DccDataComponent>;
+@Component({
+  selector: 'app-dcc-template-picker',
+  templateUrl: './dcc-template-picker.component.html',
+  styleUrls: ['./dcc-template-picker.component.scss']
+})
+export class DccTemplatePickerComponent implements OnInit {
+  templateFileUrl!: string;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DccDataComponent]
-    })
-      .compileComponents();
+  constructor(private parent: DccComponent, public dccService: DccService, private http: HttpClient, private errorService: ErrorService) {
+  }
 
-    fixture = TestBed.createComponent(DccDataComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  ngOnInit(): void {
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  useTemplate() {
+    this.parent.showEmptyStatement = true;
+    this.http.get(this.templateFileUrl, { responseType: 'text' }).subscribe(
+      {
+        next: (xml: string) => {
+          this.dccService.xmlToJson(xml.toString()).subscribe(
+            {
+              next: (json: CalibrationCertificateDto) => {
+                this.parent.dcc = this.parent.initialiseEmptyFields(json);
+              },
+              error: (error: any) => {
+                this.errorService.logError(error);
+              },
+              complete: () => { }
+            }
+          );
+        },
+        error: (error: any) => {
+          this.errorService.logError(error);
+        },
+        complete: () => {}
+      });
+  }
+}

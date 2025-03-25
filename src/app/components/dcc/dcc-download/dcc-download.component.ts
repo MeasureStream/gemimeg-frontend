@@ -27,26 +27,25 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {DccDataComponent} from './dcc-data.component';
+import { DccComponent } from '../dcc.component';
 
-describe('DccDataComponent', () => {
-  let component: DccDataComponent;
-  let fixture: ComponentFixture<DccDataComponent>;
+@Component({
+  selector: 'app-dcc-download',
+  templateUrl: './dcc-download.component.html',
+  styleUrls: ['./dcc-download.component.scss']
+})
+export class DccDownloadComponent implements OnInit {
+  @Input() disabled!: boolean | null;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DccDataComponent]
-    })
-      .compileComponents();
+  constructor(private parent: DccComponent) {
+  }
 
-    fixture = TestBed.createComponent(DccDataComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  ngOnInit(): void {
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  submit() {
+    this.parent.submit();
+  }
+}
