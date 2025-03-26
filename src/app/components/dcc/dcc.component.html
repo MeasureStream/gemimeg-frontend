@@ -554,11 +554,11 @@
       <ng-template matStepLabel>{{'dcc.preview' | translate}}</ng-template>
       <div class="preview-container">
         <mat-tab-group class="preview-tab-group" (selectedTabChange)="onTabChange($event)">
-          <mat-tab label="Human Readable">
+          <mat-tab label="{{'dcc.preview.human-readable' | translate}}">
             <app-dcc-human-readable [humanReadableHtml]="humanReadableHtml" [dcc]="this.dcc"></app-dcc-human-readable>
           </mat-tab>
-          <mat-tab label="'dcc.xml' | translate">{{'dcc.xml' | translate}}</mat-tab>
-          <mat-tab label="'dcc.files' | translate">{{'dcc.files' | translate}}</mat-tab>
+          <mat-tab label="{{'dcc.preview.xml' | translate}}">{{'dcc.preview.xml' | translate}}</mat-tab>
+          <mat-tab label="{{'dcc.preview.files' | translate}}">{{'dcc.preview.files' | translate}}</mat-tab>
         </mat-tab-group>
       </div>
     </mat-step>
