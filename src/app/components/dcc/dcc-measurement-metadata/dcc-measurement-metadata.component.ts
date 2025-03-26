@@ -43,20 +43,6 @@ export class DccMeasurementMetadataComponent implements OnInit {
       }
     }
   }
-  
-  marshalCustomDate(value: Date): string {
-    const result = new Array<string>();
-    if (value) {
-      result.push(value.getFullYear().toString());
-      result.push((value.getMonth() + 1).toString());
-      result.push(value.getDate().toString());
-    }
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].length === 1) {
-        result[i] = '0' + result[i];
-      }
-    }
-    return result[0] + '-' + result[1] + '-' + result[2];}
 
   toggleCard(index: number) {
     this.isExpanded[index] = !this.isExpanded[index];
@@ -72,6 +58,6 @@ export class DccMeasurementMetadataComponent implements OnInit {
 
   onDateChange(event: any) {
     const date: Date = event.value;
-    this.item.date = this.marshalCustomDate(date);
+    this.item.date = this.dccService.marshalCustomDate(date);
   }
 }
