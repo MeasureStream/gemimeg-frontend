@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
@@ -38,7 +37,6 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 export class DccComponent implements OnInit, AfterContentChecked {
   dcc: CalibrationCertificateDto;
   xml!: string;
-  templateFileUrl!: string;
   uploadedFileUrl!: string;
   validPerformanceLocations = ["LABORATORY", "CUSTOMER", "LABORATORY_BRANCH", "CUSTOMER_BRANCH", "OTHER"];
   validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
@@ -63,7 +61,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
   constructor(
     public dccService: DccService,
     public dialog: MatDialog,
-    private http: HttpClient,
     private errorService: ErrorService,
     private initializationService: InitializationService,
     private sanitizer: DomSanitizer,
@@ -97,15 +94,14 @@ export class DccComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  public toggleCard(title:string){
-    console.log('isExpanded: ',this.isExpanded[title])
+  public toggleCard(title:string) {
     if(this.isExpanded[title]===undefined){
       this.isExpanded[title]=true;
     }
     this.isExpanded[title]=!this.isExpanded[title];
   }
 
-  public addCalibrationCard (title:string){
+  public addCalibrationCard (title:string) {
     this.cardTitles.push(title);
     this.isExpanded[title]=true;
   }
@@ -119,7 +115,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   public add_address(value: string) {
-    console.log('value Adress: ',value)
     let isAddressAdded = false;
     let emptyStatementIndex: number | null = null;
     for (let i = 0; i < this.dcc.administrativeData!.statements!.length; i++) {

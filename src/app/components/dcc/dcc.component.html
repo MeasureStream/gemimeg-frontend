@@ -218,19 +218,24 @@
           </div>
         </mat-card-header>
         <mat-card-content *ngIf="isExpanded['Kalibrierlabor']">
-          <mat-form-field>
-            <mat-label>{{'dcc.identificationOfCalibrationLaboratory' | translate}}</mat-label>
-            <input
+          <div class="dcc-row">
+            <div class="label-container">
+              <label for="calibrationLaboratoryCode">{{'dcc.calibrationLaboratoryCode' | translate}}</label>
+            </div>
+            <mat-form-field appearance="fill">
+              <mat-label>{{'dcc.identificationOfCalibrationLaboratory' | translate}}</mat-label>
+              <input
                 [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
                 id="calibrationLaboratoryCode"
                 matInput
                 name="calibrationLaboratoryCode"
-            />
-          </mat-form-field>
+              />
+            </mat-form-field>
+          </div>
           <mat-divider></mat-divider>
           <app-dcc-contact
-              (fileSelected)="onFileSelected($event)"
-              [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!">
+            (fileSelected)="onFileSelected($event)"
+            [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!">
           </app-dcc-contact>
         </mat-card-content>
       </mat-card>
