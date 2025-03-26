@@ -57,13 +57,13 @@
         <label for="date">{{'dcc.date' | translate}}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input 
-        (ngModelChange)="item.date = dccService.marshalCustomDate($event)" 
-        [(ngModel)]=item.date      
-        [matDatepicker]="statementDate" 
-        id="date" 
-        matInput 
-        name="date" 
+        <input
+        (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
+        [matDatepicker]="statementDate"
+        [ngModel]=item.date
+        id="date"
+        matInput
+        name="date"
         readonly>
         <mat-hint>JJJJ-MM-TT</mat-hint>
         <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
