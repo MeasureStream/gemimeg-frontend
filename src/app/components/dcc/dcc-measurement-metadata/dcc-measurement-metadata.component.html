@@ -18,7 +18,7 @@
     <h4>{{'dcc.declaration' | translate}}</h4>
     <app-dcc-richcontent [richContent]="item.declaration!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="countryCodes">{{'dcc.countryCode' | translate}}</label>
       </div>
@@ -27,7 +27,7 @@
                id="countryCodes" matInput>
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="convention">{{'dcc.convention' | translate}}</label>
       </div>
@@ -35,7 +35,7 @@
         <input [(ngModel)]=item.convention id="convention" matInput name="convention">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="references">{{'dcc.reference' | translate}}</label>
       </div>
@@ -44,7 +44,7 @@
                name="references">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="norm">{{'dcc.norm' | translate}}</label>
       </div>
@@ -52,19 +52,25 @@
         <input (blur)="string2Arr($event,'norms',i)" [(ngModel)]=item.norms id="norm" matInput name="norm">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="date">{{'dcc.date' | translate}}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input (ngModelChange)="item.date = dccService.marshalCustomDate($event)" [(ngModel)]=item.date
-               [matDatepicker]="statementDate" id="date" matInput name="date" readonly>
+        <input 
+        (ngModelChange)="item.date = dccService.marshalCustomDate($event)" 
+        [(ngModel)]=item.date      
+        [matDatepicker]="statementDate" 
+        id="date" 
+        matInput 
+        name="date" 
+        readonly>
         <mat-hint>JJJJ-MM-TT</mat-hint>
         <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #statementDate></mat-datepicker>
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="period">{{'dcc.period' | translate}}</label>
       </div>
@@ -72,7 +78,7 @@
         <input [(ngModel)]=item.period id="period" matInput name="period">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="conformity">{{'dcc.conformity' | translate}}</label>
       </div>
@@ -84,7 +90,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="nonSIUnit">{{'dcc.nonSIUnit' | translate}}</label>
       </div>
@@ -92,7 +98,7 @@
         <input [(ngModel)]=item.nonSIUnit id="nonSIUnit" matInput name="nonSIUnit">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="nonSIDefinition">{{'dcc.nonSIDefinition' | translate}}</label>
       </div>
@@ -100,7 +106,7 @@
         <input [(ngModel)]=item.nonSIDefinition id="nonSIDefinition" matInput name="nonSIDefinition">
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="row-checkbox">
         <mat-checkbox [(ngModel)]=item.valid>{{'dcc.valid' | translate}}</mat-checkbox>
         <mat-checkbox [(ngModel)]=item.traceable>{{'dcc.traceableResult' | translate}}</mat-checkbox>
@@ -109,7 +115,7 @@
     <mat-divider></mat-divider>
     <h4>{{'dcc.location' | translate}}</h4>
     <ng-container *ngIf="item.location">
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="city">{{'dcc.city' | translate}}<span class="asterix">*</span></label>
         </div>
@@ -117,7 +123,7 @@
           <input [(ngModel)]=item.location!.city id="city" matInput name="city" required>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="countryCode">{{'dcc.countryCode' | translate}}<span class="asterix">*</span></label>
         </div>
@@ -126,7 +132,7 @@
                  oninput="this.value = this.value.toUpperCase()" required>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="postalCode">{{'dcc.postalCode' | translate}}<span class="asterix">*</span></label>
         </div>
@@ -134,7 +140,7 @@
           <input [(ngModel)]=item.location!.postalCode id="postalCode" matInput name="postalCode" required>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="stateCode">{{'dcc.state' | translate}}</label>
         </div>
@@ -142,7 +148,7 @@
           <input [(ngModel)]=item.location!.stateCode id="stateCode" matInput name="stateCode">
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="street">{{'dcc.street' | translate}}<span class="asterix">*</span></label>
         </div>
@@ -150,7 +156,7 @@
           <input [(ngModel)]=item.location!.street id="street" matInput name="street" required>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="houseNumber">{{'dcc.streetNumber' | translate}}<span class="asterix">*</span></label>
         </div>
@@ -158,7 +164,7 @@
           <input [(ngModel)]=item.location!.houseNumber id="houseNumber" matInput name="houseNumber" required>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="poBox">{{'dcc.poBox' | translate}}</label>
         </div>

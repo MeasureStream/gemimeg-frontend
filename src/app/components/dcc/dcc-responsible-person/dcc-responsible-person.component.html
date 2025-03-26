@@ -13,7 +13,7 @@
   <mat-card-content *ngIf=" isExpanded[i]">
     <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                               [strings]="respPers.name!"></app-dcc-localised-string>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="emailAddress">{{'dcc.emailAddress' | translate}}</label>
       </div>
@@ -21,7 +21,7 @@
         <input [(ngModel)]="respPers.emailAddress" id="emailAddress" matInput name="emailAddress"/>
       </mat-form-field>
     </div>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="phoneNumber">{{'dcc.phoneNumber' | translate}}</label>
       </div>
