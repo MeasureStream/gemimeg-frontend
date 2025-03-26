@@ -15,7 +15,7 @@
     <div>
       <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
                                 [strings]="item.name!"></app-dcc-localised-string>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="classID">{{'dcc.classification' | translate}}</label>
         </div>
@@ -23,7 +23,7 @@
           <input [(ngModel)]=item.classId id="classID" matInput name="classID">
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="classReference">{{'dcc.norm' | translate}}</label>
         </div>
@@ -31,7 +31,7 @@
           <input [(ngModel)]=item.classReference id="classReference" matInput name="classReference">
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="dcc-row">
         <div class="label-container">
           <label for="model">{{'dcc.model' | translate}}</label>
         </div>

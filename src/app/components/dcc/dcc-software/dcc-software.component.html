@@ -13,7 +13,7 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
                               [strings]="software.name!"></app-dcc-localised-string>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="version">{{'dcc.software.version' | translate}}<span class="asterix">*</span></label>
       </div>

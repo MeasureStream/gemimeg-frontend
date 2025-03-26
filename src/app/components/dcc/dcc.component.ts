@@ -443,4 +443,3 @@ export class DccComponent implements OnInit, AfterContentChecked {
     this.isLastStep = this.currentStepIndex === this.totalSteps - 1;
   }
 }
-
