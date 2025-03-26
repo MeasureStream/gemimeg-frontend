@@ -30,6 +30,7 @@
 import { Injectable } from '@angular/core';
 
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
+import { CalibrationLaboratoryDto } from 'src/app/generated/dcc/model/calibrationLaboratoryDto';
 import { ConditionDto } from 'src/app/generated/dcc/model/conditionDto';
 import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
 import { CoverageIntervalDto } from 'src/app/generated/dcc/model/coverageIntervalDto';
@@ -216,6 +217,11 @@ export class InitializationService {
     result.refTypes = [];
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.location = this.getEmptyLocationDto();
+    return result;
+  }
+  getEmptyCalibrationLaboratoryDto(): CalibrationLaboratoryDto {
+    var result = <CalibrationLaboratoryDto>{};
+    result.contact = this.getEmptyContactDto();
     return result;
   }
   

@@ -14,7 +14,7 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                               [strings]="item.name!"></app-dcc-localised-string>
-    <div class="row">
+    <div class="dcc-row">
       <div class="label-container">
         <label for="status">{{'dcc.status' | translate}}</label>
       </div>
