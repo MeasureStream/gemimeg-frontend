@@ -203,6 +203,7 @@ export class InitializationService {
     result.id = '';
     result.countryCode = 'DE';
     result.street = '';
+    result.houseNumber = '';
     result.city = '';
     result.additionalInformation = this.getEmptyRichContentDto();
     return result;

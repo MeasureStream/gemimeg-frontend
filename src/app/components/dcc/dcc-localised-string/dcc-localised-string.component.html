@@ -1,4 +1,4 @@
-<div *ngFor="let item of strings.content; let i = index" class="row">
+<div *ngFor="let item of strings.content; let i = index" class="dcc-row">
   <ng-container *ngIf="getOrSetLang(item)">
     <div class="label-container">
       <label [for]="placeholder.toLowerCase()">{{placeholder}}<span class="asterix">*</span>

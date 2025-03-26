@@ -1,6 +1,6 @@
 <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
                           [strings]="contact.name!"></app-dcc-localised-string>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
     <label for="phoneNumber">{{'dcc.phone' | translate}}</label>
   </div>
@@ -8,7 +8,7 @@
     <input [(ngModel)]=contact.phoneNumber id="phoneNumber" matInput name="phoneNumber">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
     <label for="emailAddress">{{'dcc.eMail' | translate}}</label>
   </div>
@@ -18,58 +18,58 @@
 </div>
 <mat-divider></mat-divider>
 <h4>{{'dcc.contact.address' | translate}}</h4>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="city">{{'dcc.city' | translate}}<span class="asterix">*</span></label>
+    <label for="city">{{'dcc.location.city' | translate}}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.city [required]="strict" id="city" matInput name="city">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="countryCode">{{'dcc.countryCode' | translate}}<span class="asterix">*</span></label>
+    <label for="countryCode">{{'dcc.location.countryCode' | translate}}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.countryCode [required]="strict" id="countryCode" matInput name="countryCode"
            oninput="this.value = this.value.toUpperCase()">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="postalCode">{{'dcc.postalCode' | translate}}<span class="asterix">*</span></label>
+    <label for="postalCode">{{'dcc.location.postalCode' | translate}}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.postalCode [required]="strict" id="postalCode" matInput name="postalCode">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="stateCode">{{'dcc.state' | translate}} <span class="asterix">*</span> </label>
+    <label for="stateCode">{{'dcc.location.stateCode' | translate}} <span class="asterix">*</span> </label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.stateCode [required]="strict" id="stateCode" matInput name="stateCode">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="street">{{'dcc.street' | translate}}<span class="asterix">*</span></label>
+    <label for="street">{{'dcc.location.street' | translate}}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.street [required]="strict" id="street" matInput name="street">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="houseNumber">{{'dcc.streetNumber' | translate}}<span class="asterix">*</span></label>
+    <label for="houseNumber">{{'dcc.location.houseNumber' | translate}}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.houseNumber [required]="strict" id="houseNumber" matInput name="houseNumber">
   </mat-form-field>
 </div>
-<div class="row">
+<div class="dcc-row">
   <div class="label-container">
-    <label for="poBox">{{'dcc.poBox' | translate}}</label>
+    <label for="poBox">{{'dcc.location.poBox' | translate}}</label>
   </div>
   <mat-form-field appearance="fill">
     <input [(ngModel)]=contact.location!.poBox id="poBox" matInput name="poBox">

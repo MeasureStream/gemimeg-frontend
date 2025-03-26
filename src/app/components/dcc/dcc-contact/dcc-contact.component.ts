@@ -15,7 +15,7 @@ export class DccContactComponent implements OnInit {
   @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
   constructor(initializationService: InitializationService) {
-    this.strict = true;
+    this.strict = false;
     this.contact = initializationService.getEmptyContactDto();
   }
 

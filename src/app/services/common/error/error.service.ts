@@ -56,16 +56,16 @@ export class ErrorService {
     } else if (error instanceof Error) {
       stack = message.stack;
     } else {
-      this.logger.warn("Got unexpected error of type "+typeof(error)+" with structure "+JSON.stringify(error, null, 3));
+      this.logger.warn("Got unexpected error of type " + typeof(error) + " with structure " + JSON.stringify(error, null, 3));
     }
     this.logErrorDetails(message,status,stack);
   }
 
   logErrorDetails(message: string, status?: number, stack?: string): void {
     if (message != undefined || status != undefined) {
-      this.logger.warn("Got error "+message+" with status "+status+" and stack "+stack);
+      this.logger.warn("Got error " + message + " with status " + status + " and stack " + stack);
     } else {
-      this.logger.warn("Got (invisible) error "+message+" with status "+status+" and stack "+stack);
+      this.logger.warn("Got (invisible) error " + message + " with status " + status + " and stack " + stack);
     }
   } 
 }
