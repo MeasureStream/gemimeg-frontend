@@ -54,7 +54,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   selectedPerformanceLoc: string = '';
   performanceLocation = ["laboratory", "customer", "laboratory branch", "customer branch","other"];
   currentStepIndex = 0;
-  totalSteps = 4;
+  totalSteps = 5;
   isLastStep =false
   chosenFileData: ByteDataDto | null = null;
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
@@ -524,7 +524,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   onStepChange(event: StepperSelectionEvent): void {
-    if (event.selectedIndex === 4) {
+    if (event.selectedIndex === 5) {
       this.onTabChange({ index: 0, tab: { textLabel: 'Human Readable' } } as MatTabChangeEvent);
     }
     this.currentStepIndex = event.selectedIndex;

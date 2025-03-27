@@ -135,7 +135,7 @@ mat-stepper {
 
 .footer-container {
   position: sticky;
-  bottom: 0;
+  bottom: 60px;
 }
 
 .footer-navigation {
@@ -155,7 +155,6 @@ mat-stepper {
 }
 
 .filler {
-  height: 60px;
   background-color: var(--primary-color);
 }
 
