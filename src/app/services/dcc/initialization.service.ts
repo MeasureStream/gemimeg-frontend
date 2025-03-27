@@ -219,6 +219,7 @@ export class InitializationService {
     result.location = this.getEmptyLocationDto();
     return result;
   }
+
   getEmptyCalibrationLaboratoryDto(): CalibrationLaboratoryDto {
     var result = <CalibrationLaboratoryDto>{};
     result.contact = this.getEmptyContactDto();

@@ -73,8 +73,4 @@ export class DccRichContentComponent implements OnInit {
         break;
     }
   }
-
-  onFileUploading(file: File) {
-    console.log('file uploaded', file);
-  }
 }
