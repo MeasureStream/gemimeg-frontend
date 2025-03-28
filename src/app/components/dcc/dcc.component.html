@@ -369,7 +369,7 @@
           </mat-card-content>
         </mat-card>
         <button
-            (click)="dcc.administrativeData!.items!.push(getEmptyItemDto());addCalibrationCard('Kalibriergut' + (i + 2) )"
+            (click)="addEmptyItemDto();addCalibrationCard('Kalibriergut' + (i + 2) )"
             class="custom-circle-button-lg"
             color="primary"
             mat-icon-button>
@@ -547,7 +547,7 @@
           </mat-card-content>
         </mat-card>
         <button
-            (click)="dcc.measurementResults!.push(getEmptyMeasurementResultDto()); addCalibrationCard('Messergebnis' + (i + 2))"
+            (click)="addEmptyMeasurementResultDto();addCalibrationCard('Messergebnis' + (i + 2))"
             class="custom-circle-button-lg"
             color="primary"
             mat-icon-button>

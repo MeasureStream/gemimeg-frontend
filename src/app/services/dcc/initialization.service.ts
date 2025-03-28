@@ -42,10 +42,12 @@ import { ExpandedUncDto } from 'src/app/generated/dcc/model/expandedUncDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
 import { HybridValues } from 'src/app/generated/dcc/model/hybridValues';
 import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto';
+import { ItemDto } from 'src/app/generated/dcc/model/itemDto';
 import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
 import { ListDto } from 'src/app/generated/dcc/model/listDto';
 import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
+import { MeasurementResultDto } from 'src/app/generated/dcc/model/measurementResultDto';
 import { MethodDto } from 'src/app/generated/dcc/model/methodDto';
 import { QuantityDto } from 'src/app/generated/dcc/model/quantityDto';
 import { ResultDto } from 'src/app/generated/dcc/model/resultDto';
@@ -296,6 +298,32 @@ export class InitializationService {
     result.usedMethods = new Array<MethodDto>;
     result.quantities.push(this.getEmptyMethodDto());
     result.list = new Array<ListDto>;
+    return result;
+  }
+
+  getEmptyItemDto(): ItemDto {
+    var result = <ItemDto>{};
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.identifications = new Array<IdentificationDto>();
+    result.identifications.push(this.getEmptyIdentifictionDto());
+    result.installedSoftwares = new Array<SoftwareDto>();
+    result.manufacturer = this.getEmptyContactDto();
+    result.description = this.getEmptyRichContentDto();
+    return result;
+  }
+
+  getEmptyMeasurementResultDto(): MeasurementResultDto {
+    var result = <MeasurementResultDto>{};
+    result.name = this.getEmptyLanguageSpecificStringsDto();
+    result.usedMethods = new Array<MethodDto>;
+    result.usedSoftware = new Array<SoftwareDto>;
+    result.equipment = new Array<EquipmentDto>;
+    result.equipment.push(this.getEmptyEquipmentDto());
+    result.influenceConditions = new Array<ConditionDto>;
+    result.results = new Array<ResultDto>;
+    result.results.push(this.getEmptyResultDto());
+    result.statements = new Array<StatementDto>;
+    result.statements.push(this.getEmptyStatementDto());
     return result;
   }
 }
