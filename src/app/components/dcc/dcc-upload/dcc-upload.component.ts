@@ -27,7 +27,7 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { DccComponent } from '../dcc.component';
 import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
@@ -39,21 +39,20 @@ import { ErrorService } from 'src/app/services/common/error/error.service';
   templateUrl: './dcc-upload.component.html',
   styleUrls: ['./dcc-upload.component.scss']
 })
-export class DccUploadComponent {
-  reader = new FileReader();
-  xml = '';
+export class DccUploadComponent implements OnInit {
+  @Input() requiredFileType: string = "applcation/xml"
 
   constructor(private parent: DccComponent, private dccService: DccService, private errorService: ErrorService) {
-    this.reader.addEventListener("loadend", () => {
-      this.xml = this.reader.result as string;
-    }, false);
+  }
+  
+  ngOnInit(): void {
   }
 
-  onFileSelected(event: any) {
+  async onChange(event: any) {
     const file: File = event.target.files[0];
-    if (file && file.name.endsWith('.xml')) {
-      this.reader.readAsText(file);
-      this.dccService.xmlToJson(this.xml).subscribe({
+    if (file) {
+      const xml = await this.readFile(file);
+      this.dccService.xmlToJson(xml).subscribe({
         next: (json: CalibrationCertificateDto) => {
           this.parent.dcc = this.parent.initialiseEmptyFields(json);
         },
@@ -63,5 +62,13 @@ export class DccUploadComponent {
         complete: () => {}
       });
     }
+  }
+
+  readFile(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsText(file);
+    });
   }
 }
