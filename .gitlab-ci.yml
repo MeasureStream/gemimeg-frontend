@@ -32,8 +32,6 @@ cache:
 
 ng-build:
   stage: build
-  tags:
-    - oplayer-berlin
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:20-alpine
   before_script:
     - *set_environmentvariables
@@ -54,8 +52,6 @@ ng-build:
 
 build-image:
   stage: package
-  tags:
-    - oplayer-berlin
   only:
     - tags
   image:
@@ -79,7 +75,7 @@ deploy-production:
   tags:
     - oplayer-berlin
   rules:
-    - if: $CI_COMMIT_TAG =~ /^\d+.\d+.\d+-?.*$/
+    - if: '$CI_COMMIT_TAG =~ /^\d+.\d+.\d+-?.*$/ && $CI_SERVER_HOST == "itgit.bs.ptb.de"'
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
   before_script:
     - *set_environmentvariables
@@ -119,3 +115,4 @@ release-job:
 #  stage: test
 #include:
 #- template: Auto-DevOps.gitlab-ci.yml
+
