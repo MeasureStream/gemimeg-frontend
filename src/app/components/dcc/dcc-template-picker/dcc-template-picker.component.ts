@@ -42,7 +42,7 @@ import { ErrorService } from 'src/app/services/common/error/error.service';
 })
 export class DccTemplatePickerComponent implements OnInit {
   templateFileUrl!: string;
-
+  
   constructor(private parent: DccComponent, public dccService: DccService, private http: HttpClient, private errorService: ErrorService) {
   }
 
@@ -50,6 +50,7 @@ export class DccTemplatePickerComponent implements OnInit {
   }
 
   useTemplate() {
+    
     this.parent.showEmptyStatement = true;
     this.http.get(this.templateFileUrl, { responseType: 'text' }).subscribe(
       {
@@ -58,6 +59,7 @@ export class DccTemplatePickerComponent implements OnInit {
             {
               next: (json: CalibrationCertificateDto) => {
                 this.parent.dcc = this.parent.initialiseEmptyFields(json);
+                this.parent.loadHumanReadable();
               },
               error: (error: any) => {
                 this.errorService.logError(error);
