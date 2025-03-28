@@ -32,8 +32,6 @@ cache:
 
 ng-build:
   stage: build
-  tags:
-    - oplayer-berlin
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:20-alpine
   before_script:
     - *set_environmentvariables
@@ -54,8 +52,6 @@ ng-build:
 
 build-image:
   stage: package
-  tags:
-    - oplayer-berlin
   only:
     - tags
   image:
