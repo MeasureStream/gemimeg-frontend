@@ -49,7 +49,7 @@
         <input [(ngModel)]=software.version id="version" matInput name="version" required>
       </mat-form-field>
     </div>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" class="custom-circle-button-md" color="accent"
+    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" *ngIf="list!.length > 1" class="custom-circle-button-md" color="accent"
             mat-icon-button>
       <mat-icon>remove_circle</mat-icon>
     </button>
