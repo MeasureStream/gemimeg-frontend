@@ -59,7 +59,6 @@ export class DccTemplatePickerComponent implements OnInit {
             {
               next: (json: CalibrationCertificateDto) => {
                 this.parent.dcc = this.parent.initialiseEmptyFields(json);
-                this.parent.loadHumanReadable();
               },
               error: (error: any) => {
                 this.errorService.logError(error);
