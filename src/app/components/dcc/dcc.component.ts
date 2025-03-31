@@ -5,12 +5,10 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
 import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
-import { CalibrationLaboratoryDto } from '../../generated/dcc/model/calibrationLaboratoryDto';
 import { ConditionDto } from '../../generated/dcc/model/conditionDto';
 import { ContactDto } from '../../generated/dcc/model/contactDto';
 import { DataDto } from '../../generated/dcc/model/dataDto';
 import { EquipmentDto } from '../../generated/dcc/model/equipmentDto';
-import { IdentificationDto } from '../../generated/dcc/model/identificationDto';
 import { ItemDto } from '../../generated/dcc/model/itemDto';
 import { MeasurementResultDto } from '../../generated/dcc/model/measurementResultDto';
 import { MethodDto } from '../../generated/dcc/model/methodDto';
@@ -116,7 +114,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
     this.showEmptyStatement = true;
   }
 
-  public add_address(value: string) {
+  public add_address() {
     let isAddressAdded = false;
     let emptyStatementIndex: number | null = null;
     for (let i = 0; i < this.dcc.administrativeData!.statements!.length; i++) {
@@ -144,194 +142,130 @@ export class DccComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  // initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
-  //   if (!dcc.administrativeData) dcc.administrativeData = <AdministrativeDataDto>{};
-  //   if (!dcc.administrativeData.dccSoftware) dcc.administrativeData.dccSoftware = new Array<SoftwareDto>;
-  //   if (dcc.administrativeData.dccSoftware.length == 0) dcc.administrativeData.dccSoftware.push(this.initializationService.getEmptySoftwareDto());
-  //   if (!dcc.administrativeData.customer) dcc.administrativeData.customer = this.initializationService.getEmptyContactDto();
-  //   if (!dcc.administrativeData.customer.location?.additionalInformation?.name){
-  //     dcc.administrativeData.customer.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
-  //   }
-  //   if (!dcc.administrativeData.customer.location?.additionalInformation?.textContent){
-  //     dcc.administrativeData.customer.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
-  //   }
-  //   if (!dcc.administrativeData.calibrationLaboratory) dcc.administrativeData.calibrationLaboratory = this.getEmptyCalibrationLaboratoryDto();
-  //   if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name){
-  //     dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
-  //   }
-  //   if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent){
-  //     dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
-  //   }
-  //   if (!dcc.administrativeData.responsiblePersons) dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
-  //   if (dcc.administrativeData.responsiblePersons.length == 0) dcc.administrativeData.responsiblePersons.push(this.getEmptyRespPersonDto());
-  //   if (!dcc.administrativeData.items) dcc.administrativeData.items = new Array<ItemDto>;
-  //   if (dcc.administrativeData.items.length == 0) dcc.administrativeData.items.push(this.getEmptyItemDto());
-  //   dcc.administrativeData.items.forEach((entry: any) => {
-  //     if (entry.installedSoftwares == null) {
-  //       entry.installedSoftwares = new Array<SoftwareDto>;
-  //     }
-  //     if (entry.installedSoftwares.length == 0) entry.installedSoftwares.push(this.initializationService.getEmptySoftwareDto());
-
-  //     if (entry.manufacturer == null) {
-  //       entry.manufacturer = this.initializationService.getEmptyContactDto();
-  //     }
-  //     if (entry.description == null) {
-  //       entry.description = this.initializationService.getEmptyRichContentDto();
-  //     }
-  //   });
-  //   if (!dcc.administrativeData.statements) dcc.administrativeData.statements = new Array<StatementDto>();
-  //   if (dcc.administrativeData?.statements?.length == 0) dcc.administrativeData.statements.push(this.initializationService.getEmptyStatementDto());
-  //   dcc.administrativeData.statements.forEach((statement: any) => {
-  //     this.initializeStatement(statement);
-  //   });
-  //   if (!dcc.measurementResults) dcc.measurementResults = new Array<MeasurementResultDto>();
-  //   if (dcc.measurementResults.length == 0) dcc.measurementResults.push(this.getEmptyMeasurementResultDto());
-  //   dcc.measurementResults.forEach((entry: any) => {
-  //     if (entry.usedSoftware == null) {
-  //       entry.usedSoftware = new Array<SoftwareDto>();
-  //     }
-  //     if (entry.usedSoftware.length == 0) entry.usedSoftware.push(this.initializationService.getEmptySoftwareDto());
-
-  //     if (entry.equipment == null) {
-  //       entry.equipment = new Array<EquipmentDto>();
-  //     }
-  //     if (entry.equipment.length == 0) entry.equipment.push(this.initializationService.getEmptyEquipmentDto());
-  //     entry.equipment.forEach((subentry: any) => {
-  //       if (subentry.manufacturer == null) {
-  //         subentry.manufacturer = this.initializationService.getEmptyContactDto();
-  //       }
-  //     });
-  //     if (entry.influenceConditions == null) {
-  //       entry.influenceConditions = new Array<ConditionDto>();
-  //     }
-  //     if (entry.influenceConditions.length == 0) entry.influenceConditions.push(this.initializationService.getEmptyConditionDto());
-
-  //     if (entry.statements == null) {
-  //       entry.statements = new Array<StatementDto>();
-  //     }
-  //     if (entry.statements.length == 0) entry.statements.push(this.initializationService.getEmptyStatementDto());
-  //     entry.statements.forEach((statement: any) => {
-  //       this.initializeStatement(statement);
-  //     });
-  //     if (entry.usedMethods == null) {
-  //       entry.usedMethods = new Array<MethodDto>();
-  //     }
-  //     if (entry.usedMethods.length == 0) {
-  //       entry.usedMethods.push(this.initializationService.getEmptyMethodDto());
-  //     } else {
-  //       entry.usedMethods.forEach((subentry: any) => {
-  //         if (subentry.norms == null) {
-  //           subentry.norms = new Array<string>
-  //         }
-  //         if (subentry.norms.length == 0) subentry.norms.push("");
-  //       });
-  //     }
-  //     if (entry.results == null) {
-  //       entry.results = new Array<ResultDto>();
-  //     }
-  //     if (entry.results.length == 0) {
-  //       entry.results.push(this.initializationService.getEmptyResultDto());
-  //     }
-  //     entry.results.forEach((subentry: any) => {
-  //       if (subentry.data == null) {
-  //         subentry.data = new Array<DataDto>();
-  //       }
-  //     });
-  //   });
-  //   return dcc;
-  // }
   initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
-    if (!dcc.administrativeData) dcc.administrativeData = <AdministrativeDataDto>{};
-    if (!dcc.administrativeData.dccSoftware) dcc.administrativeData.dccSoftware = new Array<SoftwareDto>;
-    if (dcc.administrativeData.dccSoftware.length == 0) dcc.administrativeData.dccSoftware.push(this.initializationService.getEmptySoftwareDto());
-    if (!dcc.administrativeData.customer) dcc.administrativeData.customer = this.initializationService.getEmptyContactDto();
-    if (!dcc.administrativeData.customer.location?.additionalInformation?.name){
-      dcc.administrativeData.customer.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
+    if (!dcc.administrativeData) {
+      dcc.administrativeData = <AdministrativeDataDto>{};
     }
-    if (!dcc.administrativeData.customer.location?.additionalInformation?.textContent){
-      dcc.administrativeData.customer.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
+    if (!dcc.administrativeData.dccSoftware) {
+      dcc.administrativeData.dccSoftware = new Array<SoftwareDto>;
     }
-    if (!dcc.administrativeData.calibrationLaboratory) dcc.administrativeData.calibrationLaboratory = this.initializationService.getEmptyCalibrationLaboratoryDto();
-
-    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name){
-      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name=this.initializationService.getEmptyLanguageSpecificStringsDto();
+    if (dcc.administrativeData.dccSoftware.length == 0) {
+      dcc.administrativeData.dccSoftware.push(this.initializationService.getEmptySoftwareDto());
     }
-    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent){
+    if (!dcc.administrativeData.customer) {
+      dcc.administrativeData.customer = this.initializationService.getEmptyContactDto();
+    }
+    if (!dcc.administrativeData.customer.location) {
+      dcc.administrativeData.customer.location = this.initializationService.getEmptyLocationDto();
+    }
+    if (!dcc.administrativeData.customer.location.additionalInformation) {
+      dcc.administrativeData.customer.location.additionalInformation = this.initializationService.getEmptyRichContentDto();
+    }
+    if (!dcc.administrativeData.customer.location.additionalInformation.name) {
+      dcc.administrativeData.customer.location.additionalInformation.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    }
+    if (!dcc.administrativeData.customer.location.additionalInformation.textContent) {
+      dcc.administrativeData.customer.location.additionalInformation.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    }
+    
+    if (!dcc.administrativeData.calibrationLaboratory) {
+      dcc.administrativeData.calibrationLaboratory = this.initializationService.getEmptyCalibrationLaboratoryDto();
+    }
+    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name) {
+      dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+    }
+    if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent) {
       dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent=this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-    if (!dcc.administrativeData.responsiblePersons) dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
-    if (dcc.administrativeData.responsiblePersons.length == 0) dcc.administrativeData.responsiblePersons.push(this.getEmptyRespPersonDto());
-    if (!dcc.administrativeData.items) dcc.administrativeData.items = new Array<ItemDto>;
-    if (dcc.administrativeData.items.length == 0) dcc.administrativeData.items.push(this.getEmptyItemDto());
+    if (!dcc.administrativeData.responsiblePersons) {
+      dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
+    }
+    if (dcc.administrativeData.responsiblePersons.length == 0) {
+      dcc.administrativeData.responsiblePersons.push(this.initializationService.getEmptyContactDto());
+    }
+    if (!dcc.administrativeData.items) {
+      dcc.administrativeData.items = new Array<ItemDto>;
+    }
+    if (dcc.administrativeData.items.length == 0) dcc.administrativeData.items.push(this.initializationService.getEmptyItemDto());
     dcc.administrativeData.items.forEach((entry: any) => {
-      if (entry.installedSoftwares == null) {
+      if (entry.installedSoftwares == null || undefined) {
         entry.installedSoftwares = new Array<SoftwareDto>;
       }
       if (entry.installedSoftwares.length == 0) entry.installedSoftwares.push(this.initializationService.getEmptySoftwareDto());
-      if (entry.manufacturer == null) {
+      if (entry.manufacturer == null || undefined) {
         entry.manufacturer = <ContactDto>{};
         entry.manufacturer.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
-      if (entry.manufacturer.location == null) {
+      if (entry.manufacturer.location == null || undefined) {
         entry.manufacturer.location = <LocationDto>{};
         entry.manufacturer.location.additionalInformation = this.initializationService.getEmptyRichContentDto();
         entry.manufacturer.location.additionalInformation.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
         entry.manufacturer.location.additionalInformation.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
-      if (entry.description == null) {
+      if (entry.description == null || undefined) {
         entry.description = <RichContentDto>{};
         entry.description.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
         entry.description.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
     });
-    if (!dcc.administrativeData.statements) dcc.administrativeData.statements = new Array<StatementDto>();
-    if (dcc.administrativeData?.statements?.length == 0) dcc.administrativeData.statements.push(this.initializationService.getEmptyStatementDto());
+    if (!dcc.administrativeData.statements) {
+      dcc.administrativeData.statements = new Array<StatementDto>();
+    }
+    if (dcc.administrativeData?.statements?.length == 0) {
+      dcc.administrativeData.statements.push(this.initializationService.getEmptyStatementDto());
+    }
     dcc.administrativeData.statements.forEach((statement: any) => {
       this.initializeStatement(statement);
     });
-    if (!dcc.measurementResults) dcc.measurementResults = new Array<MeasurementResultDto>();
-    if (dcc.measurementResults.length == 0) dcc.measurementResults.push(this.getEmptyMeasurementResultDto());
+    if (!dcc.measurementResults) {
+      dcc.measurementResults = new Array<MeasurementResultDto>();
+    }
+    if (dcc.measurementResults.length == 0) {
+      dcc.measurementResults.push(this.initializationService.getEmptyMeasurementResultDto());
+    }
     dcc.measurementResults.forEach((entry: any) => {
-      if (entry.usedSoftware == null) {
+      if (entry.usedSoftware == null || undefined) {
         entry.usedSoftware = new Array<SoftwareDto>();
       }
       if (entry.usedSoftware.length == 0) entry.usedSoftware.push(this.initializationService.getEmptySoftwareDto());
-      if (entry.equipment == null) {
+      if (entry.equipment == null || undefined) {
         entry.equipment = new Array<EquipmentDto>();
       }
       if (entry.equipment.length == 0) entry.equipment.push(this.initializationService.getEmptyEquipmentDto());
       entry.equipment.forEach((subentry: any) => {
-        if (subentry.manufacturer == null) {
+        if (subentry.manufacturer == null || undefined) {
           subentry.manufacturer = this.initializationService.getEmptyContactDto();
         }
       });
-      if (entry.influenceConditions == null) {
+      if (entry.influenceConditions == null || undefined) {
         entry.influenceConditions = new Array<ConditionDto>();
       }
       if (entry.influenceConditions.length == 0) {
         entry.influenceConditions.push(this.initializationService.getEmptyConditionDto());
       }
-      if (entry.statements == null) {
+      if (entry.statements == null || undefined) {
         entry.statements = new Array<StatementDto>();
       }
-      if (entry.statements.length == 0) entry.statements.push(this.initializationService.getEmptyStatementDto());
+      if (entry.statements.length == 0) {
+        entry.statements.push(this.initializationService.getEmptyStatementDto());
+      }
       entry.statements.forEach((statement: any) => {
         this.initializeStatement(statement);
       });
-      if (entry.usedMethods == null) {
+      if (entry.usedMethods == null || undefined) {
         entry.usedMethods = new Array<MethodDto>();
       }
       if (entry.usedMethods.length == 0) {
         entry.usedMethods.push(this.initializationService.getEmptyMethodDto());
       } else {
         entry.usedMethods.forEach((subentry: any) => {
-          if (subentry.norms == null) {
+          if (subentry.norms == null || undefined) {
             subentry.norms = new Array<string>
           }
           if (subentry.norms.length == 0) subentry.norms.push("");
         });
       }
-      if (entry.results == null) {
+      if (entry.results == null || undefined) {
         entry.results = new Array<ResultDto>();
       }
       if (entry.results.length == 0) {
@@ -345,6 +279,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
     });
     return dcc;
   }
+
   initializeStatement(statement: StatementDto) {
     if (statement.data == null || undefined) {
       statement.data = new Array<DataDto>();
@@ -402,43 +337,12 @@ export class DccComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  getEmptyItemDto(): ItemDto {
-    var result = <ItemDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.identifications = new Array<IdentificationDto>();
-    result.identifications.push(this.initializationService.getEmptyIdentifictionDto());
-    result.installedSoftwares = new Array<SoftwareDto>();
-    result.manufacturer = this.initializationService.getEmptyContactDto();
-    result.description = this.initializationService.getEmptyRichContentDto();
-    return result;
+  addEmptyItemDto() {
+    this.dcc.administrativeData!.items!.push(this.initializationService.getEmptyItemDto());
   }
 
-  getEmptyRespPersonDto(): ContactDto {
-    var result = <ContactDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.location = this.initializationService.getEmptyLocationDto();
-    return result;
-  }
-
-  getEmptyCalibrationLaboratoryDto(): CalibrationLaboratoryDto {
-    var result = <CalibrationLaboratoryDto>{};
-    result.contact=this.initializationService.getEmptyContactDto();
-    return result;
-  }
-
-  getEmptyMeasurementResultDto(): MeasurementResultDto {
-    var result = <MeasurementResultDto>{};
-    result.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
-    result.usedMethods = new Array<MethodDto>;
-    result.usedSoftware = new Array<SoftwareDto>;
-    result.equipment = new Array<EquipmentDto>;
-    result.equipment.push(this.initializationService.getEmptyEquipmentDto());
-    result.influenceConditions = new Array<ConditionDto>;
-    result.results = new Array<ResultDto>;
-    result.results.push(this.initializationService.getEmptyResultDto());
-    result.statements = new Array<StatementDto>;
-    result.statements.push(this.initializationService.getEmptyStatementDto());
-    return result;
+  addEmptyMeasurementResultDto() {
+    this.dcc.measurementResults!.push(this.initializationService.getEmptyMeasurementResultDto());
   }
 
   onFileSelected(fileData: ByteDataDto) {
