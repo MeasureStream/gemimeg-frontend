@@ -8,7 +8,7 @@
     <dcc:dccSoftware>
       <dcc:software>
         <dcc:name>
-          <dcc:content>Notepad++</dcc:content>
+           <dcc:content lang="en">Notepad++</dcc:content>
         </dcc:name>
         <dcc:release>v8.5.2</dcc:release>
       </dcc:software>
@@ -55,7 +55,7 @@
     <dcc:items><!--ISO/IEC 17025:2017 7.8.2.1 g)-->
       <dcc:manufacturer>
         <dcc:name>
-          <dcc:content>Weights Co Ltd.</dcc:content>
+           <dcc:content lang="en">Weights Co Ltd.</dcc:content>
         </dcc:name>
       </dcc:manufacturer>
       <dcc:identifications>
@@ -112,7 +112,7 @@
     <dcc:calibrationLaboratory><!--ISO/IEC 17025:2017 7.8.2.1 b)-->
       <dcc:contact>
         <dcc:name>
-          <dcc:content>Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
+           <dcc:content lang="en">Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
         </dcc:name>
         <dcc:eMail>info@ptb.de</dcc:eMail>
         <dcc:location>
@@ -132,7 +132,7 @@
       <dcc:respPerson>
         <dcc:person>
           <dcc:name>
-            <dcc:content>Michael</dcc:content>
+             <dcc:content lang="en">Michael</dcc:content>
           </dcc:name>
         </dcc:person>
         <dcc:role>authorisation of certificate</dcc:role>
@@ -141,14 +141,14 @@
       <dcc:respPerson>
         <dcc:person>
           <dcc:name>
-            <dcc:content>Alexander</dcc:content>
+             <dcc:content lang="en">Alexander</dcc:content>
           </dcc:name>
         </dcc:person>
       </dcc:respPerson>
     </dcc:respPersons>
     <dcc:customer><!--ISO/IEC 17025:2017 7.8.2.1 e)-->
       <dcc:name>
-        <dcc:content>Customer</dcc:content>
+         <dcc:content lang="en">Customer</dcc:content>
       </dcc:name>
       <dcc:location>
         <dcc:streetNo>6</dcc:streetNo>
@@ -179,7 +179,7 @@
         <dcc:valid>true</dcc:valid>
         <dcc:respAuthority>
           <dcc:name>
-            <dcc:content>DAkkS</dcc:content>
+             <dcc:content lang="en">DAkkS</dcc:content>
           </dcc:name>
           <dcc:eMail>info@dakks.de</dcc:eMail>
           <dcc:location>
