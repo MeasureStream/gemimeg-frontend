@@ -46,7 +46,8 @@
         <ng-container *ngIf="type.quantity">{{'dcc.data.quantity' | translate}}</ng-container>
         <ng-container *ngIf="type.list">{{'dcc.data.list' | translate}}</ng-container>
       </h4>
-      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}" url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
+      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
+                       url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>

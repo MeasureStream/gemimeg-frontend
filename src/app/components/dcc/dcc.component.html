@@ -39,7 +39,7 @@
       <app-dcc-template-picker></app-dcc-template-picker>
       <app-dcc-upload></app-dcc-upload>
       <app-dcc-download [disabled]="dccForm.invalid"></app-dcc-download>
-  </mat-card-content>
+    </mat-card-content>
   </mat-card>
   <mat-stepper #stepper (selectionChange)="onStepChange($event)" [selectedIndex]="currentStepIndex" linear>
     <mat-step>
@@ -225,17 +225,17 @@
             <mat-form-field appearance="fill">
               <mat-label>{{'dcc.identificationOfCalibrationLaboratory' | translate}}</mat-label>
               <input
-                [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
-                id="calibrationLaboratoryCode"
-                matInput
-                name="calibrationLaboratoryCode"
+                  [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
+                  id="calibrationLaboratoryCode"
+                  matInput
+                  name="calibrationLaboratoryCode"
               />
             </mat-form-field>
           </div>
           <mat-divider></mat-divider>
           <app-dcc-contact
-            (fileSelected)="onFileSelected($event)"
-            [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!">
+              (fileSelected)="onFileSelected($event)"
+              [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!">
           </app-dcc-contact>
         </mat-card-content>
       </mat-card>
@@ -558,9 +558,9 @@
     <mat-step>
       <ng-template matStepLabel>{{'dcc.preview' | translate}}</ng-template>
       <div class="preview-container">
-        <mat-tab-group class="preview-tab-group" (selectedTabChange)="onTabChange($event)">
+        <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-tab-group">
           <mat-tab label="{{'dcc.preview.human-readable' | translate}}">
-            <app-dcc-human-readable [humanReadableHtml]="humanReadableHtml" [dcc]="this.dcc"></app-dcc-human-readable>
+            <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"></app-dcc-human-readable>
           </mat-tab>
           <mat-tab label="{{'dcc.preview.xml' | translate}}">{{'dcc.preview.xml' | translate}}</mat-tab>
           <mat-tab label="{{'dcc.preview.files' | translate}}">{{'dcc.preview.files' | translate}}</mat-tab>

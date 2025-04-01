@@ -40,7 +40,7 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
-      [strings]="software.name!"></app-dcc-localised-string>
+                              [strings]="software.name!"></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
         <label for="version">{{'dcc.software.version' | translate}}<span class="asterix">*</span></label>
@@ -50,7 +50,7 @@
       </mat-form-field>
     </div>
     <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" *ngIf="list!.length > 1" class="custom-circle-button-md"
-      color="accent" mat-icon-button>
+            color="accent" mat-icon-button>
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
