@@ -7,9 +7,17 @@
       "node",
       "@angular/localize"
     ],
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
-  "files": ["src/test.ts", "src/polyfills.ts"],
-
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "**/*.ts"]
+  "files": [
+    "src/test.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts",
+    "**/*.ts"
+  ]
 }

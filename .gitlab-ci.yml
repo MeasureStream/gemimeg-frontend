@@ -19,10 +19,10 @@ variables:
 
 
 stages:
-- build
-- package
-- deploy
-- release
+  - build
+  - package
+  - deploy
+  - release
 
 cache:
   key: npm
@@ -56,7 +56,7 @@ build-image:
     - tags
   image:
     name: gcr.io/kaniko-project/executor:v1.23.2-debug
-    entrypoint: [""]
+    entrypoint: [ "" ]
   before_script:
     - *set_environmentvariables
   script:
