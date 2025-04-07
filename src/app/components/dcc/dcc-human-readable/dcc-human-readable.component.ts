@@ -27,41 +27,59 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
 import { DccService } from 'src/app/services/dcc/dcc.service';
 
 @Component({
   selector: 'app-dcc-human-readable',
   templateUrl: './dcc-human-readable.component.html',
-  styleUrls: ['./dcc-human-readable.component.scss']
+  styleUrls: ['./dcc-human-readable.component.scss'],
+  // encapsulation: ViewEncapsulation.None
+
 })
 export class DccHumanReadableComponent implements OnChanges {
   @Input() humanReadableHtml: string = '';
   @Input() dcc!: CalibrationCertificateDto;
   isExpanded: boolean = true;
 
-  constructor(private dccService: DccService, private renderer: Renderer2, private el: ElementRef, private cdr: ChangeDetectorRef) {
+  constructor(private dccService: DccService, private renderer: Renderer2, private el: ElementRef, private cdr: ChangeDetectorRef, private titleService: Title) {
+
   }
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['humanReadableHtml'] && this.humanReadableHtml !== '') {
-      this.cdr.detectChanges();  // Manually trigger change detection
+      this.cdr.detectChanges();
       this.updateHtml();
     }
   }
   private updateHtml() {
     const wrapperDiv = this.el.nativeElement.querySelector('.wrapper-humanReadable');
     if (wrapperDiv) this.renderer.setProperty(wrapperDiv, 'innerHTML', this.humanReadableHtml);
-  }
-  download(fileToDownload: boolean) {
-    this.humanReadableHtml ?
-      console.log('download started') : console.log('kein Zerti');
-    console.log(this.dcc);
+    console.log(this.titleService.getTitle())
+    if (this.titleService.getTitle() === "OP-Layer Web") {
+      this.addLogos();
+    }
 
+  }
+  addLogos() {
+    const container = document.getElementById('logos-container');
+    if (container) {
+      container.innerHTML = `<div class="dcc-logos">
+          <img class="ptb-logo" src="/assets/svg/PTB-black.svg" alt="ptb-logo"/>
+          <img class="bundesadler-logo" src="/assets/svg/Bundesadler_Siegel.svg" alt="bundesadler-logo"/>
+        </div>`;
+    }
+  }
+
+
+  download(fileToDownload: boolean) {
     this.dccService.jsonToHuman(this.dcc).subscribe(
       {
         next: (response: string) => {
+
           this.humanReadableHtml = response;
           if (fileToDownload) {
             const a = document.createElement('a');
@@ -73,6 +91,10 @@ export class DccHumanReadableComponent implements OnChanges {
           }
         },
         error: (error: any) => {
+          console.error("Fehler in jsonToHuman:", error);
+          console.error("Fehler-Status:", error.status);
+          console.error("Fehler-Message:", error.message);
+          console.error("Fehler-Response:", error.error);
         },
         complete: () => { }
       }
@@ -82,4 +104,5 @@ export class DccHumanReadableComponent implements OnChanges {
   toggleCard() {
     this.isExpanded = !this.isExpanded
   }
+
 }
