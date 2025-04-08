@@ -399,11 +399,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  formula: FormulaDto | any = {
-    id: '1',
-    content: ['<math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mi>z</mi></mrow></math>'],
-    type: FormulaDto.TypeEnum.Mathml
-  };
+  formula: FormulaDto | any = this.initializationService.getEmptyFormulaDto();
 
   renderMathML(mathML: string) {
     return this.sanitizer.sanitize(SecurityContext.HTML, mathML);
