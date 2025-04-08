@@ -37,7 +37,7 @@
   "dcc.dccUpload": "Upload DCC",
   "dcc.declaration": "Declaration",
   "dcc.description": "Description",
-  "dcc.dccDownload": "Download DCC",
+  "dcc.downloadDcc": "Download DCC",
   "dcc.eMail": "eMail",
   "dcc.emailAddress": "E-mail address",
   "dcc.endDateOfLaboratoryProcedure": "End date of laboratory activity",
