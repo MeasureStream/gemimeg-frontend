@@ -33,11 +33,6 @@
     </mat-optgroup>
   </mat-select>
 </mat-form-field>
-<button
-  (click)="useTemplate()"
-  [disabled]="templateFileUrl == undefined"
-  aria-label="{{'dcc.applyTemplate' | translate}}"
-  color="primary"
-  mat-raised-button>
+<button (click)="useTemplate()" [disabled]="templateFileUrl == undefined" color="primary" mat-raised-button>
   {{'dcc.applyTemplate' | translate}}
 </button>
