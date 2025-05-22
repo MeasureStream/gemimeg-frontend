@@ -30,6 +30,12 @@ export class SettingsDialogComponent {
     this.displaylanguages[4] = <Language>{};
     this.displaylanguages[4].name = "Português";
     this.displaylanguages[4].value = "pt";
+    this.displaylanguages[5] = <Language>{};
+    this.displaylanguages[5].name = "Italiano";
+    this.displaylanguages[5].value = "it";
+    this.displaylanguages[6] = <Language>{};
+    this.displaylanguages[6].name = "Türkçe";
+    this.displaylanguages[6].value = "tr";
     this.userLanguage = this.navigation.getUserLanguage();
   }
 
