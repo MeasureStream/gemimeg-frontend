@@ -1,10 +1,10 @@
-import { Directive, OnChanges, OnInit, Input, ElementRef, OnDestroy, SimpleChanges } from "@angular/core";
-import { Subject } from "rxjs";
-import { MathService } from "./math.service";
-import { take, takeUntil } from "rxjs/operators";
+import { Directive, OnChanges, OnInit, Input, ElementRef, OnDestroy, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
+import { MathService } from './math.service';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appMath]'
+  selector: '[appMath]',
 })
 export class MathDirective implements OnInit, OnChanges, OnDestroy {
   @Input() appMath: string | any;
@@ -26,10 +26,10 @@ export class MathDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private render() {
-    this.mathService.ready().pipe(
-      take(1),
-      takeUntil(this.alive$)
-    ).subscribe(() => this.mathService.render(this.el, this.appMath));
+    this.mathService
+      .ready()
+      .pipe(take(1), takeUntil(this.alive$))
+      .subscribe(() => this.mathService.render(this.el, this.appMath));
   }
 
   ngOnDestroy() {

@@ -31,7 +31,7 @@
   width: relative;
   display: flex;
   flex-direction: column;
-  flex: 2; 
+  flex: 2;
   min-height: relative;
 }
 
@@ -50,14 +50,14 @@ mat-toolbar.mat-primary {
 }
 
 .active-link {
-  background-color: rgb(182, 178, 178); 
-  color: #313ee9; 
+  background-color: rgb(182, 178, 178);
+  color: #313ee9;
 }
 
 .angular-version-first-item {
   font-weight: bold;
   color: #000000;
-  margin-top: 520px; 
+  margin-top: 520px;
   margin-left: 15px;
   font-size: 9px;
 }
@@ -91,7 +91,7 @@ mat-toolbar.mat-primary {
 
 .menu-text {
   margin-right: 10px;
-  font-size:  83%;
+  font-size: 83%;
 }
 
 .main-menu-toggler {
@@ -111,7 +111,7 @@ mat-toolbar.mat-primary {
 }
 
 .list-item:hover .main-menu-toggler mat-icon {
-  transform: translateX(10px); 
+  transform: translateX(10px);
 }
 
 .angular-version-other-items {
@@ -132,8 +132,8 @@ mat-toolbar.mat-primary {
 
 .main-item-wrapper {
   display: flex;
-  align-items:center;
-  justify-content:space-between;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px; // Adjust padding as needed
 }
 

@@ -31,7 +31,7 @@
     <mat-card class="blue-card cockpit">
       <mat-card-header>
         <div class="header-title">
-          <mat-card-title class="title">{{'info-dialog.title' | translate}}</mat-card-title>
+          <mat-card-title class="title">{{ "info-dialog.title" | translate }}</mat-card-title>
         </div>
       </mat-card-header>
       <mat-card-content>
@@ -39,17 +39,30 @@
           <app-version pathPart="dcc"></app-version>
         </p>
         <div class="dialog-link">
-          <p><a href="https://wiki.dcc.ptb.de/en/home" target="_blank">{{'info-dialog.dccWiki' | translate}}</a></p>
-          <p><a href="/dcc/v3/api-docs/swagger-ui.html" target="_blank">{{'info-dialog.apiDocumentation' |
-            translate}}</a></p>
-          <p><a href="https://www.ptb.de/cms/en/service-seiten/impressum.html" target="_blank">{{'info-dialog.imprint' |
-            translate}}</a></p>
-          <p><a href="https://www.ptb.de/cms/en/service-seiten/data-protection.html" target="_blank">{{'info-dialog.dataProtection'
-            | translate}}</a></p>
-          <p><a href="about:blank" target="_blank">{{'info-dialog.aboutUs' | translate}}</a></p>
+          <p>
+            <a href="https://wiki.dcc.ptb.de/en/home" target="_blank">{{ "info-dialog.dccWiki" | translate }}</a>
+          </p>
+          <p>
+            <a href="/dcc/v3/api-docs/swagger-ui.html" target="_blank">{{
+              "info-dialog.apiDocumentation" | translate
+            }}</a>
+          </p>
+          <p>
+            <a href="https://www.ptb.de/cms/en/service-seiten/impressum.html" target="_blank">{{
+              "info-dialog.imprint" | translate
+            }}</a>
+          </p>
+          <p>
+            <a href="https://www.ptb.de/cms/en/service-seiten/data-protection.html" target="_blank">{{
+              "info-dialog.dataProtection" | translate
+            }}</a>
+          </p>
+          <p>
+            <a href="about:blank" target="_blank">{{ "info-dialog.aboutUs" | translate }}</a>
+          </p>
           <!-- TODO: Create a page about the team -->
         </div>
-        <button (click)="closeDialog()" color="primary" mat-raised-button>{{'button.close' | translate}}</button>
+        <button (click)="closeDialog()" color="primary" mat-raised-button>{{ "button.close" | translate }}</button>
       </mat-card-content>
     </mat-card>
   </div>

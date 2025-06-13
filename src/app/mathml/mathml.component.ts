@@ -47,6 +47,6 @@ export class MathmlComponent implements OnInit, AfterViewInit {
       } catch (error) {
         console.error('Error rendering MathML:', error);
       }
-    } 
+    }
   }
 }

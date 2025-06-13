@@ -28,34 +28,37 @@
 -->
 <div>
   <div>
-    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button><span>{{'dcc.data.addData' | translate}}</span><i
-        class="material-icons">arrow_drop_down</i></button>
+    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button>
+      <span>{{ "dcc.data.addData" | translate }}</span
+      ><i class="material-icons">arrow_drop_down</i>
+    </button>
     <mat-menu #menu="matMenu">
-      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item>{{option}}</button>
-
+      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item>{{ option }}</button>
     </mat-menu>
   </div>
 </div>
-<mat-card *ngFor="let type of dataTypes;let i=index" class="blue-card">
+<mat-card *ngFor="let type of dataTypes; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
       <h4 class="title">
-        <ng-container *ngIf="type.byteData">{{'dcc.data.byteData' | translate}}</ng-container>
-        <ng-container *ngIf="type.formula">{{'dcc.data.formula' | translate}}</ng-container>
-        <ng-container *ngIf="type.richContent">{{'dcc.data.richContent' | translate}}</ng-container>
-        <ng-container *ngIf="type.quantity">{{'dcc.data.quantity' | translate}}</ng-container>
-        <ng-container *ngIf="type.list">{{'dcc.data.list' | translate}}</ng-container>
+        <ng-container *ngIf="type.byteData">{{ "dcc.data.byteData" | translate }}</ng-container>
+        <ng-container *ngIf="type.formula">{{ "dcc.data.formula" | translate }}</ng-container>
+        <ng-container *ngIf="type.richContent">{{ "dcc.data.richContent" | translate }}</ng-container>
+        <ng-container *ngIf="type.quantity">{{ "dcc.data.quantity" | translate }}</ng-container>
+        <ng-container *ngIf="type.list">{{ "dcc.data.list" | translate }}</ng-container>
       </h4>
-      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
-                       url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
+      <app-info-button
+        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
+        url="https://wiki.dcc.ptb.de/en/dccdataType"
+      ></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon><i class="material-icons">delete</i></mat-icon>
       </button>
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button><i
-          class="material-icons">{{isExpanded[i]?'keyboard_arrow_up'
-        :'keyboard_arrow_down'}}</i></button>
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+        <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+      </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">

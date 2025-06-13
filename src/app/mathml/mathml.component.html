@@ -1,12 +1,18 @@
 <div class="flex-container">
-  <h3 i18n>{{'mathml.formula' | translate}}</h3>
+  <h3 i18n>{{ "mathml.formula" | translate }}</h3>
   <mat-form-field class="flex-item">
-    <textarea [(ngModel)]="mathml" class="custom-textarea" id="mathml" matInput name="mathml"
-              placeholder="'mathml.yourmathMlExpressionHere' | translate"></textarea>
+    <textarea
+      [(ngModel)]="mathml"
+      class="custom-textarea"
+      id="mathml"
+      matInput
+      name="mathml"
+      placeholder="'mathml.yourmathMlExpressionHere' | translate"
+    ></textarea>
   </mat-form-field>
 
-  <div #mathContainer style="padding-bottom: 10px;"></div>
-  <button (click)="renderMathML()" class="math-button" color="accent" i18n mat-flat-button style="  font-size: 15px;">
-    {{'mathml.createMathML' | translate}}
+  <div #mathContainer style="padding-bottom: 10px"></div>
+  <button (click)="renderMathML()" class="math-button" color="accent" i18n mat-flat-button style="font-size: 15px">
+    {{ "mathml.createMathML" | translate }}
   </button>
 </div>

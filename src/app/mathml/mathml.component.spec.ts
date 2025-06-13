@@ -8,7 +8,7 @@ describe('MathmlComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MathmlComponent]
+      declarations: [MathmlComponent],
     });
     fixture = TestBed.createComponent(MathmlComponent);
     component = fixture.componentInstance;

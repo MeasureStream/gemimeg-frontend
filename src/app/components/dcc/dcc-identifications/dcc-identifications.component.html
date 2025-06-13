@@ -29,12 +29,13 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{'dcc.identifications.identifier' | translate}} {{i+1}}</mat-card-title>
+      <mat-card-title class="title">{{ "dcc.identifications.identifier" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon>
-          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
+          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+        >
       </button>
     </div>
   </mat-card-header>
@@ -42,7 +43,7 @@
     <div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="issuer">{{'dcc.identifications.issuer' | translate}}<span class="asterix">*</span></label>
+          <label for="issuer">{{ "dcc.identifications.issuer" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <mat-select [(value)]="item.issuer" id="issuer" required>
@@ -54,10 +55,10 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="value">{{'dcc.identifications.identifier' | translate}}<span class="asterix">*</span></label>
+          <label for="value">{{ "dcc.identifications.identifier" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.value id="value" matInput name="value" required>
+          <input [(ngModel)]="item.value" id="value" matInput name="value" required />
         </mat-form-field>
       </div>
       <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
@@ -67,6 +68,6 @@
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="this.addEmptyIdentificationDto();addExpanded()" color="primary" mat-icon-button>
+<button (click)="this.addEmptyIdentificationDto(); addExpanded()" color="primary" mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

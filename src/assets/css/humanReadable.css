@@ -30,7 +30,7 @@
 .dcc-wrapper {
   border: 1px solid rgb(112, 112, 112);
   border-radius: 10px;
-  min-width:300px;
+  min-width: 300px;
   width: auto;
   padding: 15px;
 
@@ -57,14 +57,16 @@
     }
 
     .administrative-data {
-      .p-l{
-        border-bottom: 1px solid rgb(0, 0, 0,0.08);
-        padding:10px 0;
-       }
-       h2,h3,h4{
+      .p-l {
+        border-bottom: 1px solid rgb(0, 0, 0, 0.08);
+        padding: 10px 0;
+      }
+      h2,
+      h3,
+      h4 {
         margin-top: 10px;
         margin-bottom: 5px;
-       }
+      }
       h2 {
         font-size: 24px;
         font-weight: 600;
@@ -76,7 +78,6 @@
       }
 
       h4 {
-
         font-size: 16px !important;
         font-weight: 600 !important;
       }
@@ -100,23 +101,22 @@
         text-align: left;
         border-bottom: 1px solid black;
       }
-      td{
-        vertical-align:top;
+      td {
+        vertical-align: top;
       }
       td:first-child {
-        min-width:180px;
+        min-width: 180px;
         max-width: 180px;
       }
 
-        td p {
-          margin: 0;
-          width: 100%;
+      td p {
+        margin: 0;
+        width: 100%;
       }
 
       td p:last-child {
         margin-bottom: 5px;
       }
-
 
       .nested-list {
         border: none;
@@ -145,7 +145,7 @@
           border: none;
         }
 
-        thead tr th{
+        thead tr th {
           font-weight: 500;
         }
       }

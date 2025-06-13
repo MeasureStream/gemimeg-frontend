@@ -1,32 +1,32 @@
 /**
-*  Copyright 2025 Physikalisch-Technische Bundesanstalt
-*
-*  Redistribution and use in source and binary forms, with or without
-*  modification, are permitted provided that the following conditions are met:
-*
-*  1. Redistributions of source code must retain the above copyright notice,
-*  this list of conditions and the following disclaimer.
-*
-*  2. Redistributions in binary form must reproduce the above copyright notice,
-*  this list of conditions and the following disclaimer in the documentation
-*  and/or other materials provided with the distribution.
-*
-*  3. Neither the name of the copyright holder nor the names of its contributors
-*  may be used to endorse or promote products derived from this software without
-*  specific prior written permission.
-*
-*  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
-*  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-*  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-*  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-*  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-*  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-*  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-*  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-*  OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-*/
+ *  Copyright 2025 Physikalisch-Technische Bundesanstalt
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice,
+ *  this list of conditions and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice,
+ *  this list of conditions and the following disclaimer in the documentation
+ *  and/or other materials provided with the distribution.
+ *
+ *  3. Neither the name of the copyright holder nor the names of its contributors
+ *  may be used to endorse or promote products derived from this software without
+ *  specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ *  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ *  OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -54,12 +54,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-  DateAdapter,
-  MatNativeDateModule,
-  MAT_DATE_FORMATS,
-  NativeDateAdapter,
-} from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -126,9 +121,9 @@ export class AppDateAdapter extends NativeDateAdapter {
       const day = date.getDate();
       const month = date.getMonth() + 1;
       const year = date.getFullYear();
-      let dayString = (day < 10 ? "0" : "") + day;
-      let monthString = (month < 10 ? "0" : "") + month;
-      let yearString = "" + year;
+      let dayString = (day < 10 ? '0' : '') + day;
+      let monthString = (month < 10 ? '0' : '') + month;
+      let yearString = '' + year;
       return `${yearString}-${monthString}-${dayString}`;
     } else {
       return date.toDateString();
@@ -173,8 +168,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccByteDataComponent,
     InfoButtonComponent,
     InfoDialogComponent,
-    SettingsDialogComponent
- ],
+    SettingsDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -215,7 +210,7 @@ export class AppDateAdapter extends NativeDateAdapter {
       level: NgxLoggerLevel.TRACE,
       serverLogLevel: NgxLoggerLevel.OFF,
     }),
-    NgxTranslateModule
+    NgxTranslateModule,
   ],
   providers: [
     {
@@ -224,7 +219,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     },
     { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    DccService
+    DccService,
   ],
   bootstrap: [AppComponent],
 })

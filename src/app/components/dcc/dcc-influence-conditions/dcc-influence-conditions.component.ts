@@ -7,35 +7,33 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
 @Component({
   selector: 'app-dcc-influence-conditions',
   templateUrl: './dcc-influence-conditions.component.html',
-  styleUrls: ['./dcc-influence-conditions.component.scss']
+  styleUrls: ['./dcc-influence-conditions.component.scss'],
 })
 export class DccInfluenceConditionsComponent implements OnInit {
-
   @Input() list: Array<ConditionDto>;
-  isExpanded:boolean[]=[true];
-  validRestrictions = ["beforeAdjustment", "afterAdjustment", "beforeRepair", "afterRepair"];
+  isExpanded: boolean[] = [true];
+  validRestrictions = ['beforeAdjustment', 'afterAdjustment', 'beforeRepair', 'afterRepair'];
 
   constructor(private initializationService: InitializationService) {
-    this.list = new Array<ConditionDto>;
+    this.list = new Array<ConditionDto>();
     this.addEmptyConditionDto();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addEmptyConditionDto() {
     this.list.push(this.initializationService.getEmptyConditionDto());
   }
 
   isQuantity(data: DataDto): boolean {
-    return "dimension" in data;
+    return 'dimension' in data;
   }
 
   toggleCard(index: number) {
-    this.isExpanded[index]=!this.isExpanded[index];
+    this.isExpanded[index] = !this.isExpanded[index];
   }
 
   addExpanded() {
-    this.isExpanded.push(true)
+    this.isExpanded.push(true);
   }
 }

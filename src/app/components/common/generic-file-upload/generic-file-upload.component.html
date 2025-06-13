@@ -28,28 +28,21 @@
 -->
 <div class="row">
   <div class="col-xs-12">
-    <h2 class="text">{{'fileUpload.pleaseClickToUploadFile' | translate}}:</h2>
-    <div
-        (click)="fileInput.click()"
-        (onFileDropped)="onUploadFile($event)"
-        appDragDrop
-        class="uploadfilecontainer">
-      <input
-          #fileInput
-          (change)="onUploadFile($event)"
-          style="display: none"
-          type="file"/>
+    <h2 class="text">{{ "fileUpload.pleaseClickToUploadFile" | translate }}:</h2>
+    <div (click)="fileInput.click()" (onFileDropped)="onUploadFile($event)" appDragDrop class="uploadfilecontainer">
+      <input #fileInput (change)="onUploadFile($event)" style="display: none" type="file" />
     </div>
   </div>
 </div>
 <div *ngIf="selectedFile" class="row">
   <div class="col-xs-12 selected-file">
-    <h3>{{'fileUpload.selectedFile' | translate}}: {{ selectedFile.name }}</h3>
+    <h3>{{ "fileUpload.selectedFile" | translate }}: {{ selectedFile.name }}</h3>
   </div>
 </div>
 <div *ngIf="selectedFile" class="button-container">
-  <button (click)="uploadFile()" color="primary" mat-raised-button>{{'fileUpload.uploadFile' | translate}}</button>
-  <button (click)="onFileDownload()" color="primary" mat-raised-button>{{'fileUpload.downloadFile' | translate}}
+  <button (click)="uploadFile()" color="primary" mat-raised-button>{{ "fileUpload.uploadFile" | translate }}</button>
+  <button (click)="onFileDownload()" color="primary" mat-raised-button>
+    {{ "fileUpload.downloadFile" | translate }}
   </button>
 </div>
 <div class="row">

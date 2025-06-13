@@ -3,12 +3,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
   userLanguage = Intl.DateTimeFormat().resolvedOptions().locale.split('-')[0];
@@ -16,24 +16,21 @@ export class NavigationComponent {
   isInfoDialogVisible = false;
   isSettingsDialogVisible = false;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    ?.observe(Breakpoints.Handset)
-    ?.pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver?.observe(Breakpoints.Handset)?.pipe(
+    map((result) => result.matches),
+    shareReplay()
+  );
 
   constructor(private breakpointObserver: BreakpointObserver, private translate: TranslateService) {
     if (this.translate.langs.includes(this.userLanguage)) {
       this.translate.use(this.userLanguage);
-    }else{
+    } else {
       this.userLanguage = 'en';
       this.translate.use('en');
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openInfoDialog() {
     this.isInfoDialogVisible = true;

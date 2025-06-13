@@ -26,10 +26,12 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<h1>{{'not-found.title' | translate}}</h1>
+<h1>{{ "not-found.title" | translate }}</h1>
 <div mat-card-content>
   <p *ngIf="currentUrl">
-    <b>{{'not-found.thePage' | translate}} {{ currentUrl }} {{'not-found.isUnknown' | translate}}</b>
+    <b>{{ "not-found.thePage" | translate }} {{ currentUrl }} {{ "not-found.isUnknown" | translate }}</b>
   </p>
-  <button [routerLink]="['/dcc/create']" color="primary" mat-raised-button>{{'button.toStartPage' | translate}}</button>
+  <button [routerLink]="['/dcc/create']" color="primary" mat-raised-button>
+    {{ "button.toStartPage" | translate }}
+  </button>
 </div>

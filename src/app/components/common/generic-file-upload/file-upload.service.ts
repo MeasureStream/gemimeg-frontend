@@ -21,7 +21,7 @@ export class FileUploadService {
 
     return this.http.post<any>(this.finalEndpoint, fileData, options);
   }
-  
+
   retrieveFile(link: string): Observable<any> {
     return this.http.get<any>(link, { responseType: 'text' as 'json' });
   }

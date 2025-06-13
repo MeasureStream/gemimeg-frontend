@@ -29,41 +29,49 @@
 <mat-card *ngFor="let respPers of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{'dcc.responsiblePerson' | translate}} {{i+1}}</mat-card-title>
+      <mat-card-title class="title">{{ "dcc.responsiblePerson" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon>
-          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
+          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+        >
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content *ngIf=" isExpanded[i]">
-    <app-dcc-localised-string [isRequired]="true" [placeholder]="'dcc.name' | translate"
-                              [strings]="respPers.name!"></app-dcc-localised-string>
+  <mat-card-content *ngIf="isExpanded[i]">
+    <app-dcc-localised-string
+      [isRequired]="true"
+      [placeholder]="'dcc.name' | translate"
+      [strings]="respPers.name!"
+    ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="emailAddress">{{'dcc.emailAddress' | translate}}</label>
+        <label for="emailAddress">{{ "dcc.emailAddress" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="respPers.emailAddress" id="emailAddress" matInput name="emailAddress"/>
+        <input [(ngModel)]="respPers.emailAddress" id="emailAddress" matInput name="emailAddress" />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="phoneNumber">{{'dcc.phoneNumber' | translate}}</label>
+        <label for="phoneNumber">{{ "dcc.phoneNumber" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="respPers.phoneNumber" id="phoneNumber" matInput name="phoneNumber"/>
+        <input [(ngModel)]="respPers.phoneNumber" id="phoneNumber" matInput name="phoneNumber" />
       </mat-form-field>
     </div>
-    <button (click)="list!.splice(i, 1)" *ngIf="list!.length > 1" class="custom-circle-button-md" color="accent"
-            mat-icon-button>
+    <button
+      (click)="list!.splice(i, 1)"
+      *ngIf="list!.length > 1"
+      class="custom-circle-button-md"
+      color="accent"
+      mat-icon-button
+    >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyContactDto();addExpanded()" class="custom-circle-button-md" color="primary"
-        mat-icon-button>
+<button (click)="addEmptyContactDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

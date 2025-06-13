@@ -29,32 +29,41 @@
 <mat-card *ngFor="let software of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{'dcc.usedSoftware' | translate}} {{i+1}}</mat-card-title>
+      <mat-card-title class="title">{{ "dcc.usedSoftware" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
         <mat-icon>
-          <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i></mat-icon>
+          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+        >
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
-                              [strings]="software.name!"></app-dcc-localised-string>
+    <app-dcc-localised-string
+      [isRequired]="true"
+      [placeholder]="'Name'"
+      [strings]="software.name!"
+    ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="version">{{'dcc.software.version' | translate}}<span class="asterix">*</span></label>
+        <label for="version">{{ "dcc.software.version" | translate }}<span class="asterix">*</span></label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]=software.version id="version" matInput name="version" required>
+        <input [(ngModel)]="software.version" id="version" matInput name="version" required />
       </mat-form-field>
     </div>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" *ngIf="list!.length > 1" class="custom-circle-button-md"
-            color="accent" mat-icon-button>
+    <button
+      (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
+      *ngIf="list!.length > 1"
+      class="custom-circle-button-md"
+      color="accent"
+      mat-icon-button
+    >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptySoftwareDto();addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
+<button (click)="addEmptySoftwareDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

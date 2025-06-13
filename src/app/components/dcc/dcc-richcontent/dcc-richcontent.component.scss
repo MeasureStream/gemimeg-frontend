@@ -28,26 +28,26 @@
 *
 */
 div {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 16px;
+}
 
-  button {
-    margin-right: 8px;
-  }
+button {
+  margin-right: 8px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-  app-dcc-localised-string,
-  app-generic-file-upload,
-  app-mathml {
-    margin-bottom: 16px;
-  }
-  .icon-container button:hover mat-icon {
-    color: #b1b2c2;
-  }
-  .elements{
-    margin-top: 10px;
-  }
+app-dcc-localised-string,
+app-generic-file-upload,
+app-mathml {
+  margin-bottom: 16px;
+}
+.icon-container button:hover mat-icon {
+  color: #b1b2c2;
+}
+.elements {
+  margin-top: 10px;
+}

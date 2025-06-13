@@ -29,56 +29,64 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title"> {{'dcc.measuringDevice' | translate}} {{i+1}}</mat-card-title>
-      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
-                       url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"></app-info-button>
+      <mat-card-title class="title"> {{ "dcc.measuringDevice" | translate }} {{ i + 1 }}</mat-card-title>
+      <app-info-button
+        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
+        url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"
+      ></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+        <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
-      <app-dcc-localised-string [isRequired]="true" [placeholder]="'Name'"
-                                [strings]="item.name!"></app-dcc-localised-string>
+      <app-dcc-localised-string
+        [isRequired]="true"
+        [placeholder]="'Name'"
+        [strings]="item.name!"
+      ></app-dcc-localised-string>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="classID">{{'dcc.classification' | translate}}</label>
+          <label for="classID">{{ "dcc.classification" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.classId id="classID" matInput name="classID">
+          <input [(ngModel)]="item.classId" id="classID" matInput name="classID" />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="classReference">{{'dcc.norm' | translate}}</label>
+          <label for="classReference">{{ "dcc.norm" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.classReference id="classReference" matInput name="classReference">
+          <input [(ngModel)]="item.classReference" id="classReference" matInput name="classReference" />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="model">{{'dcc.model' | translate}}</label>
+          <label for="model">{{ "dcc.model" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.model id="model" matInput name="model">
+          <input [(ngModel)]="item.model" id="model" matInput name="model" />
         </mat-form-field>
       </div>
     </div>
-    <h4>{{'dcc.manufacturer' | translate}}</h4>
+    <h4>{{ "dcc.manufacturer" | translate }}</h4>
     <p>
       <app-dcc-contact [contact]="item.manufacturer!" [strict]="true"></app-dcc-contact>
     </p>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" class="custom-circle-button-md" color="accent"
-            mat-icon-button>
+    <button
+      (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
+      class="custom-circle-button-md"
+      color="accent"
+      mat-icon-button
+    >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyEquipmentDto(); addExpanded()" class="custom-circle-button-md"
-        color="primary" mat-icon-button>
+<button (click)="addEmptyEquipmentDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

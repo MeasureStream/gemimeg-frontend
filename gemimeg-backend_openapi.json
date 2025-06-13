@@ -9,9 +9,7 @@
   "paths": {
     "/api/v1/dcc/xsd/dcc/xml": {
       "post": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
+        "tags": ["CalibrationCertificateController"],
         "description": "Convert a DCC DTO as JSON to XML",
         "operationId": "convertAndValidate",
         "requestBody": {
@@ -40,9 +38,7 @@
     },
     "/api/v1/dcc/xsd/dcc/json": {
       "post": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
+        "tags": ["CalibrationCertificateController"],
         "description": "Convert a valid DCC XML to JSON",
         "operationId": "validateAndConvert",
         "requestBody": {
@@ -71,9 +67,7 @@
     },
     "/api/v1/dcc/xsd/dcc/html": {
       "post": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
+        "tags": ["CalibrationCertificateController"],
         "description": "Convert a DCC DTO as JSON to a human-readable HTML page",
         "operationId": "validateAndProduceHtml",
         "requestBody": {
@@ -102,9 +96,7 @@
     },
     "/api/v1/cache": {
       "post": {
-        "tags": [
-          "CacheController"
-        ],
+        "tags": ["CacheController"],
         "description": "Stores a file in the cache.",
         "operationId": "store",
         "requestBody": {
@@ -133,9 +125,7 @@
     },
     "/api/v1/{pathPart}/version": {
       "get": {
-        "tags": [
-          "VersionController"
-        ],
+        "tags": ["VersionController"],
         "description": "Get the version information of the service.",
         "operationId": "getVersion",
         "parameters": [
@@ -164,9 +154,7 @@
     },
     "/api/v1/dcc/xsd/dcc/{id}": {
       "get": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
+        "tags": ["CalibrationCertificateController"],
         "description": "Retrieves a DCC as JSON from the internal storage by its ID.",
         "operationId": "findById",
         "parameters": [
@@ -195,9 +183,7 @@
     },
     "/api/v1/dcc/xsd/dcc/{id}/xml": {
       "get": {
-        "tags": [
-          "CalibrationCertificateController"
-        ],
+        "tags": ["CalibrationCertificateController"],
         "description": "Retrieves a DCC as XML from the internal storage by its ID.",
         "operationId": "findByIdAsXml",
         "parameters": [
@@ -226,9 +212,7 @@
     },
     "/api/v1/cache/{id}": {
       "get": {
-        "tags": [
-          "CacheController"
-        ],
+        "tags": ["CacheController"],
         "description": "Gets the cached item by its ID.",
         "operationId": "findById_1",
         "parameters": [
@@ -840,10 +824,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "MATHML",
-              "LATEX"
-            ]
+            "enum": ["MATHML", "LATEX"]
           }
         }
       },

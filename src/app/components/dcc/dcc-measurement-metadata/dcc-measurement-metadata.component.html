@@ -29,87 +29,99 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{ header }} {{i + 1}}</mat-card-title>
-      <app-info-button tooltipText="{{'dcc.openDccWiki' | translate}}"
-                       url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
+      <mat-card-title class="title">{{ header }} {{ i + 1 }}</mat-card-title>
+      <app-info-button
+        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
+        url="https://wiki.dcc.ptb.de/en/dccstatement"
+      ></app-info-button>
     </div>
     <div class="header-menu">
       <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <i class="material-icons">{{isExpanded[i]?'keyboard_arrow_up':'keyboard_arrow_down'}}</i>
+        <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!" required></app-dcc-localised-string>
-    <h4>{{'dcc.description' | translate}}</h4>
+    <h4>{{ "dcc.description" | translate }}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
-    <h4>{{'dcc.declaration' | translate}}</h4>
+    <h4>{{ "dcc.declaration" | translate }}</h4>
     <app-dcc-richcontent [richContent]="item.declaration!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="countryCodes">{{'dcc.countryCode' | translate}}</label>
-      </div>
-      <mat-form-field appearance="fill">
-        <input (blur)="string2Arr($event,'countryCodes',i)" [(ngModel)]=item.countryCodes class="toUpperCase"
-               id="countryCodes" matInput>
-      </mat-form-field>
-    </div>
-    <div class="dcc-row">
-      <div class="label-container">
-        <label for="convention">{{'dcc.convention' | translate}}</label>
-      </div>
-      <mat-form-field appearance="fill">
-        <input [(ngModel)]=item.convention id="convention" matInput name="convention">
-      </mat-form-field>
-    </div>
-    <div class="dcc-row">
-      <div class="label-container">
-        <label for="references">{{'dcc.reference' | translate}}</label>
-      </div>
-      <mat-form-field appearance="fill">
-        <input (blur)="string2Arr($event,'references',i)" [(ngModel)]=item.references id="references" matInput
-               name="references">
-      </mat-form-field>
-    </div>
-    <div class="dcc-row">
-      <div class="label-container">
-        <label for="norm">{{'dcc.norm' | translate}}</label>
-      </div>
-      <mat-form-field appearance="fill">
-        <input (blur)="string2Arr($event,'norms',i)" [(ngModel)]=item.norms id="norm" matInput name="norm">
-      </mat-form-field>
-    </div>
-    <div class="dcc-row">
-      <div class="label-container">
-        <label for="date">{{'dcc.date' | translate}}</label>
+        <label for="countryCodes">{{ "dcc.countryCode" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
-            (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
-            [matDatepicker]="statementDate"
-            [ngModel]="item.date"
-            id="date"
-            matInput
-            name="date"
-            readonly
+          (blur)="string2Arr($event, 'countryCodes', i)"
+          [(ngModel)]="item.countryCodes"
+          class="toUpperCase"
+          id="countryCodes"
+          matInput
         />
-        <mat-hint>{{'dcc.YYYYMMDD' | translate}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="convention">{{ "dcc.convention" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input [(ngModel)]="item.convention" id="convention" matInput name="convention" />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="references">{{ "dcc.reference" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input
+          (blur)="string2Arr($event, 'references', i)"
+          [(ngModel)]="item.references"
+          id="references"
+          matInput
+          name="references"
+        />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="norm">{{ "dcc.norm" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input (blur)="string2Arr($event, 'norms', i)" [(ngModel)]="item.norms" id="norm" matInput name="norm" />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="date">{{ "dcc.date" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input
+          (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
+          [matDatepicker]="statementDate"
+          [ngModel]="item.date"
+          id="date"
+          matInput
+          name="date"
+          readonly
+        />
+        <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
         <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #statementDate></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="period">{{'dcc.period' | translate}}</label>
+        <label for="period">{{ "dcc.period" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]=item.period id="period" matInput name="period">
+        <input [(ngModel)]="item.period" id="period" matInput name="period" />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="conformity">{{'dcc.conformity' | translate}}</label>
+        <label for="conformity">{{ "dcc.conformity" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <mat-select [(value)]="item.conformity" id="conformity" name="conformity">
@@ -121,102 +133,111 @@
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="nonSIUnit">{{'dcc.nonSIUnit' | translate}}</label>
+        <label for="nonSIUnit">{{ "dcc.nonSIUnit" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]=item.nonSIUnit id="nonSIUnit" matInput name="nonSIUnit">
+        <input [(ngModel)]="item.nonSIUnit" id="nonSIUnit" matInput name="nonSIUnit" />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="nonSIDefinition">{{'dcc.nonSIDefinition' | translate}}</label>
+        <label for="nonSIDefinition">{{ "dcc.nonSIDefinition" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]=item.nonSIDefinition id="nonSIDefinition" matInput name="nonSIDefinition">
+        <input [(ngModel)]="item.nonSIDefinition" id="nonSIDefinition" matInput name="nonSIDefinition" />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="row-checkbox">
-        <mat-checkbox [(ngModel)]=item.valid>{{'dcc.valid' | translate}}</mat-checkbox>
-        <mat-checkbox [(ngModel)]=item.traceable>{{'dcc.traceableResult' | translate}}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.valid">{{ "dcc.valid" | translate }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.traceable">{{ "dcc.traceableResult" | translate }}</mat-checkbox>
       </div>
     </div>
     <mat-divider></mat-divider>
-    <h4>{{'dcc.location' | translate}}</h4>
+    <h4>{{ "dcc.location" | translate }}</h4>
     <ng-container *ngIf="item.location">
       <div class="dcc-row">
         <div class="label-container">
-          <label for="city">{{'dcc.city' | translate}}<span class="asterix">*</span></label>
+          <label for="city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.city id="city" matInput name="city" required>
+          <input [(ngModel)]="item.location!.city" id="city" matInput name="city" required />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="countryCode">{{'dcc.countryCode' | translate}}<span class="asterix">*</span></label>
+          <label for="countryCode">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.countryCode id="countryCode" matInput name="countryCode"
-                 oninput="this.value = this.value.toUpperCase()" required>
+          <input
+            [(ngModel)]="item.location!.countryCode"
+            id="countryCode"
+            matInput
+            name="countryCode"
+            oninput="this.value = this.value.toUpperCase()"
+            required
+          />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="postalCode">{{'dcc.postalCode' | translate}}<span class="asterix">*</span></label>
+          <label for="postalCode">{{ "dcc.postalCode" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.postalCode id="postalCode" matInput name="postalCode" required>
+          <input [(ngModel)]="item.location!.postalCode" id="postalCode" matInput name="postalCode" required />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="stateCode">{{'dcc.state' | translate}}</label>
+          <label for="stateCode">{{ "dcc.state" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.stateCode id="stateCode" matInput name="stateCode">
+          <input [(ngModel)]="item.location!.stateCode" id="stateCode" matInput name="stateCode" />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="street">{{'dcc.street' | translate}}<span class="asterix">*</span></label>
+          <label for="street">{{ "dcc.street" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.street id="street" matInput name="street" required>
+          <input [(ngModel)]="item.location!.street" id="street" matInput name="street" required />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="houseNumber">{{'dcc.streetNumber' | translate}}<span class="asterix">*</span></label>
+          <label for="houseNumber">{{ "dcc.streetNumber" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.houseNumber id="houseNumber" matInput name="houseNumber" required>
+          <input [(ngModel)]="item.location!.houseNumber" id="houseNumber" matInput name="houseNumber" required />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="poBox">{{'dcc.poBox' | translate}}</label>
+          <label for="poBox">{{ "dcc.poBox" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]=item.location!.poBox id="poBox" matInput name="poBox">
+          <input [(ngModel)]="item.location!.poBox" id="poBox" matInput name="poBox" />
         </mat-form-field>
       </div>
-      <h4>{{'dcc.furtherInformation' | translate}}</h4>
+      <h4>{{ "dcc.furtherInformation" | translate }}</h4>
       <app-dcc-richcontent [richContent]="item.location!.additionalInformation!"></app-dcc-richcontent>
       <mat-divider></mat-divider>
-      <h4>{{'dcc.responsibleAuthority' | translate}}</h4>
+      <h4>{{ "dcc.responsibleAuthority" | translate }}</h4>
       <app-dcc-contact [contact]="item.responsibleAuthority!"></app-dcc-contact>
       <mat-divider></mat-divider>
       <app-dcc-data [dataTypes]="item.data!"></app-dcc-data>
     </ng-container>
     <mat-divider></mat-divider>
-    <button (click)="list.splice(i, 1);isExpanded.splice(i,1)" class="custom-circle-button-lg" color="accent"
-            mat-icon-button>
+    <button
+      (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
+      class="custom-circle-button-lg"
+      color="accent"
+      mat-icon-button
+    >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyStatementDto();addExpanded()" class="custom-circle-button-lg"
-        color="primary" mat-icon-button>
+<button (click)="addEmptyStatementDto(); addExpanded()" class="custom-circle-button-lg" color="primary" mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

@@ -46,7 +46,7 @@
   padding: 10px;
   margin-bottom: 10px;
   color: white;
-  background-color: #FFC107;
+  background-color: #ffc107;
   border-radius: 5px;
 }
 
@@ -55,7 +55,7 @@ body {
 }
 
 .w-100 {
-  width: 100%
+  width: 100%;
 }
 
 .mb-default {
@@ -100,7 +100,8 @@ p {
   width: 200px;
 }
 
-.administrative-data-table tr td:first-child p:nth-child(2), .td-translated p:nth-child(2) {
+.administrative-data-table tr td:first-child p:nth-child(2),
+.td-translated p:nth-child(2) {
   font-style: italic;
   font-size: 8pt;
 }
@@ -124,7 +125,9 @@ p {
   margin-bottom: 0;
 }
 
-.dcc-table, .dcc-table th, .dcc-table td {
+.dcc-table,
+.dcc-table th,
+.dcc-table td {
   border-collapse: collapse;
   border: 1px black solid;
 }

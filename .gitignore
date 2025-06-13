@@ -18,6 +18,7 @@ yarn-error.log
 src/app/generated/dcc/.openapi-generator/
 src/app/generated/dcc/.openapi-generator/dcc-service_openapi.json-default.sha256
 .vscode/
+!.vscode/settings.json
 .history/
 /.angular/cache
 .sass-cache/

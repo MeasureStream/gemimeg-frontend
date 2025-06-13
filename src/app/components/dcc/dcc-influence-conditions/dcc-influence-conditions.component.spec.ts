@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DccInfluenceConditionsComponent} from './dcc-influence-conditions.component';
+import { DccInfluenceConditionsComponent } from './dcc-influence-conditions.component';
 
 describe('DccInfluenceConditionsComponent', () => {
   let component: DccInfluenceConditionsComponent;
@@ -8,9 +8,8 @@ describe('DccInfluenceConditionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DccInfluenceConditionsComponent]
-    })
-      .compileComponents();
+      declarations: [DccInfluenceConditionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DccInfluenceConditionsComponent);
     component = fixture.componentInstance;

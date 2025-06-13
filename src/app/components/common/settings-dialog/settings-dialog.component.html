@@ -3,17 +3,19 @@
     <mat-card class="blue-card cockpit">
       <mat-card-header>
         <div class="header-title">
-          <mat-card-title class="title">{{'settings-dialog.languageSelection' | translate}}</mat-card-title>
+          <mat-card-title class="title">{{ "settings-dialog.languageSelection" | translate }}</mat-card-title>
         </div>
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="full-width">
           <mat-select [(ngModel)]="userLanguage" placeholder="Sprache auswählen">
-            <mat-option *ngFor="let lang of displaylanguages" [value]="lang.value" ng-size="15">{{ lang.name }}
+            <mat-option *ngFor="let lang of displaylanguages" [value]="lang.value" ng-size="15"
+              >{{ lang.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="applyLanguage()" color="primary" mat-raised-button>{{'button.applyLanguage' | translate}}
+        <button (click)="applyLanguage()" color="primary" mat-raised-button>
+          {{ "button.applyLanguage" | translate }}
         </button>
       </mat-card-content>
     </mat-card>

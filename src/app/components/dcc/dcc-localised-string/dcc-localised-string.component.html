@@ -29,11 +29,16 @@
 <div *ngFor="let item of strings.content; let i = index" class="dcc-row">
   <ng-container *ngIf="getOrSetLang(item)">
     <div class="label-container">
-      <label [for]="placeholder.toLowerCase()">{{placeholder}}<span class="asterix">*</span>
-      </label>
+      <label [for]="placeholder.toLowerCase()">{{ placeholder }}<span class="asterix">*</span> </label>
       <mat-form-field appearance="outline" class="mat-form-field-flag">
-        <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" class="mat-select-flag"
-                    mat-icon-button panelClass="custom-dropdown-panel" required>
+        <mat-select
+          (selectionChange)="updateLanguageMap(item)"
+          [(ngModel)]="item.lang"
+          class="mat-select-flag"
+          mat-icon-button
+          panelClass="custom-dropdown-panel"
+          required
+        >
           <mat-select-trigger class="mat-select-trigger">
             <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-us' }} icon-flag"></span>
           </mat-select-trigger>
@@ -44,20 +49,42 @@
       </mat-form-field>
     </div>
     <mat-form-field appearance="fill" id="localised-string">
-      <input *ngIf="placeholder.toLocaleLowerCase()==='name'" [(ngModel)]="item.text" [id]="placeholder.toLowerCase()"
-             [required]=" isRequired " matInput name="item"/>
-      <textarea *ngIf="placeholder.toLocaleLowerCase()==='inhalt'" [(ngModel)]="item.text"
-                [id]="placeholder.toLowerCase()" [required]="isRequired" class="localise-textarea" matInput rows="4">
+      <input
+        *ngIf="placeholder.toLocaleLowerCase() === 'name'"
+        [(ngModel)]="item.text"
+        [id]="placeholder.toLowerCase()"
+        [required]="isRequired"
+        matInput
+        name="item"
+      />
+      <textarea
+        *ngIf="placeholder.toLocaleLowerCase() === 'inhalt'"
+        [(ngModel)]="item.text"
+        [id]="placeholder.toLowerCase()"
+        [required]="isRequired"
+        class="localise-textarea"
+        matInput
+        rows="4"
+      >
       </textarea>
-      <input hidden matInput name="hidden"/>
+      <input hidden matInput name="hidden" />
     </mat-form-field>
     <div class="button-container">
-      <button (click)="strings.content?.push( getEmptyStringWithLangText())" class="custom-circle-button-sm"
-              color="primary" mat-icon-button>
+      <button
+        (click)="strings.content?.push(getEmptyStringWithLangText())"
+        class="custom-circle-button-sm"
+        color="primary"
+        mat-icon-button
+      >
         <mat-icon>add_circle</mat-icon>
       </button>
-      <button (click)=" strings.content?.splice(i, 1)" [disabled]="strings.content?.length! < 2"
-              class="custom-circle-button-sm" color="accent" mat-icon-button>
+      <button
+        (click)="strings.content?.splice(i, 1)"
+        [disabled]="strings.content?.length! < 2"
+        class="custom-circle-button-sm"
+        color="accent"
+        mat-icon-button
+      >
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>

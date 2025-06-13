@@ -31,12 +31,12 @@ mat-expansion-panel {
   margin-top: 20px;
 }
 
-form>mat-expansion-panel {
+form > mat-expansion-panel {
   margin: 20px;
 }
 
 form {
-  margin-bottom:0px;
+  margin-bottom: 0px;
 }
 
 .form-container {
@@ -51,7 +51,8 @@ app-dcc-measurement-metadata {
 
 mat-stepper {
   width: calc(100% - 40px);
-  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
   margin: 0 auto;
 }
 
@@ -124,8 +125,8 @@ mat-stepper {
 }
 
 .preview-container {
-  position:relative;
-  z-index:0;
+  position: relative;
+  z-index: 0;
 }
 
 .preview-mat-tab-group {
@@ -166,7 +167,7 @@ mat-stepper {
 
 .next-button {
   margin-right: 80px;
-  left: 0
+  left: 0;
 }
 
 .footer-navigation button {

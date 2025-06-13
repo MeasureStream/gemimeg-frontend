@@ -8,7 +8,7 @@ describe('InfoDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InfoDialogComponent]
+      declarations: [InfoDialogComponent],
     });
     fixture = TestBed.createComponent(InfoDialogComponent);
     component = fixture.componentInstance;
@@ -19,3 +19,4 @@ describe('InfoDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

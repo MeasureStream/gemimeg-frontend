@@ -8,7 +8,7 @@ describe('FooterImprintComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FooterImprintComponent]
+      declarations: [FooterImprintComponent],
     });
     fixture = TestBed.createComponent(FooterImprintComponent);
     component = fixture.componentInstance;

@@ -9,19 +9,19 @@ import { FooterLicenceComponent } from './footer-licence/footer-licence.componen
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
   currentStepIndex = 0;
   totalSteps = 4;
-  isLastStep = false
+  isLastStep = false;
   stepper: MatStepper | any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {}
 
   openImprintModal() {
     this.dialog.open(FooterImprintComponent, {
-      height: '45%'
+      height: '45%',
     });
   }
 
@@ -35,7 +35,7 @@ export class FooterComponent {
   openLizenzModal() {
     this.dialog.open(FooterLicenceComponent, {
       height: '70%',
-      width: '50%'
+      width: '50%',
     });
   }
 }
