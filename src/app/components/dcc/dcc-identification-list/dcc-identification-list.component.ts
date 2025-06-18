@@ -27,25 +27,39 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input, OnInit } from "@angular/core";
 
-import { DccIdentificationsComponent } from './dcc-identifications.component';
+import { IdentificationDto } from "src/app/generated/dcc/model/identificationDto";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
-describe('DccIdentificationsComponent', () => {
-  let component: DccIdentificationsComponent;
-  let fixture: ComponentFixture<DccIdentificationsComponent>;
+@Component({
+  selector: 'app-dcc-identification-list',
+  templateUrl: './dcc-identification-list.component.html',
+  styleUrls: ['./dcc-identification-list.component.scss']
+})
+export class DccIdentificationListComponent implements OnInit {
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DccIdentificationsComponent],
-    }).compileComponents();
+  @Input() identificationList!: Array<IdentificationDto>;
+  isCardExpanded: boolean = true;
 
-    fixture = TestBed.createComponent(DccIdentificationsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  constructor(private initializationService: InitializationService) {
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit(): void {
+    if (!this.identificationList || this.identificationList.length === 0) {
+      this.identificationList = [this.initializationService.getEmptyIdentificationDto()];
+    }
+  }
+
+  addEmptyIdentificationDto() {
+    this.identificationList.push(this.initializationService.getEmptyIdentificationDto());
+  }
+
+  removeItemFromList(index: number) {
+    this.identificationList!.splice(index, 1);
+  }
+
+  toggleCard() {
+    this.isCardExpanded = !this.isCardExpanded;
+  }
+}

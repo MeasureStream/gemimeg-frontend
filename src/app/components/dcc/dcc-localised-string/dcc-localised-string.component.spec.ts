@@ -27,11 +27,12 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DccLocalisedStringComponent } from './dcc-localised-string.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-describe('DccLocalisedStringComponent', () => {
+import { DccLocalisedStringComponent } from "./dcc-localised-string.component";
+
+describe("DccLocalisedStringComponent", () => {
   let component: DccLocalisedStringComponent;
   let fixture: ComponentFixture<DccLocalisedStringComponent>;
 
@@ -45,7 +46,7 @@ describe('DccLocalisedStringComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,7 +1,34 @@
+/**
+ *  Copyright 2025 Physikalisch-Technische Bundesanstalt
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice,
+ *  this list of conditions and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice,
+ *  this list of conditions and the following disclaimer in the documentation
+ *  and/or other materials provided with the distribution.
+ *
+ *  3. Neither the name of the copyright holder nor the names of its contributors
+ *  may be used to endorse or promote products derived from this software without
+ *  specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ *  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ *  OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
 import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
 import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
@@ -10,24 +37,26 @@ import { ContactDto } from '../../generated/dcc/model/contactDto';
 import { DataDto } from '../../generated/dcc/model/dataDto';
 import { EquipmentDto } from '../../generated/dcc/model/equipmentDto';
 import { ItemDto } from '../../generated/dcc/model/itemDto';
+import { LocationDto } from '../../generated/dcc/model/locationDto';
 import { MeasurementResultDto } from '../../generated/dcc/model/measurementResultDto';
 import { MethodDto } from '../../generated/dcc/model/methodDto';
 import { ResultDto } from '../../generated/dcc/model/resultDto';
+import { RichContentDto } from '../../generated/dcc/model/richContentDto';
 import { SoftwareDto } from '../../generated/dcc/model/softwareDto';
 import { StatementDto } from '../../generated/dcc/model/statementDto';
 import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 
 import { DccService } from 'src/app/services/dcc/dcc.service';
 import { NGXLogger } from 'ngx-logger';
 import { ErrorService } from 'src/app/services/common/error/error.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
+import { MatStepper } from '@angular/material/stepper';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { LocationDto } from 'src/app/generated/dcc/model/locationDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-dcc',
@@ -37,14 +66,21 @@ import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
 export class DccComponent implements OnInit, AfterContentChecked {
   dcc: CalibrationCertificateDto;
   xml!: string;
+  templateFileUrl!: string;
   uploadedFileUrl!: string;
   validPerformanceLocations = ['LABORATORY', 'CUSTOMER', 'LABORATORY_BRANCH', 'CUSTOMER_BRANCH', 'OTHER'];
   validConformityStatementStatusTypes = ['pass', 'fail', 'conditionalPass', 'conditionalFail', 'noPass', 'noFail'];
   header_meta_data = 'Meta-Data';
   header_statement = 'Statement';
+  currentStepIndex = 0;
+  totalSteps = 5;
+  isLastStep = false;
   statement!: StatementDto;
-  addressForm!: FormGroup;
+  chosenFileData: ByteDataDto | null = null;
+  items: ItemDto | any = [];
+  manufacturerAvailable = signal<{ [key: number]: boolean }>({});
   showEmptyStatement = false;
+
   cardTitles: string[] = [
     'DCC-Software',
     'Basis-Daten',
@@ -53,8 +89,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
     'Kalibrierlabor',
     'Identifikatoren',
     'Installierte-Software',
-    'CIPM-MRA',
-    'Anschrift',
     'Kalibriergut1',
     'Messergebnis1',
     'Verwendete-Methoden',
@@ -66,12 +100,9 @@ export class DccComponent implements OnInit, AfterContentChecked {
   ];
   isExpanded: { [title: string]: boolean } = { 'DCC-Software*': true };
   humanReadableHtml = '';
+
   selectedPerformanceLoc: string = '';
   performanceLocation = ['laboratory', 'customer', 'laboratory branch', 'customer branch', 'other'];
-  currentStepIndex = 0;
-  totalSteps = 5;
-  isLastStep = false;
-  chosenFileData: ByteDataDto | null = null;
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
   selectedFile: any;
 
@@ -82,17 +113,19 @@ export class DccComponent implements OnInit, AfterContentChecked {
     private initializationService: InitializationService,
     private sanitizer: DomSanitizer,
     public logger: NGXLogger,
-    private changeDetect: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private changeDetect: ChangeDetectorRef
   ) {
     this.cardTitles.forEach((title) => {
       this.isExpanded[title] = true;
     });
     this.dcc = this.initialiseEmptyFields(<CalibrationCertificateDto>{});
-    this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    if (!this.dcc.measurementResults) {
+      this.dcc.measurementResults = [];
+    }
+  }
 
   ngAfterContentChecked(): void {
     this.changeDetect.detectChanges();
@@ -103,12 +136,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 0);
-  }
-
-  public buildForm() {
-    this.addressForm = this.formBuilder.group({
-      addressType: [null],
-    });
   }
 
   public toggleCard(title: string) {
@@ -129,48 +156,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
 
   public showStatement() {
     this.showEmptyStatement = true;
-  }
-
-  public add_address() {
-    let isAddressAdded = false;
-    let emptyStatementIndex: number | null = null;
-    for (let i = 0; i < this.dcc.administrativeData!.statements!.length; i++) {
-      const statement = this.dcc.administrativeData!.statements![i];
-      if (
-        !statement.location?.countryCode &&
-        !statement.location?.stateCode &&
-        !statement.location?.city &&
-        !statement.location?.postalCode &&
-        !statement.location?.street &&
-        !statement.location?.houseNumber &&
-        !statement.location?.poBox
-      ) {
-        emptyStatementIndex = i;
-        isAddressAdded = true;
-        break;
-      }
-    }
-    const statementToUpdate = isAddressAdded
-      ? this.dcc.administrativeData!.statements![emptyStatementIndex!]
-      : this.initializationService.getEmptyStatementDto();
-    statementToUpdate.location!.additionalInformation = this.initializationService.getEmptyRichContentDto();
-    statementToUpdate.location!.additionalInformation!.textContent =
-      this.initializationService.getEmptyLanguageSpecificStringsDto();
-    statementToUpdate.location!.additionalInformation!.textContent.content![0] = { lang: 'de', text: '{Abteilung n}' };
-    statementToUpdate.location!.additionalInformation!.textContent.content!.push({
-      lang: 'de',
-      text: '{Fachbereich n.m}',
-    });
-    statementToUpdate.location!.additionalInformation!.textContent.content!.push({
-      lang: 'de',
-      text: '{Arbeitsgruppe n.mo}',
-    });
-    if (isAddressAdded) {
-      this.dcc.administrativeData!.statements![emptyStatementIndex!] = statementToUpdate;
-    } else {
-      this.addExpandedInMetadataComponent();
-      this.dcc.administrativeData!.statements!.push(statementToUpdate);
-    }
   }
 
   initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
@@ -201,7 +186,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
       dcc.administrativeData.customer.location.additionalInformation.textContent =
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-
     if (!dcc.administrativeData.calibrationLaboratory) {
       dcc.administrativeData.calibrationLaboratory = this.initializationService.getEmptyCalibrationLaboratoryDto();
     }
@@ -224,7 +208,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
     }
     if (dcc.administrativeData.items.length == 0)
       dcc.administrativeData.items.push(this.initializationService.getEmptyItemDto());
-    dcc.administrativeData.items.forEach((entry: any) => {
+    dcc.administrativeData.items.forEach((entry: any, index: number) => {
       if (entry.installedSoftwares == null || undefined) {
         entry.installedSoftwares = new Array<SoftwareDto>();
       }
@@ -234,11 +218,20 @@ export class DccComponent implements OnInit, AfterContentChecked {
         entry.manufacturer = <ContactDto>{};
         entry.manufacturer.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
+      if (entry.manufacturer == null || undefined) {
+        entry.manufacturer = <ConditionDto>{};
+      }
       if (entry.manufacturer.location == null || undefined) {
         entry.manufacturer.location = <LocationDto>{};
+      }
+      if (entry.manufacturer.location.additionalInformation == null || undefined) {
         entry.manufacturer.location.additionalInformation = this.initializationService.getEmptyRichContentDto();
+      }
+      if (entry.manufacturer.location.additionalInformation.name == null || undefined) {
         entry.manufacturer.location.additionalInformation.name =
           this.initializationService.getEmptyLanguageSpecificStringsDto();
+      }
+      if (entry.manufacturer.location.additionalInformation.textContent == null || undefined) {
         entry.manufacturer.location.additionalInformation.textContent =
           this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
@@ -247,6 +240,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
         entry.description.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
         entry.description.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
       }
+      this.manufacturerAvailable.update((state) => ({ ...state, [index]: true }));
     });
     if (!dcc.administrativeData.statements) {
       dcc.administrativeData.statements = new Array<StatementDto>();
@@ -303,6 +297,16 @@ export class DccComponent implements OnInit, AfterContentChecked {
             subentry.norms = new Array<string>();
           }
           if (subentry.norms.length == 0) subentry.norms.push('');
+
+          if (subentry.description == null || undefined) {
+            subentry.description = this.initializationService.getEmptyRichContentDto();
+          }
+          if (subentry.description.name == null || undefined) {
+            subentry.description.name = this.initializationService.getEmptyLanguageSpecificStringsDto();
+          }
+          if (subentry.description.textContent == null || undefined) {
+            subentry.description.textContent = this.initializationService.getEmptyLanguageSpecificStringsDto();
+          }
         });
       }
       if (entry.results == null || undefined) {
@@ -312,7 +316,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
         entry.results.push(this.initializationService.getEmptyResultDto());
       }
       entry.results.forEach((subentry: any) => {
-        if (subentry.data == null) {
+        if (subentry.data == null || undefined) {
           subentry.data = new Array<DataDto>();
         }
       });
@@ -387,6 +391,25 @@ export class DccComponent implements OnInit, AfterContentChecked {
     this.dcc.measurementResults!.push(this.initializationService.getEmptyMeasurementResultDto());
   }
 
+  ngAfterViewInit(): void {}
+
+  convertBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const binaryData = reader.result as string;
+          const base64String = btoa(binaryData);
+          resolve(base64String);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
   onFileSelected(fileData: ByteDataDto) {
     this.chosenFileData = fileData;
   }
@@ -415,29 +438,21 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   submit() {
+    this.attachFileToByteDataContent();
     this.dccService.jsonToXml(this.dcc).subscribe({
       next: (response: string) => {
+        this.logger.trace('Got XML from dcc.jsonToXml: ' + response);
         const a = document.createElement('a');
         const objectUrl = URL.createObjectURL(new Blob([response], { type: 'application/xml' }));
         a.href = objectUrl;
-        a.download = this.dcc.administrativeData!.uniqueIdentifier + '.xml';
+        a.download = this.dcc.administrativeData?.uniqueIdentifier + '.xml';
         a.click();
         URL.revokeObjectURL(objectUrl);
       },
       error: (error: any) => {
-        this.errorService.logError(error);
+        this.showErrorMessages(error);
       },
-      complete: () => {},
     });
-  }
-
-  preview() {
-    this.dccService.jsonToHtml(this.dcc).subscribe(
-      (response) => {},
-      (error) => {
-        this.errorService.logError(error);
-      }
-    );
   }
 
   formula: FormulaDto | any = {
@@ -465,33 +480,52 @@ export class DccComponent implements OnInit, AfterContentChecked {
       stepper.next();
     }
   }
-
-  onTabChange(event: MatTabChangeEvent): void {
-    this.loadHumanReadable();
+  private updateStepState(): void {
+    this.isLastStep = this.currentStepIndex === this.totalSteps - 1;
   }
 
   onStepChange(event: StepperSelectionEvent): void {
-    if (event.selectedIndex === 4) {
-      // this.onTabChange({ index: 0, tab: { textLabel: 'Human Readable' } } as MatTabChangeEvent);
-      this.loadHumanReadable();
-    }
+    if (event.selectedIndex === 4)
+      this.onTabChange({ index: 0, tab: { textLabel: 'Human Readable' } } as MatTabChangeEvent);
     this.currentStepIndex = event.selectedIndex;
     this.updateStepState();
   }
 
+  onTabChange(event: MatTabChangeEvent): void {
+    if (event.index === 0) {
+      this.loadHumanReadable();
+    }
+    if (event.index === 1) {
+      this.loadXML();
+    }
+  }
+
   loadHumanReadable() {
-    this.dccService.jsonToHuman(this.dcc).subscribe({
+    this.dccService.jsonToHtml(this.dcc).subscribe({
       next: (response: string) => {
-        this.humanReadableHtml = response;
+        setTimeout(() => {
+          this.humanReadableHtml = response;
+        }, 1000);
       },
       error: (error: any) => {
-        this.errorService.logError(error);
+        this.showErrorMessages(error);
       },
       complete: () => {},
     });
   }
 
-  private updateStepState(): void {
-    this.isLastStep = this.currentStepIndex === this.totalSteps - 1;
+  loadXML() {
+    this.dccService.jsonToXml(this.dcc).subscribe({
+      next: (response: string) => {
+        this.xml = response;
+      },
+      error: (error: any) => {
+        this.showErrorMessages(error);
+      },
+    });
+  }
+
+  showErrorMessages(error: any) {
+    this.errorService.logError(error);
   }
 }

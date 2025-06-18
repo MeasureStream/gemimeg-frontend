@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccHumanReadableComponent } from './dcc-human-readable.component';
+import { DccHumanReadableComponent } from "./dcc-human-readable.component";
 
-describe('DccHumanReadableComponent', () => {
+describe("DccHumanReadableComponent", () => {
   let component: DccHumanReadableComponent;
   let fixture: ComponentFixture<DccHumanReadableComponent>;
 
@@ -44,7 +44,7 @@ describe('DccHumanReadableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

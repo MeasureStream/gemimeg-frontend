@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccDownloadComponent } from './dcc-download.component';
+import { DccDownloadComponent } from "./dcc-download.component";
 
-describe('DccDownloadComponent', () => {
+describe("DccDownloadComponent", () => {
   let component: DccDownloadComponent;
   let fixture: ComponentFixture<DccDownloadComponent>;
 
@@ -44,7 +44,8 @@ describe('DccDownloadComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
+

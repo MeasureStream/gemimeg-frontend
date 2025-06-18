@@ -30,19 +30,20 @@
   <mat-card-header>
     <div class="header-title">
       <mat-card-title class="title">{{ header }} {{ i + 1 }}</mat-card-title>
-      <app-info-button
-        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-        url="https://wiki.dcc.ptb.de/en/dccstatement"
-      ></app-info-button>
+      <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
         <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!" required></app-dcc-localised-string>
+    <app-dcc-localised-string
+      [isRequired]="false"
+      [placeholder]="'Name'"
+      [strings]="item.name!"
+    ></app-dcc-localised-string>
     <h4>{{ "dcc.description" | translate }}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
     <h4>{{ "dcc.declaration" | translate }}</h4>
@@ -72,7 +73,7 @@
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="references">{{ "dcc.reference" | translate }}</label>
+        <label for="references">{{ "dcc.references" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
@@ -148,9 +149,9 @@
       </mat-form-field>
     </div>
     <div class="dcc-row">
-      <div class="row-checkbox">
+      <div class="dcc-row-checkbox">
         <mat-checkbox [(ngModel)]="item.valid">{{ "dcc.valid" | translate }}</mat-checkbox>
-        <mat-checkbox [(ngModel)]="item.traceable">{{ "dcc.traceableResult" | translate }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.traceable">{{ "dcc.traceable" | translate }}</mat-checkbox>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -189,7 +190,7 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="stateCode">{{ "dcc.state" | translate }}</label>
+          <label for="stateCode">{{ "dcc.stateCode" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.stateCode" id="stateCode" matInput name="stateCode" />
@@ -205,7 +206,7 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="houseNumber">{{ "dcc.streetNumber" | translate }}<span class="asterix">*</span></label>
+          <label for="houseNumber">{{ "dcc.houseNumber" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.houseNumber" id="houseNumber" matInput name="houseNumber" required />
@@ -219,7 +220,7 @@
           <input [(ngModel)]="item.location!.poBox" id="poBox" matInput name="poBox" />
         </mat-form-field>
       </div>
-      <h4>{{ "dcc.furtherInformation" | translate }}</h4>
+      <h4>{{ "dcc.additionalInformation" | translate }}</h4>
       <app-dcc-richcontent [richContent]="item.location!.additionalInformation!"></app-dcc-richcontent>
       <mat-divider></mat-divider>
       <h4>{{ "dcc.responsibleAuthority" | translate }}</h4>
@@ -233,11 +234,18 @@
       class="custom-circle-button-lg"
       color="accent"
       mat-icon-button
+      type="button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyStatementDto(); addExpanded()" class="custom-circle-button-lg" color="primary" mat-icon-button>
+<button
+  (click)="addEmptyStatementDto(); addExpanded()"
+  class="custom-circle-button-lg"
+  color="primary"
+  mat-icon-button
+  type="button"
+>
   <mat-icon>add_circle</mat-icon>
 </button>

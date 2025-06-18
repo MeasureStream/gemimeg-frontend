@@ -28,41 +28,23 @@
  *
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { DccIdentificationListComponent } from './dcc-identification-list.component';
 
-@Component({
-  selector: 'app-dcc-identifications',
-  templateUrl: './dcc-identifications.component.html',
-  styleUrls: ['./dcc-identifications.component.scss'],
-})
-export class DccIdentificationsComponent implements OnInit {
-  @Input() list: Array<IdentificationDto>;
-
-  isExpanded: boolean[] = [true];
-  validIdentificationIssuers = ['manufacturer', 'calibrationLaboratory', 'customer', 'owner', 'other'];
-
-  constructor(private initializationService: InitializationService) {
-    this.list = new Array<IdentificationDto>();
-    this.addEmptyIdentificationDto();
-  }
-
-  ngOnInit(): void {}
-
-  toggleCard(index: number) {
-    console.log('toggle: ', index);
-    this.isExpanded[index] = !this.isExpanded[index];
-    console.log('index: ', this.isExpanded[index]);
-  }
-
-  addEmptyIdentificationDto() {
-    this.list.push(this.initializationService.getEmptyIdentifictionDto());
-  }
-
-  addExpanded() {
-    this.isExpanded.push(true);
-    console.log('isExpanded', this.isExpanded);
-  }
-}
+describe('DccIdentificationsComponent', () => {
+  let component: DccIdentificationListComponent;
+  let fixture: ComponentFixture<DccIdentificationListComponent>;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [DccIdentificationListComponent]
+    })
+      .compileComponents();
+    fixture = TestBed.createComponent(DccIdentificationListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  it("should create", () => {
+    expect(component).toBeTruthy();
+  });
+});

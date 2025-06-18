@@ -28,56 +28,40 @@
 -->
 <div>
   <div>
-    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button>
-      <span>{{ "dcc.data.addData" | translate }}</span
+    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button type="button">
+      <span>{{ "dcc.addData" | translate }}</span
       ><i class="material-icons">arrow_drop_down</i>
     </button>
     <mat-menu #menu="matMenu">
-      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item>{{ option }}</button>
+      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item type="button">
+        {{ option }}
+      </button>
     </mat-menu>
   </div>
 </div>
-<mat-card *ngFor="let type of dataTypes; let i = index" class="blue-card">
+<mat-card class="blue-card">
   <mat-card-header>
     <div class="header-title">
       <h4 class="title">
-        <ng-container *ngIf="type.byteData">{{ "dcc.data.byteData" | translate }}</ng-container>
-        <ng-container *ngIf="type.formula">{{ "dcc.data.formula" | translate }}</ng-container>
-        <ng-container *ngIf="type.richContent">{{ "dcc.data.richContent" | translate }}</ng-container>
-        <ng-container *ngIf="type.quantity">{{ "dcc.data.quantity" | translate }}</ng-container>
-        <ng-container *ngIf="type.list">{{ "dcc.data.list" | translate }}</ng-container>
+        <ng-container>{{ "dcc.quantity" | translate }}</ng-container>
       </h4>
-      <app-info-button
-        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-        url="https://wiki.dcc.ptb.de/en/dccdataType"
-      ></app-info-button>
+      <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="deleteObject(i)" class="blue-card-btn" mat-icon-button>
+      <button (click)="deleteObject(0)" class="blue-card-btn" mat-icon-button type="button">
         <mat-icon><i class="material-icons">delete</i></mat-icon>
       </button>
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+      <button (click)="toggleCard(0)" class="blue-card-btn" mat-icon-button type="button">
+        <i class="material-icons">{{ isExpanded[0] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content *ngIf="isExpanded[i]">
+  <mat-card-content *ngIf="isExpanded[0]">
     <div>
-      <ng-container *ngIf="type">
-        <div *ngIf="type.formula && type.formula.type == 'MATHML'">
-          <app-mathml mathml="type.formula.content"></app-mathml>
+      <ng-container>
+        <div>
+          <app-dcc-quantity [i]="0" [item]="dataTypes"></app-dcc-quantity>
         </div>
-        <div *ngIf="type.byteData">
-          <app-dcc-byte-data byteData="type.byteData"></app-dcc-byte-data>
-        </div>
-        <div *ngIf="type.richContent">
-          <app-dcc-richcontent richContent="type.richContent"></app-dcc-richcontent>
-        </div>
-        <div *ngIf="type.quantity">
-          <!-- <app-dcc-quantity dataType="type.quantity"></app-dcc-quantity> -->
-          <i class="material-icons">construction</i>
-        </div>
-        <div *ngIf="type.list"><i class="material-icons">construction</i></div>
       </ng-container>
     </div>
   </mat-card-content>

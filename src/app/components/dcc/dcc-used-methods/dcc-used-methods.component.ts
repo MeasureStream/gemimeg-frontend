@@ -27,15 +27,15 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
-import { MethodDto } from 'src/app/generated/dcc/model/methodDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { MethodDto } from "src/app/generated/dcc/model/methodDto";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
-  selector: 'app-dcc-used-methods',
-  templateUrl: './dcc-used-methods.component.html',
-  styleUrls: ['./dcc-used-methods.component.scss'],
+  selector: "app-dcc-used-methods",
+  templateUrl: "./dcc-used-methods.component.html",
+  styleUrls: ["./dcc-used-methods.component.scss"],
 })
 export class DccUsedMethodsComponent implements OnInit {
   @Input() list: Array<MethodDto>;
@@ -46,7 +46,9 @@ export class DccUsedMethodsComponent implements OnInit {
     this.addEmptyMethodDto();
     this.addExpanded();
   }
-
+  openDescriptionDialog() {
+    throw new Error("Method not implemented.");
+  }
   ngOnInit(): void {}
 
   addEmptyMethodDto() {

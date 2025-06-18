@@ -31,3 +31,71 @@ mat-list > mat-list-item {
   width: 100% auto;
   height: auto;
 }
+
+.label-container-expandedMU {
+  min-width: 240px;
+  height: 54px;
+  margin-right: 21px;
+  display: flex;
+  align-items: center;
+}
+
+.index-label {
+  padding-top: 36px;
+  min-width: 120px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+}
+
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-field {
+  width: 90%;
+}
+
+.form-field-obj {
+  max-width: 85%;
+}
+.button-container-right-0px,
+.form-field-right-0px {
+  margin-right: 0px !important;
+}
+
+.index-label {
+  padding-top: 36px;
+  min-width: 120px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+}
+
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.section-header {
+  padding-bottom: 30px;
+}
+
+.form-field-right-0px {
+  padding-right: 14px;
+}
+
+.button-container-right-0px {
+  padding-right: 12px;
+}
+
+.form-field {
+  width: 90%;
+}
+
+.form-field-obj {
+  max-width: 85%;
+}

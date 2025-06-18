@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccByteDataComponent } from './dcc-byte-data.component';
+import { DccByteDataComponent } from "./dcc-byte-data.component";
 
-describe('DccByteDataComponent', () => {
+describe("DccByteDataComponent", () => {
   let component: DccByteDataComponent;
   let fixture: ComponentFixture<DccByteDataComponent>;
 
@@ -44,7 +44,7 @@ describe('DccByteDataComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

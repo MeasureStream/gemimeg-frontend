@@ -230,6 +230,76 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.addData</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.additionalInformation</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.addStatements</name>
 						<description/>
 						<comment/>
@@ -615,7 +685,77 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.classId</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.classification</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.classReference</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -861,6 +1001,76 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.countryOfCalibration</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.coverageFactor</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.coverageProbability</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -1175,6 +1385,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.dateTime</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.dccSoftware</name>
 						<description/>
 						<comment/>
@@ -1350,6 +1595,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.dimension</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.downloadDcc</name>
 						<description/>
 						<comment/>
@@ -1456,6 +1736,41 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.endDateOfLaboratoryProcedure</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.ExpandedUncertainty</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -1701,6 +2016,41 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.furtherInformation</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.houseNumber</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -2365,6 +2715,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.measurementDevice</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.measurementResult</name>
 						<description/>
 						<comment/>
@@ -2611,6 +2996,41 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.name</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.newEntry</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -3205,6 +3625,146 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.procedure</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.quantity</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.real</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.realListXMLList</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.receiptDateOfCalibrationItem</name>
 						<description/>
 						<comment/>
@@ -3241,6 +3801,111 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.reference</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.references</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.referralId</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.refType</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -3346,6 +4011,41 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.responsiblePersons</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.result</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -3555,6 +4255,76 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.showLocation</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.software</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.software.version</name>
 						<description/>
 						<comment/>
@@ -3591,6 +4361,41 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.state</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.stateCode</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -3765,6 +4570,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.traceable</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.traceableResult</name>
 						<description/>
 						<comment/>
@@ -3800,7 +4640,112 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.uncertainty</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.unit</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.units</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.uploadDcc</name>
 						<description/>
 						<comment/>
 						<translations>
@@ -4046,6 +4991,76 @@
 					</concept_node>
 					<concept_node>
 						<name>dcc.value</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.values</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>dcc.version</name>
 						<description/>
 						<comment/>
 						<translations>

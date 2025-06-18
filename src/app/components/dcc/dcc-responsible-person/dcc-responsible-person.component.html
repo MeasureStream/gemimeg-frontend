@@ -42,7 +42,7 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
       [isRequired]="true"
-      [placeholder]="'dcc.name' | translate"
+      [placeholder]="'Name'"
       [strings]="respPers.name!"
     ></app-dcc-localised-string>
     <div class="dcc-row">
@@ -67,11 +67,18 @@
       class="custom-circle-button-md"
       color="accent"
       mat-icon-button
+      type="button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyContactDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
+<button
+  (click)="addEmptyContactDto(); addExpanded()"
+  class="custom-circle-button-md"
+  color="primary"
+  mat-icon-button
+  type="button"
+>
   <mat-icon>add_circle</mat-icon>
 </button>

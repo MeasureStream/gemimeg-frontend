@@ -26,27 +26,27 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<mat-card *ngFor="let item of list; let i = index" class="blue-card">
+<mat-card class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title">{{ "dcc.identifications.identifier" | translate }} {{ i + 1 }}</mat-card-title>
+      <mat-card-title class="title">{{ "dcc.identifications.identifier" | translate }} {{ index + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button">
         <mat-icon>
-          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+          <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
       </button>
     </div>
   </mat-card-header>
-  <mat-card-content *ngIf="isExpanded[i]">
+  <mat-card-content *ngIf="isCardExpanded">
     <div>
       <div class="dcc-row">
         <div class="label-container">
           <label for="issuer">{{ "dcc.identifications.issuer" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <mat-select [(value)]="item.issuer" id="issuer" required>
+          <mat-select [(value)]="identification.issuer" id="issuer" required>
             <mat-option *ngFor="let entry of validIdentificationIssuers" [value]="entry" required>
               {{ entry }}
             </mat-option>
@@ -58,16 +58,20 @@
           <label for="value">{{ "dcc.identifications.identifier" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.value" id="value" matInput name="value" required />
+          <input [(ngModel)]="identification.value" id="value" matInput name="value" required />
         </mat-form-field>
       </div>
-      <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
+      <app-dcc-localised-string [placeholder]="'Name'" [strings]="identification.name!"></app-dcc-localised-string>
     </div>
-    <button (click)="list.splice(i, 1)" *ngIf="list.length > 1" color="accent" mat-icon-button>
+    <button
+      (click)="onRemove()"
+      *ngIf="canRemove"
+      class="custom-circle-button-md"
+      color="accent"
+      mat-icon-button
+      type="button"
+    >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="this.addEmptyIdentificationDto(); addExpanded()" color="primary" mat-icon-button>
-  <mat-icon>add_circle</mat-icon>
-</button>

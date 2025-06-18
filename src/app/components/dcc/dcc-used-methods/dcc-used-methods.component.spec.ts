@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccUsedMethodsComponent } from './dcc-used-methods.component';
+import { DccUsedMethodsComponent } from "./dcc-used-methods.component";
 
-describe('DccUsedMethodsComponent', () => {
+describe("DccUsedMethodsComponent", () => {
   let component: DccUsedMethodsComponent;
   let fixture: ComponentFixture<DccUsedMethodsComponent>;
 
@@ -45,7 +45,7 @@ describe('DccUsedMethodsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

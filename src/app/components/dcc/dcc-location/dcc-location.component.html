@@ -1,0 +1,68 @@
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.city" [required]="strict" id="city" matInput name="city" />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="countryCode">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input
+      [(ngModel)]="contact.location!.countryCode"
+      [required]="strict"
+      id="countryCode"
+      matInput
+      name="countryCode"
+      oninput="this.value = this.value.toUpperCase()"
+    />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="postalCode">{{ "dcc.postalCode" | translate }}</label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.postalCode" id="postalCode" matInput name="postalCode" />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="stateCode">{{ "dcc.stateCode" | translate }}</label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.stateCode" id="stateCode" matInput name="stateCode" />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="street">{{ "dcc.street" | translate }}</label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.street" id="street" matInput name="street" />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="houseNumber">{{ "dcc.houseNumber" | translate }}</label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.houseNumber" id="houseNumber" matInput name="houseNumber" />
+  </mat-form-field>
+</div>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="poBox">{{ "dcc.poBox" | translate }}</label>
+  </div>
+  <mat-form-field appearance="fill">
+    <input [(ngModel)]="contact.location!.poBox" id="poBox" matInput name="poBox" />
+  </mat-form-field>
+</div>
+<h4>{{ "dcc.additionalInformation" | translate }}</h4>
+<app-dcc-richcontent
+  (fileSelected)="onFileSelected($event)"
+  [richContent]="contact.location!.additionalInformation!"
+></app-dcc-richcontent>

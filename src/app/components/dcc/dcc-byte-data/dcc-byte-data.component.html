@@ -26,16 +26,12 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<app-dcc-localised-string
-  [placeholder]="'dcc.name' | translate"
-  [strings]="byteData.name!"
-  required
-></app-dcc-localised-string>
+<app-dcc-localised-string [placeholder]="'Name'" [strings]="byteData.name!" required></app-dcc-localised-string>
 <mat-form-field>
   <mat-label>{{ "dcc.fileName" | translate }}</mat-label>
-  <input [(ngModel)]="byteData.fileName" matInput placeholder="{{ 'dcc.fileName' | translate }}" />
+  <input [(ngModel)]="byteData.fileName" matInput placeholder="Dateiname" />
 </mat-form-field>
 <mat-form-field>
   <mat-label>{{ "dcc.mimeType" | translate }}</mat-label>
-  <input [(ngModel)]="byteData.mimeType" matInput placeholder="{{ 'dcc.mimeType' | translate }}" />
+  <input [(ngModel)]="byteData.mimeType" matInput placeholder="MIME-Typ" />
 </mat-form-field>

@@ -27,14 +27,14 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
-import { DccComponent } from '../dcc.component';
+import { DccComponent } from "../dcc.component";
 
 @Component({
-  selector: 'app-dcc-download',
-  templateUrl: './dcc-download.component.html',
-  styleUrls: ['./dcc-download.component.scss'],
+  selector: "app-dcc-download",
+  templateUrl: "./dcc-download.component.html",
+  styleUrls: ["./dcc-download.component.scss"],
 })
 export class DccDownloadComponent implements OnInit {
   @Input() disabled!: boolean | null;
@@ -47,3 +47,4 @@ export class DccDownloadComponent implements OnInit {
     this.parent.submit();
   }
 }
+

@@ -27,25 +27,25 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
-import { StatementDto } from 'src/app/generated/dcc/model/statementDto';
-import { DccService } from 'src/app/services/dcc/dcc.service';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { StatementDto } from "src/app/generated/dcc/model/statementDto";
+import { DccService } from "src/app/services/dcc/dcc.service";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
-  selector: 'app-dcc-measurement-metadata',
-  templateUrl: './dcc-measurement-metadata.component.html',
-  styleUrls: ['./dcc-measurement-metadata.component.scss'],
+  selector: "app-dcc-measurement-metadata",
+  templateUrl: "./dcc-measurement-metadata.component.html",
+  styleUrls: ["./dcc-measurement-metadata.component.scss"],
 })
 export class DccMeasurementMetadataComponent implements OnInit {
   @Input() list: Array<StatementDto>;
   @Input() header: string;
 
-  item = { date: '' };
-  statementDate: Date | any = '2022-09-09';
+  item = { date: "" };
+  statementDate: Date | any = "2022-09-09";
   startDate = new Date(2024, 1, 1);
-  validConformityStatementStatusTypes = ['pass', 'fail', 'conditionalPass', 'conditionalFail', 'noPass', 'noFail'];
+  validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
 
   isExpanded: boolean[] = [true];
 
@@ -53,7 +53,7 @@ export class DccMeasurementMetadataComponent implements OnInit {
     this.list = new Array<StatementDto>();
     this.addEmptyStatementDto();
     this.addExpanded();
-    this.header = '';
+    this.header = "";
   }
 
   ngOnInit(): void {}
@@ -62,15 +62,28 @@ export class DccMeasurementMetadataComponent implements OnInit {
     const input = (event.target as HTMLInputElement).value;
     const statement = this.list[index] as StatementDto;
     if (statement[fieldName] !== undefined) {
-      const processedArray = input.split(',').map((code) => code.trim());
-      if (fieldName === 'countryCodes') {
-        (statement[fieldName] as string[]) = processedArray
-          .filter((code) => code !== '')
-          .map((code) => code.toUpperCase());
+      const processedArray = input.split(",").map((code) => code.trim());
+      if (fieldName === "countryCodes") {
+        (statement[fieldName] as string[]) = processedArray.filter((code) => code !== "").map((code) => code.toUpperCase());
       } else {
-        (statement[fieldName] as string[]) = processedArray.filter((code) => code !== '');
+        (statement[fieldName] as string[]) = processedArray.filter((code) => code !== "");
       }
     }
+  }
+
+  marshalCustomDate(value: Date): string {
+    const result = new Array<string>();
+    if (value) {
+      result.push(value.getFullYear().toString());
+      result.push((value.getMonth() + 1).toString());
+      result.push(value.getDate().toString());
+    }
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].length === 1) {
+        result[i] = "0" + result[i];
+      }
+    }
+    return result[0] + "-" + result[1] + "-" + result[2];
   }
 
   toggleCard(index: number) {
@@ -87,6 +100,6 @@ export class DccMeasurementMetadataComponent implements OnInit {
 
   onDateChange(event: any) {
     const date: Date = event.value;
-    this.item.date = this.dccService.marshalCustomDate(date);
+    this.item.date = this.marshalCustomDate(date);
   }
 }

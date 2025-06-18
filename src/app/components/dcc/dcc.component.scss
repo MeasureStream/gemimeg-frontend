@@ -136,12 +136,11 @@ mat-stepper {
 
 .footer-container {
   position: sticky;
-  bottom: 60px;
+  bottom: 0;
 }
 
 .footer-navigation {
-  width: 99%;
-  left: 0;
+  width: 98%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -153,10 +152,6 @@ mat-stepper {
   padding: 10px 20px;
   align-items: center;
   z-index: 1000;
-}
-
-.filler {
-  background-color: var(--primary-color);
 }
 
 .previous-button {
@@ -184,4 +179,13 @@ mat-stepper {
   cursor: not-allowed;
   box-shadow: none;
   border: none;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  position: sticky;
+  top: 50px;
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 50px, 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

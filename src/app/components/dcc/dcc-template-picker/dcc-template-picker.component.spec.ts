@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccTemplatePickerComponent } from './dcc-template-picker.component';
+import { DccTemplatePickerComponent } from "./dcc-template-picker.component";
 
-describe('DccTemplatePickerComponent', () => {
+describe("DccTemplatePickerComponent", () => {
   let component: DccTemplatePickerComponent;
   let fixture: ComponentFixture<DccTemplatePickerComponent>;
 
@@ -44,7 +44,8 @@ describe('DccTemplatePickerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
+

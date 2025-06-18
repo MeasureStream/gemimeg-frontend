@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccRichContentComponent } from './dcc-richcontent.component';
+import { DccRichContentComponent } from "./dcc-richcontent.component";
 
-describe('DccRichcontentComponent', () => {
+describe("DccRichcontentComponent", () => {
   let component: DccRichContentComponent;
   let fixture: ComponentFixture<DccRichContentComponent>;
 
@@ -44,7 +44,7 @@ describe('DccRichcontentComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

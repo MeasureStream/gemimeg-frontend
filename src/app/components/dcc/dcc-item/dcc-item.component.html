@@ -1,0 +1,81 @@
+<mat-card class="blue-card">
+  <mat-card-header>
+    <div class="header-title">
+      <mat-card-title class="title">{{ "dcc.calibrationItem" | translate }} {{ index + 1 }}</mat-card-title>
+      <app-info-button tooltipText="Zeige das DCC-Wiki" url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
+    </div>
+    <div class="header-menu">
+      <button [matMenuTriggerFor]="menu" class="blue-card-btn" mat-icon-button type="button">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="addManufacturer(index)" [disabled]="manufacturerAvailable()[index]" mat-menu-item>
+          {{ "dcc.manufacturer" | translate }}
+        </button>
+      </mat-menu>
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button">
+        <mat-icon>
+          <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+        </mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content *ngIf="isCardExpanded">
+    <app-dcc-localised-string
+      [isRequired]="true"
+      [placeholder]="'Name'"
+      [strings]="item.name!"
+    ></app-dcc-localised-string>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="model">{{ "dcc.model" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input [(ngModel)]="item.model" id="model" matInput name="model" />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="classReference">{{ "dcc.classReference" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input [(ngModel)]="item.classReference" id="classReference" matInput name="classReference" required />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="classId">{{ "dcc.classId" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input [(ngModel)]="item.classId" id="classId" matInput name="classId" required />
+      </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <h4>{{ "dcc.description" | translate }}</h4>
+    <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
+    <mat-divider></mat-divider>
+    <app-dcc-manufacturer
+      (deleteManufacturer)="deleteManufacturer()"
+      *ngIf="manufacturerAvailable()[index]"
+      [manufacturer]="item.manufacturer!"
+      [strict]="false"
+    ></app-dcc-manufacturer>
+    <mat-divider></mat-divider>
+    <app-dcc-identification-list [identificationList]="item.identifications!"></app-dcc-identification-list>
+    <app-dcc-software-list
+      [softwareList]="item.installedSoftwares!"
+      [title]="'Installierte-Software'"
+      [urlPart]="'dccdccSoftware'"
+    ></app-dcc-software-list>
+    <button
+      (click)="onRemoveItem()"
+      *ngIf="canRemove"
+      class="custom-circle-button-lg"
+      color="accent"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon>remove_circle</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

@@ -27,38 +27,36 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
-import { DccComponent } from '../dcc.component';
-import { DccService } from 'src/app/services/dcc/dcc.service';
-import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
-import { ErrorService } from 'src/app/services/common/error/error.service';
+import { DccComponent } from "../dcc.component";
+import { DccService } from "src/app/services/dcc/dcc.service";
+import { CalibrationCertificateDto } from "src/app/generated/dcc/model/calibrationCertificateDto";
+import { ErrorService } from "src/app/services/common/error/error.service";
 
 @Component({
-  selector: 'app-dcc-template-picker',
-  templateUrl: './dcc-template-picker.component.html',
-  styleUrls: ['./dcc-template-picker.component.scss'],
+  selector: "app-dcc-template-picker",
+  templateUrl: "./dcc-template-picker.component.html",
+  styleUrls: ["./dcc-template-picker.component.scss"],
 })
 export class DccTemplatePickerComponent implements OnInit {
   templateFileUrl!: string;
 
-  constructor(
-    private parent: DccComponent,
-    public dccService: DccService,
-    private http: HttpClient,
-    private errorService: ErrorService
-  ) {}
+  constructor(private parent: DccComponent, public dccService: DccService, private http: HttpClient, private errorService: ErrorService) {}
 
   ngOnInit(): void {}
 
   useTemplate() {
     this.parent.showEmptyStatement = true;
-    this.http.get(this.templateFileUrl, { responseType: 'text' }).subscribe({
+    this.http.get(this.templateFileUrl, { responseType: "text" }).subscribe({
       next: (xml: string) => {
         this.dccService.xmlToJson(xml.toString()).subscribe({
           next: (json: CalibrationCertificateDto) => {
-            this.parent.dcc = this.parent.initialiseEmptyFields(json);
+            this.parent.dcc = this.parent.initialiseEmptyFields(this.cleanJson(json));
+            // console.log(JSON.stringify(this.parent.dcc, null, 2))
+            this.parent.loadHumanReadable();
+            this.parent.loadXML();
           },
           error: (error: any) => {
             this.errorService.logError(error);
@@ -71,5 +69,28 @@ export class DccTemplatePickerComponent implements OnInit {
       },
       complete: () => {},
     });
+  }
+  cleanJson(json: any): any {
+    if (typeof json === "string") {
+      return this.cleanControllCharactersAndSpaces(json);
+    } else if (Array.isArray(json)) {
+      return json.map((item) => this.cleanJson(item));
+    } else if (json !== null && typeof json === "object") {
+      const cleanedObject: any = {};
+      for (const key in json) {
+        if (json.hasOwnProperty(key)) {
+          // console.log('json[key', json[key]);
+          cleanedObject[key] = this.cleanJson(json[key]);
+        }
+      }
+      return cleanedObject;
+    }
+    return json;
+  }
+
+  cleanControllCharactersAndSpaces(text: string): string {
+    let cleanedText = text?.replace(/[\t\n\r]+/g, " ");
+    cleanedText = cleanedText.replace(/\s+/g, " ").trim();
+    return cleanedText;
   }
 }

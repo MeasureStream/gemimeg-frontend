@@ -28,11 +28,11 @@
  *
  */
 import { ErrorHandler, NgModule } from '@angular/core';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -71,7 +71,6 @@ import { GenericFileUploadComponent } from './components/common/generic-file-upl
 import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
 import { DccContactComponent } from './components/dcc/dcc-contact/dcc-contact.component';
 import { DccHumanReadableComponent } from './components/dcc/dcc-human-readable/dcc-human-readable.component';
-import { DccIdentificationsComponent } from './components/dcc/dcc-identifications/dcc-identifications.component';
 import { DccSoftwareComponent } from './components/dcc/dcc-software/dcc-software.component';
 import { DccUsedMethodsComponent } from './components/dcc/dcc-used-methods/dcc-used-methods.component';
 import { DccMeasurementEquipmentComponent } from './components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component';
@@ -86,6 +85,15 @@ import { DccUploadComponent } from './components/dcc/dcc-upload/dcc-upload.compo
 import { DccDownloadComponent } from './components/dcc/dcc-download/dcc-download.component';
 import { DccResponsiblePersonComponent } from './components/dcc/dcc-responsible-person/dcc-responsible-person.component';
 import { DccTemplatePickerComponent } from './components/dcc/dcc-template-picker/dcc-template-picker.component';
+import { DccLocationComponent } from './components/dcc/dcc-location/dcc-location.component';
+import { DccManufacturerComponent } from './components/dcc/dcc-manufacturer/dcc-manufacturer.component';
+import { DccItemListComponent } from './components/dcc/dcc-item-list/dcc-item-list.component';
+import { DccItemComponent } from './components/dcc/dcc-item/dcc-item.component';
+import { DccIdentificationComponent } from './components/dcc/dcc-identification/dcc-identification.component';
+import { DccInstalledSoftwareListComponent } from './components/dcc/dcc-software-list/dcc-software-list.component';
+import { DccIdentificationListComponent } from './components/dcc/dcc-identification-list/dcc-identification-list.component';
+import { DccMeasuringResultsComponent } from './components/dcc/dcc-measuring-results/dcc-measuring-results.component';
+import { DccXmlPreviewComponent } from './components/dcc/dcc-xml-preview/dcc-xml-preview.component';
 
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
@@ -140,10 +148,10 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccLocalisedStringComponent,
     DccContactComponent,
     DccHumanReadableComponent,
-    DccIdentificationsComponent,
     DccSoftwareComponent,
     DccUsedMethodsComponent,
     DccMeasurementEquipmentComponent,
+    DccIdentificationListComponent,
     DccInfluenceConditionsComponent,
     DccResultsComponent,
     DccMeasurementMetadataComponent,
@@ -166,6 +174,14 @@ export class AppDateAdapter extends NativeDateAdapter {
     MathmlComponent,
     DccRichContentComponent,
     DccByteDataComponent,
+    DccXmlPreviewComponent,
+    DccLocationComponent,
+    DccManufacturerComponent,
+    DccItemListComponent,
+    DccItemComponent,
+    DccIdentificationComponent,
+    DccInstalledSoftwareListComponent,
+    DccMeasuringResultsComponent,
     InfoButtonComponent,
     InfoDialogComponent,
     SettingsDialogComponent,
@@ -175,7 +191,6 @@ export class AppDateAdapter extends NativeDateAdapter {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -220,6 +235,10 @@ export class AppDateAdapter extends NativeDateAdapter {
     { provide: DateAdapter, useClass: AppDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     DccService,
+    {
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy,
+    },
   ],
   bootstrap: [AppComponent],
 })

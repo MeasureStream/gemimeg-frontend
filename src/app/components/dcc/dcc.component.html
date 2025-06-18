@@ -26,640 +26,330 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<form #dccForm="ngForm">
-  <mat-card class="blue-card cockpit">
-    <mat-card-header>
-      <div class="header-title">
-        <mat-card-title class="title">{{ "dcc.dccTemplates" | translate }}</mat-card-title>
-      </div>
-      <div class="header-menu"></div>
-    </mat-card-header>
-    <mat-card-content>
-      <app-dcc-template-picker></app-dcc-template-picker>
-      <app-dcc-upload></app-dcc-upload>
-      <app-dcc-download [disabled]="dccForm.invalid"></app-dcc-download>
-    </mat-card-content>
-  </mat-card>
-  <mat-stepper #stepper (selectionChange)="onStepChange($event)" [selectedIndex]="currentStepIndex" linear>
-    <mat-step>
-      <ng-template matStepLabel>{{ "dcc.administrativeData" | translate }}*</ng-template>
-      <mat-card class="blue-card">
-        <mat-card-header>
-          <div class="header-title">
-            <mat-card-title class="title"> {{ "dcc.dccSoftware" | translate }}* </mat-card-title>
-            <app-info-button
-              tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-              url="https://wiki.dcc.ptb.de/en/dccdccSoftware"
-            ></app-info-button>
-          </div>
-          <div class="header-menu">
-            <button (click)="toggleCard('DCC-Software')" class="blue-card-btn" mat-icon-button>
-              <mat-icon>
-                <i class="material-icons">{{
-                  isExpanded["DCC-Software"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                }}</i>
-              </mat-icon>
-            </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content *ngIf="isExpanded['DCC-Software']">
-          <app-dcc-software [list]="dcc.administrativeData!.dccSoftware!"></app-dcc-software>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="blue-card">
-        <mat-card-header>
-          <div class="header-title">
-            <mat-card-title class="title">{{ "dcc.coreData" | translate }}*</mat-card-title>
-            <app-info-button
-              tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-              url="https://wiki.dcc.ptb.de/en/dcccoredata"
-            ></app-info-button>
-          </div>
-          <div class="header-menu">
-            <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button>
-              <mat-icon>
-                <i class="material-icons">{{
-                  isExpanded["Basis-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                }}</i>
-              </mat-icon>
-            </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content *ngIf="isExpanded['Basis-Daten']">
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="countryCode"
-                >{{ "dcc.countryOfCalibration" | translate }}<span class="asterix">*</span></label
-              >
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                [(ngModel)]="dcc.administrativeData!.countryCode"
-                id="countryCode"
-                matInput
-                name="countryCode"
-                oninput="this.value = this.value.toUpperCase()"
-                required
-              />
-            </mat-form-field>
-          </div>
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="languageCodes">{{ "dcc.usedLanguages" | translate }}<span class="asterix">*</span></label>
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                (ngModelChange)="dcc.administrativeData!.languageCodes = $event.split(',')"
-                [ngModel]="dcc.administrativeData!.languageCodes"
-                id="languageCodes"
-                matInput
-                name="languageCodes"
-                required
-              />
-            </mat-form-field>
-          </div>
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="uniqueIdentifier"
-                >{{ "dcc.calibrationCertificateNumber" | translate }}<span class="asterix">*</span></label
-              >
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                [(ngModel)]="dcc.administrativeData!.uniqueIdentifier"
-                id="uniqueIdentifier"
-                matInput
-                name="uniqueIdentifier"
-                required
-              />
-            </mat-form-field>
-          </div>
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="receiptDate">{{ "dcc.receiptDateOfCalibrationItem" | translate }}</label>
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                (ngModelChange)="dcc.administrativeData!.receiptDate = dccService.marshalCustomDate($event)"
-                [matDatepicker]="receiptDate"
-                [ngModel]="dcc.administrativeData!.receiptDate"
-                id="receiptDate"
-                matInput
-                name="receiptDate"
-                readonly
-              />
-              <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
-              <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #receiptDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="startDate"
-                >{{ "dcc.beginDateOfLaboratoryProcedure" | translate }}<span class="asterix">*</span></label
-              >
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                (ngModelChange)="dcc.administrativeData!.startDate = dccService.marshalCustomDate($event)"
-                [matDatepicker]="beginPerformanceDate"
-                [ngModel]="dcc.administrativeData!.startDate"
-                id="startDate"
-                matInput
-                name="startDate"
-                readonly
-                required
-              />
-              <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
-              <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #beginPerformanceDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="dcc-row">
-            <div class="label-container-big">
-              <label for="endDate"
-                >{{ "dcc.endDateOfLaboratoryProcedure" | translate }}<span class="asterix">*</span></label
-              >
-            </div>
-            <mat-form-field appearance="fill">
-              <input
-                (ngModelChange)="dcc.administrativeData!.endDate = dccService.marshalCustomDate($event)"
-                [matDatepicker]="endPerformanceDate"
-                [ngModel]="dcc.administrativeData!.endDate"
-                id="endDate"
-                matInput
-                name="endDate"
-                readonly
-                required
-              />
-              <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
-              <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #endPerformanceDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="blue-card">
-        <mat-card-header>
-          <div class="header-title">
-            <mat-card-title class="title">{{ "dcc.customer" | translate }}*</mat-card-title>
-            <app-info-button
-              tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-              url="https://wiki.dcc.ptb.de/en/dcccustomer"
-            ></app-info-button>
-          </div>
-          <div class="header-menu">
-            <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button>
-              <mat-icon>
-                <i class="material-icons">{{ isExpanded["Kunde"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
-              </mat-icon>
-            </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content *ngIf="isExpanded['Kunde']">
-          <app-dcc-contact [contact]="dcc.administrativeData!.customer!"></app-dcc-contact>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="blue-card">
-        <mat-card-header>
-          <div class="header-title">
-            <mat-card-title class="title">{{ "dcc.calibrationLaboratory" | translate }}*</mat-card-title>
-            <app-info-button
-              tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-              url="https://wiki.dcc.ptb.de/en/dcccalibrationLaboratory"
-            ></app-info-button>
-          </div>
-          <div class="header-menu">
-            <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button>
-              <mat-icon>
-                <i class="material-icons">{{
-                  isExpanded["Kalibrierlabor"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                }}</i>
-              </mat-icon>
-            </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content *ngIf="isExpanded['Kalibrierlabor']">
-          <div class="dcc-row">
-            <div class="label-container">
-              <label for="calibrationLaboratoryCode">{{ "dcc.calibrationLaboratoryCode" | translate }}</label>
-            </div>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "dcc.identificationOfCalibrationLaboratory" | translate }}</mat-label>
-              <input
-                [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
-                id="calibrationLaboratoryCode"
-                matInput
-                name="calibrationLaboratoryCode"
-              />
-            </mat-form-field>
-          </div>
-          <mat-divider></mat-divider>
-          <app-dcc-contact
-            (fileSelected)="onFileSelected($event)"
-            [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!"
-          >
-          </app-dcc-contact>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="blue-card">
-        <mat-card-header>
-          <div class="header-title">
-            <mat-card-title class="title">{{ "dcc.responsiblePersons" | translate }}*</mat-card-title>
-            <app-info-button
-              tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-              url="https://wiki.dcc.ptb.de/en/dccrespPerson"
-            ></app-info-button>
-          </div>
-          <div class="header-menu">
-            <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" mat-icon-button>
-              <mat-icon>
-                <i class="material-icons">{{
-                  isExpanded["Verantwortliche-Personen"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                }}</i>
-              </mat-icon>
-            </button>
-          </div>
-        </mat-card-header>
-        <mat-card-content *ngIf="isExpanded['Verantwortliche-Personen']">
-          <app-dcc-responsible-person [list]="dcc.administrativeData!.responsiblePersons!"></app-dcc-responsible-person>
-        </mat-card-content>
-      </mat-card>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>{{ "dcc.calibrationItems" | translate }}*</ng-template>
-      <div *ngFor="let item of dcc.administrativeData!.items; let i = index">
+<div class="form-container">
+  <form #dccForm="ngForm">
+    <mat-card class="blue-card cockpit">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">DCC-Vorlagen</mat-card-title>
+        </div>
+        <div class="header-menu"></div>
+      </mat-card-header>
+      <mat-card-content>
+        <app-dcc-template-picker></app-dcc-template-picker>
+        <app-dcc-upload></app-dcc-upload>
+        <app-dcc-download [disabled]="dccForm.invalid"></app-dcc-download>
+      </mat-card-content>
+    </mat-card>
+    <mat-stepper
+      #stepper
+      (selectionChange)="onStepChange($event)"
+      [selectedIndex]="currentStepIndex"
+      class="sticky-stepper"
+      linear
+    >
+      <mat-step>
+        <ng-template matStepLabel>Administrative Daten*</ng-template>
+        <app-dcc-software-list
+          [softwareList]="dcc.administrativeData!.dccSoftware!"
+          [title]="'DCC-Software'"
+          [urlPart]="'dccdccSoftware'"
+        ></app-dcc-software-list>
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title">{{ "dcc.calibrationItem" | translate }} {{ i + 1 }}</mat-card-title>
+              <mat-card-title class="title">Basis-Daten*</mat-card-title>
               <app-info-button
-                i18n
-                tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                url="https://wiki.dcc.ptb.de/en/dccitem"
+                tooltipText="Zeige das DCC-Wiki"
+                url="https://wiki.dcc.ptb.de/en/dcccoredata"
               ></app-info-button>
             </div>
             <div class="header-menu">
-              <button (click)="toggleCard('Kalibriergut' + (i + 1))" class="blue-card-btn" mat-icon-button>
+              <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button type="button">
                 <mat-icon>
                   <i class="material-icons">{{
-                    isExpanded["Kalibriergut" + (i + 1)] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                    isExpanded["Basis-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
                   }}</i>
                 </mat-icon>
               </button>
             </div>
           </mat-card-header>
-          <mat-card-content *ngIf="isExpanded['Kalibriergut' + (i + 1)]">
-            <app-dcc-localised-string
-              [isRequired]="true"
-              [placeholder]="'dcc.name' | translate"
-              [strings]="item.name!"
-            ></app-dcc-localised-string>
+          <mat-card-content *ngIf="isExpanded['Basis-Daten']">
             <div class="dcc-row">
-              <div class="label-container">
-                <label for="model">{{ "dcc.modelOrOther" | translate }}</label>
+              <div class="label-container-big">
+                <label for="countryCode">Land der Kalibrierung<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
-                <input [(ngModel)]="item.model" id="model" matInput name="model" />
+                <input
+                  [(ngModel)]="dcc.administrativeData!.countryCode"
+                  id="countryCode"
+                  matInput
+                  name="countryCode"
+                  oninput="this.value = this.value.toUpperCase()"
+                  required
+                />
               </mat-form-field>
             </div>
             <div class="dcc-row">
-              <div class="label-container">
-                <label for="classReference">{{ "dcc.normOfClassification" | translate }}</label>
+              <div class="label-container-big">
+                <label for="languageCodes">Verwendete Sprachen<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
-                <input [(ngModel)]="item.classReference" id="classReference" matInput name="classReference" />
+                <input
+                  (ngModelChange)="dcc.administrativeData!.languageCodes = $event.split(',')"
+                  [ngModel]="dcc.administrativeData!.languageCodes"
+                  id="languageCodes"
+                  matInput
+                  name="languageCodes"
+                  required
+                />
               </mat-form-field>
             </div>
             <div class="dcc-row">
-              <div class="label-container">
-                <label for="classId">{{ "dcc.reference" | translate }}</label>
+              <div class="label-container-big">
+                <label for="uniqueIdentifier">Kalibrierzeichen<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
-                <input [(ngModel)]="item.classId" id="classId" matInput name="classId" />
+                <input
+                  [(ngModel)]="dcc.administrativeData!.uniqueIdentifier"
+                  id="uniqueIdentifier"
+                  matInput
+                  name="uniqueIdentifier"
+                  required
+                />
               </mat-form-field>
             </div>
-            <mat-divider></mat-divider>
-            <h4>{{ "dcc.description" | translate }}</h4>
-            <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
-            <mat-divider></mat-divider>
-            <h4>{{ "dcc.manufacturer" | translate }}</h4>
-            <app-dcc-contact (fileSelected)="onFileSelected($event)" [contact]="item.manufacturer!" [strict]="false">
-            </app-dcc-contact>
-            <mat-divider></mat-divider>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.identifiersOfCalibrationItem" | translate }}*</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccidentificationType"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Identifikatoren')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Identifikatoren"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Identifikatoren']">
-                <app-dcc-identifications [list]="item.identifications!"></app-dcc-identifications>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.installedSoftware" | translate }}</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccdccSoftware"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Installierte-Software')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Installierte-Software"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Installierte-Software']">
-                <app-dcc-software [list]="item.installedSoftwares!"></app-dcc-software>
-              </mat-card-content>
-            </mat-card>
-            <button
-              (click)="dcc.administrativeData!.items!.splice(i, 1)"
-              *ngIf="dcc.administrativeData!.items!.length > 1"
-              class="custom-circle-button-lg"
-              color="accent"
-              mat-icon-button
-            >
-              <mat-icon>remove_circle</mat-icon>
-            </button>
+            <div class="dcc-row">
+              <div class="label-container-big">
+                <label for="receiptDate">Eingangsdatum</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input
+                  (ngModelChange)="dcc.administrativeData!.receiptDate = dccService.marshalCustomDate($event)"
+                  [matDatepicker]="receiptDate"
+                  [ngModel]="dcc.administrativeData!.receiptDate"
+                  id="receiptDate"
+                  matInput
+                  name="receiptDate"
+                  readonly
+                />
+                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #receiptDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="dcc-row">
+              <div class="label-container-big">
+                <label for="startDate">Beginn der Labortätigkeit<span class="asterix">*</span></label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input
+                  (ngModelChange)="dcc.administrativeData!.startDate = dccService.marshalCustomDate($event)"
+                  [matDatepicker]="beginPerformanceDate"
+                  [ngModel]="dcc.administrativeData!.startDate"
+                  id="startDate"
+                  matInput
+                  name="startDate"
+                  readonly
+                  required
+                />
+                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #beginPerformanceDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="dcc-row">
+              <div class="label-container-big">
+                <label for="endDate">Ende der Labortätigkeit<span class="asterix">*</span></label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input
+                  (ngModelChange)="dcc.administrativeData!.endDate = dccService.marshalCustomDate($event)"
+                  [matDatepicker]="endPerformanceDate"
+                  [ngModel]="dcc.administrativeData!.endDate"
+                  id="endDate"
+                  matInput
+                  name="endDate"
+                  readonly
+                  required
+                />
+                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #endPerformanceDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="row"></div>
+            <div class="dcc-row">
+              <div class="label-container-big">
+                <label for="performanceLocation">Ausführungsort</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <mat-select [(value)]="dcc.administrativeData!.performanceLocation" id="performanceLocation" required>
+                  <mat-option *ngFor="let entry of performanceLocation" [value]="entry">
+                    {{ entry }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </mat-card-content>
         </mat-card>
-        <button
-          (click)="addEmptyItemDto(); addCalibrationCard('Kalibriergut' + (i + 2))"
-          class="custom-circle-button-lg"
-          color="primary"
-          mat-icon-button
-        >
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>{{ "dcc.statements" | translate }}</ng-template>
-      <ng-container *ngIf="!showEmptyStatement">
-        <mat-card appearance="outlined" class="statements">
-          <mat-card-content>
-            <button (click)="showStatement()" class="statements-btn" color="accent" mat-flat-button>
-              {{ "dcc.addStatements" | translate }}
-            </button>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
-      <ng-container *ngIf="showEmptyStatement">
-        <app-dcc-measurement-metadata
-          [header]="header_statement"
-          [list]="dcc.administrativeData!.statements!"
-        ></app-dcc-measurement-metadata>
-      </ng-container>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>{{ "dcc.measurementResults" | translate }}*</ng-template>
-      <div *ngFor="let item of dcc.measurementResults; let i = index">
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title" i18n>{{ "dcc.measurementResult" | translate }} {{ i + 1 }}</mat-card-title>
+              <mat-card-title class="title">Kunde*</mat-card-title>
               <app-info-button
-                tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                url="https://wiki.dcc.ptb.de/en/dccmeasurementResult"
+                tooltipText="Zeige das DCC-Wiki"
+                url="https://wiki.dcc.ptb.de/en/dcccustomer"
               ></app-info-button>
             </div>
             <div class="header-menu">
-              <button (click)="toggleCard('Messergebnis' + (i + 1))" class="blue-card-btn" mat-icon-button>
-                <mat-icon
-                  ><i class="material-icons">{{
-                    isExpanded["Messergebnis" + (i + 1)] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button type="button">
+                <mat-icon>
+                  <i class="material-icons">{{ isExpanded["Kunde"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+                </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Kunde']">
+            <app-dcc-contact
+              (fileSelected)="onFileSelected($event)"
+              [contact]="dcc.administrativeData!.customer!"
+            ></app-dcc-contact>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <mat-card-title class="title">Kalibrierlabor*</mat-card-title>
+              <app-info-button
+                tooltipText="Zeige das DCC-Wiki"
+                url="https://wiki.dcc.ptb.de/en/dcccalibrationLaboratory"
+              ></app-info-button>
+            </div>
+            <div class="header-menu">
+              <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button type="button">
+                <mat-icon>
+                  <i class="material-icons">{{
+                    isExpanded["Kalibrierlabor"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
                   }}</i>
                 </mat-icon>
               </button>
             </div>
           </mat-card-header>
-          <mat-card-content *ngIf="isExpanded['Messergebnis' + (i + 1)]">
-            <app-dcc-localised-string
-              [isRequired]="true"
-              [placeholder]="'dcc.name' | translate"
-              [strings]="item.name!"
-            ></app-dcc-localised-string>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.usedSoftware" | translate }}</mat-card-title>
-                  <app-info-button
-                    i18n
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccdccSoftware"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Verwendete-Software"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Verwendete-Software']">
-                <app-dcc-software [list]="item.usedSoftware!"></app-dcc-software>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.usedMethods" | translate }}</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccusedMethodType"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Verwendete-Methoden"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Verwendete-Methoden']">
-                <app-dcc-used-methods [list]="item.usedMethods!"></app-dcc-used-methods>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.usedMeasurementDevices" | translate }}</mat-card-title>
-                  <app-info-button
-                    i18n
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Verwendete-Messinstrumente')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Verwendete-Messinstrumente"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Verwendete-Messinstrumente']">
-                <app-dcc-measurement-equipment [list]="item.equipment!"></app-dcc-measurement-equipment>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.influenceConditions" | translate }}</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccinfluenceConditionType"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Einflussfaktoren"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Einflussfaktoren']">
-                <app-dcc-influence-conditions [list]="item.influenceConditions!"></app-dcc-influence-conditions>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.results" | translate }}*</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccresultListType"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Ergebnisse"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Ergebnisse']">
-                <app-dcc-results [list]="item.results!"></app-dcc-results>
-              </mat-card-content>
-            </mat-card>
-            <mat-card class="blue-card">
-              <mat-card-header>
-                <div class="header-title">
-                  <mat-card-title class="title">{{ "dcc.metaData" | translate }}</mat-card-title>
-                  <app-info-button
-                    tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-                    url="https://wiki.dcc.ptb.de/en/dccstatement"
-                  ></app-info-button>
-                </div>
-                <div class="header-menu">
-                  <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn" mat-icon-button>
-                    <mat-icon>
-                      <i class="material-icons">{{
-                        isExpanded["Meta-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                      }}</i>
-                    </mat-icon>
-                  </button>
-                </div>
-              </mat-card-header>
-              <mat-card-content *ngIf="isExpanded['Meta-Daten']">
-                <app-dcc-measurement-metadata
-                  [header]="header_meta_data"
-                  [list]="item.statements!"
-                ></app-dcc-measurement-metadata>
-              </mat-card-content>
-            </mat-card>
-            <mat-divider [inset]="true"></mat-divider>
-            <button
-              (click)="dcc.measurementResults!.splice(i, 1)"
-              *ngIf="dcc.measurementResults!.length > 1"
-              class="custom-circle-button-lg"
-              color="accent"
-              mat-icon-button
+          <mat-card-content *ngIf="isExpanded['Kalibrierlabor']">
+            <div class="dcc-row">
+              <div class="label-container">
+                <label for="calibrationLaboratoryCode">Kennung</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <mat-label>des Kalibrierlabors</mat-label>
+                <input
+                  [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
+                  id="calibrationLaboratoryCode"
+                  matInput
+                  name="calibrationLaboratoryCode"
+                />
+              </mat-form-field>
+            </div>
+            <mat-divider></mat-divider>
+            <app-dcc-contact
+              (fileSelected)="onFileSelected($event)"
+              [contact]="dcc.administrativeData!.calibrationLaboratory!.contact!"
             >
-              <mat-icon>remove_circle</mat-icon>
-            </button>
+            </app-dcc-contact>
           </mat-card-content>
         </mat-card>
-        <button
-          (click)="addEmptyMeasurementResultDto(); addCalibrationCard('Messergebnis' + (i + 2))"
-          class="custom-circle-button-lg"
-          color="primary"
-          mat-icon-button
+        <mat-card class="blue-card">
+          <mat-card-header>
+            <div class="header-title">
+              <mat-card-title class="title">Verantwortliche Personen*</mat-card-title>
+              <app-info-button
+                tooltipText="Zeige das DCC-Wiki"
+                url="https://wiki.dcc.ptb.de/en/dccrespPerson"
+              ></app-info-button>
+            </div>
+            <div class="header-menu">
+              <button
+                (click)="toggleCard('Verantwortliche-Personen')"
+                class="blue-card-btn"
+                mat-icon-button
+                type="button"
+              >
+                <mat-icon>
+                  <i class="material-icons">{{
+                    isExpanded["Verantwortliche-Personen"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                  }}</i>
+                </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Verantwortliche-Personen']">
+            <app-dcc-responsible-person
+              [list]="dcc.administrativeData!.responsiblePersons!"
+            ></app-dcc-responsible-person>
+          </mat-card-content>
+        </mat-card>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Kalibriergegenstände*</ng-template>
+        <app-dcc-item-list
+          [itemList]="dcc.administrativeData!.items!"
+          [manufacturerAvailable]="manufacturerAvailable"
+        ></app-dcc-item-list>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Statements</ng-template>
+        <ng-container *ngIf="!showEmptyStatement">
+          <mat-card appearance="outlined" class="statements">
+            <mat-card-content>
+              <button (click)="showStatement()" class="statements-btn" color="accent" mat-flat-button type="button">
+                Statements hinzufügen
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+        <ng-container *ngIf="showEmptyStatement">
+          <app-dcc-measurement-metadata
+            [header]="header_statement"
+            [list]="dcc.administrativeData!.statements!"
+          ></app-dcc-measurement-metadata>
+        </ng-container>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Messergebnisse</ng-template>
+        <app-dcc-measuring-results
+          (addMeasurementResult)="dcc.measurementResults!.push($event)"
+          (removeMeasurementResult)="dcc.measurementResults!.splice($event, 1)"
+          [headerMetaData]="header_meta_data"
+          [isExpanded]="isExpanded"
+          [measurementResults]="dcc.measurementResults"
         >
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>{{ "dcc.preview" | translate }}</ng-template>
-      <div class="preview-container">
-        <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-tab-group">
-          <mat-tab label="{{ 'dcc.preview.human-readable' | translate }}">
-            <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"></app-dcc-human-readable>
-          </mat-tab>
-          <mat-tab label="{{ 'dcc.preview.xml' | translate }}">{{ "dcc.preview.xml" | translate }}</mat-tab>
-          <mat-tab label="{{ 'dcc.preview.files' | translate }}">{{ "dcc.preview.files" | translate }}</mat-tab>
-        </mat-tab-group>
-      </div>
-    </mat-step>
-  </mat-stepper>
-</form>
+        </app-dcc-measuring-results>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Vorschau</ng-template>
+        <div class="preview-container">
+          <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-mat-tab-group">
+            <mat-tab label="Human Readable">
+              <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"></app-dcc-human-readable>
+            </mat-tab>
+            <mat-tab label="XML">
+              <app-dcc-xml-preview [dcc]="this.dcc" [xml]="xml"></app-dcc-xml-preview>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </form>
+</div>
 <div class="footer-container">
   <div class="footer-navigation">
-    <button
-      (click)="previousStep(stepper)"
-      [disabled]="currentStepIndex === 0"
-      class="previous-button"
-      color="primary"
-      mat-button
-    >
-      {{ "button.previousStep" | translate }}
+    <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" mat-button>
+      Previous Step
     </button>
-    <button
-      (click)="nextStep(stepper)"
-      [disabled]="currentStepIndex === totalSteps - 1"
-      class="next-button"
-      color="accent"
-      mat-button
-    >
-      {{ "button.nextStep" | translate }}
+    <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" mat-button>
+      Next Step
     </button>
   </div>
-  <div class="filler"></div>
 </div>
 <app-footer></app-footer>

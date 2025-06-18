@@ -27,38 +27,32 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
-import { SoftwareDto } from 'src/app/generated/dcc/model/softwareDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { SoftwareDto } from "src/app/generated/dcc/model/softwareDto";
 
 @Component({
-  selector: 'app-dcc-software',
-  templateUrl: './dcc-software.component.html',
-  styleUrls: ['./dcc-software.component.scss'],
+  selector: "app-dcc-software",
+  templateUrl: "./dcc-software.component.html",
+  styleUrls: ["./dcc-software.component.scss"],
 })
 export class DccSoftwareComponent implements OnInit {
-  @Input() list: SoftwareDto[];
+  @Input() software!: SoftwareDto;
+  @Input() index!: number;
+  @Input() canRemove: boolean = false;
+  @Input() isInitiallyExpanded: boolean = false;
+  @Output() removeSoftware = new EventEmitter<number>();
 
-  isExpanded: boolean[] = [true];
+  isCardExpanded: boolean = true;
 
-  constructor(private initializationService: InitializationService) {
-    this.list = new Array<SoftwareDto>();
-    this.addEmptySoftwareDto();
-    this.addExpanded();
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 
-  addEmptySoftwareDto() {
-    this.list.push(this.initializationService.getEmptySoftwareDto());
+  toggleCard() {
+    this.isCardExpanded = !this.isCardExpanded;
   }
-
-  toggleCard(index: number) {
-    this.isExpanded[index] = !this.isExpanded[index];
-  }
-
-  addExpanded() {
-    this.isExpanded.push(true);
+  onRemove() {
+    this.removeSoftware.emit();
   }
 }

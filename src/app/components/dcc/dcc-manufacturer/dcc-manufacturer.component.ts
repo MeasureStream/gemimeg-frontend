@@ -27,3 +27,39 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
+
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
+import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
+
+
+@Component({
+  selector: 'app-dcc-manufacturer',
+  templateUrl: './dcc-manufacturer.component.html',
+  styleUrls: ['./dcc-manufacturer.component.scss']
+})
+export class DccManufacturerComponent implements OnInit, OnChanges {
+
+  @Input() manufacturer?: ContactDto;
+  @Input() strict: boolean;
+  @Output() deleteManufacturer=new EventEmitter<void>();
+  @Output() fileSelected = new EventEmitter<ByteDataDto>();
+
+  constructor() {
+    this.strict = true;
+  }
+  ngOnInit(): void {
+
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  delete(){
+    this.deleteManufacturer.emit();
+  }
+
+  onFileSelected(fileData: ByteDataDto) {
+    this.fileSelected.emit(fileData)
+  }
+}

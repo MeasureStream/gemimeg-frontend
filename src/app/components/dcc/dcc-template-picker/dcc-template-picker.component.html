@@ -27,12 +27,18 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <mat-form-field class="full-width">
-  <mat-select [(value)]="templateFileUrl" placeholder="{{ 'dcc.selectDccTemplate' | translate }}">
+  <mat-select [(value)]="templateFileUrl" placeholder="Vorlage auswählen">
     <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category">
       <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
     </mat-optgroup>
   </mat-select>
 </mat-form-field>
-<button (click)="useTemplate()" [disabled]="templateFileUrl == undefined" color="primary" mat-raised-button>
+<button
+  (click)="useTemplate()"
+  [disabled]="templateFileUrl == undefined"
+  color="primary"
+  mat-raised-button
+  type="button"
+>
   {{ "dcc.applyTemplate" | translate }}
 </button>

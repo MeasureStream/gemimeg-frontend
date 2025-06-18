@@ -33,20 +33,18 @@
         <mat-card-title class="title">{{ "dcc.calibration-certificate" | translate }}</mat-card-title>
       </div>
       <div class="header-menu">
-        <button (click)="download(true)" class="blue-card-btn" mat-icon-button>
+        <button (click)="download(true)" class="blue-card-btn" mat-icon-button matTooltip="Download humanReadable.html">
           <mat-icon>
             <i class="material-icons"><i class="material-icons">download</i></i>
           </mat-icon>
         </button>
       </div>
     </mat-card-header>
-    <mat-card-content *ngIf="isExpanded">
+    <mat-card-content *ngIf="isExpanded" class="card-content">
       <div class="content-humanReadable">
         <div *ngIf="humanReadableHtml != ''" class="wrapper-humanReadable"></div>
         <div *ngIf="humanReadableHtml == ''" class="wrapper-humanReadable message">
-          <p class="message-content">
-            {{ "dcc.preview.attention" | translate }}: {{ "dcc.preview.mandatoryFields" | translate }}!
-          </p>
+          <p class="message-content">{{ "dcc.preview.mandatoryFields" | translate }}</p>
         </div>
       </div>
     </mat-card-content>

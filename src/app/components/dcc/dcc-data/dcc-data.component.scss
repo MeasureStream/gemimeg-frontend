@@ -27,6 +27,7 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
+
 .menu-btn {
   height: 48px;
   margin-bottom: 15px;
@@ -39,7 +40,6 @@
     vertical-align: middle;
     order: 1;
   }
-
   i {
     order: 2;
   }
@@ -47,4 +47,19 @@
 
 mat-card {
   margin: 15px 0;
+}
+
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+.form-field {
+}
+.form-field-right-0px {
+  padding-right: 14px;
+}
+.button-container-right-0px,
+.form-field-right-0px {
+  margin-right: 0px !important;
 }

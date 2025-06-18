@@ -29,64 +29,59 @@
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
-      <mat-card-title class="title"> {{ "dcc.measuringDevice" | translate }} {{ i + 1 }}</mat-card-title>
-      <app-info-button
-        tooltipText="{{ 'dcc.openDccWiki' | translate }}"
-        url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"
-      ></app-info-button>
+      <mat-card-title class="title">{{ "dcc.measurementDevice" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
-        <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
+        <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <div>
-      <app-dcc-localised-string
-        [isRequired]="true"
-        [placeholder]="'Name'"
-        [strings]="item.name!"
-      ></app-dcc-localised-string>
-      <div class="dcc-row">
-        <div class="label-container">
-          <label for="classID">{{ "dcc.classification" | translate }}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.classId" id="classID" matInput name="classID" />
-        </mat-form-field>
+    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"> </app-dcc-localised-string>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="refType">{{ "dcc.refType" | translate }}</label>
       </div>
-      <div class="dcc-row">
-        <div class="label-container">
-          <label for="classReference">{{ "dcc.norm" | translate }}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.classReference" id="classReference" matInput name="classReference" />
-        </mat-form-field>
-      </div>
-      <div class="dcc-row">
-        <div class="label-container">
-          <label for="model">{{ "dcc.model" | translate }}</label>
-        </div>
-        <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.model" id="model" matInput name="model" />
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.refTypes" id="refType" matInput name="refType" />
+      </mat-form-field>
     </div>
-    <h4>{{ "dcc.manufacturer" | translate }}</h4>
-    <p>
-      <app-dcc-contact [contact]="item.manufacturer!" [strict]="true"></app-dcc-contact>
-    </p>
-    <button
-      (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
-      class="custom-circle-button-md"
-      color="accent"
-      mat-icon-button
-    >
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="referralId">{{ "dcc.referralId" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.certificateReferralId" id="referralId" matInput name="ReferralId" />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="procedure">{{ "dcc.procedure" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.certificateProcedure" id="procedure" matInput name="procedure" />
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="value">{{ "dcc.value" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.certificateValue" id="value" matInput name="value" />
+      </mat-form-field>
+    </div>
+    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button type="button">
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyEquipmentDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button>
+<button
+  (click)="addEmptyEquipmentDto(); addExpanded()"
+  class="custom-circle-button-md"
+  color="primary"
+  mat-icon-button
+  type="button"
+>
   <mat-icon>add_circle</mat-icon>
 </button>

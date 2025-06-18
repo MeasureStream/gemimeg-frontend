@@ -29,7 +29,9 @@
 <div *ngFor="let item of strings.content; let i = index" class="dcc-row">
   <ng-container *ngIf="getOrSetLang(item)">
     <div class="label-container">
-      <label [for]="placeholder.toLowerCase()">{{ placeholder }}<span class="asterix">*</span> </label>
+      <label [for]="placeholder.toLowerCase()"
+        >{{ placeholder }}<span *ngIf="isRequired" class="asterix">*</span>
+      </label>
       <mat-form-field appearance="outline" class="mat-form-field-flag">
         <mat-select
           (selectionChange)="updateLanguageMap(item)"
@@ -40,10 +42,10 @@
           required
         >
           <mat-select-trigger class="mat-select-trigger">
-            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-us' }} icon-flag"></span>
+            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }} icon-flag"></span>
           </mat-select-trigger>
-          <mat-option *ngFor="let lang of locales" [value]="lang.lang">
-            <span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{ lang.name }}
+          <mat-option *ngFor="let lang of locales" [value]="lang.lang"
+            ><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{ lang.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -67,7 +69,6 @@
         rows="4"
       >
       </textarea>
-      <input hidden matInput name="hidden" />
     </mat-form-field>
     <div class="button-container">
       <button
@@ -75,6 +76,7 @@
         class="custom-circle-button-sm"
         color="primary"
         mat-icon-button
+        type="button"
       >
         <mat-icon>add_circle</mat-icon>
       </button>
@@ -84,6 +86,7 @@
         class="custom-circle-button-sm"
         color="accent"
         mat-icon-button
+        type="button"
       >
         <mat-icon>remove_circle</mat-icon>
       </button>

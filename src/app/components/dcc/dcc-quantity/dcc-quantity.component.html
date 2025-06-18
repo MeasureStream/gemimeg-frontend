@@ -26,18 +26,317 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<!--this is a stub-->
-<p>
-  <mat-form-field>
-    <mat-label>{{ "dcc.label" | translate }}</mat-label>
-    <input [(ngModel)]="dataType.label" matInput name="label" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "dcc.value" | translate }}</mat-label>
-    <input [(ngModel)]="dataType.dimension!.value" matInput name="value" />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "dcc.unit" | translate }}</mat-label>
-    <input [(ngModel)]="dataType.dimension!.unit" matInput name="unit" />
-  </mat-form-field>
-</p>
+<div *ngIf="unifiedQuantities.length > 0">
+  <div *ngFor="let entry of unifiedQuantities; let index = index">
+    <div *ngIf="entry.quantity.hybridValues">
+      <mat-card *ngIf="entry.quantity as quantity" class="blue-card">
+        <mat-card-header>
+          <div class="header-title">
+            <mat-card-title class="title">{{ "dcc.quantity" | translate }} {{ index + 1 }}</mat-card-title>
+          </div>
+          <div class="header-menu">
+            <button (click)="toggleCardQuantity(index)" class="blue-card-btn" mat-icon-button type="button">
+              <mat-icon>
+                <i class="material-icons">{{
+                  isExpandedQuantity[index] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                }}</i>
+              </mat-icon>
+            </button>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content *ngIf="isExpandedQuantity[index]">
+          <div class="real-container">
+            <div class="section-header">
+              <mat-radio-group [(ngModel)]="isReal[index]" class="radio-group">
+                <mat-radio-button [value]="true" class="radio-button"
+                  ><span>{{ "dcc.real" | translate }}</span></mat-radio-button
+                >
+                <mat-radio-button [value]="false" class="radio-button"
+                  ><span>{{ "dcc.realListXMLList" | translate }}</span></mat-radio-button
+                >
+              </mat-radio-group>
+            </div>
+
+            <div *ngFor="let refType of quantity.refTypes; let i = index; trackBy: trackByIndex" class="dcc-row">
+              <div class="label-container"><label for="refType">RefType</label></div>
+              <mat-form-field appearance="fill" class="form-field-right-0px">
+                <input
+                  (input)="onInputChange($event, i, quantity.refTypes)"
+                  [value]="refType"
+                  id="refType{{ i }}"
+                  matInput
+                  name="refType{{ i }}"
+                />
+              </mat-form-field>
+              <div class="button-container-right-0px">
+                <button
+                  (click)="addRefType(quantity.refTypes)"
+                  class="custom-circle-button-sm"
+                  color="primary"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+                <button
+                  (click)="removeRefType(quantity.refTypes, i)"
+                  class="custom-circle-button-sm"
+                  color="accent"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <app-dcc-localised-string [placeholder]="'Name'" [strings]="quantity.name!"></app-dcc-localised-string>
+
+            <div class="dcc-row ng-star-inserted">
+              <div class="label-container">
+                <label for="real-date">{{ "dcc.dateTime" | translate }}</label>
+              </div>
+              <mat-form-field appearance="fill">
+                <input [(ngModel)]="date" id="real-date" matInput type="text" />
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="isReal[index] && unifiedQuantities[0].source === 'single'">
+              <div *ngFor="let dim of entry.quantity!.hybridValues?.dimensions; let i = index" class="dcc-row">
+                <div class="label-container">
+                  <label class="index-label">#{{ i + 1 }}</label>
+                </div>
+                <div class="form-field-container">
+                  <label for="dimensionValue{{ i }}">{{ "dcc.value" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.value" id="dimensionValue{{ i }}" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-container">
+                  <label for="dimensionUnit{{ i }}">{{ "dcc.unit" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.unit" id="dimensionUnit{{ i }}" matInput />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="removeRow(item)"
+                  class="custom-circle-button-sm"
+                  color="accent"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+
+              <div class="dcc-row">
+                <div class="label-container">
+                  <label class="index-label">({{ "dcc.newEntry" | translate }})</label>
+                </div>
+                <div class="form-field-container">
+                  <label for="newDimensionValue">{{ "dcc.value" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="newValue" id="newDimensionValue" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-container">
+                  <label for="newDimensionUnit">{{ "dcc.unit" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="newUnit" id="newDimensionUnit" matInput />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="addNewRow(quantity.hybridValues)"
+                  [disabled]="!newValue || !newUnit"
+                  class="custom-circle-button-sm"
+                  color="primary"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="!isReal[index] && unifiedQuantities[0].source === 'list'">
+              <div *ngFor="let dim of getDimensions(entry, i); let i = index" class="dcc-row">
+                <div class="label-container">
+                  <label class="index-label">#{{ i + 1 }}</label>
+                </div>
+                <div class="form-field-container">
+                  <label for="hybridValues">{{ "dcc.values" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.value" id="hybridValues" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-container">
+                  <label for="hybridUnits">{{ "dcc.units" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.unit" id="hybridUnits" matInput />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="removeRow(item)"
+                  class="custom-circle-button-sm"
+                  color="accent"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+              <div class="dcc-row">
+                <div class="label-container">
+                  <label class="index-label">({{ "dcc.newEntry" | translate }})</label>
+                </div>
+                <div class="form-field-container">
+                  <label for="newDimensionValue">{{ "dcc.value" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="newValue" id="newDimensionValue" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-container">
+                  <label for="newDimensionUnit">{{ "dcc.unit" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="newUnit" id="newDimensionUnit" matInput />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="addNewRow(quantity.hybridValues)"
+                  [disabled]="!newValue || !newUnit"
+                  class="custom-circle-button-sm"
+                  color="primary"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="item?.data?.length > 0" class="dcc-row">
+              <div *ngIf="item?.data[0].list?.quantities[index].hybridValues?.uncertaintyList" class="label-container">
+                <button (click)="toggleExpandedUncertainty(index)" mat-icon-button>
+                  <mat-icon>{{ showExpandedUncertainty[index] ? "remove" : "add" }}</mat-icon>
+                </button>
+                <span> {{ "dcc.ExpandedUncertainty" | translate }}</span>
+              </div>
+            </div>
+            <div *ngIf="showExpandedUncertainty[index]">
+              <div
+                *ngFor="let dim of item.data[0].list.quantities[index].hybridValues.uncertaintyList; let i = index"
+                class="dcc-row"
+              >
+                <div class="label-container">
+                  <label class="index-label">#{{ i + 1 }}</label>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.uncertainty" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.uncertainty" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.coverageFactor" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.coverageFactor" matInput />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.coverageProbability" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input [(ngModel)]="dim.coverageProbability" matInput />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="removeUncertaintyEntry(item, index, i)"
+                  class="custom-circle-button-sm"
+                  color="accent"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+              <div class="dcc-row">
+                <div class="label-container">
+                  <label class="index-label">({{ "dcc.newEntry" | translate }})</label>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.uncertainty" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input
+                      [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).uncertainty"
+                      matInput
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.coverageFactor" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input
+                      [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).coverageFactor"
+                      matInput
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="form-field-containerU">
+                  <label>{{ "dcc.coverageProbability" | translate }}</label>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <input
+                      [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).coverageProbability"
+                      matInput
+                    />
+                  </mat-form-field>
+                </div>
+                <button
+                  (click)="addNewUncertaintyEntry(item, index)"
+                  [disabled]="
+                    !newUncertaintyEntry[index].uncertainty ||
+                    !newUncertaintyEntry[index].coverageFactor ||
+                    !newUncertaintyEntry[index].coverageProbability
+                  "
+                  class="custom-circle-button-sm"
+                  color="primary"
+                  mat-icon-button
+                  type="button"
+                >
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <button (click)="removeRow(item)" class="custom-circle-button-sm" color="accent" mat-icon-button type="button">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+    <div *ngIf="!entry.quantity.hybridValues">
+      <label>{{ "dcc.dimension" | translate }}</label>
+      <div *ngIf="entry.quantity.dimension as dimension">
+        <label>{{ "dcc.dimension" | translate }}</label>
+        <div class="dcc-row">
+          <div class="label-container">
+            <label class="index-label">#1</label>
+          </div>
+          <div class="form-field-container">
+            <label for="dimensionValue">{{ "dcc.value" | translate }}</label>
+            <mat-form-field appearance="fill" class="form-field-obj">
+              <input [(ngModel)]="dimension.value" id="dimensionValue" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-field-container">
+            <label for="dimensionUnit">{{ "dcc.unit" | translate }}</label>
+            <mat-form-field appearance="fill" class="form-field-obj">
+              <input [(ngModel)]="dimension.unit" id="dimensionUnit" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="saveRealData(item)" class="custom-circle-button-md" color="primary" mat-icon-button type="button">
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>

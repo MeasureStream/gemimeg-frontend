@@ -27,16 +27,16 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { ByteDataDto } from "src/app/generated/dcc/model/byteDataDto";
+import { RichContentDto } from "src/app/generated/dcc/model/richContentDto";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
-  selector: 'app-dcc-richcontent',
-  templateUrl: './dcc-richcontent.component.html',
-  styleUrls: ['./dcc-richcontent.component.scss'],
+  selector: "app-dcc-richcontent",
+  templateUrl: "./dcc-richcontent.component.html",
+  styleUrls: ["./dcc-richcontent.component.scss"],
 })
 export class DccRichContentComponent implements OnInit {
   @Input() richContent: RichContentDto | any;
@@ -61,15 +61,19 @@ export class DccRichContentComponent implements OnInit {
 
   toggleComponent(component: string) {
     switch (component) {
-      case 'language':
+      case "language":
         this.showLanguageComponent = !this.showLanguageComponent;
         break;
-      case 'file':
+      case "file":
         this.showFileComponent = !this.showFileComponent;
         break;
-      case 'mathml':
+      case "mathml":
         this.showMathmlComponent = !this.showMathmlComponent;
         break;
     }
+  }
+
+  onFileUploading(file: File) {
+    console.log("file uploaded", file);
   }
 }

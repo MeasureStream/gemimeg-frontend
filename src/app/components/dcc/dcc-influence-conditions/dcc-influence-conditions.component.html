@@ -1,22 +1,47 @@
+<!--
+  Copyright 2025 Physikalisch-Technische Bundesanstalt
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its contributors
+  may be used to endorse or promote products derived from this software without
+  specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+  OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
 <mat-card *ngFor="let item of list; let i = index" class="blue-card">
   <mat-card-header>
     <div class="header-title">
       <mat-card-title class="title">{{ "dcc.influenceFactor" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button>
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
         <mat-icon>
-          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
-        </mat-icon>
+          <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+        >
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string
-      [isRequired]="true"
-      [placeholder]="'dcc.name' | translate"
-      [strings]="item.name!"
-    ></app-dcc-localised-string>
+    <app-dcc-localised-string [placeholder]="'Name'" [strings]="item.name!"></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
         <label for="status">{{ "dcc.status" | translate }}</label>
@@ -29,24 +54,28 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div *ngIf="item.description">
-      <app-dcc-richcontent richContent="item.description"></app-dcc-richcontent>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="refType">{{ "dcc.refType" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill" class="full-width">
+        <input [(ngModel)]="item.refTypes" id="refType" matInput name="refType" />
+      </mat-form-field>
     </div>
-    <div *ngIf="item.data != null && item.data.length > 0">
-      <app-dcc-quantity *ngIf="isQuantity(item.data[0])" [dataType]="item.data[0]"></app-dcc-quantity>
-    </div>
-    <mat-divider></mat-divider>
-    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button>
-      <mat-icon>remove_circle</mat-icon>
-    </button>
+
+    <app-dcc-quantity [i]="i" [item]="item"></app-dcc-quantity>
   </mat-card-content>
+  <button
+    (click)="list!.splice(i, 1)"
+    *ngIf="list!.length >= 1"
+    class="custom-circle-button-md"
+    color="accent"
+    mat-icon-button
+    type="button"
+  >
+    <mat-icon>remove_circle</mat-icon>
+  </button>
 </mat-card>
-<mat-divider></mat-divider>
-<button
-  (click)="this.addEmptyConditionDto(); addExpanded()"
-  class="custom-circle-button-md"
-  color="primary"
-  mat-icon-button
->
+<button (click)="addNewCondition()" class="custom-circle-button-md" color="primary" mat-icon-button type="button">
   <mat-icon>add_circle</mat-icon>
 </button>

@@ -27,30 +27,75 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { ContactDto } from 'src/app/generated/dcc/model/contactDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
+import { ByteDataDto } from "src/app/generated/dcc/model/byteDataDto";
+import { ContactDto } from "src/app/generated/dcc/model/contactDto";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
-  selector: 'app-dcc-contact, [app-dcc-contact]',
-  templateUrl: './dcc-contact.component.html',
-  styleUrls: ['./dcc-contact.component.scss'],
+  selector: "app-dcc-contact, [app-dcc-contact]",
+  templateUrl: "./dcc-contact.component.html",
+  styleUrls: ["./dcc-contact.component.scss"],
 })
-export class DccContactComponent implements OnInit {
-  @Input() contact: ContactDto;
+export class DccContactComponent implements OnInit, OnChanges {
+  private _contact: ContactDto;
+  private _showLocation = false;
+  @Input() parent: string = "";
   @Input() strict: boolean;
   @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
-  constructor(initializationService: InitializationService) {
-    this.strict = false;
-    this.contact = initializationService.getEmptyContactDto();
+  @Input() set contact(value: ContactDto) {
+    this._contact = value;
+    this.checkLocationFields();
   }
+
+  constructor(private initializationService: InitializationService) {
+    this._contact = this.initializationService.getEmptyContactDto();
+    this.strict = true;
+  }
+  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {}
 
   onFileSelected(fileData: ByteDataDto) {
     this.fileSelected.emit(fileData);
   }
 
-  ngOnInit(): void {}
+  // Beim Laden eines Templates wird geprüft, ob ein Wert für "location" im Inputfeld gesetzt wurde.
+  // Falls ja, wird "location" angezeigt.
+  // Falls nein, wird "location" nur angezeigt, wenn die Checkbox bei "manufacturer" aktiviert ist.
+  checkLocationFields() {
+    if (this.parent === "manufacturer") {
+      const location = this._contact.location;
+      const locationFields = [
+        location?.city,
+        location?.countryCode,
+        location?.postalCode,
+        location?.stateCode,
+        location?.street,
+        location?.houseNumber,
+        location?.poBox,
+      ];
+      let hasLocationField = locationFields.some((fieldValue) => fieldValue?.toString().trim());
+      let further = location?.additionalInformation;
+      let hasNameContent: boolean = false;
+      let hasTextContent: boolean = false;
+
+      hasNameContent = further?.name?.content?.some((entry) => typeof entry?.text === "string" && entry.text.trim() !== "") ?? false;
+      hasTextContent = further?.textContent?.content?.some((entry) => typeof entry?.text === "string" && entry.text.trim() !== "") ?? false;
+
+      this.showLocation = hasLocationField || hasNameContent || hasTextContent;
+    }
+  }
+  get showLocation(): boolean {
+    return this._showLocation;
+  }
+  set showLocation(value: boolean) {
+    this._showLocation = value;
+    if (value === false) {
+      this._contact.location = this.initializationService.getEmptyLocationDto();
+    }
+  }
+  get contact(): ContactDto {
+    return this._contact;
+  }
 }

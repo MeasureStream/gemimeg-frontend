@@ -27,11 +27,11 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DccContactComponent } from './dcc-contact.component';
+import { DccContactComponent } from "./dcc-contact.component";
 
-describe('DccContactComponent', () => {
+describe("DccContactComponent", () => {
   let component: DccContactComponent;
   let fixture: ComponentFixture<DccContactComponent>;
 
@@ -45,7 +45,7 @@ describe('DccContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

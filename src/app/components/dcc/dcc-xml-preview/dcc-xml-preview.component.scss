@@ -1,0 +1,36 @@
+.container-xml {
+  margin: 8px;
+  min-height: 55vh;
+}
+
+.blue-card.xml {
+  position: relative;
+  z-index: 1;
+  min-width: 670px;
+}
+.wrapper-xml,
+.wrapper-xml.message {
+  width: 90%;
+}
+.wrapper-xml pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.container-xml.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-content {
+  color: crimson;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.content-xml {
+  /* border: 2px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

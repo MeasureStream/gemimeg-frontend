@@ -27,25 +27,30 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from '@angular/core';
 
-import { DataDto } from 'src/app/generated/dcc/model/dataDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { Component, Input, OnInit } from "@angular/core";
+
+import { DataDto } from "src/app/generated/dcc/model/dataDto";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
-  selector: 'app-dcc-data',
-  templateUrl: './dcc-data.component.html',
-  styleUrls: ['./dcc-data.component.scss'],
+  selector: "app-dcc-data",
+  templateUrl: "./dcc-data.component.html",
+  styleUrls: ["./dcc-data.component.scss"],
 })
 export class DccDataComponent implements OnInit {
   @Input() dataTypes!: DataDto[];
-  selectedOption: string = 'richContent';
-  options: string[] = ['richContent', 'formula', 'byteData', 'quantity', 'list'];
+  selectedOption: string = "richContent";
+  options: string[] = ["richContent", "formula", "byteData", "quantity", "list"];
   isExpanded: boolean[] = [];
 
   constructor(private initializationService: InitializationService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    /*     console.log("Data types : ", this.dataTypes);
+    console.log("Statements : ", this.dataTypes[0].quantity);
+    console.log("Statements : ", this.dataTypes[0].list); */
+  }
 
   onSelectionChange(event: any) {
     this.selectedOption = event.value;
@@ -53,27 +58,29 @@ export class DccDataComponent implements OnInit {
 
   addObject(option: string) {
     switch (option) {
-      case 'byteData':
+      case "byteData":
         var item = this.initializationService.getEmptyDataDto();
         item.byteData = this.initializationService.getEmptyByteDataDto();
         this.dataTypes.push(item);
         break;
-      case 'formula':
+      case "formula":
         var item = this.initializationService.getEmptyDataDto();
         item.formula = this.initializationService.getEmptyFormulaDto();
         this.dataTypes.push(item);
         break;
-      case 'richContent':
+      case "richContent":
         var item = this.initializationService.getEmptyDataDto();
         item.richContent = this.initializationService.getEmptyRichContentDto();
         this.dataTypes.push(item);
         break;
-      case 'quantity':
+      case "quantity":
+        /* this.initializationService.getEmptyConditionDto();
+        var item = this.initializationService.getEmptyDataDto(); */
         var item = this.initializationService.getEmptyDataDto();
         item.quantity = this.initializationService.getEmptyQuantityDto();
         this.dataTypes.push(item);
         break;
-      case 'list':
+      case "list":
         var item = this.initializationService.getEmptyDataDto();
         item.list = this.initializationService.getEmptyListDto();
         this.dataTypes.push(item);

@@ -1,0 +1,189 @@
+<mat-card *ngFor="let item of measurementResults; let i = index" class="blue-card">
+  <mat-card-header>
+    <div class="header-title">
+      <mat-card-title class="title">{{ "dcc.measurementResult" | translate }} {{ i + 1 }}</mat-card-title>
+      <app-info-button
+        tooltipText="Zeige das DCC-Wiki"
+        url="https://wiki.dcc.ptb.de/en/dccmeasurementResult"
+      ></app-info-button>
+    </div>
+    <div class="header-menu">
+      <button (click)="toggleCard('Messergebnis' + (i + 1))" class="blue-card-btn" mat-icon-button type="button">
+        <mat-icon
+          ><i class="material-icons">{{
+            isExpanded["Messergebnis" + (i + 1)] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+          }}</i>
+        </mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+  <mat-card-content *ngIf="isExpanded['Messergebnis' + (i + 1)]">
+    <app-dcc-localised-string
+      [isRequired]="true"
+      [placeholder]="'Name'"
+      [strings]="item.name!"
+    ></app-dcc-localised-string>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.usedSoftware" | translate }}</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccdccSoftware"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button type="button">
+            <mat-icon>
+              <i class="material-icons">{{
+                isExpanded["Verwendete-Software"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Verwendete-Software']">
+        <app-dcc-software-list [softwareList]="item.usedSoftware!"></app-dcc-software-list>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.usedMethods" | translate }}</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccusedMethodType"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button type="button">
+            <mat-icon>
+              <i class="material-icons">{{
+                isExpanded["Verwendete-Methoden"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Verwendete-Methoden']">
+        <app-dcc-used-methods [list]="item.usedMethods!"></app-dcc-used-methods>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.usedMeasurementDevices" | translate }}</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccmeasuringEquipmentType"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button
+            (click)="toggleCard('Verwendete-Messinstrumente')"
+            class="blue-card-btn"
+            mat-icon-button
+            type="button"
+          >
+            <mat-icon>
+              <i class="material-icons">{{
+                isExpanded["Verwendete-Messinstrumente"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Verwendete-Messinstrumente']">
+        <app-dcc-measurement-equipment [list]="item.equipment!"></app-dcc-measurement-equipment>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.influenceConditions" | translate }}</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccinfluenceConditionType"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn" mat-icon-button type="button">
+            <mat-icon>
+              <i class="material-icons">{{
+                isExpanded["Einflussfaktoren"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
+              }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Einflussfaktoren']">
+        <app-dcc-influence-conditions [list]="item.influenceConditions!"></app-dcc-influence-conditions>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.results" | translate }}*</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccresultListType"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn" mat-icon-button type="button">
+            <mat-icon>
+              <i class="material-icons">{{ isExpanded["Ergebnisse"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Ergebnisse']">
+        <app-dcc-results [list]="item.results!"></app-dcc-results>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="blue-card">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "dcc.metaData" | translate }}</mat-card-title>
+          <app-info-button
+            tooltipText="Zeige das DCC-Wiki"
+            url="https://wiki.dcc.ptb.de/en/dccstatement"
+          ></app-info-button>
+        </div>
+        <div class="header-menu">
+          <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn" mat-icon-button type="button">
+            <mat-icon>
+              <i class="material-icons">{{ isExpanded["Meta-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
+            </mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content *ngIf="isExpanded['Meta-Daten']">
+        <app-dcc-measurement-metadata
+          [header]="header_meta_data"
+          [list]="item.statements!"
+        ></app-dcc-measurement-metadata>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+
+  <button
+    (click)="removeMeasurementResult.emit(i)"
+    *ngIf="measurementResults.length > 1"
+    class="custom-circle-button-lg"
+    color="accent"
+    mat-icon-button
+    type="button"
+  >
+    <mat-icon>remove_circle</mat-icon>
+  </button>
+</mat-card>
+<button
+  (click)="onAddMeasurementResult()"
+  class="custom-circle-button-lg"
+  color="primary"
+  mat-icon-button
+  type="button"
+>
+  <mat-icon>add_circle</mat-icon>
+</button>
