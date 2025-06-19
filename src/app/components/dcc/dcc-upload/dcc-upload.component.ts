@@ -27,20 +27,20 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 
-import { DccComponent } from "../dcc.component";
-import { CalibrationCertificateDto } from "src/app/generated/dcc/model/calibrationCertificateDto";
-import { DccService } from "src/app/services/dcc/dcc.service";
-import { ErrorService } from "src/app/services/common/error/error.service";
+import { DccComponent } from '../dcc.component';
+import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
+import { DccService } from 'src/app/services/dcc/dcc.service';
+import { ErrorService } from 'src/app/services/common/error/error.service';
 
 @Component({
-  selector: "app-dcc-upload",
-  templateUrl: "./dcc-upload.component.html",
-  styleUrls: ["./dcc-upload.component.scss"],
+  selector: 'app-dcc-upload',
+  templateUrl: './dcc-upload.component.html',
+  styleUrls: ['./dcc-upload.component.scss'],
 })
 export class DccUploadComponent implements OnInit {
-  @Input() requiredFileType: string = "applcation/xml";
+  @Input() requiredFileType: string = 'applcation/xml';
 
   constructor(private parent: DccComponent, private dccService: DccService, private errorService: ErrorService) {}
 

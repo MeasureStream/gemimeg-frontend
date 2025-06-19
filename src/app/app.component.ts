@@ -40,7 +40,7 @@ export class AppComponent {
 
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang('en');
-    this.translate.addLangs(['en', 'de', 'fr', 'es', 'pt']);
+    this.translate.addLangs(['en', 'de', 'fr', 'es', 'pt', 'it', 'tr']);
     this.translate.use('en');
   }
 }

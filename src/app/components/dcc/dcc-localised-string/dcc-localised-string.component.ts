@@ -27,14 +27,14 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from "@angular/core";
-import { LanguageSpecificStringsDto } from "src/app/generated/dcc/model/languageSpecificStringsDto";
-import { LangTextPair } from "src/app/generated/dcc/model/langTextPair";
+import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from '@angular/core';
+import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
+import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 
 @Component({
-  selector: "app-dcc-localised-string",
-  templateUrl: "./dcc-localised-string.component.html",
-  styleUrls: ["./dcc-localised-string.component.scss"],
+  selector: 'app-dcc-localised-string',
+  templateUrl: './dcc-localised-string.component.html',
+  styleUrls: ['./dcc-localised-string.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class DccLocalisedStringComponent implements OnInit, AfterContentChecked {
@@ -42,14 +42,16 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   @Input() placeholder: string;
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
-  selectedLang: string = "en";
+  selectedLang: string = 'en';
 
   locales = [
-    { lang: "de", name: "Deutsch", icon: "fi fi-de" },
-    { lang: "en", name: "Englisch", icon: "fi fi-us" },
-    { lang: "fr", name: "Français", icon: "fi fi-fr" },
-    { lang: "es", name: "Español", icon: "fi fi-es" },
-    { lang: "pt", name: "Português ", icon: "fi fi-br" },
+    { lang: 'en', name: 'English', icon: 'fi fi-us' },
+    { lang: 'de', name: 'Deutsch', icon: 'fi fi-de' },
+    { lang: 'fr', name: 'Français', icon: 'fi fi-fr' },
+    { lang: 'es', name: 'Español', icon: 'fi fi-es' },
+    { lang: 'pt', name: 'Português ', icon: 'fi fi-br' },
+    { lang: 'it', name: 'Italiano', icon: 'fi fi-it' },
+    { lang: 'tr', name: 'Türkçe', icon: 'fi fi-tr' },
   ];
 
   languageMap = new Map<string, any>();
@@ -57,7 +59,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
 
   constructor(private cdref: ChangeDetectorRef) {
     this.strings = <LanguageSpecificStringsDto>{};
-    this.placeholder = "";
+    this.placeholder = '';
   }
 
   ngOnInit(): void {
@@ -65,11 +67,9 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
       this.strings = this.getEmptyStringWithLangDto();
     }
     this.initializeLanguageMap();
-    // this.updatePlaceholder()
   }
 
   ngAfterContentChecked() {
-    // console.log('strings',this.strings)
     this.cdref.detectChanges();
   }
 
@@ -98,7 +98,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   getEmptyStringWithLangText(): LangTextPair {
     var result = <LangTextPair>{};
     result.lang = this.locales[0].lang;
-    result.text = "";
+    result.text = '';
     return result;
   }
 
@@ -113,8 +113,8 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
     }
   }
   getOrSetLang(item: any): string {
-    if (item.lang === "**" || item.lang === undefined) {
-      item.lang = "de";
+    if (item.lang === '**' || item.lang === undefined) {
+      item.lang = 'de';
     }
     return item.lang;
   }

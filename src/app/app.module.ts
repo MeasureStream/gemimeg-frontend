@@ -67,7 +67,6 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/common/navigation/navigation.component';
 import { DccComponent } from './components/dcc/dcc.component';
 import { DccService } from './services/dcc/dcc.service';
-import { GenericFileUploadComponent } from './components/common/generic-file-upload/generic-file-upload.component';
 import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
 import { DccContactComponent } from './components/dcc/dcc-contact/dcc-contact.component';
 import { DccHumanReadableComponent } from './components/dcc/dcc-human-readable/dcc-human-readable.component';
@@ -94,6 +93,7 @@ import { DccInstalledSoftwareListComponent } from './components/dcc/dcc-software
 import { DccIdentificationListComponent } from './components/dcc/dcc-identification-list/dcc-identification-list.component';
 import { DccMeasuringResultsComponent } from './components/dcc/dcc-measuring-results/dcc-measuring-results.component';
 import { DccXmlPreviewComponent } from './components/dcc/dcc-xml-preview/dcc-xml-preview.component';
+import { DccAttachmentUploadComponent } from './components/dcc/dcc-attachment-upload/dcc-attachment-upload.component';
 
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
@@ -144,7 +144,6 @@ export class AppDateAdapter extends NativeDateAdapter {
     AppComponent,
     NavigationComponent,
     DccComponent,
-    GenericFileUploadComponent,
     DccLocalisedStringComponent,
     DccContactComponent,
     DccHumanReadableComponent,
@@ -185,6 +184,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     InfoButtonComponent,
     InfoDialogComponent,
     SettingsDialogComponent,
+    DccAttachmentUploadComponent,
   ],
   imports: [
     BrowserModule,

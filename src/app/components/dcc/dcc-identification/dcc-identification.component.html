@@ -61,7 +61,7 @@
           <input [(ngModel)]="identification.value" id="value" matInput name="value" required />
         </mat-form-field>
       </div>
-      <app-dcc-localised-string [placeholder]="'Name'" [strings]="identification.name!"></app-dcc-localised-string>
+      <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="identification.name!"></app-dcc-localised-string>
     </div>
     <button
       (click)="onRemove()"

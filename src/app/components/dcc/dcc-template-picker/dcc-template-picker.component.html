@@ -27,7 +27,7 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <mat-form-field class="full-width">
-  <mat-select [(value)]="templateFileUrl" placeholder="Vorlage auswählen">
+  <mat-select [(value)]="templateFileUrl" placeholder="{{ 'dcc.selectTemplate' | translate }}" ng-size="15">
     <mat-optgroup *ngFor="let template of dccService.exampleDccs" [label]="template.category">
       <mat-option *ngFor="let DCC of template.DCC" [value]="DCC.url" ng-size="15">{{ DCC.name }}</mat-option>
     </mat-optgroup>

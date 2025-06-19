@@ -42,7 +42,7 @@
           required
         >
           <mat-select-trigger class="mat-select-trigger">
-            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }} icon-flag"></span>
+            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-us' }} icon-flag"></span>
           </mat-select-trigger>
           <mat-option *ngFor="let lang of locales" [value]="lang.lang"
             ><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{ lang.name }}

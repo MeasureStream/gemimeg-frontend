@@ -20,7 +20,7 @@
   <mat-card-content *ngIf="isExpanded['Messergebnis' + (i + 1)]">
     <app-dcc-localised-string
       [isRequired]="true"
-      [placeholder]="'Name'"
+      [placeholder]="'dcc.name' | translate"
       [strings]="item.name!"
     ></app-dcc-localised-string>
     <mat-card class="blue-card">

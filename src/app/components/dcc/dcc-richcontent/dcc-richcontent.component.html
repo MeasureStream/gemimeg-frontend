@@ -31,15 +31,25 @@
     <button
       (click)="toggleComponent('language')"
       mat-icon-button
-      matTooltip="'dcc.selectLanguage' | translate"
+      matTooltip="{{ 'dcc.selectLanguage' | translate }}"
       type="button"
     >
       <mat-icon>language</mat-icon>
     </button>
-    <button (click)="toggleComponent('file')" mat-icon-button matTooltip="'dcc.uploadFile' | translate" type="button">
+    <button
+      (click)="toggleComponent('file')"
+      mat-icon-button
+      matTooltip="{{ 'dcc.uploadFile' | translate }}"
+      type="button"
+    >
       <mat-icon>file_upload</mat-icon>
     </button>
-    <button (click)="toggleComponent('mathml')" mat-icon-button matTooltip="'dcc.mathml' | translate" type="button">
+    <button
+      (click)="toggleComponent('mathml')"
+      mat-icon-button
+      matTooltip="{{ 'dcc.mathml' | translate }}"
+      type="button"
+    >
       <mat-icon>functions</mat-icon>
     </button>
   </div>
@@ -48,7 +58,7 @@
   <app-dcc-localised-string
     *ngIf="showLanguageComponent"
     [isRequired]="true"
-    [placeholder]="'Name'"
+    [placeholder]="'dcc.name' | translate"
     [strings]="richContent.name!"
   ></app-dcc-localised-string>
   <app-dcc-localised-string
@@ -57,6 +67,9 @@
     [placeholder]="'Inhalt'"
     [strings]="richContent.textContent!"
   ></app-dcc-localised-string>
-  <app-generic-file-upload (fileSelected)="onFileSelected($event)" *ngIf="showFileComponent"></app-generic-file-upload>
+  <app-dcc-attachment-upload
+    *ngIf="showFileComponent"
+    (fileSelected)="onFileSelected($event)"
+  ></app-dcc-attachment-upload>
   <app-mathml *ngIf="showMathmlComponent"></app-mathml>
 </div>

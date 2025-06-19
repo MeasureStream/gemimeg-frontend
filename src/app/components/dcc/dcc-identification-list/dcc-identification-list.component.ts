@@ -27,23 +27,21 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from '@angular/core';
 
-import { IdentificationDto } from "src/app/generated/dcc/model/identificationDto";
-import { InitializationService } from "src/app/services/dcc/initialization.service";
+import { IdentificationDto } from 'src/app/generated/dcc/model/identificationDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-identification-list',
   templateUrl: './dcc-identification-list.component.html',
-  styleUrls: ['./dcc-identification-list.component.scss']
+  styleUrls: ['./dcc-identification-list.component.scss'],
 })
 export class DccIdentificationListComponent implements OnInit {
-
   @Input() identificationList!: Array<IdentificationDto>;
   isCardExpanded: boolean = true;
 
-  constructor(private initializationService: InitializationService) {
-  }
+  constructor(private initializationService: InitializationService) {}
 
   ngOnInit(): void {
     if (!this.identificationList || this.identificationList.length === 0) {

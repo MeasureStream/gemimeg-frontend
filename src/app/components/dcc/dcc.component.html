@@ -31,7 +31,7 @@
     <mat-card class="blue-card cockpit">
       <mat-card-header>
         <div class="header-title">
-          <mat-card-title class="title">DCC-Vorlagen</mat-card-title>
+          <mat-card-title class="title">{{ "dcc.dccTemplates" | translate }}</mat-card-title>
         </div>
         <div class="header-menu"></div>
       </mat-card-header>
@@ -49,16 +49,16 @@
       linear
     >
       <mat-step>
-        <ng-template matStepLabel>Administrative Daten*</ng-template>
+        <ng-template matStepLabel>{{ "dcc.administrativeData" | translate }}*</ng-template>
         <app-dcc-software-list
           [softwareList]="dcc.administrativeData!.dccSoftware!"
-          [title]="'DCC-Software'"
+          [title]="'dcc.dccSoftware' | translate"
           [urlPart]="'dccdccSoftware'"
         ></app-dcc-software-list>
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title">Basis-Daten*</mat-card-title>
+              <mat-card-title class="title">{{ "dcc.coreData" | translate }}*</mat-card-title>
               <app-info-button
                 tooltipText="'dcc.showDccWiki' | translate"
                 url="https://wiki.dcc.ptb.de/en/dcccoredata"
@@ -77,7 +77,7 @@
           <mat-card-content *ngIf="isExpanded['Basis-Daten']">
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="countryCode">Land der Kalibrierung<span class="asterix">*</span></label>
+                <label for="countryCode">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -92,7 +92,7 @@
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="languageCodes">Verwendete Sprachen<span class="asterix">*</span></label>
+                <label for="languageCodes">{{ "dcc.usedLanguages" | translate }}<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -334,7 +334,7 @@
         <ng-template matStepLabel>{{ "dcc.preview" | translate }}</ng-template>
         <div class="preview-container">
           <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-mat-tab-group">
-            <mat-tab label="'dcc.humanReadable' | translate">
+            <mat-tab label="{{ 'dcc.humanReadable' | translate }}">
               <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"></app-dcc-human-readable>
             </mat-tab>
             <mat-tab label="XML">

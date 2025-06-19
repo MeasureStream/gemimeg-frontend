@@ -1,32 +1,32 @@
 /**
-*  Copyright 2025 Physikalisch-Technische Bundesanstalt
-*
-*  Redistribution and use in source and binary forms, with or without
-*  modification, are permitted provided that the following conditions are met:
-*
-*  1. Redistributions of source code must retain the above copyright notice,
-*  this list of conditions and the following disclaimer.
-*
-*  2. Redistributions in binary form must reproduce the above copyright notice,
-*  this list of conditions and the following disclaimer in the documentation
-*  and/or other materials provided with the distribution.
-*
-*  3. Neither the name of the copyright holder nor the names of its contributors
-*  may be used to endorse or promote products derived from this software without
-*  specific prior written permission.
-*
-*  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
-*  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-*  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-*  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-*  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-*  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-*  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-*  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-*  OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-*/
+ *  Copyright 2025 Physikalisch-Technische Bundesanstalt
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice,
+ *  this list of conditions and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice,
+ *  this list of conditions and the following disclaimer in the documentation
+ *  and/or other materials provided with the distribution.
+ *
+ *  3. Neither the name of the copyright holder nor the names of its contributors
+ *  may be used to endorse or promote products derived from this software without
+ *  specific prior written permission.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ *  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ *  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ *  OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
 import { Injectable } from '@angular/core';
 
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
@@ -56,11 +56,10 @@ import { SoftwareDto } from 'src/app/generated/dcc/model/softwareDto';
 import { StatementDto } from 'src/app/generated/dcc/model/statementDto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InitializationService {
-
-  constructor() { }
+  constructor() {}
 
   getEmptyDimensionDto(): DimensionDto {
     var result = <DimensionDto>{};
@@ -73,7 +72,7 @@ export class InitializationService {
     var result = <HybridValues>{};
     result.labelList = [];
     result.quantitySubTypeNames = [];
-    result.dimensions = new Array<DimensionDto>;
+    result.dimensions = new Array<DimensionDto>();
     result.dimensions.push(this.getEmptyDimensionDto());
     return result;
   }
@@ -82,7 +81,7 @@ export class InitializationService {
     var result = <LanguageSpecificStringsDto>{};
     result.id = '';
     result.refIds = [];
-    result.content = new Array<LangTextPair>;
+    result.content = new Array<LangTextPair>();
     var langTextPair = <LangTextPair>{};
     langTextPair.id = '';
     langTextPair.refIds = [];
@@ -105,7 +104,7 @@ export class InitializationService {
     result.uncertainty = 0;
     result.coverageFactor = 1;
     result.coverageProbability = 1;
-    result.distribution= '';
+    result.distribution = '';
     return result;
   }
 
@@ -114,7 +113,7 @@ export class InitializationService {
     result.uncertainty = 0;
     result.coverageFactor = 1;
     result.coverageProbability = 1;
-    result.distribution= '';
+    result.distribution = '';
     return result;
   }
 
@@ -185,24 +184,24 @@ export class InitializationService {
   getEmptyConditionDto(): ConditionDto {
     var result = <ConditionDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.data = new Array<DataDto>;
+    result.data = new Array<DataDto>();
     result.data.push(this.getEmptyDataDto());
     return result;
   }
 
-  getEmptyIdentifictionDto(): IdentificationDto {
+  getEmptyIdentificationDto(): IdentificationDto {
     var result = <IdentificationDto>{};
     result.id = '';
     result.refIds = [];
     result.refTypes = [];
-    result.issuer='';
-    result.value='';
-    result.name=this.getEmptyLanguageSpecificStringsDto();
+    result.issuer = '';
+    result.value = '';
+    result.name = this.getEmptyLanguageSpecificStringsDto();
     return result;
   }
 
   getEmptyLocationDto(): LocationDto {
-    var result = <LocationDto>{}
+    var result = <LocationDto>{};
     result.id = '';
     result.countryCode = 'DE';
     result.street = '';
@@ -211,7 +210,7 @@ export class InitializationService {
     result.additionalInformation = this.getEmptyRichContentDto();
     return result;
   }
-  
+
   getEmptyContactDto(): ContactDto {
     var result = <ContactDto>{};
     result.id = '';
@@ -227,7 +226,7 @@ export class InitializationService {
     result.contact = this.getEmptyContactDto();
     return result;
   }
-  
+
   getEmptyEquipmentDto(): EquipmentDto {
     var result = <EquipmentDto>{};
     result.id = '';
@@ -243,12 +242,12 @@ export class InitializationService {
     result.id = '';
     result.refIds = [];
     result.refTypes = [];
-    result.countryCodes = new Array<string>
+    result.countryCodes = new Array<string>();
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.description = this.getEmptyRichContentDto();
     result.declaration = this.getEmptyRichContentDto();
-    result.norms = new Array<string>;
-    result.references = new Array<string>;
+    result.norms = new Array<string>();
+    result.references = new Array<string>();
     result.data = new Array<DataDto>();
     result.location = this.getEmptyLocationDto();
     result.responsibleAuthority = this.getEmptyContactDto();
@@ -261,7 +260,7 @@ export class InitializationService {
     result.refIds = [];
     result.refTypes = [];
     result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.data = new Array<DataDto>;
+    result.data = new Array<DataDto>();
     result.data.push(this.getEmptyDataDto());
     return result;
   }
@@ -283,7 +282,7 @@ export class InitializationService {
     result.refTypes = [];
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.description = this.getEmptyRichContentDto();
-    result.norms = new Array<string>;
+    result.norms = new Array<string>();
     return result;
   }
 
@@ -293,11 +292,11 @@ export class InitializationService {
     result.refIds = [];
     result.refTypes = [];
     result.description = this.getEmptyRichContentDto();
-    result.quantities = new Array<QuantityDto>;
+    result.quantities = new Array<QuantityDto>();
     result.quantities.push(this.getEmptyQuantityDto());
-    result.usedMethods = new Array<MethodDto>;
+    result.usedMethods = new Array<MethodDto>();
     result.quantities.push(this.getEmptyMethodDto());
-    result.list = new Array<ListDto>;
+    result.list = new Array<ListDto>();
     return result;
   }
 
@@ -305,7 +304,7 @@ export class InitializationService {
     var result = <ItemDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();
     result.identifications = new Array<IdentificationDto>();
-    result.identifications.push(this.getEmptyIdentifictionDto());
+    result.identifications.push(this.getEmptyIdentificationDto());
     result.installedSoftwares = new Array<SoftwareDto>();
     result.manufacturer = this.getEmptyContactDto();
     result.description = this.getEmptyRichContentDto();
@@ -315,14 +314,14 @@ export class InitializationService {
   getEmptyMeasurementResultDto(): MeasurementResultDto {
     var result = <MeasurementResultDto>{};
     result.name = this.getEmptyLanguageSpecificStringsDto();
-    result.usedMethods = new Array<MethodDto>;
-    result.usedSoftware = new Array<SoftwareDto>;
-    result.equipment = new Array<EquipmentDto>;
+    result.usedMethods = new Array<MethodDto>();
+    result.usedSoftware = new Array<SoftwareDto>();
+    result.equipment = new Array<EquipmentDto>();
     result.equipment.push(this.getEmptyEquipmentDto());
-    result.influenceConditions = new Array<ConditionDto>;
-    result.results = new Array<ResultDto>;
+    result.influenceConditions = new Array<ConditionDto>();
+    result.results = new Array<ResultDto>();
     result.results.push(this.getEmptyResultDto());
-    result.statements = new Array<StatementDto>;
+    result.statements = new Array<StatementDto>();
     result.statements.push(this.getEmptyStatementDto());
     return result;
   }
