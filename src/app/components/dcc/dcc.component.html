@@ -60,7 +60,7 @@
             <div class="header-title">
               <mat-card-title class="title">Basis-Daten*</mat-card-title>
               <app-info-button
-                tooltipText="Zeige das DCC-Wiki"
+                tooltipText="'dcc.showDccWiki' | translate"
                 url="https://wiki.dcc.ptb.de/en/dcccoredata"
               ></app-info-button>
             </div>
@@ -107,7 +107,9 @@
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="uniqueIdentifier">Kalibrierzeichen<span class="asterix">*</span></label>
+                <label for="uniqueIdentifier"
+                  >{{ "dcc.calibrationMark" | translate }}<span class="asterix">*</span></label
+                >
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -121,7 +123,7 @@
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="receiptDate">Eingangsdatum</label>
+                <label for="receiptDate">{{ "dcc.receiptDate" | translate }}</label>
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -133,14 +135,16 @@
                   name="receiptDate"
                   readonly
                 />
-                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #receiptDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="startDate">Beginn der Labortätigkeit<span class="asterix">*</span></label>
+                <label for="startDate"
+                  >{{ "dcc.beginPerformanceDate" | translate }}<span class="asterix">*</span></label
+                >
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -153,14 +157,14 @@
                   readonly
                   required
                 />
-                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #beginPerformanceDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="endDate">Ende der Labortätigkeit<span class="asterix">*</span></label>
+                <label for="endDate">{{ "dcc.endPerformanceDate" | translate }}<span class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
                 <input
@@ -173,7 +177,7 @@
                   readonly
                   required
                 />
-                <mat-hint>JJJJ-MM-TT</mat-hint>
+                <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #endPerformanceDate></mat-datepicker>
               </mat-form-field>
@@ -181,7 +185,8 @@
             <div class="row"></div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="performanceLocation">Ausführungsort</label>
+                <!--suppress XmlInvalidId -->
+                <label for="performanceLocation">{{ "dcc.performanceLocation" | translate }}</label>
               </div>
               <mat-form-field appearance="fill">
                 <mat-select [(value)]="dcc.administrativeData!.performanceLocation" id="performanceLocation" required>
@@ -196,9 +201,9 @@
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title">Kunde*</mat-card-title>
+              <mat-card-title class="title">{{ "dcc.customer" | translate }}*</mat-card-title>
               <app-info-button
-                tooltipText="Zeige das DCC-Wiki"
+                tooltipText="'dcc.showDccWiki' | translate"
                 url="https://wiki.dcc.ptb.de/en/dcccustomer"
               ></app-info-button>
             </div>
@@ -220,9 +225,9 @@
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title">Kalibrierlabor*</mat-card-title>
+              <mat-card-title class="title">{{ "dcc.calibrationLaboratory" | translate }}*</mat-card-title>
               <app-info-button
-                tooltipText="Zeige das DCC-Wiki"
+                tooltipText="'dcc.showDccWiki' | translate"
                 url="https://wiki.dcc.ptb.de/en/dcccalibrationLaboratory"
               ></app-info-button>
             </div>
@@ -239,10 +244,9 @@
           <mat-card-content *ngIf="isExpanded['Kalibrierlabor']">
             <div class="dcc-row">
               <div class="label-container">
-                <label for="calibrationLaboratoryCode">Kennung</label>
+                <label for="calibrationLaboratoryCode">{{ "dcc.calibrationLaboratoryCode" | translate }}</label>
               </div>
               <mat-form-field appearance="fill">
-                <mat-label>des Kalibrierlabors</mat-label>
                 <input
                   [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode"
                   id="calibrationLaboratoryCode"
@@ -262,9 +266,9 @@
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
-              <mat-card-title class="title">Verantwortliche Personen*</mat-card-title>
+              <mat-card-title class="title">{{ "dcc.responsiblePersons" | translate }}*</mat-card-title>
               <app-info-button
-                tooltipText="Zeige das DCC-Wiki"
+                tooltipText="'dcc.showDccWiki' | translate"
                 url="https://wiki.dcc.ptb.de/en/dccrespPerson"
               ></app-info-button>
             </div>
@@ -291,19 +295,19 @@
         </mat-card>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Kalibriergegenstände*</ng-template>
+        <ng-template matStepLabel>{{ "dcc.calibrationItems" | translate }}*</ng-template>
         <app-dcc-item-list
           [itemList]="dcc.administrativeData!.items!"
           [manufacturerAvailable]="manufacturerAvailable"
         ></app-dcc-item-list>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Statements</ng-template>
+        <ng-template matStepLabel>{{ "dcc.statements" | translate }}</ng-template>
         <ng-container *ngIf="!showEmptyStatement">
           <mat-card appearance="outlined" class="statements">
             <mat-card-content>
               <button (click)="showStatement()" class="statements-btn" color="accent" mat-flat-button type="button">
-                Statements hinzufügen
+                {{ "dcc.addStatement" | translate }}
               </button>
             </mat-card-content>
           </mat-card>
@@ -316,7 +320,7 @@
         </ng-container>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Messergebnisse</ng-template>
+        <ng-template matStepLabel>{{ "dcc.measurementResults" | translate }}</ng-template>
         <app-dcc-measuring-results
           (addMeasurementResult)="dcc.measurementResults!.push($event)"
           (removeMeasurementResult)="dcc.measurementResults!.splice($event, 1)"
@@ -327,10 +331,10 @@
         </app-dcc-measuring-results>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Vorschau</ng-template>
+        <ng-template matStepLabel>{{ "dcc.preview" | translate }}</ng-template>
         <div class="preview-container">
           <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-mat-tab-group">
-            <mat-tab label="Human Readable">
+            <mat-tab label="'dcc.humanReadable' | translate">
               <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"></app-dcc-human-readable>
             </mat-tab>
             <mat-tab label="XML">
@@ -345,10 +349,10 @@
 <div class="footer-container">
   <div class="footer-navigation">
     <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" mat-button>
-      Previous Step
+      {{ "dcc.previousStep" | translate }}
     </button>
     <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" mat-button>
-      Next Step
+      {{ "dcc.nextStep" | translate }}
     </button>
   </div>
 </div>
