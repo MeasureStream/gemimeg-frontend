@@ -64,7 +64,7 @@
   <app-dcc-localised-string
     *ngIf="showLanguageComponent"
     [isRequired]="true"
-    [placeholder]="'Inhalt'"
+    [placeholder]="'dcc.content' | translate"
     [strings]="richContent.textContent!"
   ></app-dcc-localised-string>
   <app-dcc-attachment-upload
