@@ -31,8 +31,8 @@
     <div class="header-title">
       <mat-card-title class="title">{{ "dcc.usedMethod" | translate }} {{ i + 1 }}</mat-card-title>
       <app-info-button
-        tooltipText="'dcc.showDccWiki' | translate"
-        url="https://wiki.dcc.ptb.de/en/dccusedMethodType"
+          tooltipText="'dcc.showDccWiki' | translate"
+          url="https://wiki.dcc.ptb.de/en/dccusedMethodType"
       ></app-info-button>
     </div>
     <div class="header-menu">
@@ -44,34 +44,35 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
       <app-dcc-localised-string
-        [isRequired]="true"
-        [placeholder]="'Name'"
-        [strings]="item.name!"
+          [isRequired]="true"
+          [placeholder]="'Name'"
+          [strings]="item.name!"
       ></app-dcc-localised-string>
       <div class="dcc-row">
         <div class="label-container">
           <label for="refTypes"> {{ "dcc.refType" | translate }}</label>
         </div>
         <mat-form-field appearance="fill" class="full-width">
-          <input [(ngModel)]="item.refTypes" id="refTypes" matInput name="refTypes" />
+          <input [(ngModel)]="item.refTypes" id="refTypes" matInput name="refTypes"/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
+          <!--suppress XmlInvalidId -->
           <label for="norm"> {{ "dcc.norm" | translate }}</label>
         </div>
         <mat-form-field appearance="fill" class="full-width">
-          <input [(ngModel)]="item.norms![0]" matInput name="norm" />
+          <input [(ngModel)]="item.norms![0]" matInput name="norm"/>
         </mat-form-field>
       </div>
       <h4>{{ "dcc.description" | translate }}</h4>
       <app-dcc-richcontent [richContent]="item.description" class="full-width"></app-dcc-richcontent>
       <mat-divider></mat-divider>
       <button
-        (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
-        class="custom-circle-button-md"
-        color="accent"
-        mat-icon-button
+          (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
+          class="custom-circle-button-md"
+          color="accent"
+          mat-icon-button
       >
         <mat-icon>remove_circle</mat-icon>
       </button>
