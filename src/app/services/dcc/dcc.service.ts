@@ -47,7 +47,10 @@ export class DccService {
     let result =  this.http.post<string>(
       this.dccServicePath + "xsd/dcc/html",
       dcc,
-      {headers: headers}
+      {
+        headers: headers,
+        responseType: 'text' as 'json'
+      }
     );
     return result;
   }
