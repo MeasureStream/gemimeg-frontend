@@ -57,14 +57,14 @@
               </mat-radio-group>
             </div>
             <div *ngFor="let refType of quantity.refTypes; let i = index; trackBy: trackByIndex" class="dcc-row">
-              <div class="label-container"><label for="refType">RefType</label></div>
+              <div class="label-container"><label for="refType_{{ i }}">RefType</label></div>
               <mat-form-field appearance="fill" class="form-field-right-0px">
                 <input
                   (input)="onInputChange($event, i, quantity.refTypes)"
                   [value]="refType"
-                  id="refType{{ i }}"
+                  id="refType_{{ i }}"
                   matInput
-                  name="refType{{ i }}"
+                  name="refType_{{ i }}"
                 />
               </mat-form-field>
               <div class="button-container-right-0px">
@@ -187,15 +187,15 @@
                   <label class="index-label">({{ "dcc.newEntry" | translate }})</label>
                 </div>
                 <div class="form-field-container">
-                  <label for="newDimensionValue">{{ "dcc.value" | translate }}</label>
+                  <label for="newDimensionValue2">{{ "dcc.value" | translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="newValue" id="newDimensionValue" matInput />
+                    <input [(ngModel)]="newValue" id="newDimensionValue2" matInput />
                   </mat-form-field>
                 </div>
                 <div class="form-field-container">
-                  <label for="newDimensionUnit">{{ "dcc.unit" | translate }}</label>
+                  <label for="newDimensionUnit2">{{ "dcc.unit" | translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="newUnit" id="newDimensionUnit" matInput />
+                    <input [(ngModel)]="newUnit" id="newDimensionUnit2" matInput />
                   </mat-form-field>
                 </div>
                 <button
@@ -211,7 +211,7 @@
               </div>
             </div>
             <div *ngIf="item?.data?.length > 0" class="dcc-row">
-              <div *ngIf="item?.data[0].list?.quantities[index].hybridValues?.uncertaintyList" class="label-container">
+              <div *ngIf="item?.data[0].list?.quantities[index].hybridValues?.expandedUncList" class="label-container">
                 <button (click)="toggleExpandedUncertainty(index)" mat-icon-button>
                   <mat-icon>{{ showExpandedUncertainty[index] ? "remove" : "add" }}</mat-icon>
                 </button>
@@ -220,7 +220,7 @@
             </div>
             <div *ngIf="showExpandedUncertainty[index]">
               <div
-                *ngFor="let dim of item.data[0].list.quantities[index].hybridValues.uncertaintyList; let i = index"
+                *ngFor="let dim of item.data[0].list.quantities[index].hybridValues.expandedUncList; let i = index"
                 class="dcc-row"
               >
                 <div class="label-container">

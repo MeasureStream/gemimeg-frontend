@@ -136,7 +136,7 @@ export class DccQuantityComponent implements OnInit {
 
     const entry = this.newUncertaintyEntry[quantityIndex];
     if (entry.uncertainty || entry.coverageFactor || entry.coverageProbability) {
-      const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.uncertaintyList;
+      const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.expandedUncList;
       if (list) {
         list.push({
           uncertainty: entry.uncertainty || "",
@@ -151,7 +151,7 @@ export class DccQuantityComponent implements OnInit {
   }
 
   removeUncertaintyEntry(item: any, quantityIndex: number, entryIndex: number): void {
-    const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.uncertaintyList;
+    const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.expandedUncList;
     if (list && list.length > entryIndex) {
       list.splice(entryIndex, 1);
     }
