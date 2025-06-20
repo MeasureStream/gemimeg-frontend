@@ -38,7 +38,7 @@
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [strings]="item.name!"> </app-dcc-localised-string>
+    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [type]="'NAME'" [strings]="item.name!"> </app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
         <label for="refType">{{ "dcc.refType" | translate }}</label>

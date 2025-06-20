@@ -52,7 +52,7 @@
     </div>
     <mat-form-field appearance="fill" id="localised-string">
       <input
-        *ngIf="placeholder.toLocaleLowerCase() === ('dcc.name' | translate)"
+        *ngIf="type === 'NAME'"
         [(ngModel)]="item.text"
         [id]="placeholder.toLowerCase()"
         [required]="isRequired"
@@ -60,7 +60,7 @@
         name="item"
       />
       <textarea
-        *ngIf="placeholder.toLocaleLowerCase() === ('dcc.content' | translate)"
+        *ngIf="type === 'CONTENT'"
         [(ngModel)]="item.text"
         [id]="placeholder.toLowerCase()"
         [required]="isRequired"

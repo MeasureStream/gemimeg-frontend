@@ -16,10 +16,12 @@
       <div>
         <app-dcc-localised-string
           [placeholder]="'dcc.name' | translate"
+          [type]="'NAME'"
           [strings]="item.name!"
         ></app-dcc-localised-string>
         <div class="dcc-row">
           <div class="label-container">
+            <!--suppress XmlInvalidId -->
             <label for="status">{{ "dcc.status" | translate }}</label>
           </div>
           <mat-form-field appearance="fill">

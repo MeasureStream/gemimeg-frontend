@@ -40,6 +40,7 @@ import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
 export class DccLocalisedStringComponent implements OnInit, AfterContentChecked {
   @Input() strings: LanguageSpecificStringsDto;
   @Input() placeholder: string;
+  @Input() type: string = 'NAME'; // 'NAME' or 'CONTENT', if not provided, defaults to 'NAME'.
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
   selectedLang: string = 'en';

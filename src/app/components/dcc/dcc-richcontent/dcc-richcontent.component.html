@@ -59,12 +59,14 @@
     *ngIf="showLanguageComponent"
     [isRequired]="true"
     [placeholder]="'dcc.name' | translate"
+    [type]="'NAME'"
     [strings]="richContent.name!"
   ></app-dcc-localised-string>
   <app-dcc-localised-string
     *ngIf="showLanguageComponent"
     [isRequired]="true"
     [placeholder]="'dcc.content' | translate"
+    [type]="'CONTENT'"
     [strings]="richContent.textContent!"
   ></app-dcc-localised-string>
   <app-dcc-attachment-upload
