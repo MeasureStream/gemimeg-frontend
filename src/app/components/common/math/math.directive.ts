@@ -27,53 +27,42 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Directive, OnChanges, OnInit, Input, ElementRef, OnDestroy, SimpleChanges } from "@angular/core";
+import { Subject} from "rxjs";
+import { MathService } from "./math.service";
+import { take, takeUntil } from "rxjs/operators";
 
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
-
-@Component({
-  selector: 'app-dcc-richcontent',
-  templateUrl: './dcc-richcontent.component.html',
-  styleUrls: ['./dcc-richcontent.component.scss'],
+@Directive({
+  selector: '[appMath]'
 })
-export class DccRichContentComponent implements OnInit {
-  @Input() richContent: RichContentDto | any;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
+export class MathDirective implements OnInit, OnChanges, OnDestroy {
+  @Input() appMath: string | undefined;
 
-  showLanguageComponent = false;
-  showFileComponent = false;
-  showMathComponent = false;
-  languageItems: any[] = [];
+  private alive$ = new Subject<boolean>();
+  private readonly html: HTMLElement;
 
-  constructor(private initializationService: InitializationService) {}
-
-  onFileSelected(fileData: ByteDataDto) {
-    this.fileSelected.emit(fileData);
+  constructor(private mathService: MathService, elementRef: ElementRef) {
+    this.html = elementRef.nativeElement;
   }
 
-  ngOnInit(): void {
-    if (!this.richContent) {
-      this.richContent = this.initializationService.getEmptyRichContentDto();
+  ngOnInit() {
+    this.render();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes && changes['appMath'] && changes['appMath'].currentValue) {
+      this.render();
     }
   }
 
-  toggleComponent(component: string) {
-    switch (component) {
-      case 'lang':
-        this.showLanguageComponent = !this.showLanguageComponent;
-        break;
-      case 'file':
-        this.showFileComponent = !this.showFileComponent;
-        break;
-      case 'math':
-        this.showMathComponent = !this.showMathComponent;
-        break;
-    }
+  private render() {
+    this.mathService.ready().pipe(
+      take(1),
+      takeUntil(this.alive$)
+    ).subscribe(() => this.mathService.render(this.html, this.appMath ?? ""));
   }
 
-  onFileUploading(file: File) {
-    console.log('file uploaded', file);
+  ngOnDestroy() {
+    this.alive$.next(false);
   }
 }

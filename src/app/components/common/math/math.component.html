@@ -26,47 +26,27 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<mat-toolbar color="normal">
-  <div class="icon-container">
-    <button
-      (click)="toggleComponent('lang')"
-      mat-icon-button
-      matTooltip="{{ 'dcc.selectLanguage' | translate }}"
-      type="button"
-    >
-      <mat-icon>language</mat-icon>
-    </button>
-    <button
-      (click)="toggleComponent('file')"
-      mat-icon-button
-      matTooltip="{{ 'dcc.uploadFile' | translate }}"
-      type="button"
-    >
-      <mat-icon>file_upload</mat-icon>
-    </button>
-    <button (click)="toggleComponent('math')" mat-icon-button matTooltip="{{ 'dcc.mathml' | translate }}" type="button">
-      <mat-icon>functions</mat-icon>
-    </button>
+<div class="dcc-row">
+  <div class="label-container">
+    <label for="mathml">{{ "mathml.mathml" | translate }}</label>
   </div>
-</mat-toolbar>
-<div class="elements">
-  <app-dcc-localised-string
-    *ngIf="showLanguageComponent"
-    [isRequired]="true"
-    [placeholder]="'dcc.name' | translate"
-    [type]="'NAME'"
-    [strings]="richContent.name!"
-  ></app-dcc-localised-string>
-  <app-dcc-localised-string
-    *ngIf="showLanguageComponent"
-    [isRequired]="true"
-    [placeholder]="'dcc.content' | translate"
-    [type]="'CONTENT'"
-    [strings]="richContent.textContent!"
-  ></app-dcc-localised-string>
-  <app-dcc-attachment-upload
-    *ngIf="showFileComponent"
-    (fileSelected)="onFileSelected($event)"
-  ></app-dcc-attachment-upload>
-  <app-math *ngIf="showMathComponent" [mathml]="richContent.formulaContent.content"></app-math>
+  <mat-form-field appearance="fill">
+    <textarea
+      [(ngModel)]="mathml"
+      id="mathml"
+      matInput
+      name="mathml"
+      rows="4"
+      placeholder="{{ 'mathml.placeholder' | translate }}"
+    ></textarea>
+  </mat-form-field>
 </div>
+<div class="dcc-row">
+  <div *ngIf="mathml; else noExpression" class="math-container" [appMath]="mathml"></div>
+  <ng-template #noExpression>
+    <div class="math-container">
+      <span class="no-expression-text">{{ "mathml.noExpression" | translate }}</span>
+    </div>
+  </ng-template>
+</div>
+

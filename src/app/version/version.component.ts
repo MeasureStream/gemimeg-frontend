@@ -16,6 +16,7 @@ interface VersionResponse {
 })
 export class VersionComponent implements OnInit {
   backendVersion: VersionResponse | any = '';
+  errorMessage: string | any;
   pathPart: string | any;
   angularVersion = VERSION.full;
   frontendVersion: string = (packageJson as any).version;
@@ -29,14 +30,12 @@ export class VersionComponent implements OnInit {
     this.fetchBackendVersion().subscribe({
       next: (responseData) => {
         this.backendVersion = responseData;
-        console.log(responseData);
       },
       error: (error: any) => {
-        console.log('error fetching version:' + error.message);
+        this.errorMessage = 'error fetching version: ' + error.message;
+        console.log(this.errorMessage);
       },
-      complete: () => {
-        console.log('fetch completed');
-      },
+      complete: () => {},
     });
   }
 

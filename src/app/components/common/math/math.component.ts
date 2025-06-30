@@ -27,53 +27,22 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { MathService } from './math.service';
 
 @Component({
-  selector: 'app-dcc-richcontent',
-  templateUrl: './dcc-richcontent.component.html',
-  styleUrls: ['./dcc-richcontent.component.scss'],
+  selector: 'app-math',
+  templateUrl: './math.component.html',
+  styleUrls: ['./math.component.scss'],
 })
-export class DccRichContentComponent implements OnInit {
-  @Input() richContent: RichContentDto | any;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
+export class MathComponent {
+  @Input() mathml: String | any;
 
-  showLanguageComponent = false;
-  showFileComponent = false;
-  showMathComponent = false;
-  languageItems: any[] = [];
-
-  constructor(private initializationService: InitializationService) {}
-
-  onFileSelected(fileData: ByteDataDto) {
-    this.fileSelected.emit(fileData);
-  }
-
-  ngOnInit(): void {
-    if (!this.richContent) {
-      this.richContent = this.initializationService.getEmptyRichContentDto();
+  constructor(private mathService: MathService) {
+    if (!this.mathml) {
+      this.mathml = '';
     }
-  }
-
-  toggleComponent(component: string) {
-    switch (component) {
-      case 'lang':
-        this.showLanguageComponent = !this.showLanguageComponent;
-        break;
-      case 'file':
-        this.showFileComponent = !this.showFileComponent;
-        break;
-      case 'math':
-        this.showMathComponent = !this.showMathComponent;
-        break;
-    }
-  }
-
-  onFileUploading(file: File) {
-    console.log('file uploaded', file);
   }
 }
+

@@ -108,8 +108,9 @@ import { PageNotFoundComponent } from './components/common/not-found/page-not-fo
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SimpleTestComponent } from './simple-test/simple-test.component';
 import { VersionComponent } from './version/version.component';
-import { MathmlComponent } from './mathml/mathml.component';
-import { MathModule } from './mathml/math/math.module';
+
+import { MathModule } from './components/common/math/math.module';
+import { MathComponent } from './components/common/math/math.component';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -170,7 +171,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     PageNotFoundComponent,
     SimpleTestComponent,
     VersionComponent,
-    MathmlComponent,
+    MathComponent,
     DccRichContentComponent,
     DccByteDataComponent,
     DccXmlPreviewComponent,

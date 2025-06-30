@@ -27,53 +27,16 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { MathService } from './math.service';
+import { MathDirective } from './math.directive';
 
-@Component({
-  selector: 'app-dcc-richcontent',
-  templateUrl: './dcc-richcontent.component.html',
-  styleUrls: ['./dcc-richcontent.component.scss'],
+@NgModule({
+  declarations: [MathDirective],
+  imports: [CommonModule],
+  exports: [MathDirective],
+  providers: [MathService]
 })
-export class DccRichContentComponent implements OnInit {
-  @Input() richContent: RichContentDto | any;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
-
-  showLanguageComponent = false;
-  showFileComponent = false;
-  showMathComponent = false;
-  languageItems: any[] = [];
-
-  constructor(private initializationService: InitializationService) {}
-
-  onFileSelected(fileData: ByteDataDto) {
-    this.fileSelected.emit(fileData);
-  }
-
-  ngOnInit(): void {
-    if (!this.richContent) {
-      this.richContent = this.initializationService.getEmptyRichContentDto();
-    }
-  }
-
-  toggleComponent(component: string) {
-    switch (component) {
-      case 'lang':
-        this.showLanguageComponent = !this.showLanguageComponent;
-        break;
-      case 'file':
-        this.showFileComponent = !this.showFileComponent;
-        break;
-      case 'math':
-        this.showMathComponent = !this.showMathComponent;
-        break;
-    }
-  }
-
-  onFileUploading(file: File) {
-    console.log('file uploaded', file);
-  }
-}
+export class MathModule { }

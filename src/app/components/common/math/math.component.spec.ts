@@ -27,53 +27,24 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { RichContentDto } from 'src/app/generated/dcc/model/richContentDto';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
+import { MathComponent } from './math.component';
 
-@Component({
-  selector: 'app-dcc-richcontent',
-  templateUrl: './dcc-richcontent.component.html',
-  styleUrls: ['./dcc-richcontent.component.scss'],
-})
-export class DccRichContentComponent implements OnInit {
-  @Input() richContent: RichContentDto | any;
-  @Output() fileSelected = new EventEmitter<ByteDataDto>();
+describe('MathComponent', () => {
+  let component: MathComponent;
+  let fixture: ComponentFixture<MathComponent>;
 
-  showLanguageComponent = false;
-  showFileComponent = false;
-  showMathComponent = false;
-  languageItems: any[] = [];
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [MathComponent]
+    });
+    fixture = TestBed.createComponent(MathComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-  constructor(private initializationService: InitializationService) {}
-
-  onFileSelected(fileData: ByteDataDto) {
-    this.fileSelected.emit(fileData);
-  }
-
-  ngOnInit(): void {
-    if (!this.richContent) {
-      this.richContent = this.initializationService.getEmptyRichContentDto();
-    }
-  }
-
-  toggleComponent(component: string) {
-    switch (component) {
-      case 'lang':
-        this.showLanguageComponent = !this.showLanguageComponent;
-        break;
-      case 'file':
-        this.showFileComponent = !this.showFileComponent;
-        break;
-      case 'math':
-        this.showMathComponent = !this.showMathComponent;
-        break;
-    }
-  }
-
-  onFileUploading(file: File) {
-    console.log('file uploaded', file);
-  }
-}
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
