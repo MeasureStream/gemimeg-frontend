@@ -16,6 +16,7 @@
 variables:
   APP_OUTPUT_PATH: "$CI_PROJECT_DIR/dist/gemimeg-frontend"
   IMAGE_TAG: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  LATEST_TAG: $CI_REGISTRY_IMAGE:latest
 
 stages:
   - build
@@ -62,6 +63,7 @@ build-image:
     - /kaniko/executor
       --context "${APP_OUTPUT_PATH}"
       --dockerfile "${APP_OUTPUT_PATH}/Dockerfile"
+      --destination "${LATEST_TAG}"
       --destination "${IMAGE_TAG}"
       --verbosity=debug
 
