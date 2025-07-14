@@ -26,10 +26,10 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<h1 mat-dialog-title>
+<div mat-dialog-title>
   {{ "error.error" | translate }}
-  <p *ngIf="currentUrl">{{ currentUrl }}</p>
-</h1>
+  <div *ngIf="currentUrl">: {{ currentUrl }}</div>
+</div>
 <div mat-dialog-content>
   <p *ngIf="data?.status">
     <b>{{ "error.statusCode" | translate }}: {{ data.status }}</b>
