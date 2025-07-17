@@ -81,6 +81,7 @@
 	"dcc.location.postalCode": "Posta Kodu",
 	"dcc.location.stateCode": "Federal Devlet",
 	"dcc.location.street": "Sokak",
+	"dcc.mandatoryLanguages": "Zorunlu diller",
 	"dcc.manufacturer": "Üretici firma",
 	"dcc.mathml": "MathML",
 	"dcc.measurementDevice": "Ölçüm cihazı",

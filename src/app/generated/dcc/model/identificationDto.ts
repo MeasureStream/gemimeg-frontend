@@ -14,10 +14,10 @@ import { LanguageSpecificStringsDto } from './languageSpecificStringsDto';
 
 export interface IdentificationDto { 
     id?: string;
-    refIds?: Array<string>;
-    refTypes?: Array<string>;
     name?: LanguageSpecificStringsDto;
     issuer?: string;
     value?: string;
+    refIds?: Array<string>;
+    refTypes?: Array<string>;
 }
 

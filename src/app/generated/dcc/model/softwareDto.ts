@@ -14,9 +14,9 @@ import { RichContentDto } from './richContentDto';
 
 
 export interface SoftwareDto { 
-    id?: string;
     refIds?: Array<string>;
     refTypes?: Array<string>;
+    id?: string;
     name?: LanguageSpecificStringsDto;
     version?: string;
     type?: string;

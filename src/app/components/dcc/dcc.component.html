@@ -92,15 +92,34 @@
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="languageCodes">{{ "dcc.usedLanguages" | translate }}<span class="asterix">*</span></label>
+                <label for="mandatoryLanguageCodes"
+                  >{{ "dcc.mandatoryLanguages" | translate }}<span class="asterix">*</span></label
+                >
               </div>
               <mat-form-field appearance="fill">
                 <input
-                  (ngModelChange)="dcc.administrativeData!.languageCodes = $event.split(',')"
-                  [ngModel]="dcc.administrativeData!.languageCodes"
-                  id="languageCodes"
+                  (ngModelChange)="dcc.administrativeData!.mandatoryLanguageCodes = $event.split(',')"
+                  [ngModel]="dcc.administrativeData!.mandatoryLanguageCodes"
+                  id="mandatoryLanguageCodes"
                   matInput
-                  name="languageCodes"
+                  name="mandatoryLanguageCodes"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="dcc-row">
+              <div class="label-container-big">
+                <label for="usedLanguageCodes"
+                  >{{ "dcc.usedLanguages" | translate }}<span class="asterix">*</span></label
+                >
+              </div>
+              <mat-form-field appearance="fill">
+                <input
+                  (ngModelChange)="dcc.administrativeData!.usedLanguageCodes = $event.split(',')"
+                  [ngModel]="dcc.administrativeData!.usedLanguageCodes"
+                  id="usedLanguageCodes"
+                  matInput
+                  name="usedLanguageCodes"
                   required
                 />
               </mat-form-field>
@@ -142,7 +161,9 @@
             </div>
             <div class="dcc-row">
               <div class="label-container-big">
-                <label for="startDate">{{ "dcc.beginPerformanceDate" | translate }}<span class="asterix">*</span></label>
+                <label for="startDate"
+                  >{{ "dcc.beginPerformanceDate" | translate }}<span class="asterix">*</span></label
+                >
               </div>
               <mat-form-field appearance="fill">
                 <input

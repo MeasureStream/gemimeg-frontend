@@ -81,6 +81,7 @@
 	"dcc.location.postalCode": "Postcode",
 	"dcc.location.stateCode": "State",
 	"dcc.location.street": "Street",
+	"dcc.mandatoryLanguages": "Mandatory languages",
 	"dcc.manufacturer": "Manufacturer",
 	"dcc.mathml": "MathML",
 	"dcc.measurementDevice": "Measuring device",

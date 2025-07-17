@@ -81,6 +81,7 @@
 	"dcc.location.postalCode": "Código postal",
 	"dcc.location.stateCode": "Estado",
 	"dcc.location.street": "Calle",
+	"dcc.mandatoryLanguages": "Lenguas obligatorias",
 	"dcc.manufacturer": "Fabricante",
 	"dcc.mathml": "MathML",
 	"dcc.measurementDevice": "Dispositivo de medición",

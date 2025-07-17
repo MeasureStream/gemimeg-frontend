@@ -1,11 +1,6 @@
 {
   "openapi": "3.0.1",
-  "servers": [
-    {
-      "url": "http://localhost:10001",
-      "description": "GEMIMEG Backend powered by OP-Layer"
-    }
-  ],
+  "servers": [{ "url": "http://localhost:10001", "description": "GEMIMEG Backend powered by OP-Layer" }],
   "paths": {
     "/api/v1/dcc/xsd/dcc/xml": {
       "post": {
@@ -13,25 +8,27 @@
         "description": "Convert a DCC DTO as JSON to XML",
         "operationId": "convertAndValidate",
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CalibrationCertificateDto"
-              }
-            }
-          },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CalibrationCertificateDto" } } },
+          "required": true
+        },
+        "responses": {
+          "200": { "description": "OK", "content": { "application/xml": { "schema": { "type": "string" } } } }
+        }
+      }
+    },
+    "/api/v1/dcc/xsd/dcc/pdf": {
+      "post": {
+        "tags": ["CalibrationCertificateController"],
+        "description": "Convert a DCC DTO as JSON to a human-readable PDF file",
+        "operationId": "validateAndProducePdf",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CalibrationCertificateDto" } } },
           "required": true
         },
         "responses": {
           "200": {
             "description": "OK",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "content": { "application/pdf": { "schema": { "type": "string", "format": "byte" } } }
           }
         }
       }
@@ -41,25 +38,12 @@
         "tags": ["CalibrationCertificateController"],
         "description": "Convert a valid DCC XML to JSON",
         "operationId": "validateAndConvert",
-        "requestBody": {
-          "content": {
-            "application/xml": {
-              "schema": {
-                "type": "string"
-              }
-            }
-          },
-          "required": true
-        },
+        "requestBody": { "content": { "application/xml": { "schema": { "type": "string" } } }, "required": true },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CalibrationCertificateDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/CalibrationCertificateDto" } }
             }
           }
         }
@@ -71,27 +55,10 @@
         "description": "Convert a DCC DTO as JSON to a human-readable HTML page",
         "operationId": "validateAndProduceHtml",
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CalibrationCertificateDto"
-              }
-            }
-          },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CalibrationCertificateDto" } } },
           "required": true
         },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
+        "responses": { "200": { "description": "OK", "content": { "text/html": { "schema": { "type": "string" } } } } }
       }
     },
     "/api/v1/cache": {
@@ -100,25 +67,13 @@
         "description": "Stores a file in the cache.",
         "operationId": "store",
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDto"
-              }
-            }
-          },
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RequestDto" } } },
           "required": true
         },
         "responses": {
           "200": {
             "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StoreResponseDto"
-                }
-              }
-            }
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/StoreResponseDto" } } }
           }
         }
       }
@@ -128,26 +83,11 @@
         "tags": ["VersionController"],
         "description": "Get the version information of the service.",
         "operationId": "getVersion",
-        "parameters": [
-          {
-            "name": "pathPart",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [{ "name": "pathPart", "in": "path", "required": true, "schema": { "type": "string" } }],
         "responses": {
           "200": {
             "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VersionDto"
-                }
-              }
-            }
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/VersionDto" } } }
           }
         }
       }
@@ -157,25 +97,12 @@
         "tags": ["CalibrationCertificateController"],
         "description": "Retrieves a DCC as JSON from the internal storage by its ID.",
         "operationId": "findById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CalibrationCertificateDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/CalibrationCertificateDto" } }
             }
           }
         }
@@ -186,27 +113,9 @@
         "tags": ["CalibrationCertificateController"],
         "description": "Retrieves a DCC as XML from the internal storage by its ID.",
         "operationId": "findByIdAsXml",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
+          "200": { "description": "OK", "content": { "application/xml": { "schema": { "type": "string" } } } }
         }
       }
     },
@@ -216,25 +125,12 @@
         "description": "Gets the cached item by its ID.",
         "operationId": "findById_1",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReadResponseDto"
-                }
-              }
-            }
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReadResponseDto" } } }
           }
         }
       }
@@ -248,584 +144,250 @@
           "dccSoftware": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/SoftwareDto" },
+              "last": { "$ref": "#/components/schemas/SoftwareDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/SoftwareDto"
-            }
+            "items": { "$ref": "#/components/schemas/SoftwareDto" }
           },
-          "customer": {
-            "$ref": "#/components/schemas/ContactDto"
-          },
-          "calibrationLaboratory": {
-            "$ref": "#/components/schemas/CalibrationLaboratoryDto"
-          },
+          "customer": { "$ref": "#/components/schemas/ContactDto" },
+          "calibrationLaboratory": { "$ref": "#/components/schemas/CalibrationLaboratoryDto" },
           "items": {
             "type": "array",
             "properties": {
-              "name": {
-                "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-              },
-              "classId": {
-                "type": "string"
-              },
-              "description": {
-                "$ref": "#/components/schemas/RichContentDto"
-              },
-              "owner": {
-                "$ref": "#/components/schemas/ContactDto"
-              },
-              "classReference": {
-                "type": "string"
-              },
+              "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+              "classId": { "type": "string" },
+              "description": { "$ref": "#/components/schemas/RichContentDto" },
+              "owner": { "$ref": "#/components/schemas/ContactDto" },
+              "classReference": { "type": "string" },
               "identifications": {
                 "type": "array",
                 "properties": {
-                  "empty": {
-                    "type": "boolean"
-                  },
-                  "first": {
-                    "$ref": "#/components/schemas/IdentificationDto"
-                  },
-                  "last": {
-                    "$ref": "#/components/schemas/IdentificationDto"
-                  }
+                  "empty": { "type": "boolean" },
+                  "first": { "$ref": "#/components/schemas/IdentificationDto" },
+                  "last": { "$ref": "#/components/schemas/IdentificationDto" }
                 },
-                "items": {
-                  "$ref": "#/components/schemas/IdentificationDto"
-                }
+                "items": { "$ref": "#/components/schemas/IdentificationDto" }
               },
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ItemDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ItemDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ItemDto" },
+              "last": { "$ref": "#/components/schemas/ItemDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ItemDto"
-            }
+            "items": { "$ref": "#/components/schemas/ItemDto" }
           },
-          "uniqueIdentifier": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          },
-          "languageCodes": {
-            "uniqueItems": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "receiptDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "performanceLocation": {
-            "type": "string"
-          },
+          "uniqueIdentifier": { "type": "string" },
+          "countryCode": { "type": "string" },
+          "mandatoryLanguageCodes": { "uniqueItems": true, "type": "array", "items": { "type": "string" } },
+          "usedLanguageCodes": { "uniqueItems": true, "type": "array", "items": { "type": "string" } },
+          "receiptDate": { "type": "string", "format": "date" },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": "string", "format": "date" },
+          "performanceLocation": { "type": "string" },
           "responsiblePersons": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ContactDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ContactDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ContactDto" },
+              "last": { "$ref": "#/components/schemas/ContactDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ContactDto"
-            }
+            "items": { "$ref": "#/components/schemas/ContactDto" }
           },
           "statements": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/StatementDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/StatementDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/StatementDto" },
+              "last": { "$ref": "#/components/schemas/StatementDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/StatementDto"
-            }
+            "items": { "$ref": "#/components/schemas/StatementDto" }
           }
         }
       },
       "ByteDataDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "content": {
-            "type": "string",
-            "format": "byte"
-          },
-          "mimeType": {
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "content": { "type": "string", "format": "byte" },
+          "mimeType": { "type": "string" },
+          "fileName": { "type": "string" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" }
         }
       },
       "CalibrationCertificateDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "administrativeData": {
-            "$ref": "#/components/schemas/AdministrativeDataDto"
-          },
+          "id": { "type": "string" },
+          "administrativeData": { "$ref": "#/components/schemas/AdministrativeDataDto" },
           "measurementResults": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/MeasurementResultDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/MeasurementResultDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/MeasurementResultDto" },
+              "last": { "$ref": "#/components/schemas/MeasurementResultDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/MeasurementResultDto"
-            }
+            "items": { "$ref": "#/components/schemas/MeasurementResultDto" }
           },
-          "comments": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "document": {
-            "$ref": "#/components/schemas/ByteDataDto"
-          },
+          "comments": { "type": "array", "items": { "type": "string" } },
+          "document": { "$ref": "#/components/schemas/ByteDataDto" },
           "signatures": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/SignatureDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/SignatureDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/SignatureDto" },
+              "last": { "$ref": "#/components/schemas/SignatureDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/SignatureDto"
-            }
+            "items": { "$ref": "#/components/schemas/SignatureDto" }
           },
-          "schemaVersion": {
-            "type": "string"
-          }
+          "schemaVersion": { "type": "string" }
         }
       },
       "CalibrationLaboratoryDto": {
         "type": "object",
         "properties": {
-          "calibrationLaboratoryCode": {
-            "type": "string"
-          },
-          "contact": {
-            "$ref": "#/components/schemas/ContactDto"
-          }
+          "calibrationLaboratoryCode": { "type": "string" },
+          "contact": { "$ref": "#/components/schemas/ContactDto" }
         }
       },
       "ConditionDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "status": {
-            "type": "string"
-          },
-          "certificateValue": {
-            "type": "string"
-          },
-          "certificateId": {
-            "type": "string"
-          },
-          "referralId": {
-            "type": "string"
-          },
-          "certificateReferral": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "certificateProcedure": {
-            "type": "string"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
+          "status": { "type": "string" },
+          "certificateValue": { "type": "string" },
+          "certificateId": { "type": "string" },
+          "referralId": { "type": "string" },
+          "certificateReferral": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "certificateProcedure": { "type": "string" },
           "data": {
             "type": "array",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "refIds": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "refTypes": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/DataDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/DataDto"
-              }
+              "id": { "type": "string" },
+              "refIds": { "type": "array", "items": { "type": "string" } },
+              "refTypes": { "type": "array", "items": { "type": "string" } },
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/DataDto" },
+              "last": { "$ref": "#/components/schemas/DataDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/DataDto"
-            }
+            "items": { "$ref": "#/components/schemas/DataDto" }
           }
         }
       },
       "ContactDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "phoneNumber": {
-            "type": "string"
-          },
-          "location": {
-            "$ref": "#/components/schemas/LocationDto"
-          },
-          "emailAddress": {
-            "type": "string"
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "phoneNumber": { "type": "string" },
+          "location": { "$ref": "#/components/schemas/LocationDto" },
+          "emailAddress": { "type": "string" }
         }
       },
       "Content": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "encoding": {
-            "type": "string"
-          },
-          "mimeType": {
-            "type": "string"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
+          "id": { "type": "string" },
+          "encoding": { "type": "string" },
+          "mimeType": { "type": "string" },
+          "content": { "type": "array", "items": { "type": "object" } }
         }
       },
       "CoverageIntervalDto": {
         "type": "object",
         "properties": {
-          "standardUncertainty": {
-            "type": "number",
-            "format": "double"
-          },
-          "intervalMinimum": {
-            "type": "number",
-            "format": "double"
-          },
-          "intervalMaximum": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageProbability": {
-            "type": "number",
-            "format": "double"
-          },
-          "distribution": {
-            "type": "string"
-          }
+          "standardUncertainty": { "type": "number", "format": "double" },
+          "intervalMinimum": { "type": "number", "format": "double" },
+          "intervalMaximum": { "type": "number", "format": "double" },
+          "coverageProbability": { "type": "number", "format": "double" },
+          "distribution": { "type": "string" }
         }
       },
       "DataDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "richContent": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "formula": {
-            "$ref": "#/components/schemas/FormulaDto"
-          },
-          "byteData": {
-            "$ref": "#/components/schemas/ByteDataDto"
-          },
-          "quantity": {
-            "$ref": "#/components/schemas/QuantityDto"
-          },
-          "list": {
-            "$ref": "#/components/schemas/ListDto"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
+          "id": { "type": "string" },
+          "richContent": { "$ref": "#/components/schemas/RichContentDto" },
+          "formula": { "$ref": "#/components/schemas/FormulaDto" },
+          "byteData": { "$ref": "#/components/schemas/ByteDataDto" },
+          "quantity": { "$ref": "#/components/schemas/QuantityDto" },
+          "list": { "$ref": "#/components/schemas/ListDto" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } }
         }
       },
       "DimensionDto": {
         "type": "object",
-        "properties": {
-          "value": {
-            "type": "number"
-          },
-          "unit": {
-            "type": "string"
-          }
-        }
+        "properties": { "value": { "type": "number" }, "unit": { "type": "string" } }
       },
       "EquipmentDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "classId": {
-            "type": "string"
-          },
-          "classReference": {
-            "type": "string"
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "model": {
-            "type": "string"
-          },
-          "manufacturer": {
-            "$ref": "#/components/schemas/ContactDto"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "classId": { "type": "string" },
+          "classReference": { "type": "string" },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "model": { "type": "string" },
+          "manufacturer": { "$ref": "#/components/schemas/ContactDto" },
           "identifications": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/IdentificationDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/IdentificationDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/IdentificationDto" },
+              "last": { "$ref": "#/components/schemas/IdentificationDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/IdentificationDto"
-            }
+            "items": { "$ref": "#/components/schemas/IdentificationDto" }
           },
           "software": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/SoftwareDto" },
+              "last": { "$ref": "#/components/schemas/SoftwareDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/SoftwareDto"
-            }
+            "items": { "$ref": "#/components/schemas/SoftwareDto" }
           },
-          "certificateValue": {
-            "type": "string"
-          },
-          "certificateId": {
-            "type": "string"
-          },
-          "certificateReferral": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "certificateReferralId": {
-            "type": "string"
-          },
-          "certificateProcedure": {
-            "type": "string"
-          }
+          "certificateValue": { "type": "string" },
+          "certificateId": { "type": "string" },
+          "certificateReferral": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "certificateReferralId": { "type": "string" },
+          "certificateProcedure": { "type": "string" }
         }
       },
       "ExpandedMUDto": {
         "type": "object",
         "properties": {
-          "uncertainty": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageFactor": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageProbability": {
-            "type": "number",
-            "format": "double"
-          },
-          "distribution": {
-            "type": "string"
-          }
+          "uncertainty": { "type": "number", "format": "double" },
+          "coverageFactor": { "type": "number", "format": "double" },
+          "coverageProbability": { "type": "number", "format": "double" },
+          "distribution": { "type": "string" }
         }
       },
       "ExpandedUncDto": {
         "type": "object",
         "properties": {
-          "uncertainty": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageFactor": {
-            "type": "number",
-            "format": "double"
-          },
-          "coverageProbability": {
-            "type": "number",
-            "format": "double"
-          },
-          "distribution": {
-            "type": "string"
-          }
+          "uncertainty": { "type": "number", "format": "double" },
+          "coverageFactor": { "type": "number", "format": "double" },
+          "coverageProbability": { "type": "number", "format": "double" },
+          "distribution": { "type": "string" }
         }
       },
       "FormulaDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "content": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["MATHML", "LATEX"]
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "content": { "type": "string" },
+          "type": { "type": "string", "enum": ["MATHML", "LATEX"] }
         }
       },
       "HybridValues": {
@@ -834,1009 +396,426 @@
           "dimensions": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/DimensionDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/DimensionDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/DimensionDto" },
+              "last": { "$ref": "#/components/schemas/DimensionDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/DimensionDto"
-            }
+            "items": { "$ref": "#/components/schemas/DimensionDto" }
           },
-          "quantitySubTypeNames": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "labelList": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "dateTimeList": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
+          "quantitySubTypeNames": { "type": "array", "items": { "type": "string" } },
+          "labelList": { "type": "array", "items": { "type": "string" } },
+          "dateTimeList": { "type": "array", "items": { "type": "string", "format": "date-time" } },
           "expandedUncList": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ExpandedUncDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ExpandedUncDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ExpandedUncDto" },
+              "last": { "$ref": "#/components/schemas/ExpandedUncDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ExpandedUncDto"
-            }
+            "items": { "$ref": "#/components/schemas/ExpandedUncDto" }
           },
           "expandedMUList": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ExpandedMUDto" },
+              "last": { "$ref": "#/components/schemas/ExpandedMUDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ExpandedMUDto"
-            }
+            "items": { "$ref": "#/components/schemas/ExpandedMUDto" }
           },
           "coverageIntervalList": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/CoverageIntervalDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/CoverageIntervalDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/CoverageIntervalDto" },
+              "last": { "$ref": "#/components/schemas/CoverageIntervalDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/CoverageIntervalDto"
-            }
+            "items": { "$ref": "#/components/schemas/CoverageIntervalDto" }
           }
         }
       },
       "IdentificationDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "issuer": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          }
+          "id": { "type": "string" },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "issuer": { "type": "string" },
+          "value": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } }
         }
       },
       "ItemDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "model": {
-            "type": "string"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "model": { "type": "string" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
           "installedSoftwares": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/SoftwareDto" },
+              "last": { "$ref": "#/components/schemas/SoftwareDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/SoftwareDto"
-            }
+            "items": { "$ref": "#/components/schemas/SoftwareDto" }
           },
-          "manufacturer": {
-            "$ref": "#/components/schemas/ContactDto"
-          },
-          "classId": {
-            "type": "string"
-          },
-          "classReference": {
-            "type": "string"
-          },
+          "manufacturer": { "$ref": "#/components/schemas/ContactDto" },
+          "classId": { "type": "string" },
+          "classReference": { "type": "string" },
           "identifications": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/IdentificationDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/IdentificationDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/IdentificationDto" },
+              "last": { "$ref": "#/components/schemas/IdentificationDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/IdentificationDto"
-            }
+            "items": { "$ref": "#/components/schemas/IdentificationDto" }
           }
         }
       },
       "KeyInfo": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "content": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          }
+          "id": { "type": "string" },
+          "content": { "type": "object", "additionalProperties": { "type": "object" } }
         }
       },
       "LangTextPair": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "lang": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "lang": { "type": "string" },
+          "text": { "type": "string" }
         }
       },
       "LanguageSpecificStringsDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LangTextPair"
-            }
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "content": { "type": "array", "items": { "$ref": "#/components/schemas/LangTextPair" } }
         }
       },
       "ListDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "dateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
+          "dateTime": { "type": "string", "format": "date-time" },
           "quantities": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/QuantityDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/QuantityDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/QuantityDto" },
+              "last": { "$ref": "#/components/schemas/QuantityDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/QuantityDto"
-            }
+            "items": { "$ref": "#/components/schemas/QuantityDto" }
           },
           "usedMethods": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/MethodDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/MethodDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/MethodDto" },
+              "last": { "$ref": "#/components/schemas/MethodDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/MethodDto"
-            }
+            "items": { "$ref": "#/components/schemas/MethodDto" }
           },
-          "list": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ListDto"
-            }
-          }
+          "list": { "type": "array", "items": { "$ref": "#/components/schemas/ListDto" } }
         }
       },
       "LocationDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          },
-          "stateCode": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "postalCode": {
-            "type": "string"
-          },
-          "street": {
-            "type": "string"
-          },
-          "houseNumber": {
-            "type": "string"
-          },
-          "poBox": {
-            "type": "string"
-          },
-          "additionalInformation": {
-            "$ref": "#/components/schemas/RichContentDto"
-          }
+          "id": { "type": "string" },
+          "countryCode": { "type": "string" },
+          "stateCode": { "type": "string" },
+          "city": { "type": "string" },
+          "postalCode": { "type": "string" },
+          "street": { "type": "string" },
+          "houseNumber": { "type": "string" },
+          "poBox": { "type": "string" },
+          "additionalInformation": { "$ref": "#/components/schemas/RichContentDto" }
         }
       },
       "MeasurementResultDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
           "usedSoftware": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/SoftwareDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/SoftwareDto" },
+              "last": { "$ref": "#/components/schemas/SoftwareDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/SoftwareDto"
-            }
+            "items": { "$ref": "#/components/schemas/SoftwareDto" }
           },
           "usedMethods": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/MethodDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/MethodDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/MethodDto" },
+              "last": { "$ref": "#/components/schemas/MethodDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/MethodDto"
-            }
+            "items": { "$ref": "#/components/schemas/MethodDto" }
           },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
           "results": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ResultDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ResultDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ResultDto" },
+              "last": { "$ref": "#/components/schemas/ResultDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ResultDto"
-            }
+            "items": { "$ref": "#/components/schemas/ResultDto" }
           },
           "influenceConditions": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ConditionDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ConditionDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ConditionDto" },
+              "last": { "$ref": "#/components/schemas/ConditionDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ConditionDto"
-            }
+            "items": { "$ref": "#/components/schemas/ConditionDto" }
           },
           "equipment": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/EquipmentDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/EquipmentDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/EquipmentDto" },
+              "last": { "$ref": "#/components/schemas/EquipmentDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/EquipmentDto"
-            }
+            "items": { "$ref": "#/components/schemas/EquipmentDto" }
           },
           "statements": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/StatementDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/StatementDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/StatementDto" },
+              "last": { "$ref": "#/components/schemas/StatementDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/StatementDto"
-            }
+            "items": { "$ref": "#/components/schemas/StatementDto" }
           }
         }
       },
       "MethodDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "norms": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "norms": { "type": "array", "items": { "type": "string" } },
+          "description": { "$ref": "#/components/schemas/RichContentDto" }
         }
       },
       "QuantityDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "label": {
-            "type": "string"
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "dimension": {
-            "$ref": "#/components/schemas/DimensionDto"
-          },
-          "quantityTypeName": {
-            "type": "string"
-          },
-          "hybridValues": {
-            "$ref": "#/components/schemas/HybridValues"
-          },
-          "noQuantity": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "xmlValues": {
-            "$ref": "#/components/schemas/XmlValuesDto"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "label": { "type": "string" },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "dimension": { "$ref": "#/components/schemas/DimensionDto" },
+          "quantityTypeName": { "type": "string" },
+          "hybridValues": { "$ref": "#/components/schemas/HybridValues" },
+          "noQuantity": { "$ref": "#/components/schemas/RichContentDto" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
+          "xmlValues": { "$ref": "#/components/schemas/XmlValuesDto" },
+          "timestamp": { "type": "string", "format": "date-time" },
           "usedMethods": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/MethodDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/MethodDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/MethodDto" },
+              "last": { "$ref": "#/components/schemas/MethodDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/MethodDto"
-            }
+            "items": { "$ref": "#/components/schemas/MethodDto" }
           },
-          "expandedUnc": {
-            "$ref": "#/components/schemas/ExpandedUncDto"
-          },
-          "expandedMU": {
-            "$ref": "#/components/schemas/ExpandedMUDto"
-          },
-          "coverageInterval": {
-            "$ref": "#/components/schemas/CoverageIntervalDto"
-          }
+          "expandedUnc": { "$ref": "#/components/schemas/ExpandedUncDto" },
+          "expandedMU": { "$ref": "#/components/schemas/ExpandedMUDto" },
+          "coverageInterval": { "$ref": "#/components/schemas/CoverageIntervalDto" }
         }
       },
       "ResultDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
           "data": {
             "type": "array",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "refIds": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "refTypes": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/DataDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/DataDto"
-              }
+              "id": { "type": "string" },
+              "refIds": { "type": "array", "items": { "type": "string" } },
+              "refTypes": { "type": "array", "items": { "type": "string" } },
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/DataDto" },
+              "last": { "$ref": "#/components/schemas/DataDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/DataDto"
-            }
+            "items": { "$ref": "#/components/schemas/DataDto" }
           }
         }
       },
       "RichContentDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "textContent": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "byteDataContent": {
-            "$ref": "#/components/schemas/ByteDataDto"
-          },
-          "formulaContent": {
-            "$ref": "#/components/schemas/FormulaDto"
-          }
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "textContent": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "byteDataContent": { "$ref": "#/components/schemas/ByteDataDto" },
+          "formulaContent": { "$ref": "#/components/schemas/FormulaDto" }
         }
       },
       "SignatureDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "value": {
-            "$ref": "#/components/schemas/SignatureValue"
-          },
-          "signedInfo": {
-            "$ref": "#/components/schemas/SignedInfo"
-          },
-          "keyInfo": {
-            "$ref": "#/components/schemas/KeyInfo"
-          },
-          "contentList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Content"
-            }
-          }
+          "id": { "type": "string" },
+          "value": { "$ref": "#/components/schemas/SignatureValue" },
+          "signedInfo": { "$ref": "#/components/schemas/SignedInfo" },
+          "keyInfo": { "$ref": "#/components/schemas/KeyInfo" },
+          "contentList": { "type": "array", "items": { "$ref": "#/components/schemas/Content" } }
         }
       },
       "SignatureValue": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string",
-            "format": "byte"
-          }
-        }
+        "properties": { "id": { "type": "string" }, "value": { "type": "string", "format": "byte" } }
       },
       "SignedInfo": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "canonicalizationContent": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "canonicalizationAlgorithm": {
-            "type": "string"
-          },
-          "methodContent": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "methodAlgorithm": {
-            "type": "string"
-          }
+          "id": { "type": "string" },
+          "canonicalizationContent": { "type": "array", "items": { "type": "object" } },
+          "canonicalizationAlgorithm": { "type": "string" },
+          "methodContent": { "type": "array", "items": { "type": "object" } },
+          "methodAlgorithm": { "type": "string" }
         }
       },
       "SoftwareDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "version": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          }
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
+          "id": { "type": "string" },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "version": { "type": "string" },
+          "type": { "type": "string" },
+          "description": { "$ref": "#/components/schemas/RichContentDto" }
         }
       },
       "StatementDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "refIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "refTypes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
+          "id": { "type": "string" },
+          "refIds": { "type": "array", "items": { "type": "string" } },
+          "refTypes": { "type": "array", "items": { "type": "string" } },
           "data": {
             "type": "array",
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "refIds": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "refTypes": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/DataDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/DataDto"
-              }
+              "id": { "type": "string" },
+              "refIds": { "type": "array", "items": { "type": "string" } },
+              "refTypes": { "type": "array", "items": { "type": "string" } },
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/DataDto" },
+              "last": { "$ref": "#/components/schemas/DataDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/DataDto"
-            }
+            "items": { "$ref": "#/components/schemas/DataDto" }
           },
-          "countryCodes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "convention": {
-            "type": "string"
-          },
-          "traceable": {
-            "type": "boolean"
-          },
-          "conformity": {
-            "type": "string"
-          },
-          "conformityXMLList": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "period": {
-            "type": "string"
-          },
-          "name": {
-            "$ref": "#/components/schemas/LanguageSpecificStringsDto"
-          },
-          "norms": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "references": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "description": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "declaration": {
-            "$ref": "#/components/schemas/RichContentDto"
-          },
-          "valid": {
-            "type": "boolean"
-          },
-          "validXMLList": {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          },
-          "nonSIDefinition": {
-            "type": "string"
-          },
-          "nonSIUnit": {
-            "type": "string"
-          },
-          "location": {
-            "$ref": "#/components/schemas/LocationDto"
-          },
-          "responsibleAuthority": {
-            "$ref": "#/components/schemas/ContactDto"
-          }
+          "countryCodes": { "type": "array", "items": { "type": "string" } },
+          "convention": { "type": "string" },
+          "traceable": { "type": "boolean" },
+          "conformity": { "type": "string" },
+          "conformityXMLList": { "type": "array", "items": { "type": "string" } },
+          "date": { "type": "string", "format": "date" },
+          "period": { "type": "string" },
+          "name": { "$ref": "#/components/schemas/LanguageSpecificStringsDto" },
+          "norms": { "type": "array", "items": { "type": "string" } },
+          "references": { "type": "array", "items": { "type": "string" } },
+          "description": { "$ref": "#/components/schemas/RichContentDto" },
+          "declaration": { "$ref": "#/components/schemas/RichContentDto" },
+          "valid": { "type": "boolean" },
+          "validXMLList": { "type": "array", "items": { "type": "boolean" } },
+          "nonSIDefinition": { "type": "string" },
+          "nonSIUnit": { "type": "string" },
+          "location": { "$ref": "#/components/schemas/LocationDto" },
+          "responsibleAuthority": { "$ref": "#/components/schemas/ContactDto" }
         }
       },
       "XmlValuesDto": {
         "type": "object",
         "properties": {
-          "values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DimensionDto"
-            }
-          },
+          "values": { "type": "array", "items": { "$ref": "#/components/schemas/DimensionDto" } },
           "expandedUncList": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ExpandedUncDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ExpandedUncDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ExpandedUncDto" },
+              "last": { "$ref": "#/components/schemas/ExpandedUncDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ExpandedUncDto"
-            }
+            "items": { "$ref": "#/components/schemas/ExpandedUncDto" }
           },
           "expandedMUList": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/ExpandedMUDto" },
+              "last": { "$ref": "#/components/schemas/ExpandedMUDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/ExpandedMUDto"
-            }
+            "items": { "$ref": "#/components/schemas/ExpandedMUDto" }
           },
           "coverageIntervals": {
             "type": "array",
             "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/CoverageIntervalDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/CoverageIntervalDto"
-              }
+              "empty": { "type": "boolean" },
+              "first": { "$ref": "#/components/schemas/CoverageIntervalDto" },
+              "last": { "$ref": "#/components/schemas/CoverageIntervalDto" }
             },
-            "items": {
-              "$ref": "#/components/schemas/CoverageIntervalDto"
-            }
+            "items": { "$ref": "#/components/schemas/CoverageIntervalDto" }
           }
         }
       },
       "RequestDto": {
         "type": "object",
         "properties": {
-          "callbackUrl": {
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          },
-          "mimeType": {
-            "type": "string"
-          },
-          "fileContent": {
-            "type": "string",
-            "format": "byte"
-          }
+          "callbackUrl": { "type": "string" },
+          "fileName": { "type": "string" },
+          "mimeType": { "type": "string" },
+          "fileContent": { "type": "string", "format": "byte" }
         }
       },
-      "StoreResponseDto": {
-        "type": "object",
-        "properties": {
-          "retrievalUrl": {
-            "type": "string"
-          }
-        }
-      },
+      "StoreResponseDto": { "type": "object", "properties": { "retrievalUrl": { "type": "string" } } },
       "VersionDto": {
         "type": "object",
         "properties": {
-          "artifactId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string"
-          }
+          "artifactId": { "type": "string" },
+          "version": { "type": "string" },
+          "timestamp": { "type": "string" },
+          "tag": { "type": "string" }
         }
       },
       "ReadResponseDto": {
         "type": "object",
         "properties": {
-          "fileName": {
-            "type": "string"
-          },
-          "mimeType": {
-            "type": "string"
-          },
-          "fileContent": {
-            "type": "string",
-            "format": "byte"
-          }
+          "fileName": { "type": "string" },
+          "mimeType": { "type": "string" },
+          "fileContent": { "type": "string", "format": "byte" }
         }
       }
     }

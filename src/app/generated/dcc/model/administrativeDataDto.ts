@@ -23,7 +23,8 @@ export interface AdministrativeDataDto {
     items?: Array<ItemDto>;
     uniqueIdentifier?: string;
     countryCode?: string;
-    languageCodes?: Set<string>;
+    mandatoryLanguageCodes?: Set<string>;
+    usedLanguageCodes?: Set<string>;
     receiptDate?: string;
     startDate?: string;
     endDate?: string;
