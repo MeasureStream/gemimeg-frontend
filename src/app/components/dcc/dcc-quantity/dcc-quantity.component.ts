@@ -83,7 +83,6 @@ export class DccQuantityComponent implements OnInit {
 
   updateUnifiedQunatities() {
     this.unifiedQuantities = [];
-
     if (this.item?.data?.length > 0) {
       this.item.data.forEach((dataItem: DataDto, index: number) => {
         // Check for hybrid "real" quantity first
@@ -95,7 +94,6 @@ export class DccQuantityComponent implements OnInit {
           });
           this.isReal.push(true); // it's a real quantity
         }
-        // Check for hybrid "realListXMLList" quantities
         else if (dataItem.list?.quantities?.length) {
           dataItem.list.quantities.forEach((q: QuantityDto) => {
             const isRealList = q?.hybridValues?.quantitySubTypeNames?.includes("realListXMLList");
@@ -112,10 +110,7 @@ export class DccQuantityComponent implements OnInit {
         }
       });
     } else {
-      // Edge case: for "statements"
-
       this.item.forEach((quantity: any, index: number) => {
-        // Check for hybrid "real" quantity first
         this.unifiedQuantities.push({
           quantity: quantity.quantity,
           originIndex: index,
@@ -129,11 +124,11 @@ export class DccQuantityComponent implements OnInit {
   toggleExpandedUncertainty(index: number) {
     this.showExpandedUncertainty[index] = !this.showExpandedUncertainty[index];
   }
+
   addNewUncertaintyEntry(item: any, quantityIndex: number): void {
     if (!this.newUncertaintyEntry[quantityIndex]) {
       this.newUncertaintyEntry[quantityIndex] = {};
     }
-
     const entry = this.newUncertaintyEntry[quantityIndex];
     if (entry.uncertainty || entry.coverageFactor || entry.coverageProbability) {
       const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.expandedUncList;
@@ -143,8 +138,6 @@ export class DccQuantityComponent implements OnInit {
           coverageFactor: entry.coverageFactor || "",
           coverageProbability: entry.coverageProbability || "",
         });
-
-        // Reset fields after adding
         this.newUncertaintyEntry[quantityIndex] = {};
       }
     }
@@ -205,25 +198,19 @@ export class DccQuantityComponent implements OnInit {
         item.data.splice(index, 1);
       }
     } else if (Array.isArray(item?.data?.[0]?.list?.quantities)) {
-      // Case: "realListXMLList" in item.data[0].list.quantities
       const quantities = item.data[0].list.quantities;
-
       const index = quantities.findIndex((q: any) => q?.refTypes?.[0] === this.label && q?.hybridValues?.quantitySubTypeNames?.includes("realListXMLList"));
-
       if (index > -1) {
         quantities.splice(index, 1);
       }
     } else {
-      // Case: statements or other data structure (flat array)
       const index = item.findIndex(
         (entry: any) => entry.quantity?.refTypes?.[0] === this.label && entry.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")
       );
-
       if (index > -1) {
         item.splice(index, 1);
       }
     }
-
     this.updateUnifiedQunatities();
   }
 
@@ -232,21 +219,17 @@ export class DccQuantityComponent implements OnInit {
       alert("Please enter both Value and Unit");
       return;
     }
-
     HybridValues.dimensions = HybridValues.dimensions || [];
     HybridValues.quantitySubTypeNames = HybridValues.quantitySubTypeNames || [];
-
     HybridValues.dimensions.push({
       value: +this.newValue,
       unit: this.newUnit,
     });
-
     if (this.unifiedQuantities[0].source === "single") {
       HybridValues.quantitySubTypeNames.push("real");
     } else {
       HybridValues.quantitySubTypeNames.push("realListXMLList");
     }
-
     this.newValue = "";
     this.newUnit = "";
   }
@@ -389,51 +372,39 @@ export class DccQuantityComponent implements OnInit {
     if (!this.item || this.item.length === 0) {
       return;
     }
-
     this.dimensions = [];
-
     this.item.forEach((dataEntry: any) => {
       if (!dataEntry.data || !Array.isArray(dataEntry.data) || !dataEntry.data[0].list?.quantities) {
         return;
       }
-
       dataEntry.data[0].list.quantities.forEach((quantity: any) => {
         if (quantity.hybridValues?.dimensions) {
           this.dimensions.push(...quantity.hybridValues.dimensions);
         }
       });
     });
-
     if (this.dimensions.length === 0) {
       console.warn("No dimensions found!");
     }
-
     this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
       index: index + 1,
       value: dimension.value || 0,
       unit: dimension.unit || "N/A",
     }));
-
     this.cd.detectChanges();
   }
 
   getDimensions(entry: UnifiedQuantityEntry, index: number): DimensionDto[] {
     const hybridValues = entry.quantity?.hybridValues;
-
     if (!hybridValues || !Array.isArray(hybridValues.dimensions)) {
       return [];
     }
-
-    // If current entry is selected as 'Real', return all dimensions
     if (this.isReal[index]) {
       return hybridValues.dimensions;
     }
-
-    // Else, filter only those dimensions that match 'realListXMLList'
     if (!Array.isArray(hybridValues.quantitySubTypeNames)) {
       return [];
     }
-
     return hybridValues.dimensions.filter((_, i) => hybridValues.quantitySubTypeNames![i] === "realListXMLList");
   }
 }
