@@ -40,6 +40,7 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
 export class DccIdentificationComponent implements OnInit, OnChanges {
   @Input() identification!: IdentificationDto;
   @Input() index!: number;
+  @Input() idPrefix!: string;
   @Input() canRemove: boolean = false;
   @Input() isInitiallyExpanded: boolean = false;
   @Output() removeIdentification = new EventEmitter<number>();

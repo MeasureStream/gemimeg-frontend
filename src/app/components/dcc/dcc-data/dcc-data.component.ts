@@ -40,6 +40,7 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
 })
 export class DccDataComponent implements OnInit {
   @Input() dataTypes!: DataDto[];
+  @Input() idPrefix!: string;
   selectedOption: string = "richContent";
   options: string[] = ["richContent", "formula", "byteData", "quantity", "list"];
   isExpanded: boolean[] = [];
@@ -47,9 +48,6 @@ export class DccDataComponent implements OnInit {
   constructor(private initializationService: InitializationService) {}
 
   ngOnInit(): void {
-    /*     console.log("Data types : ", this.dataTypes);
-    console.log("Statements : ", this.dataTypes[0].quantity);
-    console.log("Statements : ", this.dataTypes[0].list); */
   }
 
   onSelectionChange(event: any) {
@@ -74,8 +72,6 @@ export class DccDataComponent implements OnInit {
         this.dataTypes.push(item);
         break;
       case "quantity":
-        /* this.initializationService.getEmptyConditionDto();
-        var item = this.initializationService.getEmptyDataDto(); */
         var item = this.initializationService.getEmptyDataDto();
         item.quantity = this.initializationService.getEmptyQuantityDto();
         this.dataTypes.push(item);

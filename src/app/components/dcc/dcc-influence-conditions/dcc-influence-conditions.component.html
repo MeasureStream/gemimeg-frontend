@@ -32,7 +32,8 @@
       <mat-card-title class="title">{{ "dcc.influenceFactor" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-influencing-factor-{{i+1}}-toggle-button">
         <mat-icon>
           <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -41,16 +42,17 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
-      [placeholder]="'dcc.name' | translate"
-      [type]="'NAME'"
-      [strings]="item.name!"
+        [placeholder]="'dcc.name' | translate"
+        [strings]="item.name!"
+        [type]="'NAME'"
+        [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="status">{{ "dcc.status" | translate }}</label>
+        <label for="{{idPrefix}}-influencing-factor-{{i+1}}-status">{{ "dcc.status" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <mat-select [(value)]="item.status" id="status" required>
+        <mat-select [(value)]="item.status" id="{{idPrefix}}-influencing-factor-{{i+1}}-status" required>
           <mat-option *ngFor="let entry of validRestrictions" [value]="entry">
             {{ entry }}
           </mat-option>
@@ -59,26 +61,31 @@
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="refType">{{ "dcc.refType" | translate }}</label>
+        <label for="{{idPrefix}}-influencing-factor-{{i+1}}-reftype">{{ "dcc.refType" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.refTypes" id="refType" matInput name="refType" />
+        <input [(ngModel)]="item.refTypes" id="{{idPrefix}}-influencing-factor-{{i+1}}-reftype" matInput/>
       </mat-form-field>
     </div>
 
-    <app-dcc-quantity [i]="i" [item]="item"></app-dcc-quantity>
+    <app-dcc-quantity
+        [i]="i" [item]="item"
+        [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
+    ></app-dcc-quantity>
   </mat-card-content>
   <button
-    (click)="list!.splice(i, 1)"
-    *ngIf="list!.length >= 1"
-    class="custom-circle-button-md"
-    color="accent"
-    mat-icon-button
-    type="button"
+      (click)="list!.splice(i, 1)"
+      *ngIf="list!.length >= 1"
+      class="custom-circle-button-md"
+      color="accent"
+      mat-icon-button
+      type="button"
+      id="{{idPrefix}}-influencing-factor-{{i+1}}-remove-button"
   >
     <mat-icon>remove_circle</mat-icon>
   </button>
 </mat-card>
-<button (click)="addNewCondition()" class="custom-circle-button-md" color="primary" mat-icon-button type="button">
+<button (click)="addNewCondition()" class="custom-circle-button-md" color="primary" mat-icon-button type="button"
+        id="{{idPrefix}}-influencing-factor-add-button">
   <mat-icon>add_circle</mat-icon>
 </button>

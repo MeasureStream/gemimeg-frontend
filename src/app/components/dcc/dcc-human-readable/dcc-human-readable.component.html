@@ -33,7 +33,8 @@
         <mat-card-title class="title">{{ "dcc.calibration-certificate" | translate }}</mat-card-title>
       </div>
       <div class="header-menu">
-        <button (click)="download(true)" class="blue-card-btn" mat-icon-button matTooltip="Download humanReadable.html">
+        <button (click)="download(true)" class="blue-card-btn" mat-icon-button matTooltip="Download humanReadable.html"
+                id="{{idPrefix}}-calibration-certificate-human-readable-download-button">
           <mat-icon>
             <i class="material-icons"><i class="material-icons">download</i></i>
           </mat-icon>

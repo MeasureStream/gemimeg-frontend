@@ -38,6 +38,7 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
 })
 export class DccInfluenceConditionsComponent implements OnInit {
   @Input() list: Array<ConditionDto>;
+  @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
   validRestrictions = ["beforeAdjustment", "afterAdjustment", "beforeRepair", "afterRepair"];
   selectedOption: any;

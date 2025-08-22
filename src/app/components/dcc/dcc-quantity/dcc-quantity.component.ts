@@ -49,6 +49,7 @@ export interface UnifiedQuantityEntry {
 export class DccQuantityComponent implements OnInit {
   @Input() item: ConditionDto | any;
   @Input() i: number = 0;
+  @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
   isExpandedQuantity: boolean[] = [false];
   validRestrictions = ["beforeAdjustment", "afterAdjustment", "beforeRepair", "afterRepair"];

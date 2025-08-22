@@ -42,6 +42,7 @@ export class DccManufacturerComponent implements OnInit, OnChanges {
 
   @Input() manufacturer?: ContactDto;
   @Input() strict: boolean;
+  @Input() idPrefix!: string;
   @Output() deleteManufacturer=new EventEmitter<void>();
   @Output() fileSelected = new EventEmitter<ByteDataDto>();
 

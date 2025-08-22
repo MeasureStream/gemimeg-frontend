@@ -28,69 +28,68 @@
 -->
 <div class="dcc-row">
   <div class="label-container">
-    <label for="city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
+    <label for="{{idPrefix}}-city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.city" [required]="strict" id="city" matInput name="city" />
+    <input [(ngModel)]="contact.location!.city" [required]="strict" matInput id="{{idPrefix}}-city"/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="countryCode">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
+    <label for="{{idPrefix}}-country-code">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
     <input
-      [(ngModel)]="contact.location!.countryCode"
-      [required]="strict"
-      id="countryCode"
-      matInput
-      name="countryCode"
-      oninput="this.value = this.value.toUpperCase()"
+        [(ngModel)]="contact.location!.countryCode"
+        [required]="strict"
+        id="{{idPrefix}}-country-code"
+        matInput
+        oninput="this.value = this.value.toUpperCase()"
     />
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="postalCode">{{ "dcc.postalCode" | translate }}</label>
+    <label for="{{idPrefix}}-postal-code">{{ "dcc.postalCode" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.postalCode" id="postalCode" matInput name="postalCode" />
+    <input [(ngModel)]="contact.location!.postalCode" id="{{idPrefix}}-postal-code" matInput/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="stateCode">{{ "dcc.stateCode" | translate }}</label>
+    <label for="{{idPrefix}}-state-code">{{ "dcc.stateCode" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.stateCode" id="stateCode" matInput name="stateCode" />
+    <input [(ngModel)]="contact.location!.stateCode" id="{{idPrefix}}-state-code" matInput/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="street">{{ "dcc.street" | translate }}</label>
+    <label for="{{idPrefix}}-street">{{ "dcc.street" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.street" id="street" matInput name="street" />
+    <input [(ngModel)]="contact.location!.street" id="{{idPrefix}}-street" matInput name="street"/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="houseNumber">{{ "dcc.houseNumber" | translate }}</label>
+    <label for="{{idPrefix}}-house-number">{{ "dcc.houseNumber" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.houseNumber" id="houseNumber" matInput name="houseNumber" />
+    <input [(ngModel)]="contact.location!.houseNumber" id="{{idPrefix}}-house-number" matInput name="houseNumber"/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="poBox">{{ "dcc.poBox" | translate }}</label>
+    <label for="{{idPrefix}}-po-box">{{ "dcc.poBox" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.poBox" id="poBox" matInput name="poBox" />
+    <input [(ngModel)]="contact.location!.poBox" id="{{idPrefix}}-po-box" matInput name="poBox"/>
   </mat-form-field>
 </div>
 <h4>{{ "dcc.additionalInformation" | translate }}</h4>
 <app-dcc-richcontent
-  (fileSelected)="onFileSelected($event)"
-  [richContent]="contact.location!.additionalInformation!"
+    (fileSelected)="onFileSelected($event)"
+    [richContent]="contact.location!.additionalInformation!"
 ></app-dcc-richcontent>

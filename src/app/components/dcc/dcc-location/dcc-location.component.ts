@@ -41,6 +41,7 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
 export class DccLocationComponent implements OnInit {
   @Input() contact!: ContactDto;
   @Input() strict: boolean;
+  @Input() idPrefix!: string;
   @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
   constructor(private initializationService: InitializationService) {

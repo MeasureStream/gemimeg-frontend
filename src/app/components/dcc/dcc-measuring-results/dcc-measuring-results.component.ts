@@ -12,6 +12,7 @@ export class DccMeasuringResultsComponent {
   @Input() isExpanded: { [key: string]: boolean } = {};
   @Input() headerMetaData: any;
   header_meta_data = 'Meta-Data';
+  @Input() idPrefix!: string;
   @Output() addMeasurementResult = new EventEmitter<MeasurementResultDto>();
   @Output() removeMeasurementResult = new EventEmitter<number>();
 

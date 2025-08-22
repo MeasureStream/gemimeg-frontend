@@ -43,6 +43,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   @Input() type: string = 'NAME'; // 'NAME' or 'CONTENT', if not provided, defaults to 'NAME'.
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
+  @Input() idPrefix!: string;
   selectedLang: string = 'en';
 
   locales = [

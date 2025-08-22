@@ -27,32 +27,35 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <app-dcc-localised-string
-  [isRequired]="true"
-  [placeholder]="'dcc.name' | translate"
-  [type]="'NAME'"
-  [strings]="contact.name!"
+    [isRequired]="true"
+    [placeholder]="'dcc.name' | translate"
+    [strings]="contact.name!"
+    [type]="'NAME'"
+    [idPrefix]="idPrefix"
 ></app-dcc-localised-string>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="phoneNumber">{{ "dcc.phoneNumber" | translate }}</label>
+    <label for="{{idPrefix}}-contact-phone-number">{{ "dcc.phoneNumber" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.phoneNumber" id="phoneNumber" matInput name="phoneNumber" />
+    <input [(ngModel)]="contact.phoneNumber" matInput name="phoneNumber" id="{{idPrefix}}-contact-phone-number"/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
   <div class="label-container">
-    <label for="emailAddress">{{ "dcc.emailAddress" | translate }}</label>
+    <label for="{{idPrefix}}-contact-email">{{ "dcc.emailAddress" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.emailAddress" id="emailAddress" matInput name="emailAddress" />
+    <input [(ngModel)]="contact.emailAddress" matInput name="emailAddress" id="{{idPrefix}}-contact-email"/>
   </mat-form-field>
 </div>
 <mat-divider></mat-divider>
 <ng-container *ngIf="parent !== 'manufacturer'">
-  <app-dcc-location [contact]="contact"></app-dcc-location>
+  <app-dcc-location [contact]="contact" [idPrefix]="idPrefix"></app-dcc-location>
 </ng-container>
 <ng-container *ngIf="parent == 'manufacturer'">
-  <mat-checkbox [(ngModel)]="showLocation">{{ "dcc.showLocation" | translate }}</mat-checkbox>
-  <app-dcc-location *ngIf="showLocation" [contact]="contact"></app-dcc-location>
+  <mat-checkbox [(ngModel)]="showLocation" id="{{idPrefix}}-show-location-checkbox">{{ "dcc.showLocation" | translate
+    }}
+  </mat-checkbox>
+  <app-dcc-location *ngIf="showLocation" [contact]="contact" [idPrefix]="idPrefix"></app-dcc-location>
 </ng-container>

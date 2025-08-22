@@ -40,6 +40,7 @@ import { DccService } from "src/app/services/dcc/dcc.service";
 export class DccHumanReadableComponent implements OnChanges {
   @Input() humanReadableHtml: string = "";
   @Input() dcc!: CalibrationCertificateDto;
+  @Input() idPrefix!: string;
   isExpanded: boolean = true;
 
   constructor(

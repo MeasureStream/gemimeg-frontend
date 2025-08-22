@@ -42,6 +42,7 @@ export class DccContactComponent implements OnInit, OnChanges {
   private _showLocation = false;
   @Input() parent: string = "";
   @Input() strict: boolean;
+  @Input() idPrefix!: string;
   @Output() fileSelected = new EventEmitter<ByteDataDto>();
 
   @Input() set contact(value: ContactDto) {
@@ -60,9 +61,6 @@ export class DccContactComponent implements OnInit, OnChanges {
     this.fileSelected.emit(fileData);
   }
 
-  // Beim Laden eines Templates wird geprüft, ob ein Wert für "location" im Inputfeld gesetzt wurde.
-  // Falls ja, wird "location" angezeigt.
-  // Falls nein, wird "location" nur angezeigt, wenn die Checkbox bei "manufacturer" aktiviert ist.
   checkLocationFields() {
     if (this.parent === "manufacturer") {
       const location = this._contact.location;
@@ -79,10 +77,8 @@ export class DccContactComponent implements OnInit, OnChanges {
       let further = location?.additionalInformation;
       let hasNameContent: boolean = false;
       let hasTextContent: boolean = false;
-
       hasNameContent = further?.name?.content?.some((entry) => typeof entry?.text === "string" && entry.text.trim() !== "") ?? false;
       hasTextContent = further?.textContent?.content?.some((entry) => typeof entry?.text === "string" && entry.text.trim() !== "") ?? false;
-
       this.showLocation = hasLocationField || hasNameContent || hasTextContent;
     }
   }

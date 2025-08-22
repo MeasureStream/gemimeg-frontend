@@ -40,6 +40,7 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
 })
 export class DccMeasurementMetadataComponent implements OnInit {
   @Input() list: Array<StatementDto>;
+  @Input() idPrefix!: string;
   @Input() header: string;
 
   item = { date: "" };
