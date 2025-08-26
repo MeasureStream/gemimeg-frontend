@@ -41,10 +41,10 @@ export class DccInstalledSoftwareListComponent implements OnInit {
   @Input() softwareList!: Array<SoftwareDto>;
   @Input() title!:string;
   @Input() urlPart!:string;
+  @Input() idPrefix!: string;
   isCardExpanded:boolean=true;
 
   constructor(private initializationService:InitializationService){
-
   }
 
   ngOnInit(): void {

@@ -32,7 +32,8 @@
       <mat-card-title class="title">{{ "dcc.software" | translate }} {{ index + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button>
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button
+              id="{{idPrefix}}-software-{{index + 1}}-toggle-button">
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -41,26 +42,29 @@
   </mat-card-header>
   <mat-card-content *ngIf="isCardExpanded">
     <app-dcc-localised-string
-      [isRequired]="true"
-      [placeholder]="'dcc.name' | translate"
-      [type]="'NAME'"
-      [strings]="software.name!"
+        [isRequired]="true"
+        [placeholder]="'dcc.name' | translate"
+        [strings]="software.name!"
+        [type]="'NAME'"
+        [idPrefix]="idPrefix + '-software-' + (index + 1)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="version">{{ "dcc.version" | translate }}<span class="asterix">*</span></label>
+        <label for="{{idPrefix}}-software-{{index + 1}}-version">{{ "dcc.version" | translate }}<span
+            class="asterix">*</span></label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="software.version" id="version" matInput name="version" required />
+        <input [(ngModel)]="software.version" id="{{idPrefix}}-software-{{index + 1}}-version" matInput required/>
       </mat-form-field>
     </div>
     <button
-      (click)="onRemove()"
-      *ngIf="canRemove"
-      class="custom-circle-button-md"
-      color="accent"
-      mat-icon-button
-      type="button"
+        (click)="onRemove()"
+        *ngIf="canRemove"
+        class="custom-circle-button-md"
+        color="accent"
+        mat-icon-button
+        type="button"
+        id="{{idPrefix}}-software-{{index + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>

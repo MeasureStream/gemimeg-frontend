@@ -39,6 +39,7 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
 })
 export class DccUsedMethodsComponent implements OnInit {
   @Input() list: Array<MethodDto>;
+  @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
 
   constructor(private initializationService: InitializationService) {

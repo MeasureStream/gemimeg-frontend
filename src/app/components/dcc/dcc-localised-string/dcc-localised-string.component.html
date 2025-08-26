@@ -43,8 +43,8 @@
           <mat-select-trigger class="mat-select-trigger">
             <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }} icon-flag"></span>
           </mat-select-trigger>
-          <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>&nbsp;&nbsp;&nbsp;{{
-            lang.name }}
+          <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>{{ lang.name
+            }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -71,7 +71,7 @@
     </mat-form-field>
     <div class="button-container">
       <button (click)="strings.content?.push(getEmptyStringWithLangText())" class="custom-circle-button-sm"
-              color="primary" mat-icon-button type="button" id="{{idPrefix}}-name-add-button-{{1+i}}">
+              color="primary" mat-icon-button type="button" id="{{idPrefix}}-name-add-button-{{i+1}}">
         <mat-icon>add_circle</mat-icon>
       </button>
       <button
@@ -81,7 +81,7 @@
           color="accent"
           mat-icon-button
           type="button"
-          id="{{idPrefix}}-name-remove-button-{{1+i}}"
+          id="{{idPrefix}}-name-remove-button-{{i+1}}"
       >
         <mat-icon>remove_circle</mat-icon>
       </button>

@@ -9,6 +9,7 @@ import { CalibrationCertificateDto } from "src/app/generated/dcc/model/calibrati
 export class DccXmlPreviewComponent implements OnInit, OnChanges {
   @Input() xml!: string;
   @Input() dcc!: CalibrationCertificateDto;
+  @Input() idPrefix!: string;
   isExpanded: boolean = true;
   constructor() {}
 

@@ -65,16 +65,17 @@
         <label for="statements-1-calibration-{{index + 1}}-model">{{ "dcc.model" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.model" id="statements-1-calibration-{{index + 1}}-model" matInput name="model"/>
+        <input [(ngModel)]="item.model" id="statements-1-calibration-{{index + 1}}-model" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="statements-1-calibration-{{index + 1}}-class-reference">{{ "dcc.classReference" | translate }}</label>
+        <label for="statements-1-calibration-{{index + 1}}-class-reference">{{ "dcc.classReference" | translate
+          }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input [(ngModel)]="item.classReference" id="statements-1-calibration-{{index + 1}}-class-reference" matInput
-               name="classReference" required/>
+               required/>
       </mat-form-field>
     </div>
     <div class="dcc-row">

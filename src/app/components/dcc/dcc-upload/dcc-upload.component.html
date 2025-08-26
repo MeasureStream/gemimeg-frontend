@@ -26,7 +26,7 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<input #fileUpload (change)="onChange($event)" [accept]="requiredFileType" class="file-input" type="file" />
-<button (click)="fileUpload.click()" color="primary" mat-raised-button type="button">
+<input #fileUpload (change)="onChange($event)" [accept]="requiredFileType" class="file-input" type="file"/>
+<button (click)="fileUpload.click()" color="primary" mat-raised-button type="button" id="dcc-template-upload-button">
   {{ "dcc.uploadDcc" | translate }}
 </button>
