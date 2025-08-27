@@ -186,32 +186,6 @@
               </button>
             </div>
           </mat-card-header>
-          <mat-card-content *ngIf="isExpanded['Kunde']">
-            <div class="dcc-row">
-              <div class="label-container">
-                <label for="admin-customer-efile-select">Vorgang</label>
-              </div>
-              <mat-form-field appearance="fill" id="dcc-efile-customer-selection">
-                <mat-icon color="accent" matPrefix matTooltip="Kundendaten automatisch aus Vorgang übernehmen">
-                  precision_manufacturing
-                </mat-icon>
-                <mat-label> {{ "dcc.getFromEFile" | translate }}</mat-label>
-                <mat-select (selectionChange)="selectProcedure($event.value)" mat-icon-button
-                            id="admin-customer-efile-select">
-                  <ng-container *ngFor="let procedure of procedures">
-                    <mat-option *ngIf="procedure.contacts != null" [value]="procedure">
-                      {{ procedure.contacts[2].companyname }} ({{ "dcc.eFileProcedure" | translate }} {{ procedure.name
-                      }})
-                    </mat-option>
-                  </ng-container>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <mat-divider></mat-divider>
-            <app-dcc-contact (fileSelected)="onFileSelected($event)"
-                             [contact]="dcc.administrativeData!.customer!"
-                             [idPrefix]="'admin-customer'"></app-dcc-contact>
-          </mat-card-content>
         </mat-card>
         <mat-card class="blue-card">
           <mat-card-header>
@@ -309,83 +283,6 @@
                 </button>
               </div>
             </mat-card-header>
-            <mat-card-content *ngIf="isExpanded['CIPM-MRA']">
-              <form [formGroup]="cipmForm" novalidate>
-                <mat-radio-group formControlName="cipmType">
-                  <mat-radio-button *ngFor="let cipm of cipmTypes" [value]="cipm">
-                    {{ cipm }}
-                  </mat-radio-button>
-                </mat-radio-group>
-                <ng-container [ngSwitch]="getCIPMType()">
-                  <div *ngSwitchCase="'CIPM-MRA / 391 00A p'">
-                    <ul>
-                      <li>
-                        Die Physikalisch-Technische Bundesanstalt (PTB) in Braunschweig und Berlin ist das nationale
-                        Metrologieinstitut und die technische
-                        Oberbehörde der Bundesrepublik Deutschland für das Messwesen. Die PTB gehört zum
-                        Geschäftsbereich des Bundesministeriums für Wirtschaft
-                        und Klimaschutz. Sie erfüllt die Anforderungen an Kalibrier- und Prüflaboratorien auf der
-                        Grundlage der DIN EN ISO/IEC 17025.
-                      </li>
-                      <li>
-                        Zentrale Aufgabe der PTB ist es, die gesetzlichen Einheiten in Übereinstimmung mit dem
-                        Internationalen Einheitensystem (SI)
-                        darzustellen, zu bewahren und weiterzugeben. Die PTB steht damit an oberster Stelle der
-                        metrologischen Hierarchie in Deutschland. Die
-                        Kalibrierscheine der PTB dokumentieren eine auf nationale Normale rückgeführte Kalibrierung.
-                      </li>
-                      <li>
-                        Zur Sicherstellung der weltweiten Einheitlichkeit der Maßeinheiten arbeitet die PTB mit anderen
-                        nationalen metrologischen Instituten auf
-                        regionaler europäischer Ebene in EURAMET und auf internationaler Ebene im Rahmen der
-                        Meterkonvention zusammen. Dieses Ziel wird durch
-                        einen intensiven Austausch von Forschungsergebnissen und durch umfangreiche internationale
-                        Vergleichsmessungen erreicht.
-                      </li>
-                    </ul>
-                    <button (click)="add_cipmmra('CIPM-MRA / 391 00A p')" color="accent" mat-flat-button type="button"
-                            id="statements-2-cipm-add-button-a">
-                      Hinzufügen
-                    </button>
-                  </div>
-                  <div *ngSwitchCase="'CIPM-MRA / 391 00B p'">
-                    <ul>
-                      <li>
-                        Die Physikalisch-Technische Bundesanstalt(PTB) in Braunschweig und Berlin ist das nationale
-                        Metrologieinstitut und die technische
-                        Oberbehörde der Bundesrepublik Deutschland für das Messwesen. Die PTB gehört zum
-                        Geschäftsbereich des Bundesministeriums für Wirtschaft
-                        und Klimaschutz. Sie erfüllt die Anforderungen an Kalibrier- und Prüflaboratorien auf der
-                        Grundlage der DIN EN ISO/IEC 17025.
-                      </li>
-                      <li>
-                        Zentrale Aufgabe der PTB ist es, die gesetzlichen Einheiten in Übereinstimmung mit dem
-                        Internationalen Einheitensystem (SI)
-                        darzustellen, zu bewahren und weiterzugeben. Die PTB steht damit an oberster Stelle der
-                        metrologischen Hierarchie in Deutschland. Die
-                        Kalibrierscheine der PTB dokumentieren eine auf nationale Normale rückgeführte Kalibrierung.
-                      </li>
-                      <li>
-                        Dieser Ergebnisbericht ist in Übereinstimmung mit den Kalibrier- und Messmöglichkeiten (CMCs),
-                        wie sie im Anhang C des gegenseitigen
-                        Abkommens (MRA) des Internationalen Komitees für Maße und Gewichte enthalten sind. Im Rahmen des
-                        MRA wird die Gültigkeit der
-                        Ergebnisberichte von allen teilnehmenden Instituten für die im Anhang C spezifizierten
-                        Messgrößen, Messbereiche und Messunsicherheiten
-                        gegenseitig anerkannt (nähere Informationen unter http://www.bipm.org).
-                      </li>
-                      <li>Diese Aussage und das CIPM-MRA-Logo beziehen sich nur auf die Messergebnisse in diesem
-                        Kalibrierschein.
-                      </li>
-                    </ul>
-                    <button (click)="add_cipmmra('CIPM-MRA / 391 00B p')" color="accent" mat-flat-button type="button"
-                            id="statements-2-cipm-add-button-b">
-                      Hinzufügen
-                    </button>
-                  </div>
-                </ng-container>
-              </form>
-            </mat-card-content>
           </mat-card>
           <mat-card appearance="outlined" class="blue-card">
             <mat-card-header>
@@ -400,44 +297,6 @@
                 </button>
               </div>
             </mat-card-header>
-            <mat-card-content *ngIf="isExpanded['Anschrift']">
-              <form [formGroup]="addressForm" novalidate>
-                <mat-radio-group formControlName="addressType">
-                  <mat-radio-button *ngFor="let address of addressTypes" [value]="address">
-                    {{ address }}
-                  </mat-radio-button>
-                </mat-radio-group>
-                <ng-container [ngSwitch]="getAddressType()">
-                  <div *ngSwitchCase="'Braunschweig'">
-                    <ul>
-                      <li>Bundesallee 100, 38116 Braunschweig -----</li>
-                    </ul>
-                    <button (click)="add_address('Braunschweig')" color="accent" mat-flat-button type="button"
-                            id="statements-2-anschrift-braunschweig-add-button">
-                      {{ "button.add" | translate }}
-                    </button>
-                  </div>
-                  <div *ngSwitchCase="'Berlin-Adlershof'">
-                    <ul>
-                      <li>Magnusstraße 9, 12489 Berlin -----</li>
-                    </ul>
-                    <button (click)="add_address('Berlin-Adlershof')" color="accent" mat-flat-button type="button"
-                            id="statements-2-anschrift-berlin-adlershof-add-button">
-                      {{ "button.add" | translate }}
-                    </button>
-                  </div>
-                  <div *ngSwitchCase="'Berlin-Charlottenburg'">
-                    <ul>
-                      <li>Abbestraße 2-12, 10587 Berlin ------------</li>
-                    </ul>
-                    <button (click)="add_address('Berlin-Charlottenburg')" color="accent" mat-flat-button type="button"
-                            id="statements-2-anschrift-berlin-charlottenburg-add-button">
-                      {{ "button.add" | translate }}
-                    </button>
-                  </div>
-                </ng-container>
-              </form>
-            </mat-card-content>
           </mat-card>
           <app-dcc-measurement-metadata
               [header]="header_statement"

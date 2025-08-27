@@ -27,8 +27,13 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
-import { Component, Input, OnInit, ChangeDetectorRef, SimpleChanges } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+  SimpleChanges,
+} from "@angular/core";
 import { DataDto } from "src/app/generated/dcc/model/dataDto";
 import { ConditionDto } from "src/app/generated/dcc/model/conditionDto";
 import { InitializationService } from "src/app/services/dcc/initialization.service";
@@ -38,7 +43,7 @@ import { DimensionDto } from "src/app/generated/dcc/model/dimensionDto";
 export interface UnifiedQuantityEntry {
   quantity: QuantityDto;
   originIndex: number;
-  source: "single" | "list"; // NEW
+  source: "single" | "list";
   component?: string;
 }
 @Component({
@@ -52,9 +57,13 @@ export class DccQuantityComponent implements OnInit {
   @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
   isExpandedQuantity: boolean[] = [false];
-  validRestrictions = ["beforeAdjustment", "afterAdjustment", "beforeRepair", "afterRepair"];
+  validRestrictions = [
+    "beforeAdjustment",
+    "afterAdjustment",
+    "beforeRepair",
+    "afterRepair",
+  ];
   isReal: boolean[] = [];
-
   date: string = "";
   newValue: string = "";
   newUnit: string = "";
@@ -69,7 +78,10 @@ export class DccQuantityComponent implements OnInit {
   showExpandedUncertainty: boolean[] = [false];
   newUncertaintyEntry: { [key: number]: any } = {};
 
-  constructor(private initializationService: InitializationService, private cd: ChangeDetectorRef) {
+  constructor(
+    private initializationService: InitializationService,
+    private cd: ChangeDetectorRef
+  ) {
     this.item = <ConditionDto>{};
     this.addEmptyConditionDto();
     this.dataSource = [];
@@ -79,33 +91,78 @@ export class DccQuantityComponent implements OnInit {
 
   ngOnInit() {
     this.updateUnifiedQunatities();
+    if (!this.unifiedQuantities || this.unifiedQuantities.length === 0) {
+      this.unifiedQuantities = [
+        {
+          originIndex: 0,
+          source: "single",
+          quantity: {
+            refTypes: [""],
+            name: {
+              content: [
+                { lang: "en", text: "" },
+                { lang: "de", text: "" },
+              ],
+            },
+            hybridValues: {
+              dimensions: [{ value: 0, unit: "" }],
+            },
+          },
+        },
+      ];
+    }
     this.newUncertaintyEntry = {};
+    this.initializeHelperArrays();
+  }
+  initializeHelperArrays() {
+    this.isReal = this.unifiedQuantities.map((q) => {
+      const subTypes = q.quantity?.hybridValues?.quantitySubTypeNames || [];
+      return q.source === "single" || subTypes.includes("real");
+    });
+    this.isExpandedQuantity = this.unifiedQuantities.map(() => true);
+    this.showExpandedUncertainty = this.unifiedQuantities.map(() => false);
+  }
+
+  onRealTypeChange(index: number) {
+    const quantity = this.unifiedQuantities[index].quantity;
+    if (!quantity?.hybridValues) return;
+    if (this.isReal[index]) {
+      quantity.hybridValues.quantitySubTypeNames = ["real"];
+      this.unifiedQuantities[index].source = "single";
+    } else {
+      quantity.hybridValues.quantitySubTypeNames = ["realListXMLList"];
+      this.unifiedQuantities[index].source = "list";
+    }
   }
 
   updateUnifiedQunatities() {
     this.unifiedQuantities = [];
     if (this.item?.data?.length > 0) {
       this.item.data.forEach((dataItem: DataDto, index: number) => {
-        // Check for hybrid "real" quantity first
-        if (dataItem.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")) {
+        if (
+          dataItem.quantity?.hybridValues?.quantitySubTypeNames?.includes(
+            "real"
+          )
+        ) {
           this.unifiedQuantities.push({
             quantity: dataItem.quantity,
             originIndex: index,
             source: "single",
           });
-          this.isReal.push(true); // it's a real quantity
-        }
-        else if (dataItem.list?.quantities?.length) {
+          this.isReal.push(true);
+        } else if (dataItem.list?.quantities?.length) {
           dataItem.list.quantities.forEach((q: QuantityDto) => {
-            const isRealList = q?.hybridValues?.quantitySubTypeNames?.includes("realListXMLList");
-
+            const isRealList =
+              q?.hybridValues?.quantitySubTypeNames?.includes(
+                "realListXMLList"
+              );
             if (isRealList) {
               this.unifiedQuantities.push({
                 quantity: q,
                 originIndex: index,
                 source: "list",
               });
-              this.isReal.push(false); // it's a realListXMLList quantity
+              this.isReal.push(false);
             }
           });
         }
@@ -117,7 +174,7 @@ export class DccQuantityComponent implements OnInit {
           originIndex: index,
           source: "single",
         });
-        this.isReal.push(true); // it's a real quantity
+        this.isReal.push(true);
       });
     }
   }
@@ -125,14 +182,19 @@ export class DccQuantityComponent implements OnInit {
   toggleExpandedUncertainty(index: number) {
     this.showExpandedUncertainty[index] = !this.showExpandedUncertainty[index];
   }
-
   addNewUncertaintyEntry(item: any, quantityIndex: number): void {
     if (!this.newUncertaintyEntry[quantityIndex]) {
       this.newUncertaintyEntry[quantityIndex] = {};
     }
     const entry = this.newUncertaintyEntry[quantityIndex];
-    if (entry.uncertainty || entry.coverageFactor || entry.coverageProbability) {
-      const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.expandedUncList;
+    if (
+      entry.uncertainty ||
+      entry.coverageFactor ||
+      entry.coverageProbability
+    ) {
+      const list =
+        item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues
+          ?.expandedUncList;
       if (list) {
         list.push({
           uncertainty: entry.uncertainty || "",
@@ -144,8 +206,14 @@ export class DccQuantityComponent implements OnInit {
     }
   }
 
-  removeUncertaintyEntry(item: any, quantityIndex: number, entryIndex: number): void {
-    const list = item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues?.expandedUncList;
+  removeUncertaintyEntry(
+    item: any,
+    quantityIndex: number,
+    entryIndex: number
+  ): void {
+    const list =
+      item.data?.[0]?.list?.quantities?.[quantityIndex]?.hybridValues
+        ?.expandedUncList;
     if (list && list.length > entryIndex) {
       list.splice(entryIndex, 1);
     }
@@ -190,23 +258,29 @@ export class DccQuantityComponent implements OnInit {
 
   removeRow(item: any) {
     if (typeof item?.data?.[0]?.quantity === "object") {
-      // Case: "real" quantity in item.data[]
       const index = item.data.findIndex(
-        (entry: any) => entry.quantity?.refTypes?.[0] === this.label && entry.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")
+        (entry: any) =>
+          entry.quantity?.refTypes?.[0] === this.label &&
+          entry.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")
       );
-
       if (index > -1) {
         item.data.splice(index, 1);
       }
     } else if (Array.isArray(item?.data?.[0]?.list?.quantities)) {
       const quantities = item.data[0].list.quantities;
-      const index = quantities.findIndex((q: any) => q?.refTypes?.[0] === this.label && q?.hybridValues?.quantitySubTypeNames?.includes("realListXMLList"));
+      const index = quantities.findIndex(
+        (q: any) =>
+          q?.refTypes?.[0] === this.label &&
+          q?.hybridValues?.quantitySubTypeNames?.includes("realListXMLList")
+      );
       if (index > -1) {
         quantities.splice(index, 1);
       }
     } else {
       const index = item.findIndex(
-        (entry: any) => entry.quantity?.refTypes?.[0] === this.label && entry.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")
+        (entry: any) =>
+          entry.quantity?.refTypes?.[0] === this.label &&
+          entry.quantity?.hybridValues?.quantitySubTypeNames?.includes("real")
       );
       if (index > -1) {
         item.splice(index, 1);
@@ -315,7 +389,6 @@ export class DccQuantityComponent implements OnInit {
       });
     } else {
       console.log("Statement case", item);
-
       item.push({
         quantity: {
           refTypes: [this.label],
@@ -345,21 +418,20 @@ export class DccQuantityComponent implements OnInit {
         },
       });
     }
-
     this.updateUnifiedQunatities();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"] && this.item?.length) {
       this.processData();
-
-      this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
-        index: index + 1,
-        value: dimension.value || 0,
-        unit: dimension.unit || "N/A",
-      }));
+      this.dataSource = this.dimensions.map(
+        (dimension: any, index: number) => ({
+          index: index + 1,
+          value: dimension.value || 0,
+          unit: dimension.unit || "N/A",
+        })
+      );
     }
-
     if (changes["item"]) {
       this.updateUnifiedQunatities();
     }
@@ -375,7 +447,11 @@ export class DccQuantityComponent implements OnInit {
     }
     this.dimensions = [];
     this.item.forEach((dataEntry: any) => {
-      if (!dataEntry.data || !Array.isArray(dataEntry.data) || !dataEntry.data[0].list?.quantities) {
+      if (
+        !dataEntry.data ||
+        !Array.isArray(dataEntry.data) ||
+        !dataEntry.data[0].list?.quantities
+      ) {
         return;
       }
       dataEntry.data[0].list.quantities.forEach((quantity: any) => {
@@ -384,14 +460,17 @@ export class DccQuantityComponent implements OnInit {
         }
       });
     });
+
     if (this.dimensions.length === 0) {
       console.warn("No dimensions found!");
     }
+
     this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
       index: index + 1,
       value: dimension.value || 0,
       unit: dimension.unit || "N/A",
     }));
+
     this.cd.detectChanges();
   }
 
@@ -406,6 +485,8 @@ export class DccQuantityComponent implements OnInit {
     if (!Array.isArray(hybridValues.quantitySubTypeNames)) {
       return [];
     }
-    return hybridValues.dimensions.filter((_, i) => hybridValues.quantitySubTypeNames![i] === "realListXMLList");
+    return hybridValues.dimensions.filter(
+      (_, i) => hybridValues.quantitySubTypeNames![i] === "realListXMLList"
+    );
   }
 }
