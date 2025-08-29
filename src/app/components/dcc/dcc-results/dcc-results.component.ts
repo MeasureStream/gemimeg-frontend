@@ -43,7 +43,6 @@ export class DccResultsComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["list"] && this.list?.length) {
       this.processData();
-
       this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
         index: index + 1,
         value: dimension.value || 0,
@@ -72,24 +71,17 @@ export class DccResultsComponent implements OnInit {
       if (!dataEntry.data || !Array.isArray(dataEntry.data) || !dataEntry.data[0].list?.quantities) {
         return;
       }
-
       dataEntry.data[0].list.quantities.forEach((quantity: any) => {
         if (quantity.hybridValues?.dimensions) {
           this.dimensions.push(...quantity.hybridValues.dimensions);
         }
       });
     });
-
-    if (this.dimensions.length === 0) {
-      console.warn("No dimensions found!");
-    }
-
     this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
       index: index + 1,
       value: dimension.value || 0,
       unit: dimension.unit || "N/A",
     }));
-
     this.cd.detectChanges();
   }
 
@@ -102,14 +94,11 @@ export class DccResultsComponent implements OnInit {
       alert("Please enter both Value and Unit");
       return;
     }
-
     HybridValues.dimensions.push({
       value: +this.newValue,
       unit: this.newUnit,
     });
-
     HybridValues.quantitySubTypeNames.push("realListXMLList");
-
     this.newValue = "";
     this.newUnit = "";
   }

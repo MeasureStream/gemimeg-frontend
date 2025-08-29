@@ -207,6 +207,8 @@ export class InitializationService {
     result.street = '';
     result.houseNumber = '';
     result.city = '';
+    result.postalCode = '';
+    result.stateCode = '';
     result.additionalInformation = this.getEmptyRichContentDto();
     return result;
   }
@@ -224,6 +226,7 @@ export class InitializationService {
   getEmptyCalibrationLaboratoryDto(): CalibrationLaboratoryDto {
     var result = <CalibrationLaboratoryDto>{};
     result.contact = this.getEmptyContactDto();
+    result.calibrationLaboratoryCode = '';
     return result;
   }
 

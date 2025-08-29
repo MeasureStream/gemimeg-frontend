@@ -67,7 +67,6 @@
         <input [(ngModel)]="item.refTypes" id="{{idPrefix}}-influencing-factor-{{i+1}}-reftype" matInput/>
       </mat-form-field>
     </div>
-
     <app-dcc-quantity
         [i]="i" [item]="item"
         [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
@@ -85,7 +84,7 @@
     <mat-icon>remove_circle</mat-icon>
   </button>
 </mat-card>
-<button (click)="addNewCondition()" class="custom-circle-button-md" color="primary" mat-icon-button type="button"
+<button (click)="addEmptyConditionDto()" class="custom-circle-button-md" color="primary" mat-icon-button type="button"
         id="{{idPrefix}}-influencing-factor-add-button">
   <mat-icon>add_circle</mat-icon>
 </button>

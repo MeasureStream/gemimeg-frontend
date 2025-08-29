@@ -57,7 +57,7 @@
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button type="button"
-                      id="admin-core-data-toggle-button">
+                      id="admin-core-data-toggle-button" name="admin-core-data-toggle-button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Basis-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
                     }}</i>
@@ -72,7 +72,8 @@
                     class="asterix">*</span></label>
               </div>
               <mat-form-field appearance="fill">
-                <input [(ngModel)]="dcc.administrativeData!.countryCode" id="admin-core-data-country-code" matInput
+                <input [(ngModel)]="dcc.administrativeData!.countryCode" id="admin-core-data-country-code"
+                       name="admin-core-data-country-code" matInput
                        oninput="this.value = this.value.toUpperCase()" required/>
               </mat-form-field>
             </div>
@@ -84,7 +85,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.mandatoryLanguageCodes = $event.split(',')"
                        [ngModel]="dcc.administrativeData!.mandatoryLanguageCodes"
-                       id="admin-core-data-mandatory-languages" matInput
+                       id="admin-core-data-mandatory-languages" name="admin-core-data-mandatory-languages" matInput
                        required/>
               </mat-form-field>
             </div>
@@ -96,6 +97,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.usedLanguageCodes = $event.split(',')"
                        [ngModel]="dcc.administrativeData!.usedLanguageCodes" id="admin-core-data-used-language-codes"
+                       name="admin-core-data-used-language-codes"
                        matInput required/>
               </mat-form-field>
             </div>
@@ -116,7 +118,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.receiptDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="receiptDate" [ngModel]="dcc.administrativeData!.receiptDate"
-                       id="admin-core-data-receipt-date" matInput readonly/>
+                       name="admin-core-data-receipt-date" id="admin-core-data-receipt-date" matInput readonly/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #receiptDate></mat-datepicker>
@@ -130,7 +132,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.startDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="beginPerformanceDate" [ngModel]="dcc.administrativeData!.startDate"
-                       id="admin-core-data-start-date" matInput readonly required/>
+                       name="admin-core-data-start-date" id="admin-core-data-start-date" matInput readonly required/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #beginPerformanceDate></mat-datepicker>
@@ -144,7 +146,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.endDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="endPerformanceDate" [ngModel]="dcc.administrativeData!.endDate"
-                       id="admin-core-data-end-date"
+                       name="admin-core-data-end-date" id="admin-core-data-end-date"
                        matInput readonly required/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
@@ -179,7 +181,7 @@
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button type="button"
-                      id="admin-customer-toggle-button">
+                      name="admin-customer-toggle-button" id="admin-customer-toggle-button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Kunde"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
                 </mat-icon>
@@ -198,7 +200,7 @@
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button type="button"
-                      id="admin-calibration-laboratory-toggle-button">
+                      name="admin-calibration-laboratory-toggle-button" id="admin-calibration-laboratory-toggle-button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Kalibrierlabor"] ? "keyboard_arrow_up" :
                     "keyboard_arrow_down" }}</i>
@@ -213,7 +215,7 @@
               </div>
               <mat-form-field appearance="fill">
                 <input [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode" matInput
-                       id="admin-calibration-laboratory-code"/>
+                       name="admin-calibration-laboratory-code" id="admin-calibration-laboratory-code"/>
               </mat-form-field>
             </div>
             <mat-divider></mat-divider>
@@ -234,7 +236,7 @@
             </div>
             <div class="header-menu">
               <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" mat-icon-button
-                      type="button" id="admin-responsible-person-button">
+                      type="button" name="admin-responsible-person-button" id="admin-responsible-person-button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Verantwortliche-Personen"] ? "keyboard_arrow_up" :
                     "keyboard_arrow_down" }}</i>
@@ -291,7 +293,7 @@
               </div>
               <div class="header-menu">
                 <button (click)="toggleCard('Anschrift')" class="blue-card-btn" mat-icon-button type="button"
-                        id="statements-2-Anschrift-toggle-button">
+                        name="statements-2-Anschrift-toggle-button" id="statements-2-Anschrift-toggle-button">
                   <i class="material-icons">{{ isExpanded["CIPM-MRA"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
                     }}</i>
                 </button>
@@ -344,11 +346,11 @@
 <div class="footer-container">
   <div class="footer-navigation">
     <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" mat-button
-            id="previous-step-button">
+            id="previous-step-button" name="previous-step-button">
       {{ "dcc.previousStep" | translate }}
     </button>
     <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" mat-button
-            id="next-step-button">
+            id="next-step-button" name="next-step-button">
       {{ "dcc.nextStep" | translate }}
     </button>
   </div>

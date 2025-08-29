@@ -50,11 +50,10 @@ export class DccInfluenceConditionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("The value for influence condition is :", this.list[0]);
   }
 
-  addEmptyConditionDto(): ConditionDto {
-    return this.initializationService.getEmptyConditionDto();
+  addEmptyConditionDto() {
+    this.list.push(this.initializationService.getEmptyConditionDto());
   }
 
   toggleCard(index: number) {
@@ -84,9 +83,5 @@ export class DccInfluenceConditionsComponent implements OnInit {
 
   toggleExpandedUncertainty() {
     this.showExpandedUncertainty = !this.showExpandedUncertainty;
-  }
-
-  addNewCondition() {
-    this.list.push(this.addEmptyConditionDto());
   }
 }
