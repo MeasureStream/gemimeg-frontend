@@ -855,9 +855,6 @@
         <dcc:metaData>
           <dcc:valid>true</dcc:valid>
         </dcc:metaData>
-        <dcc:metaData>
-          <dcc:valid>true</dcc:valid>
-        </dcc:metaData>
       </dcc:measurementMetaData>
     </dcc:measurementResult>
   </dcc:measurementResults>
