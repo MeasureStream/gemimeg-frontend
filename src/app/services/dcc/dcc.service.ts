@@ -11,7 +11,6 @@ import dccExamples from "./examples";
 export class DccService {
 
   private dccServicePath = "/api/v1/dcc/";
-
   public exampleDccs = dccExamples;
 
   constructor(private http: HttpClient) {
@@ -108,5 +107,3 @@ export class DccService {
     return new FormControl(result);
   }
 }
-
-

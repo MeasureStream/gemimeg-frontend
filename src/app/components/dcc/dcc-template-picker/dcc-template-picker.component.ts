@@ -70,16 +70,16 @@ export class DccTemplatePickerComponent implements OnInit {
       complete: () => {},
     });
   }
+
   cleanJson(json: any): any {
     if (typeof json === "string") {
-      return this.cleanControllCharactersAndSpaces(json);
+      return this.stripControlCharactersAndSpaces(json);
     } else if (Array.isArray(json)) {
       return json.map((item) => this.cleanJson(item));
     } else if (json !== null && typeof json === "object") {
       const cleanedObject: any = {};
       for (const key in json) {
         if (json.hasOwnProperty(key)) {
-          // console.log('json[key', json[key]);
           cleanedObject[key] = this.cleanJson(json[key]);
         }
       }
@@ -88,7 +88,7 @@ export class DccTemplatePickerComponent implements OnInit {
     return json;
   }
 
-  cleanControllCharactersAndSpaces(text: string): string {
+  stripControlCharactersAndSpaces(text: string): string {
     let cleanedText = text?.replace(/[\t\n\r]+/g, " ");
     cleanedText = cleanedText.replace(/\s+/g, " ").trim();
     return cleanedText;
