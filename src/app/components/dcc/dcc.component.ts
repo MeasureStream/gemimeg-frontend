@@ -159,81 +159,63 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   initialiseEmptyFields(dcc: CalibrationCertificateDto): CalibrationCertificateDto {
-    console.log('initialiseEmptyFields::01');
     if (!dcc.administrativeData) {
       dcc.administrativeData = <AdministrativeDataDto>{};
     }
-    console.log('initialiseEmptyFields::02');
     if (!dcc.administrativeData.dccSoftware) {
       dcc.administrativeData.dccSoftware = new Array<SoftwareDto>();
     }
-    console.log('initialiseEmptyFields::03');
     if (dcc.administrativeData.dccSoftware.length == 0) {
       dcc.administrativeData.dccSoftware.push(this.initializationService.getEmptySoftwareDto());
     }
-    console.log('initialiseEmptyFields::04');
     if (!dcc.administrativeData.customer) {
       dcc.administrativeData.customer = this.initializationService.getEmptyContactDto();
     }
-    console.log('initialiseEmptyFields::05');
     if (!dcc.administrativeData.customer.location) {
       dcc.administrativeData.customer.location = this.initializationService.getEmptyLocationDto();
     }
-    console.log('initialiseEmptyFields::06');
     if (!dcc.administrativeData.customer.location.additionalInformation) {
       dcc.administrativeData.customer.location.additionalInformation =
         this.initializationService.getEmptyRichContentDto();
     }
-    console.log('initialiseEmptyFields::07');
     if (!dcc.administrativeData.customer.location.additionalInformation.name) {
       dcc.administrativeData.customer.location.additionalInformation.name =
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-    console.log('initialiseEmptyFields::08');
     if (!dcc.administrativeData.customer.location.additionalInformation.textContent) {
       dcc.administrativeData.customer.location.additionalInformation.textContent =
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-    console.log('initialiseEmptyFields::09');
     if (!dcc.administrativeData.calibrationLaboratory) {
       dcc.administrativeData.calibrationLaboratory = this.initializationService.getEmptyCalibrationLaboratoryDto();
     }
-    console.log('initialiseEmptyFields::10');
     if (!dcc.administrativeData.calibrationLaboratory.contact) {
       dcc.administrativeData.calibrationLaboratory.contact = this.initializationService.getEmptyContactDto();
     }
-    console.log('initialiseEmptyFields::10a');
     if (!dcc.administrativeData.calibrationLaboratory.contact.location) {
       dcc.administrativeData.calibrationLaboratory.contact.location = this.initializationService.getEmptyLocationDto();
     }
-    console.log('initialiseEmptyFields::10b');
     if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation) {
       dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation =
         this.initializationService.getEmptyRichContentDto();
     }
-    console.log('initialiseEmptyFields::10c');
     if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.name) {
       dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.name =
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-    console.log('initialiseEmptyFields::11');
     if (!dcc.administrativeData.calibrationLaboratory.contact?.location?.additionalInformation?.textContent) {
       dcc.administrativeData.calibrationLaboratory.contact!.location!.additionalInformation!.textContent =
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
-    console.log('initialiseEmptyFields::12');
     if (!dcc.administrativeData.responsiblePersons) {
       dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
     }
-    console.log('initialiseEmptyFields::13');
     if (dcc.administrativeData.responsiblePersons.length == 0) {
       dcc.administrativeData.responsiblePersons.push(this.initializationService.getEmptyContactDto());
     }
-    console.log('initialiseEmptyFields::14');
     if (!dcc.administrativeData.items) {
       dcc.administrativeData.items = new Array<ItemDto>();
     }
-    console.log('initialiseEmptyFields::15');
     if (dcc.administrativeData.items.length == 0)
       dcc.administrativeData.items.push(this.initializationService.getEmptyItemDto());
     dcc.administrativeData.items.forEach((entry: any, index: number) => {
@@ -270,27 +252,21 @@ export class DccComponent implements OnInit, AfterContentChecked {
       }
       this.manufacturerAvailable.update((state) => ({ ...state, [index]: true }));
     });
-    console.log('initialiseEmptyFields::16');
     if (!dcc.administrativeData.statements) {
       dcc.administrativeData.statements = new Array<StatementDto>();
     }
-    console.log('initialiseEmptyFields::17');
     if (dcc.administrativeData?.statements?.length == 0) {
       dcc.administrativeData.statements.push(this.initializationService.getEmptyStatementDto());
     }
-    console.log('initialiseEmptyFields::18');
     dcc.administrativeData.statements.forEach((statement: any) => {
       this.initializeStatement(statement);
     });
-    console.log('initialiseEmptyFields::19');
     if (!dcc.measurementResults) {
       dcc.measurementResults = new Array<MeasurementResultDto>();
     }
-    console.log('initialiseEmptyFields::20');
     if (dcc.measurementResults.length == 0) {
       dcc.measurementResults.push(this.initializationService.getEmptyMeasurementResultDto());
     }
-    console.log('initialiseEmptyFields::21');
     dcc.measurementResults.forEach((entry: any) => {
       if (entry.usedSoftware == null || undefined) {
         entry.usedSoftware = new Array<SoftwareDto>();
@@ -360,7 +336,6 @@ export class DccComponent implements OnInit, AfterContentChecked {
         }
       });
     });
-    console.log('initialiseEmptyFields::22');
     return dcc;
   }
 
