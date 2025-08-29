@@ -39,6 +39,7 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
 })
 export class DccIdentificationListComponent implements OnInit {
   @Input() identificationList!: Array<IdentificationDto>;
+  @Input() idPrefix!: string;
   isCardExpanded: boolean = true;
 
   constructor(private initializationService: InitializationService) {}

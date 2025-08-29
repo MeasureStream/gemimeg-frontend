@@ -1,3 +1,31 @@
+<!--
+  Copyright 2025 Physikalisch-Technische Bundesanstalt
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its contributors
+  may be used to endorse or promote products derived from this software without
+  specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+  OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
 <div *ngFor="let item of list; let i = index">
   <mat-card *ngFor="let quantity of item.data; let in = index" class="blue-card">
     <mat-card-header>
@@ -5,19 +33,20 @@
         <mat-card-title class="title">{{ "dcc.result" | translate }} {{ in + 1 }}</mat-card-title>
       </div>
       <div class="header-menu">
-        <button (click)="toggleCard(in)" class="blue-card-btn" mat-icon-button>
+        <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button id="{{idPrefix}}-result-{{i+1}}-toggle-button">
           <mat-icon>
-            <i class="material-icons">{{ isExpanded[in] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
+            <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
           >
         </button>
       </div>
     </mat-card-header>
-    <mat-card-content *ngIf="isExpanded[in]">
+    <mat-card-content *ngIf="isExpanded[i]">
       <div>
         <app-dcc-localised-string
-          [placeholder]="'dcc.name' | translate"
-          [type]="'NAME'"
-          [strings]="item.name!"
+            [placeholder]="'dcc.name' | translate"
+            [strings]="item.name!"
+            [type]="'NAME'"
+            [idPrefix]="idPrefix + '-result-' + (i+1)"
         ></app-dcc-localised-string>
         <div class="dcc-row">
           <div class="label-container">
@@ -25,7 +54,7 @@
             <label for="status">{{ "dcc.status" | translate }}</label>
           </div>
           <mat-form-field appearance="fill">
-            <mat-select [(value)]="item.status" id="status" required>
+            <mat-select [(value)]="item.status" id="{{idPrefix}}-result-{{i+1}}-status" required>
               <mat-option *ngFor="let entry of validRestrictions" [value]="entry">
                 {{ entry }}
               </mat-option>
@@ -34,31 +63,33 @@
         </div>
         <div class="dcc-row">
           <div class="label-container">
-            <label for="refType">{{ "dcc.refType" | translate }}</label>
+            <label for="{{idPrefix}}-result-{{i+1}}-ref-type">{{ "dcc.refType" | translate }}</label>
           </div>
           <mat-form-field appearance="fill" class="full-width">
-            <input [(ngModel)]="item.refTypes" id="refType" matInput name="refType" />
+            <input [(ngModel)]="item.refTypes" id="{{idPrefix}}-result-{{i+1}}-ref-type" matInput name="refType"/>
           </mat-form-field>
         </div>
-        <app-dcc-quantity [i]="i" [item]="item"></app-dcc-quantity>
+        <app-dcc-quantity [i]="i" [item]="item" [idPrefix]="idPrefix + '-result-' + (i+1)"></app-dcc-quantity>
       </div>
     </mat-card-content>
     <button
-      (click)="deleteQuantity(item.data[0]?.list?.quantities, in)"
-      class="custom-circle-button-md"
-      color="accent"
-      mat-icon-button
-      type="button"
+        (click)="deleteQuantity(item.data[0]?.list?.quantities, i)"
+        class="custom-circle-button-md"
+        color="accent"
+        mat-icon-button
+        type="button"
+        id="{{idPrefix}}-result-{{i+1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card>
   <button
-    (click)="item.data[0]?.list?.quantities.push(getEmptyResultDto())"
-    class="custom-circle-button-md"
-    color="primary"
-    mat-icon-button
-    type="button"
+      (click)="item.data[0]?.list?.quantities.push(getEmptyResultDto())"
+      class="custom-circle-button-md"
+      color="primary"
+      mat-icon-button
+      type="button"
+      id="{{idPrefix}}-result-add-button"
   >
     <mat-icon>add_circle</mat-icon>
   </button>

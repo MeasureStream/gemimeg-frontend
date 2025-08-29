@@ -32,56 +32,66 @@
       <mat-card-title class="title">{{ "dcc.measurementDevice" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-measuring-instrument-{{i+1}}-toggle-button">
         <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
-    <app-dcc-localised-string [placeholder]="'dcc.name' | translate" [type]="'NAME'" [strings]="item.name!"> </app-dcc-localised-string>
+    <app-dcc-localised-string
+        [placeholder]="'dcc.name' | translate"
+        [strings]="item.name!"
+        [type]="'NAME'"
+        [idPrefix]="idPrefix + '-measuring-instrument-' + (i+1)"
+    ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="refType">{{ "dcc.refType" | translate }}</label>
+        <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-reftype">{{ "dcc.refType" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.refTypes" id="refType" matInput name="refType" />
+        <input [(ngModel)]="item.refTypes" matInput id="{{idPrefix}}-measuring-instrument-{{i+1}}-reftype"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="referralId">{{ "dcc.referralId" | translate }}</label>
+        <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-referral-id">{{ "dcc.referralId" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.certificateReferralId" id="referralId" matInput name="ReferralId" />
+        <input [(ngModel)]="item.certificateReferralId" id="{{idPrefix}}-measuring-instrument-{{i+1}}-referral-id"
+               matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="procedure">{{ "dcc.procedure" | translate }}</label>
+        <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-procedure">{{ "dcc.procedure" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.certificateProcedure" id="procedure" matInput name="procedure" />
+        <input [(ngModel)]="item.certificateProcedure" id="{{idPrefix}}-measuring-instrument-{{i+1}}-procedure"
+               matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="value">{{ "dcc.value" | translate }}</label>
+        <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-value">{{ "dcc.value" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.certificateValue" id="value" matInput name="value" />
+        <input [(ngModel)]="item.certificateValue" id="{{idPrefix}}-measuring-instrument-{{i+1}}-value" matInput/>
       </mat-form-field>
     </div>
-    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button type="button">
+    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button type="button"
+            id="{{idPrefix}}-measuring-instrument-{{i+1}}-remove-button">
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
 <button
-  (click)="addEmptyEquipmentDto(); addExpanded()"
-  class="custom-circle-button-md"
-  color="primary"
-  mat-icon-button
-  type="button"
+    (click)="addEmptyEquipmentDto(); addExpanded()"
+    class="custom-circle-button-md"
+    color="primary"
+    mat-icon-button
+    type="button"
+    id="{{idPrefix}}-measuring-instrument-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

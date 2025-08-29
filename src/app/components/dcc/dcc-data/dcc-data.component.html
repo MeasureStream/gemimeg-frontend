@@ -28,12 +28,14 @@
 -->
 <div>
   <div>
-    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button type="button">
+    <button [matMenuTriggerFor]="menu" class="menu-btn" color="accent" mat-flat-button type="button"
+            id="{{idPrefix}}-data-menu-button">
       <span>{{ "dcc.addData" | translate }}</span
       ><i class="material-icons">arrow_drop_down</i>
     </button>
     <mat-menu #menu="matMenu">
-      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item type="button">
+      <button (click)="addObject(option)" *ngFor="let option of options" mat-menu-item type="button"
+              id="{{idPrefix}}-add-{{option}}-data-button">
         {{ option }}
       </button>
     </mat-menu>
@@ -45,13 +47,16 @@
       <h4 class="title">
         <ng-container>{{ "dcc.quantity" | translate }}</ng-container>
       </h4>
-      <app-info-button tooltipText="'dcc.showDccWiki' | translate" url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
+      <app-info-button tooltipText="'dcc.showDccWiki' | translate"
+                       url="https://wiki.dcc.ptb.de/en/dccdataType"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="deleteObject(0)" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="deleteObject(0)" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-measurand-remove-button">
         <mat-icon><i class="material-icons">delete</i></mat-icon>
       </button>
-      <button (click)="toggleCard(0)" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard(0)" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-measurand-toggle-button">
         <i class="material-icons">{{ isExpanded[0] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
@@ -60,7 +65,10 @@
     <div>
       <ng-container>
         <div>
-          <app-dcc-quantity [i]="0" [item]="dataTypes"></app-dcc-quantity>
+          <app-dcc-quantity
+              [i]="0" [item]="dataTypes"
+              [idPrefix]="idPrefix + '-measurand'"
+          ></app-dcc-quantity>
         </div>
       </ng-container>
     </div>

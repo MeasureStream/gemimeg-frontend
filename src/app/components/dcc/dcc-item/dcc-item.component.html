@@ -30,21 +30,22 @@
   <mat-card-header>
     <div class="header-title">
       <mat-card-title class="title">{{ "dcc.calibrationItem" | translate }} {{ index + 1 }}</mat-card-title>
-      <app-info-button
-        tooltipText="'dcc.showDccWiki' | translate"
-        url="https://wiki.dcc.ptb.de/en/dccitem"
-      ></app-info-button>
+      <app-info-button tooltipText="'dcc.showDccWiki' | translate"
+                       url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
     </div>
     <div class="header-menu">
-      <button [matMenuTriggerFor]="menu" class="blue-card-btn" mat-icon-button type="button">
+      <button [matMenuTriggerFor]="menu" class="blue-card-btn" mat-icon-button type="button"
+              id="statments-1-calibration-{{index + 1}}-add-manufacturer">
         <mat-icon>add</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button (click)="addManufacturer(index)" [disabled]="manufacturerAvailable()[index]" mat-menu-item>
+        <button (click)="addManufacturer(index)" [disabled]="manufacturerAvailable()[index]" mat-menu-item
+                id="statments-1-calibration-{{index + 1}}-add-manufacturer-button">
           {{ "dcc.manufacturer" | translate }}
         </button>
       </mat-menu>
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button"
+              id="statments-1-calibration-{{index + 1}}-toggle-button">
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
         </mat-icon>
@@ -53,33 +54,36 @@
   </mat-card-header>
   <mat-card-content *ngIf="isCardExpanded">
     <app-dcc-localised-string
-      [isRequired]="true"
-      [placeholder]="'dcc.name' | translate"
-      [type]="'NAME'"
-      [strings]="item.name!"
+        [isRequired]="true"
+        [placeholder]="'dcc.name' | translate"
+        [strings]="item.name!"
+        [type]="'NAME'"
+        [idPrefix]="'statements-1-calibration-'+ (1 + index)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="model">{{ "dcc.model" | translate }}</label>
+        <label for="statements-1-calibration-{{index + 1}}-model">{{ "dcc.model" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.model" id="model" matInput name="model" />
+        <input [(ngModel)]="item.model" id="statements-1-calibration-{{index + 1}}-model" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="classReference">{{ "dcc.classReference" | translate }}</label>
+        <label for="statements-1-calibration-{{index + 1}}-class-reference">{{ "dcc.classReference" | translate
+          }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.classReference" id="classReference" matInput name="classReference" required />
+        <input [(ngModel)]="item.classReference" id="statements-1-calibration-{{index + 1}}-class-reference" matInput
+               required/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="classId">{{ "dcc.classId" | translate }}</label>
+        <label for="statements-1-calibration-{{index + 1}}-class-id">{{ "dcc.classId" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.classId" id="classId" matInput name="classId" required />
+        <input [(ngModel)]="item.classId" id="statements-1-calibration-{{index + 1}}-class-id" matInput required/>
       </mat-form-field>
     </div>
     <mat-divider></mat-divider>
@@ -87,25 +91,31 @@
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
     <mat-divider></mat-divider>
     <app-dcc-manufacturer
-      (deleteManufacturer)="deleteManufacturer()"
-      *ngIf="manufacturerAvailable()[index]"
-      [manufacturer]="item.manufacturer!"
-      [strict]="false"
+        (deleteManufacturer)="deleteManufacturer()"
+        *ngIf="manufacturerAvailable()[index]"
+        [manufacturer]="item.manufacturer!"
+        [strict]="false"
+        [idPrefix]="'statements-1-calibration-' + (index +1)"
     ></app-dcc-manufacturer>
     <mat-divider></mat-divider>
-    <app-dcc-identification-list [identificationList]="item.identifications!"></app-dcc-identification-list>
+    <app-dcc-identification-list
+        [idPrefix]="'statements-1-calibration-' + (index +1)"
+        [identificationList]="item.identifications!"
+    ></app-dcc-identification-list>
     <app-dcc-software-list
-      [softwareList]="item.installedSoftwares!"
-      [title]="'Installierte-Software'"
-      [urlPart]="'dccdccSoftware'"
+        [softwareList]="item.installedSoftwares!"
+        [title]="'Installierte-Software'"
+        [urlPart]="'dccdccSoftware'"
+        [idPrefix]="'statements-1-calibration-' + (index +1)"
     ></app-dcc-software-list>
     <button
-      (click)="onRemoveItem()"
-      *ngIf="canRemove"
-      class="custom-circle-button-lg"
-      color="accent"
-      mat-icon-button
-      type="button"
+        (click)="onRemoveItem()"
+        *ngIf="canRemove"
+        class="custom-circle-button-lg"
+        color="accent"
+        mat-icon-button
+        type="button"
+        id="statements-1-calibration-{{index + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>

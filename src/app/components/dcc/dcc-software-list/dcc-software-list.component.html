@@ -34,7 +34,7 @@
                        tooltipText="'dcc.showDccWiki' | translate"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button" id="{{idPrefix}}-software-toggle-button">
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" :
             "keyboard_arrow_down" }}</i>
@@ -45,10 +45,10 @@
   <mat-card-content *ngIf="isCardExpanded">
     <div *ngFor="let software of softwareList; let i=index">
       <app-dcc-software (removeSoftware)="removeSoftwareFromList(i)" [canRemove]="softwareList.length>1" [index]="i"
-                        [isInitiallyExpanded]="i==0" [software]="software"></app-dcc-software>
+                        [isInitiallyExpanded]="i==0" [software]="software" [idPrefix]="idPrefix"></app-dcc-software>
     </div>
     <button (click)="addEmptySoftwareDto()" class="custom-circle-button-md" color="primary" mat-icon-button
-            type="button">
+            type="button" id="{{idPrefix}}-software-add-button">
       <mat-icon>add_circle</mat-icon>
     </button>
   </mat-card-content>

@@ -41,6 +41,7 @@ export class DccSoftwareComponent implements OnInit {
   @Input() index!: number;
   @Input() canRemove: boolean = false;
   @Input() isInitiallyExpanded: boolean = false;
+  @Input() idPrefix!: string;
   @Output() removeSoftware = new EventEmitter<number>();
 
   isCardExpanded: boolean = true;

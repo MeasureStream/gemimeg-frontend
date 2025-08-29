@@ -27,7 +27,6 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-
 import { Component, Input, OnInit, WritableSignal } from '@angular/core';
 import { ItemDto } from 'src/app/generated/dcc/model/itemDto';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
@@ -40,6 +39,7 @@ import { InitializationService } from 'src/app/services/dcc/initialization.servi
 export class DccItemListComponent implements OnInit {
   @Input() itemList!: Array<ItemDto>;
   @Input() manufacturerAvailable!: WritableSignal<{ [key: number]: boolean }>;
+  @Input() idPrefix!: string;
 
   constructor(private initializationService: InitializationService) {
   }
@@ -73,6 +73,4 @@ export class DccItemListComponent implements OnInit {
       return newState;
     })
   }
-
-
 }

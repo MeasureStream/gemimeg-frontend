@@ -31,12 +31,13 @@
     <div class="header-title">
       <mat-card-title class="title"> {{ "dcc.identifiersOfCalibrationItem" | translate }}*</mat-card-title>
       <app-info-button
-        tooltipText="'dcc.showDccWiki' | translate"
-        url="https://wiki.dcc.ptb.de/en/dccidentificationType"
+          tooltipText="'dcc.showDccWiki' | translate"
+          url="https://wiki.dcc.ptb.de/en/dccidentificationType"
       ></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-identifiers-calibration-item-toggle-button">
         <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
@@ -44,20 +45,22 @@
   <mat-card-content *ngIf="isCardExpanded">
     <div *ngFor="let identification of identificationList; let i = index">
       <app-dcc-identification
-        (removeIdentification)="removeItemFromList(i)"
-        [canRemove]="identificationList.length > 1"
-        [identification]="identification"
-        [index]="i"
-        [isInitiallyExpanded]="i === 0"
+          (removeIdentification)="removeItemFromList(i)"
+          [canRemove]="identificationList.length > 1"
+          [identification]="identification"
+          [index]="i"
+          [isInitiallyExpanded]="i === 0"
+          [idPrefix]="idPrefix + '-identifiers-calibration-item'"
       >
       </app-dcc-identification>
     </div>
     <button
-      (click)="addEmptyIdentificationDto()"
-      class="custom-circle-button-md"
-      color="primary"
-      mat-icon-button
-      type="button"
+        (click)="addEmptyIdentificationDto()"
+        class="custom-circle-button-md"
+        color="primary"
+        mat-icon-button
+        type="button"
+        id="{{idPrefix}}-identifiers-calibration-item-add-button"
     >
       <mat-icon>add_circle</mat-icon>
     </button>

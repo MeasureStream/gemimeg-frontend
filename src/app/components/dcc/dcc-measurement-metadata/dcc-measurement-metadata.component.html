@@ -30,20 +30,23 @@
   <mat-card-header>
     <div class="header-title">
       <mat-card-title class="title">{{ header }} {{ i + 1 }}</mat-card-title>
-      <app-info-button tooltipText="'dcc.showDccWiki' | translate" url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
+      <app-info-button tooltipText="'dcc.showDccWiki' | translate"
+                       url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
+              id="{{idPrefix}}-{{i+1}}-toggle-button">
         <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
-      [isRequired]="false"
-      [placeholder]="'dcc.name' | translate"
-      [type]="'NAME'"
-      [strings]="item.name!"
+        [isRequired]="false"
+        [placeholder]="'dcc.name' | translate"
+        [strings]="item.name!"
+        [type]="'NAME'"
+        [idPrefix]="idPrefix + '-' + (i+1)"
     ></app-dcc-localised-string>
     <h4>{{ "dcc.description" | translate }}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
@@ -52,61 +55,60 @@
     <mat-divider></mat-divider>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="countryCodes">{{ "dcc.countryCode" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-country-codes">{{ "dcc.countryCode" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
-          (blur)="string2Arr($event, 'countryCodes', i)"
-          [(ngModel)]="item.countryCodes"
-          class="toUpperCase"
-          id="countryCodes"
-          matInput
+            (blur)="string2Arr($event, 'countryCodes', i)"
+            [(ngModel)]="item.countryCodes"
+            class="toUpperCase"
+            id="{{idPrefix}}-{{i+1}}-country-codes"
+            matInput
         />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="convention">{{ "dcc.convention" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-convention">{{ "dcc.convention" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.convention" id="convention" matInput name="convention" />
+        <input [(ngModel)]="item.convention" id="{{idPrefix}}-{{i+1}}-convention" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="references">{{ "dcc.references" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-references">{{ "dcc.references" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
-          (blur)="string2Arr($event, 'references', i)"
-          [(ngModel)]="item.references"
-          id="references"
-          matInput
-          name="references"
+            (blur)="string2Arr($event, 'references', i)"
+            [(ngModel)]="item.references"
+            id="{{idPrefix}}-{{i+1}}-references"
+            matInput
         />
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="norm">{{ "dcc.norm" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-norm">{{ "dcc.norm" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input (blur)="string2Arr($event, 'norms', i)" [(ngModel)]="item.norms" id="norm" matInput name="norm" />
+        <input (blur)="string2Arr($event, 'norms', i)" [(ngModel)]="item.norms" id="{{idPrefix}}-{{i+1}}-norm"
+               matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="date">{{ "dcc.date" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-date">{{ "dcc.date" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
-          (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
-          [matDatepicker]="statementDate"
-          [ngModel]="item.date"
-          id="date"
-          matInput
-          name="date"
-          readonly
+            (ngModelChange)="item.date = dccService.marshalCustomDate($event)"
+            [matDatepicker]="statementDate"
+            [ngModel]="item.date"
+            id="{{idPrefix}}-{{i+1}}-date"
+            matInput
+            readonly
         />
         <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
         <mat-datepicker-toggle [for]="statementDate" matSuffix></mat-datepicker-toggle>
@@ -115,18 +117,18 @@
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="period">{{ "dcc.period" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-period">{{ "dcc.period" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.period" id="period" matInput name="period" />
+        <input [(ngModel)]="item.period" id="{{idPrefix}}-{{i+1}}-period" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="conformity">{{ "dcc.conformity" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-conformity">{{ "dcc.conformity" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <mat-select [(value)]="item.conformity" id="conformity" name="conformity">
+        <mat-select [(value)]="item.conformity" id="{{idPrefix}}-{{i+1}}-conformity">
           <mat-option *ngFor="let entry of validConformityStatementStatusTypes" [value]="entry">
             {{ entry }}
           </mat-option>
@@ -135,24 +137,27 @@
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="nonSIUnit">{{ "dcc.nonSIUnit" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-non-si-unit">{{ "dcc.nonSIUnit" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.nonSIUnit" id="nonSIUnit" matInput name="nonSIUnit" />
+        <input [(ngModel)]="item.nonSIUnit" id="{{idPrefix}}-{{i+1}}-non-si-unit" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="nonSIDefinition">{{ "dcc.nonSIDefinition" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-non-si-definition">{{ "dcc.nonSIDefinition" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.nonSIDefinition" id="nonSIDefinition" matInput name="nonSIDefinition" />
+        <input [(ngModel)]="item.nonSIDefinition" id="{{idPrefix}}-{{i+1}}-non-si-definition" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
       <div class="dcc-row-checkbox">
-        <mat-checkbox [(ngModel)]="item.valid">{{ "dcc.valid" | translate }}</mat-checkbox>
-        <mat-checkbox [(ngModel)]="item.traceable">{{ "dcc.traceable" | translate }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.valid" id="{{idPrefix}}-{{i+1}}-checkbox-valid">{{ "dcc.valid" | translate }}
+        </mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.traceable" id="{{idPrefix}}-{{i+1}}-traceable">{{ "dcc.traceable" | translate
+          }}
+        </mat-checkbox>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -160,93 +165,106 @@
     <ng-container *ngIf="item.location">
       <div class="dcc-row">
         <div class="label-container">
-          <label for="city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-city">{{ "dcc.city" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.city" id="city" matInput name="city" required />
+          <input [(ngModel)]="item.location!.city" id="{{idPrefix}}-{{i+1}}-location-city" matInput required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="countryCode">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-country-code">{{ "dcc.countryCode" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input
-            [(ngModel)]="item.location!.countryCode"
-            id="countryCode"
-            matInput
-            name="countryCode"
-            oninput="this.value = this.value.toUpperCase()"
-            required
+              [(ngModel)]="item.location!.countryCode"
+              id="{{idPrefix}}-{{i+1}}-location-country-code"
+              matInput
+              oninput="this.value = this.value.toUpperCase()"
+              required
           />
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="postalCode">{{ "dcc.postalCode" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-postal-code">{{ "dcc.postalCode" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.postalCode" id="postalCode" matInput name="postalCode" required />
+          <input [(ngModel)]="item.location!.postalCode" id="{{idPrefix}}-{{i+1}}-location-postal-code" matInput
+                 required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="stateCode">{{ "dcc.stateCode" | translate }}</label>
+          <label for="{{idPrefix}}-{{i+1}}-location-state-code">{{ "dcc.stateCode" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.stateCode" id="stateCode" matInput name="stateCode" />
+          <input [(ngModel)]="item.location!.stateCode" id="{{idPrefix}}-{{i+1}}-location-state-code" matInput/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="street">{{ "dcc.street" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-street">{{ "dcc.street" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.street" id="street" matInput name="street" required />
+          <input [(ngModel)]="item.location!.street" id="{{idPrefix}}-{{i+1}}-location-street" matInput required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="houseNumber">{{ "dcc.houseNumber" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-house-number">{{ "dcc.houseNumber" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.houseNumber" id="houseNumber" matInput name="houseNumber" required />
+          <input [(ngModel)]="item.location!.houseNumber" id="{{idPrefix}}-{{i+1}}-location-house-number" matInput
+                 required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="poBox">{{ "dcc.poBox" | translate }}</label>
+          <label for="{{idPrefix}}-{{i+1}}-location-city-po-box">{{ "dcc.poBox" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.poBox" id="poBox" matInput name="poBox" />
+          <input [(ngModel)]="item.location!.poBox" id="{{idPrefix}}-{{i+1}}-location-city-po-box" matInput/>
         </mat-form-field>
       </div>
       <h4>{{ "dcc.additionalInformation" | translate }}</h4>
       <app-dcc-richcontent [richContent]="item.location!.additionalInformation!"></app-dcc-richcontent>
       <mat-divider></mat-divider>
       <h4>{{ "dcc.responsibleAuthority" | translate }}</h4>
-      <app-dcc-contact [contact]="item.responsibleAuthority!"></app-dcc-contact>
+      <app-dcc-contact
+          [contact]="item.responsibleAuthority!"
+          [idPrefix]="idPrefix + '-'+ (i+1) + '-responsible-authority'"
+      ></app-dcc-contact>
       <mat-divider></mat-divider>
-      <app-dcc-data [dataTypes]="item.data!"></app-dcc-data>
+      <app-dcc-data
+          [dataTypes]="item.data!"
+          [idPrefix]="idPrefix + '-' + (i+1)"
+      ></app-dcc-data>
     </ng-container>
     <mat-divider></mat-divider>
     <button
-      (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
-      class="custom-circle-button-lg"
-      color="accent"
-      mat-icon-button
-      type="button"
+        (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
+        class="custom-circle-button-lg"
+        color="accent"
+        mat-icon-button
+        type="button"
+        id="{{idPrefix}}-{{i+1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
 <button
-  (click)="addEmptyStatementDto(); addExpanded()"
-  class="custom-circle-button-lg"
-  color="primary"
-  mat-icon-button
-  type="button"
+    (click)="addEmptyStatementDto(); addExpanded()"
+    class="custom-circle-button-lg"
+    color="primary"
+    mat-icon-button
+    type="button"
+    id="{{idPrefix}}-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

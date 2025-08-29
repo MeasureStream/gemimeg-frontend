@@ -33,7 +33,13 @@
         <mat-card-title class="title">{{ "dcc.preview.xml" | translate }}</mat-card-title>
       </div>
       <div class="header-menu">
-        <button (click)="download(true)" class="blue-card-btn" mat-icon-button matTooltip="Download dcc.xml">
+        <button
+          (click)="download(true)"
+          class="blue-card-btn"
+          mat-icon-button
+          matTooltip="Download dcc.xml"
+          id="{{idPrefix}}-calibration-certificate-xml-download-button"
+        >
           <mat-icon>
             <i class="material-icons"><i class="material-icons">download</i></i>
           </mat-icon>
@@ -42,12 +48,14 @@
     </mat-card-header>
     <mat-card-content *ngIf="isExpanded" class="card-content">
       <div class="content-xml">
-        <div *ngIf="xml != ''" class="wrapper-xml">
-          <div>
-            <pre>{{ xml }}</pre>
+        <div *ngIf="rawXml != ''" class="wrapper-xml">
+          <div class="dcc-wrapper">
+            <div class="dcc-content">
+              <pre><code #codeBlock [innerHTML]="highlightedXml" class="language-xml"></code></pre>
+            </div>
           </div>
         </div>
-        <div *ngIf="xml == ''" class="wrapper-xml message">
+        <div *ngIf="rawXml == ''" class="wrapper-xml message">
           <p class="message-content">{{ "dcc.preview.mandatoryFields" | translate }}</p>
         </div>
       </div>
