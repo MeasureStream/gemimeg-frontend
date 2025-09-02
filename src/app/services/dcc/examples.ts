@@ -42,6 +42,7 @@ export default
         { name: 'DKD-E_4-3_gauge_block.xml', url: 'assets/templates/DKD/DKD-E_4-3_gauge_block.xml' },
         { name: 'DKD-E_7-2_mass_set.xml', url: 'assets/templates/DKD/DKD-E_7-2_mass_set.xml' },
         { name: 'DKD-E_7-2_single_weight.xml', url: 'assets/templates/DKD/DKD-E_7-2_single_weight.xml' },
+        { name: 'DKD-E_flow-example.xml', url: 'assets/templates/DKD/DKD-E_flow-example.xml' }
       ],
     },
 ];
