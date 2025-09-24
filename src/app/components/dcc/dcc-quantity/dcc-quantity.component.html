@@ -35,8 +35,9 @@
             <mat-card-title class="title">{{ "dcc.quantity" | translate }} {{ index + 1 }}</mat-card-title>
           </div>
           <div class="header-menu">
-            <button (click)="toggleCardQuantity(index)" class="blue-card-btn" mat-icon-button type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-toggle-button">
+            <button (click)="toggleCardQuantity(index)" class="blue-card-btn"
+                    id="{{idPrefix}}-measurand-{{index+1}}-toggle-button" mat-icon-button
+                    type="button">
               <mat-icon>
                 <i class="material-icons">{{
                   isExpandedQuantity[index] ? "keyboard_arrow_up" : "keyboard_arrow_down"
@@ -48,14 +49,18 @@
         <mat-card-content *ngIf="isExpandedQuantity[index]">
           <div class="real-container">
             <div class="section-header">
-              <mat-radio-group [(ngModel)]="isReal[index]" (change)="onRealTypeChange(index)" class="radio-group">
-                <mat-radio-button [value]="true" class="radio-button"
+              <mat-radio-group (change)="onTypeChange(index)" [(ngModel)]="quantityType[index]" class="radio-group">
+                <mat-radio-button [value]="'real'" class="radio-button"
                                   id="{{idPrefix}}-measurand-{{index+1}}-radio-button-real"
                 ><span>{{ "dcc.real" | translate }}</span></mat-radio-button
                 >
-                <mat-radio-button [value]="false" class="radio-button"
-                                  id="{{idPrefix}}-measurand-{{index+1}}-radio-button-reallistxmllist"
+                <mat-radio-button [value]="'realListXMLList'" class="radio-button"
+                                  id="{{idPrefix}}-measurand-{{index+1}}-radio-button-real-list-xml-list"
                 ><span>{{ "dcc.realListXMLList" | translate }}</span></mat-radio-button
+                >
+                <mat-radio-button [value]="'charsXMLList'" class="radio-button"
+                                  id="{{idPrefix}}-measurand-{{index+1}}-radio-button-chars-xml-list"
+                ><span>{{ "dcc.charsXMLList" | translate }}</span></mat-radio-button
                 >
               </mat-radio-group>
             </div>
@@ -68,6 +73,7 @@
                     [value]="refType"
                     id="{{idPrefix}}-measurand-{{index+1}}-ref-type-{{i+1}}"
                     matInput
+                    name="refType_{{ i }}"
                 />
               </mat-form-field>
               <div class="button-container-right-0px">
@@ -75,9 +81,9 @@
                     (click)="addRefType(quantity.refTypes)"
                     class="custom-circle-button-sm"
                     color="primary"
+                    id="{{idPrefix}}-measurand-{{index+1}}-reftype-{{i+1}}-add-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-ref-type-{{i+1}}-add-button"
                 >
                   <mat-icon>add_circle</mat-icon>
                 </button>
@@ -85,19 +91,19 @@
                     (click)="removeRefType(quantity.refTypes, i)"
                     class="custom-circle-button-sm"
                     color="accent"
+                    id="{{idPrefix}}-measurand-{{index+1}}-reftype-{{i+1}}-remove-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-ref-type-{{i+1}}-remove-button"
                 >
                   <mat-icon>remove_circle</mat-icon>
                 </button>
               </div>
             </div>
             <app-dcc-localised-string
+                [idPrefix]="idPrefix + '-measurand-' + (index+1)"
                 [placeholder]="'dcc.name' | translate"
                 [strings]="quantity.name!"
                 [type]="'NAME'"
-                [idPrefix]="idPrefix + '-measurand-' + (index+1)"
             ></app-dcc-localised-string>
             <div class="dcc-row ng-star-inserted">
               <div class="label-container">
@@ -132,9 +138,9 @@
                     (click)="removeRow(item)"
                     class="custom-circle-button-sm"
                     color="accent"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-remove-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-remove-button"
                 >
                   <mat-icon>remove_circle</mat-icon>
                 </button>
@@ -162,9 +168,9 @@
                     [disabled]="!newValue || !newUnit"
                     class="custom-circle-button-sm"
                     color="primary"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-add-row-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-add-row-button"
                 >
                   <mat-icon>add_circle</mat-icon>
                 </button>
@@ -176,18 +182,18 @@
                   <label class="index-label">#{{ i + 1 }}</label>
                 </div>
                 <div class="form-field-container">
-                  <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-values">{{ "dcc.values" |
+                  <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-value">{{ "dcc.values" |
                     translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
                     <input [(ngModel)]="dim.value"
-                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-values" matInput/>
+                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-value" matInput/>
                   </mat-form-field>
                 </div>
                 <div class="form-field-container">
-                  <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-units">{{ "dcc.units" |
+                  <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-unit">{{ "dcc.units" |
                     translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="dim.unit" id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-units"
+                    <input [(ngModel)]="dim.unit" id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-hybrid-unit"
                            matInput/>
                   </mat-form-field>
                 </div>
@@ -195,9 +201,10 @@
                     (click)="removeRow(item)"
                     class="custom-circle-button-sm"
                     color="accent"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-remove-hybrid-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-remove-hybrid-button"
+
                 >
                   <mat-icon>remove_circle</mat-icon>
                 </button>
@@ -227,9 +234,9 @@
                     [disabled]="!newValue || !newUnit"
                     class="custom-circle-button-sm"
                     color="primary"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-add-hybrid-row-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-add-hybrid-row-button"
                 >
                   <mat-icon>add_circle</mat-icon>
                 </button>
@@ -237,8 +244,9 @@
             </div>
             <div *ngIf="item?.data?.length > 0" class="dcc-row">
               <div *ngIf="item?.data[0].list?.quantities[index].hybridValues?.expandedUncList" class="label-container">
-                <button (click)="toggleExpandedUncertainty(index)" mat-icon-button
-                        id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-toggle-button">
+                <button (click)="toggleExpandedUncertainty(index)"
+                        id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-toggle-button"
+                        mat-icon-button>
                   <mat-icon>{{ showExpandedUncertainty[index] ? "remove" : "add" }}</mat-icon>
                 </button>
                 <span> {{ "dcc.ExpandedUncertainty" | translate }}</span>
@@ -255,31 +263,34 @@
                 <div class="form-field-containerU">
                   <label>{{ "dcc.uncertainty" | translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="dim.uncertainty" matInput
-                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty"/>
+                    <input [(ngModel)]="dim.uncertainty"
+                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty"
+                           matInput/>
                   </mat-form-field>
                 </div>
                 <div class="form-field-containerU">
                   <label>{{ "dcc.coverageFactor" | translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="dim.coverageFactor" matInput
-                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-coverage-factor"/>
+                    <input [(ngModel)]="dim.coverageFactor"
+                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-coverage-factor"
+                           matInput/>
                   </mat-form-field>
                 </div>
                 <div class="form-field-containerU">
                   <label>{{ "dcc.coverageProbability" | translate }}</label>
                   <mat-form-field appearance="fill" class="form-field">
-                    <input [(ngModel)]="dim.coverageProbability" matInput
-                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-coverage-probability"/>
+                    <input [(ngModel)]="dim.coverageProbability"
+                           id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-coverage-probability"
+                           matInput/>
                   </mat-form-field>
                 </div>
                 <button
                     (click)="removeUncertaintyEntry(item, index, i)"
                     class="custom-circle-button-sm"
                     color="accent"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-remove-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-remove-button"
                 >
                   <mat-icon>remove_circle</mat-icon>
                 </button>
@@ -293,8 +304,8 @@
                   <mat-form-field appearance="fill" class="form-field">
                     <input
                         [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).uncertainty"
-                        matInput
                         id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-new-entry-uncertainty"
+                        matInput
                     />
                   </mat-form-field>
                 </div>
@@ -303,8 +314,8 @@
                   <mat-form-field appearance="fill" class="form-field">
                     <input
                         [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).coverageFactor"
-                        matInput
                         id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-new-entry-coverage-factor"
+                        matInput
                     />
                   </mat-form-field>
                 </div>
@@ -313,8 +324,8 @@
                   <mat-form-field appearance="fill" class="form-field">
                     <input
                         [(ngModel)]="(newUncertaintyEntry[index] = newUncertaintyEntry[index] || {}).coverageProbability"
-                        matInput
                         id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-new-entry-coverage-probability"
+                        matInput
                     />
                   </mat-form-field>
                 </div>
@@ -327,9 +338,9 @@
                   "
                     class="custom-circle-button-sm"
                     color="primary"
+                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-add-button"
                     mat-icon-button
                     type="button"
-                    id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-uncertainty-add-button"
                 >
                   <mat-icon>add_circle</mat-icon>
                 </button>
@@ -337,14 +348,25 @@
             </div>
           </div>
         </mat-card-content>
-        <button (click)="removeRow(item)" class="custom-circle-button-sm" color="accent" mat-icon-button type="button"
-                id="{{idPrefix}}-measurand-{{index+1}}-remove-button">
+        <button (click)="removeRow(item)" class="custom-circle-button-sm" color="accent"
+                id="{{idPrefix}}-measurand-{{index+1}}-remove-button" mat-icon-button
+                type="button">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </mat-card>
     </div>
     <div *ngIf="!entry.quantity.hybridValues">
       <label>{{ "dcc.dimension" | translate }}</label>
+      <div *ngIf="entry.quantity.xmlStrings">
+        <div class="dcc-row">
+          <div class="form-field-container">
+            <label for="{{idPrefix}}-xmlStrings">{{ "dcc.xmlStrings" | translate }}</label>
+            <mat-form-field appearance="fill" class="form-field-obj">
+              <input [(ngModel)]="entry.quantity.xmlStrings" id="{{idPrefix}}-xmlStrings" matInput/>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
       <div *ngIf="entry.quantity.dimension as dimension">
         <label>{{ "dcc.dimension" | translate }}</label>
         <div class="dcc-row">
@@ -352,14 +374,16 @@
             <label class="index-label">#1</label>
           </div>
           <div class="form-field-container">
-            <label for="dimensionValue">{{ "dcc.value" | translate }}</label>
+            <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-value-static">{{ "dcc.value" | translate
+              }}</label>
             <mat-form-field appearance="fill" class="form-field-obj">
               <input [(ngModel)]="dimension.value"
                      id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-value-static" matInput/>
             </mat-form-field>
           </div>
           <div class="form-field-container">
-            <label for="dimensionUnit">{{ "dcc.unit" | translate }}</label>
+            <label for="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-unit-static">{{ "dcc.unit" | translate
+              }}</label>
             <mat-form-field appearance="fill" class="form-field-obj">
               <input [(ngModel)]="dimension.unit" id="{{idPrefix}}-measurand-{{index+1}}-dimension-{{i+1}}-unit-static"
                      matInput/>
@@ -369,8 +393,9 @@
       </div>
     </div>
   </div>
-  <button (click)="saveRealData(item)" class="custom-circle-button-md" color="primary" mat-icon-button type="button"
-          id="{{idPrefix}}-measurand-add-button">
+  <button (click)="saveRealData(item)" class="custom-circle-button-md" color="primary"
+          id="{{idPrefix}}-measurand-add-button" mat-icon-button
+          type="button">
     <mat-icon>add_circle</mat-icon>
   </button>
 </div>

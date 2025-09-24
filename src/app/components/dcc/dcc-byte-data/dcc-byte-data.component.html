@@ -27,16 +27,16 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <app-dcc-localised-string
-  [placeholder]="'dcc.name' | translate"
-  [type]="'NAME'"
-  [strings]="byteData.name!"
-  required
+    [placeholder]="'dcc.name' | translate"
+    [strings]="byteData.name!"
+    [type]="'NAME'"
+    required
 ></app-dcc-localised-string>
 <mat-form-field>
   <mat-label>{{ "dcc.fileName" | translate }}</mat-label>
-  <input [(ngModel)]="byteData.fileName" matInput placeholder="'dcc.fileName' | translate" />
+  <input [(ngModel)]="byteData.fileName" matInput placeholder="'dcc.fileName' | translate"/>
 </mat-form-field>
 <mat-form-field>
   <mat-label>{{ "dcc.mimeType" | translate }}</mat-label>
-  <input [(ngModel)]="byteData.mimeType" matInput placeholder="'dcc.mimeType' | translate" />
+  <input [(ngModel)]="byteData.mimeType" matInput placeholder="'dcc.mimeType' | translate"/>
 </mat-form-field>

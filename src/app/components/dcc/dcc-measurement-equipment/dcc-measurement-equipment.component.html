@@ -32,25 +32,27 @@
       <mat-card-title class="title">{{ "dcc.measurementDevice" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-measuring-instrument-{{i+1}}-toggle-button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" id="{{idPrefix}}-measuring-instrument-{{i+1}}-toggle-button"
+              mat-icon-button
+              type="button">
         <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
+        [idPrefix]="idPrefix + '-measuring-instrument-' + (i+1)"
         [placeholder]="'dcc.name' | translate"
         [strings]="item.name!"
         [type]="'NAME'"
-        [idPrefix]="idPrefix + '-measuring-instrument-' + (i+1)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-reftype">{{ "dcc.refType" | translate }}</label>
+        <label for="refType">{{ "dcc.refType" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.refTypes" matInput id="{{idPrefix}}-measuring-instrument-{{i+1}}-reftype"/>
+        <input [(ngModel)]="item.refTypes" id="refType" id="{{idPrefix}}-measuring-instrument-{{i+1}}-reftype" matInput
+               name="refType"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -59,7 +61,7 @@
       </div>
       <mat-form-field appearance="fill" class="full-width">
         <input [(ngModel)]="item.certificateReferralId" id="{{idPrefix}}-measuring-instrument-{{i+1}}-referral-id"
-               matInput/>
+               matInput name="ReferralId"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -67,8 +69,8 @@
         <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-procedure">{{ "dcc.procedure" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.certificateProcedure" id="{{idPrefix}}-measuring-instrument-{{i+1}}-procedure"
-               matInput/>
+        <input [(ngModel)]="item.certificateProcedure" id="{{idPrefix}}-measuring-instrument-{{i+1}}-procedure" matInput
+               name="procedure"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -76,11 +78,13 @@
         <label for="{{idPrefix}}-measuring-instrument-{{i+1}}-value">{{ "dcc.value" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.certificateValue" id="{{idPrefix}}-measuring-instrument-{{i+1}}-value" matInput/>
+        <input [(ngModel)]="item.certificateValue" id="{{idPrefix}}-measuring-instrument-{{i+1}}-value" matInput
+               name="value"/>
       </mat-form-field>
     </div>
-    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent" mat-icon-button type="button"
-            id="{{idPrefix}}-measuring-instrument-{{i+1}}-remove-button">
+    <button (click)="list.splice(i, 1)" class="custom-circle-button-md" color="accent"
+            id="{{idPrefix}}-measuring-instrument-{{i+1}}-remove-button" mat-icon-button
+            type="button">
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
@@ -89,9 +93,9 @@
     (click)="addEmptyEquipmentDto(); addExpanded()"
     class="custom-circle-button-md"
     color="primary"
+    id="{{idPrefix}}-measuring-instrument-add-button"
     mat-icon-button
     type="button"
-    id="{{idPrefix}}-measuring-instrument-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

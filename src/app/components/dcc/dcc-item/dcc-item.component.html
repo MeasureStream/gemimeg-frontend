@@ -34,18 +34,21 @@
                        url="https://wiki.dcc.ptb.de/en/dccitem"></app-info-button>
     </div>
     <div class="header-menu">
-      <button [matMenuTriggerFor]="menu" class="blue-card-btn" mat-icon-button type="button"
-              id="statments-1-calibration-{{index + 1}}-add-manufacturer">
+      <button [matMenuTriggerFor]="menu" class="blue-card-btn"
+              id="statments-1-calibration-{{index + 1}}-add-manufacturer" mat-icon-button
+              type="button">
         <mat-icon>add</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button (click)="addManufacturer(index)" [disabled]="manufacturerAvailable()[index]" mat-menu-item
-                id="statments-1-calibration-{{index + 1}}-add-manufacturer-button">
+        <button (click)="addManufacturer(index)" [disabled]="manufacturerAvailable()[index]"
+                id="statments-1-calibration-{{index + 1}}-add-manufacturer-button"
+                mat-menu-item>
           {{ "dcc.manufacturer" | translate }}
         </button>
       </mat-menu>
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button"
-              id="statments-1-calibration-{{index + 1}}-toggle-button">
+      <button (click)="toggleCard()" class="blue-card-btn" id="statments-1-calibration-{{index + 1}}-toggle-button"
+              mat-icon-button
+              type="button">
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
         </mat-icon>
@@ -54,11 +57,11 @@
   </mat-card-header>
   <mat-card-content *ngIf="isCardExpanded">
     <app-dcc-localised-string
+        [idPrefix]="'statements-1-calibration-'+ (1 + index)"
         [isRequired]="true"
         [placeholder]="'dcc.name' | translate"
         [strings]="item.name!"
         [type]="'NAME'"
-        [idPrefix]="'statements-1-calibration-'+ (1 + index)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
@@ -93,9 +96,9 @@
     <app-dcc-manufacturer
         (deleteManufacturer)="deleteManufacturer()"
         *ngIf="manufacturerAvailable()[index]"
+        [idPrefix]="'statements-1-calibration-' + (index +1)"
         [manufacturer]="item.manufacturer!"
         [strict]="false"
-        [idPrefix]="'statements-1-calibration-' + (index +1)"
     ></app-dcc-manufacturer>
     <mat-divider></mat-divider>
     <app-dcc-identification-list
@@ -103,19 +106,19 @@
         [identificationList]="item.identifications!"
     ></app-dcc-identification-list>
     <app-dcc-software-list
+        [idPrefix]="'statements-1-calibration-' + (index +1)"
         [softwareList]="item.installedSoftwares!"
         [title]="'Installierte-Software'"
         [urlPart]="'dccdccSoftware'"
-        [idPrefix]="'statements-1-calibration-' + (index +1)"
     ></app-dcc-software-list>
     <button
         (click)="onRemoveItem()"
         *ngIf="canRemove"
         class="custom-circle-button-lg"
         color="accent"
+        id="statements-1-calibration-{{index + 1}}-remove-button"
         mat-icon-button
         type="button"
-        id="statements-1-calibration-{{index + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>

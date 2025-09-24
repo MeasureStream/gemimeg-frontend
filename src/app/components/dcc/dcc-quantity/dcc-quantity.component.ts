@@ -43,7 +43,7 @@ import { DimensionDto } from "src/app/generated/dcc/model/dimensionDto";
 export interface UnifiedQuantityEntry {
   quantity: QuantityDto;
   originIndex: number;
-  source: "single" | "list";
+  source: "single" | "list"; // NEW
   component?: string;
 }
 @Component({
@@ -64,6 +64,7 @@ export class DccQuantityComponent implements OnInit {
     "afterRepair",
   ];
   isReal: boolean[] = [];
+  quantityType: string[] = [];
   date: string = "";
   newValue: string = "";
   newUnit: string = "";
@@ -76,7 +77,8 @@ export class DccQuantityComponent implements OnInit {
   quantity: any;
   dataSource: DimensionDto[] = [];
   showExpandedUncertainty: boolean[] = [false];
-  newUncertaintyEntry: { [key: number]: any } = {};
+  newUncertaintyEntry: { [key: number]: any } = {};  
+  unifiedQuantities: UnifiedQuantityEntry[] = [];
 
   constructor(
     private initializationService: InitializationService,
@@ -86,8 +88,6 @@ export class DccQuantityComponent implements OnInit {
     this.addEmptyConditionDto();
     this.dataSource = [];
   }
-
-  unifiedQuantities: UnifiedQuantityEntry[] = [];
 
   ngOnInit() {
     this.updateUnifiedQunatities();
@@ -114,6 +114,7 @@ export class DccQuantityComponent implements OnInit {
     this.newUncertaintyEntry = {};
     this.initializeHelperArrays();
   }
+  
   initializeHelperArrays() {
     this.isReal = this.unifiedQuantities.map((q) => {
       const subTypes = q.quantity?.hybridValues?.quantitySubTypeNames || [];
@@ -123,14 +124,20 @@ export class DccQuantityComponent implements OnInit {
     this.showExpandedUncertainty = this.unifiedQuantities.map(() => false);
   }
 
-  onRealTypeChange(index: number) {
+  onTypeChange(index: number) {
+    if (this.quantityType[index] == "real") {
+      this.isReal[index] = true;
+    } else {
+      this.isReal[index] = false;
+    }
     const quantity = this.unifiedQuantities[index].quantity;
-    if (!quantity?.hybridValues) return;
+    if (!quantity?.hybridValues) {
+      return;
+    }
+    quantity.hybridValues.quantitySubTypeNames = [this.quantityType[index]];
     if (this.isReal[index]) {
-      quantity.hybridValues.quantitySubTypeNames = ["real"];
       this.unifiedQuantities[index].source = "single";
     } else {
-      quantity.hybridValues.quantitySubTypeNames = ["realListXMLList"];
       this.unifiedQuantities[index].source = "list";
     }
   }
@@ -149,7 +156,7 @@ export class DccQuantityComponent implements OnInit {
             originIndex: index,
             source: "single",
           });
-          this.isReal.push(true);
+          this.isReal.push(true); // it's a real quantity
         } else if (dataItem.list?.quantities?.length) {
           dataItem.list.quantities.forEach((q: QuantityDto) => {
             const isRealList =
@@ -162,7 +169,7 @@ export class DccQuantityComponent implements OnInit {
                 originIndex: index,
                 source: "list",
               });
-              this.isReal.push(false);
+              this.isReal.push(false); // it's a realListXMLList quantity
             }
           });
         }
@@ -174,7 +181,7 @@ export class DccQuantityComponent implements OnInit {
           originIndex: index,
           source: "single",
         });
-        this.isReal.push(true);
+        this.isReal.push(true); // it's a real quantity
       });
     }
   }
@@ -258,6 +265,7 @@ export class DccQuantityComponent implements OnInit {
 
   removeRow(item: any) {
     if (typeof item?.data?.[0]?.quantity === "object") {
+      // Case: "real" quantity in item.data[]
       const index = item.data.findIndex(
         (entry: any) =>
           entry.quantity?.refTypes?.[0] === this.label &&
@@ -267,6 +275,7 @@ export class DccQuantityComponent implements OnInit {
         item.data.splice(index, 1);
       }
     } else if (Array.isArray(item?.data?.[0]?.list?.quantities)) {
+      // Case: "realListXMLList" in item.data[0].list.quantities
       const quantities = item.data[0].list.quantities;
       const index = quantities.findIndex(
         (q: any) =>
@@ -277,6 +286,7 @@ export class DccQuantityComponent implements OnInit {
         quantities.splice(index, 1);
       }
     } else {
+      // Case: statements or other data structure (flat array)
       const index = item.findIndex(
         (entry: any) =>
           entry.quantity?.refTypes?.[0] === this.label &&
@@ -460,17 +470,14 @@ export class DccQuantityComponent implements OnInit {
         }
       });
     });
-
     if (this.dimensions.length === 0) {
       console.warn("No dimensions found!");
     }
-
     this.dataSource = this.dimensions.map((dimension: any, index: number) => ({
       index: index + 1,
       value: dimension.value || 0,
       unit: dimension.unit || "N/A",
     }));
-
     this.cd.detectChanges();
   }
 
@@ -479,9 +486,11 @@ export class DccQuantityComponent implements OnInit {
     if (!hybridValues || !Array.isArray(hybridValues.dimensions)) {
       return [];
     }
+    // If current entry is selected as 'Real', return all dimensions
     if (this.isReal[index]) {
       return hybridValues.dimensions;
     }
+    // Else, filter only those dimensions that match 'realListXMLList'
     if (!Array.isArray(hybridValues.quantitySubTypeNames)) {
       return [];
     }

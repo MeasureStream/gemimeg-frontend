@@ -36,8 +36,9 @@
       ></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard('Messergebnis' + (i + 1))" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-{{i+1}}-toggle-button">
+      <button (click)="toggleCard('Messergebnis' + (i + 1))" class="blue-card-btn"
+              id="{{idPrefix}}-{{i+1}}-toggle-button" mat-icon-button
+              type="button">
         <mat-icon
         ><i class="material-icons">{{
           isExpanded["Messergebnis" + (i + 1)] ? "keyboard_arrow_up" : "keyboard_arrow_down"
@@ -48,11 +49,11 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded['Messergebnis' + (i + 1)]">
     <app-dcc-localised-string
+        [idPrefix]="idPrefix + '-' + (i+1)"
         [isRequired]="true"
         [placeholder]="'dcc.name' | translate"
         [strings]="item.name!"
         [type]="'NAME'"
-        [idPrefix]="idPrefix + '-' + (i+1)"
     ></app-dcc-localised-string>
     <mat-card class="blue-card">
       <mat-card-header>
@@ -64,8 +65,9 @@
           ></app-info-button>
         </div>
         <div class="header-menu">
-          <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn" mat-icon-button type="button"
-                  id="{{idPrefix}}-{{i+1}}-used-software-toggle-button">
+          <button (click)="toggleCard('Verwendete-Software')" class="blue-card-btn"
+                  id="{{idPrefix}}-{{i+1}}-used-software-toggle-button" mat-icon-button
+                  type="button">
             <mat-icon>
               <i class="material-icons">{{
                 isExpanded["Verwendete-Software"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
@@ -76,8 +78,8 @@
       </mat-card-header>
       <mat-card-content *ngIf="isExpanded['Verwendete-Software']">
         <app-dcc-software-list
-            [softwareList]="item.usedSoftware!"
             [idPrefix]="idPrefix + '-' +(i+1) + '-used-software'"
+            [softwareList]="item.usedSoftware!"
         ></app-dcc-software-list>
       </mat-card-content>
     </mat-card>
@@ -91,8 +93,9 @@
           ></app-info-button>
         </div>
         <div class="header-menu">
-          <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn" mat-icon-button type="button"
-                  id="{{idPrefix}}-{{i+1}}-used-methods-toggle-button">
+          <button (click)="toggleCard('Verwendete-Methoden')" class="blue-card-btn"
+                  id="{{idPrefix}}-{{i+1}}-used-methods-toggle-button" mat-icon-button
+                  type="button">
             <mat-icon>
               <i class="material-icons">{{
                 isExpanded["Verwendete-Methoden"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
@@ -103,8 +106,8 @@
       </mat-card-header>
       <mat-card-content *ngIf="isExpanded['Verwendete-Methoden']">
         <app-dcc-used-methods
-            [list]="item.usedMethods!"
             [idPrefix]="idPrefix + '-' + (i+1) + '-used-methods'"
+            [list]="item.usedMethods!"
         ></app-dcc-used-methods>
       </mat-card-content>
     </mat-card>
@@ -121,9 +124,9 @@
           <button
               (click)="toggleCard('Verwendete-Messinstrumente')"
               class="blue-card-btn"
+              id="{{idPrefix}}-{{i+1}}-used-measuring-instruments-toggle-button"
               mat-icon-button
               type="button"
-              id="{{idPrefix}}-{{i+1}}-used-measuring-instruments-toggle-button"
           >
             <mat-icon>
               <i class="material-icons">{{
@@ -135,8 +138,8 @@
       </mat-card-header>
       <mat-card-content *ngIf="isExpanded['Verwendete-Messinstrumente']">
         <app-dcc-measurement-equipment
-            [list]="item.equipment!"
             [idPrefix]="idPrefix + '-' + (i+1) + '-used-measuring-instruments'"
+            [list]="item.equipment!"
         ></app-dcc-measurement-equipment>
       </mat-card-content>
     </mat-card>
@@ -150,8 +153,9 @@
           ></app-info-button>
         </div>
         <div class="header-menu">
-          <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn" mat-icon-button type="button"
-                  id="{{idPrefix}}-{{i+1}}-influencing-factors-toggle-button">
+          <button (click)="toggleCard('Einflussfaktoren')" class="blue-card-btn"
+                  id="{{idPrefix}}-{{i+1}}-influencing-factors-toggle-button" mat-icon-button
+                  type="button">
             <mat-icon>
               <i class="material-icons">{{
                 isExpanded["Einflussfaktoren"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
@@ -162,8 +166,8 @@
       </mat-card-header>
       <mat-card-content *ngIf="isExpanded['Einflussfaktoren']">
         <app-dcc-influence-conditions
-            [list]="item.influenceConditions!"
             [idPrefix]="idPrefix + '-' + (i+1) + '-influencing-factors'"
+            [list]="item.influenceConditions!"
         ></app-dcc-influence-conditions>
       </mat-card-content>
     </mat-card>
@@ -177,8 +181,9 @@
           ></app-info-button>
         </div>
         <div class="header-menu">
-          <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn" mat-icon-button type="button"
-                  id="{{idPrefix}}-{{i+1}}-results-toggle-button">
+          <button (click)="toggleCard('Ergebnisse')" class="blue-card-btn"
+                  id="{{idPrefix}}-{{i+1}}-results-toggle-button" mat-icon-button
+                  type="button">
             <mat-icon>
               <i class="material-icons">{{ isExpanded["Ergebnisse"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
             </mat-icon>
@@ -187,8 +192,8 @@
       </mat-card-header>
       <mat-card-content *ngIf="isExpanded['Ergebnisse']">
         <app-dcc-results
-            [list]="item.results!"
             [idPrefix]="idPrefix + '-' + (i+1) + '-results'"
+            [list]="item.results!"
         ></app-dcc-results>
       </mat-card-content>
     </mat-card>
@@ -202,8 +207,9 @@
           ></app-info-button>
         </div>
         <div class="header-menu">
-          <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn" mat-icon-button type="button"
-                  id="{{idPrefix}}-{{i+1}}-meta-data-toggle-button">
+          <button (click)="toggleCard('Meta-Daten')" class="blue-card-btn"
+                  id="{{idPrefix}}-{{i+1}}-meta-data-toggle-button" mat-icon-button
+                  type="button">
             <mat-icon>
               <i class="material-icons">{{ isExpanded["Meta-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
             </mat-icon>
@@ -213,8 +219,8 @@
       <mat-card-content *ngIf="isExpanded['Meta-Daten']">
         <app-dcc-measurement-metadata
             [header]="header_meta_data"
-            [list]="item.statements!"
             [idPrefix]="idPrefix + '-' + (i+1) + '-meta-data-metadata'"
+            [list]="item.statements!"
         ></app-dcc-measurement-metadata>
       </mat-card-content>
     </mat-card>
@@ -224,9 +230,9 @@
       *ngIf="measurementResults.length > 1"
       class="custom-circle-button-lg"
       color="accent"
+      id="{{idPrefix}}-{{i+1}}-remove-button"
       mat-icon-button
       type="button"
-      id="{{idPrefix}}-{{i+1}}-remove-button"
   >
     <mat-icon>remove_circle</mat-icon>
   </button>
@@ -235,9 +241,9 @@
     (click)="onAddMeasurementResult()"
     class="custom-circle-button-lg"
     color="primary"
+    id="{{idPrefix}}-add-button"
     mat-icon-button
     type="button"
-    id="{{idPrefix}}-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

@@ -34,19 +34,19 @@
                        url="https://wiki.dcc.ptb.de/en/dccstatement"></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-{{i+1}}-toggle-button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" id="{{idPrefix}}-{{i+1}}-toggle-button" mat-icon-button
+              type="button">
         <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
+        [idPrefix]="idPrefix + '-' + (i+1)"
         [isRequired]="false"
         [placeholder]="'dcc.name' | translate"
         [strings]="item.name!"
         [type]="'NAME'"
-        [idPrefix]="idPrefix + '-' + (i+1)"
     ></app-dcc-localised-string>
     <h4>{{ "dcc.description" | translate }}</h4>
     <app-dcc-richcontent [richContent]="item.description!"></app-dcc-richcontent>
@@ -55,14 +55,14 @@
     <mat-divider></mat-divider>
     <div class="dcc-row">
       <div class="label-container">
-        <label for="{{idPrefix}}-{{i+1}}-country-codes">{{ "dcc.countryCode" | translate }}</label>
+        <label for="{{idPrefix}}-{{i+1}}-country-code">{{ "dcc.countryCode" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
         <input
             (blur)="string2Arr($event, 'countryCodes', i)"
             [(ngModel)]="item.countryCodes"
             class="toUpperCase"
-            id="{{idPrefix}}-{{i+1}}-country-codes"
+            id="{{idPrefix}}-{{i+1}}-country-code"
             matInput
         />
       </mat-form-field>
@@ -72,7 +72,7 @@
         <label for="{{idPrefix}}-{{i+1}}-convention">{{ "dcc.convention" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.convention" id="{{idPrefix}}-{{i+1}}-convention" matInput/>
+        <input [(ngModel)]="item.convention" id="{{idPrefix}}-{{i+1}}-convention" matInput name="convention"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -85,6 +85,7 @@
             [(ngModel)]="item.references"
             id="{{idPrefix}}-{{i+1}}-references"
             matInput
+            name="references"
         />
       </mat-form-field>
     </div>
@@ -93,8 +94,8 @@
         <label for="{{idPrefix}}-{{i+1}}-norm">{{ "dcc.norm" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input (blur)="string2Arr($event, 'norms', i)" [(ngModel)]="item.norms" id="{{idPrefix}}-{{i+1}}-norm"
-               matInput/>
+        <input (blur)="string2Arr($event, 'norms', i)" [(ngModel)]="item.norms" id="{{idPrefix}}-{{i+1}}-norm" matInput
+               name="norm"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -108,6 +109,7 @@
             [ngModel]="item.date"
             id="{{idPrefix}}-{{i+1}}-date"
             matInput
+            name="date"
             readonly
         />
         <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
@@ -120,7 +122,7 @@
         <label for="{{idPrefix}}-{{i+1}}-period">{{ "dcc.period" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.period" id="{{idPrefix}}-{{i+1}}-period" matInput/>
+        <input [(ngModel)]="item.period" id="{{idPrefix}}-{{i+1}}-period" matInput name="period"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -128,7 +130,7 @@
         <label for="{{idPrefix}}-{{i+1}}-conformity">{{ "dcc.conformity" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <mat-select [(value)]="item.conformity" id="{{idPrefix}}-{{i+1}}-conformity">
+        <mat-select [(value)]="item.conformity" id="{{idPrefix}}-{{i+1}}-conformity" name="conformity">
           <mat-option *ngFor="let entry of validConformityStatementStatusTypes" [value]="entry">
             {{ entry }}
           </mat-option>
@@ -140,7 +142,7 @@
         <label for="{{idPrefix}}-{{i+1}}-non-si-unit">{{ "dcc.nonSIUnit" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.nonSIUnit" id="{{idPrefix}}-{{i+1}}-non-si-unit" matInput/>
+        <input [(ngModel)]="item.nonSIUnit" id="{{idPrefix}}-{{i+1}}-non-si-unit" matInput name="nonSIUnit"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -148,7 +150,8 @@
         <label for="{{idPrefix}}-{{i+1}}-non-si-definition">{{ "dcc.nonSIDefinition" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="item.nonSIDefinition" id="{{idPrefix}}-{{i+1}}-non-si-definition" matInput/>
+        <input [(ngModel)]="item.nonSIDefinition" id="{{idPrefix}}-{{i+1}}-non-si-definition" matInput
+               name="nonSIDefinition"/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -165,23 +168,23 @@
     <ng-container *ngIf="item.location">
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-city">{{ "dcc.city" | translate }}<span
-              class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.city" id="{{idPrefix}}-{{i+1}}-location-city" matInput required/>
+          <input [(ngModel)]="item.location!.city" id="{{idPrefix}}-{{i+1}}-location-city" matInput name="city"
+                 required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-country-code">{{ "dcc.countryCode" | translate }}<span
-              class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-country-code">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input
               [(ngModel)]="item.location!.countryCode"
               id="{{idPrefix}}-{{i+1}}-location-country-code"
               matInput
+              name="countryCode"
               oninput="this.value = this.value.toUpperCase()"
               required
           />
@@ -189,12 +192,11 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-postal-code">{{ "dcc.postalCode" | translate }}<span
-              class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-postal-code">{{ "dcc.postalCode" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.postalCode" id="{{idPrefix}}-{{i+1}}-location-postal-code" matInput
-                 required/>
+                 name="postalCode" required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
@@ -202,7 +204,8 @@
           <label for="{{idPrefix}}-{{i+1}}-location-state-code">{{ "dcc.stateCode" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.stateCode" id="{{idPrefix}}-{{i+1}}-location-state-code" matInput/>
+          <input [(ngModel)]="item.location!.stateCode" id="{{idPrefix}}-{{i+1}}-location-state-code" matInput
+                 name="stateCode"/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
@@ -210,17 +213,17 @@
           <label for="{{idPrefix}}-{{i+1}}-location-street">{{ "dcc.street" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.street" id="{{idPrefix}}-{{i+1}}-location-street" matInput required/>
+          <input [(ngModel)]="item.location!.street" id="{{idPrefix}}-{{i+1}}-location-street" matInput name="street"
+                 required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-house-number">{{ "dcc.houseNumber" | translate }}<span
-              class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-house-number">{{ "dcc.houseNumber" | translate }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.houseNumber" id="{{idPrefix}}-{{i+1}}-location-house-number" matInput
-                 required/>
+                 name="houseNumber" required/>
         </mat-form-field>
       </div>
       <div class="dcc-row">
@@ -228,7 +231,8 @@
           <label for="{{idPrefix}}-{{i+1}}-location-city-po-box">{{ "dcc.poBox" | translate }}</label>
         </div>
         <mat-form-field appearance="fill">
-          <input [(ngModel)]="item.location!.poBox" id="{{idPrefix}}-{{i+1}}-location-city-po-box" matInput/>
+          <input [(ngModel)]="item.location!.poBox" id="{{idPrefix}}-{{i+1}}-location-city-po-box" matInput
+                 name="poBox"/>
         </mat-form-field>
       </div>
       <h4>{{ "dcc.additionalInformation" | translate }}</h4>
@@ -250,9 +254,9 @@
         (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
         class="custom-circle-button-lg"
         color="accent"
+        id="{{idPrefix}}-{{i+1}}-remove-button"
         mat-icon-button
         type="button"
-        id="{{idPrefix}}-{{i+1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
@@ -262,9 +266,9 @@
     (click)="addEmptyStatementDto(); addExpanded()"
     class="custom-circle-button-lg"
     color="primary"
+    id="{{idPrefix}}-add-button"
     mat-icon-button
     type="button"
-    id="{{idPrefix}}-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

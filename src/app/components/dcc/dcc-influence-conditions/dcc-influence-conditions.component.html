@@ -32,8 +32,9 @@
       <mat-card-title class="title">{{ "dcc.influenceFactor" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-influencing-factor-{{i+1}}-toggle-button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" id="{{idPrefix}}-influencing-factor-{{i+1}}-toggle-button"
+              mat-icon-button
+              type="button">
         <mat-icon>
           <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -42,10 +43,10 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
-        [placeholder]="'dcc.name' | translate"
-        [strings]="item.name!"
-        [type]="'NAME'"
-        [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
+      [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
+      [placeholder]="'dcc.name' | translate"
+      [strings]="item.name!"
+      [type]="'NAME'"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
@@ -64,27 +65,29 @@
         <label for="{{idPrefix}}-influencing-factor-{{i+1}}-reftype">{{ "dcc.refType" | translate }}</label>
       </div>
       <mat-form-field appearance="fill" class="full-width">
-        <input [(ngModel)]="item.refTypes" id="{{idPrefix}}-influencing-factor-{{i+1}}-reftype" matInput/>
+        <input [(ngModel)]="item.refTypes" id="{{idPrefix}}-influencing-factor-{{i+1}}-reftype" matInput
+               name="refType"/>
       </mat-form-field>
     </div>
     <app-dcc-quantity
-        [i]="i" [item]="item"
-        [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
+      [i]="i" [idPrefix]="idPrefix + '-influencing-factor-' + (i+1)"
+      [item]="item"
     ></app-dcc-quantity>
   </mat-card-content>
   <button
-      (click)="list!.splice(i, 1)"
-      *ngIf="list!.length >= 1"
-      class="custom-circle-button-md"
-      color="accent"
-      mat-icon-button
-      type="button"
-      id="{{idPrefix}}-influencing-factor-{{i+1}}-remove-button"
+    (click)="list!.splice(i, 1)"
+    *ngIf="list!.length >= 1"
+    class="custom-circle-button-md"
+    color="accent"
+    id="{{idPrefix}}-influencing-factor-{{i+1}}-remove-button"
+    mat-icon-button
+    type="button"
   >
     <mat-icon>remove_circle</mat-icon>
   </button>
 </mat-card>
-<button (click)="addEmptyConditionDto()" class="custom-circle-button-md" color="primary" mat-icon-button type="button"
-        id="{{idPrefix}}-influencing-factor-add-button">
+<button (click)="addEmptyConditionDto()" class="custom-circle-button-md" color="primary"
+        id="{{idPrefix}}-influencing-factor-add-button" mat-icon-button
+        type="button">
   <mat-icon>add_circle</mat-icon>
 </button>

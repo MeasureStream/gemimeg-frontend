@@ -79,7 +79,7 @@
         "operationId": "validateAndConvert",
         "requestBody": {
           "content": {
-            "text/plain": {
+            "application/xml": {
               "schema": {
                 "type": "string",
                 "format": "byte"

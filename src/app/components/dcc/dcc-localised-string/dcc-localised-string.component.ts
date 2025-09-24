@@ -72,7 +72,6 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
   }
 
   ngAfterContentChecked() {
-    // console.log('strings',this.strings)
     this.cdref.detectChanges();
   }
 
@@ -115,7 +114,7 @@ export class DccLocalisedStringComponent implements OnInit, AfterContentChecked 
       }
     }
   }
-
+  
   getOrSetLang(item: any): string {
     if (item.lang === "**" || item.lang === undefined) {
       item.lang = "de";
