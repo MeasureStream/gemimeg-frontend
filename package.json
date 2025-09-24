@@ -32,7 +32,6 @@
     "cors": "^2.8.5",
     "cypress": "^13.9.0",
     "flag-icons": "^6.7.0",
-    "gemimeg-frontend": "file:",
     "lodash": "^4.17.21",
     "material-design-icons": "^3.0.1",
     "mathjax": "^3.2.2",

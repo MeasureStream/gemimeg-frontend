@@ -79,7 +79,7 @@
         "operationId": "validateAndConvert",
         "requestBody": {
           "content": {
-            "application/octet-stream": {
+            "text/plain": {
               "schema": {
                 "type": "string",
                 "format": "byte"

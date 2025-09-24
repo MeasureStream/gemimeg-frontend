@@ -103,20 +103,6 @@
               </arguments>
             </configuration>
           </execution>
-          <execution>
-            <id>remove-symlink-from-node_modules</id>
-            <phase>install</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>rm</executable>
-              <arguments>
-                <argument>-f</argument>
-                <argument>node_modules/gemimeg-frontend</argument>
-              </arguments>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
     </plugins>
