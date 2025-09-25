@@ -72,19 +72,20 @@ export class DccXmlPreviewComponent
       URL.revokeObjectURL(objectUrl);
     }
   }
+
   toggleCard() {
     this.isExpanded = !this.isExpanded;
   }
 
   private escapeXml(xml: string): string {
     if (!xml) {
-      return "";
+      return ""; // or return some default/fallback
     }
     return xml
-      .replace(/&/g, "&amp;")
+      .replace(/&/g, "&amp;") // Must come first
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
+      .replace(/"/g, "&quot;") // Optional, but good for attributes
       .replace(/#/g, "&#35;")
       .replace(/#/g, "&#39;");
   }

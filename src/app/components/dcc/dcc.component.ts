@@ -100,11 +100,12 @@ export class DccComponent implements OnInit, AfterContentChecked {
   ];
   isExpanded: { [title: string]: boolean } = { 'DCC-Software*': true };
   humanReadableHtml = '';
-
+  pdfUrl = "";
   selectedPerformanceLoc: string = '';
   performanceLocation = ['laboratory', 'customer', 'laboratory branch', 'customer branch', 'other'];
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
   selectedFile: any;
+  isInternal: boolean = false;
 
   constructor(
     public dccService: DccService,
@@ -516,7 +517,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   loadHumanReadable() {
-    this.dccService.jsonToHtml(this.dcc).subscribe({
+    this.dccService.jsonToHtml(this.dcc, this.isInternal).subscribe({
       next: (response: string) => {
         setTimeout(() => {
           this.humanReadableHtml = response;
@@ -526,6 +527,19 @@ export class DccComponent implements OnInit, AfterContentChecked {
         this.showErrorMessages(error);
       },
       complete: () => {},
+    });
+  }
+
+  loadPdf() {
+    this.dccService.jsonToPdf(this.dcc, this.isInternal).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        this.pdfUrl = url;
+      },
+      error: (error: any) => {
+        this.showErrorMessages(error);
+      },
     });
   }
 

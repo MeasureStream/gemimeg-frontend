@@ -43,8 +43,13 @@
     </mat-card-header>
     <mat-card-content *ngIf="isExpanded" class="card-content">
       <div class="content-humanReadable">
-        <div *ngIf="humanReadableHtml != ''" class="wrapper-humanReadable"></div>
-        <div *ngIf="humanReadableHtml == ''" class="wrapper-humanReadable message">
+        <div *ngIf="pdfUrl != ''" class="wrapper-humanReadable">
+          <object [data]="sanitizedPdfUrl" height="600px" type="application/pdf" width="100%">
+            <p>{{ "dcc.preview.pdfCantBeDisplayed" | translate }} <a [href]="sanitizedPdfUrl" target="_blank">{{
+              "dcc.preview.openHere" | translate }}</a></p>
+          </object>
+        </div>
+        <div *ngIf="pdfUrl == ''" class="wrapper-humanReadable message">
           <p class="message-content">{{ "dcc.preview.mandatoryFields" | translate }}</p>
         </div>
       </div>

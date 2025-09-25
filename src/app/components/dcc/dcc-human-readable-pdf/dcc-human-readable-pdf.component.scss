@@ -6,11 +6,10 @@
 .blue-card.humanReadable {
   position: relative;
   z-index: 1;
-  min-width: 670px;
+  min-width: 370px;
 }
 .wrapper-humanReadable,
 .wrapper-humanreadable.message {
-  /* border: 2px solid green; */
   width: 90%;
 }
 
@@ -27,8 +26,21 @@
 }
 
 .content-humanReadable {
-  // border: 2px solid green;
   width: 100%;
   display: flex;
   justify-content: center;
 }
+.wrapper-humanReadable{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+.pdf-container {
+  // border:1px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; 
+ 
+}
+

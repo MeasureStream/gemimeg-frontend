@@ -1,6 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
 import dccExamples from "./examples";
@@ -40,32 +41,35 @@ export class DccService {
     return result;
   }
 
-  jsonToHtml(dcc: CalibrationCertificateDto) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    let result =  this.http.post<string>(
-      this.dccServicePath + "xsd/dcc/html",
-      dcc,
-      {
-        headers: headers,
-        responseType: 'text' as 'json'
-      }
-    );
-    return result;
-  }
+  jsonToHtml(dcc: CalibrationCertificateDto, isInternal: boolean) {
+      const params = new HttpParams().set('internal', String(isInternal))
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+      let result =  this.http.post<string>(
+        this.dccServicePath + "xsd/dcc/html",
+        dcc,
+        {headers: headers,
+          params:params,
+         responseType: 'text' as 'json'
+        }
+      );
+      return result;
+    }
 
-  jsonToHuman(dcc: CalibrationCertificateDto) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    let result =  this.http.post<string>(
-      this.dccServicePath + "xsd/dcc/html",
-      dcc,
-      {headers: headers,
-        responseType:'text'as 'json'
-      }
-    );
-    return result;
-  }
+    jsonToPdf(dcc: CalibrationCertificateDto, isInternal: boolean): Observable<Blob> {
+      const params = new HttpParams().set('internal', String(isInternal));
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+      let result =  this.http.post(
+        this.dccServicePath + "xsd/dcc/pdf",
+        dcc,
+        {headers: headers,
+          params:params,
+          responseType:'blob'
+        }
+      );
+      return result;
+    }
 
   getExampleDcc(url: string) {
     return this.http.get(url);

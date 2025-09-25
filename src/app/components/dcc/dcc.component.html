@@ -321,17 +321,14 @@
         <div class="preview-container">
           <mat-tab-group (selectedTabChange)="onTabChange($event)" class="preview-mat-tab-group">
             <mat-tab label="{{ 'dcc.humanReadable' | translate }}">
-              <app-dcc-human-readable
-                  [dcc]="this.dcc"
-                  [humanReadableHtml]="humanReadableHtml"
-                  [idPrefix]="'preview'"
-              ></app-dcc-human-readable>
+              <app-dcc-human-readable [dcc]="this.dcc" [humanReadableHtml]="humanReadableHtml"
+                                      [pdfUrl]="pdfUrl"></app-dcc-human-readable>
             </mat-tab>
             <mat-tab label="XML">
               <app-dcc-xml-preview
                   [dcc]="this.dcc"
-                  [rawXml]="xml"
                   [idPrefix]="'preview'"
+                  [rawXml]="xml"
               ></app-dcc-xml-preview>
             </mat-tab>
           </mat-tab-group>

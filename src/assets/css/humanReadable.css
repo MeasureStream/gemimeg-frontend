@@ -28,12 +28,13 @@
 *
 */
 .dcc-wrapper {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   border: 1px solid rgb(112, 112, 112);
   border-radius: 10px;
-  min-width: 300px;
+  min-width: 540px;
   width: auto;
   padding: 15px;
-
   .dcc-logos {
     display: flex;
     align-items: center;
@@ -41,8 +42,16 @@
     width: 100%;
     height: 120px;
     border-bottom: 1px solid rgb(130, 130, 131);
-  }
+    .ptb-logo {
+      width: 230px;
+      /* border: 2px solid blue; */
+    }
 
+    .bundesadler-logo {
+      width: 80px;
+      /* border: 2px solid red; */
+    }
+  }
   .dcc-content {
     h1 {
       margin-top: 20px;
@@ -50,13 +59,20 @@
       font-size: 36px;
       font-weight: 600;
     }
-
     .english-title {
       font-size: 18px;
       font-style: italic;
     }
-
-    .administrative-data {
+    .english-label {
+      font-size: 12px;
+      font-style: italic;
+    }
+    .content {
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+    .administrative-data,
+    .measurementResults-container {
       .p-l {
         border-bottom: 1px solid rgb(0, 0, 0, 0.08);
         padding: 10px 0;
@@ -71,82 +87,108 @@
         font-size: 24px;
         font-weight: 600;
       }
-
       h3 {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
       }
-
       h4 {
         font-size: 16px !important;
         font-weight: 600 !important;
       }
-
-      .english-label {
-        font-size: 12px;
-        font-style: italic;
+      h5 {
+        font-size: 14px !important;
+        font-weight: 600 !important;
       }
-
+      .images {
+        height: 200px;
+      }
       table {
         min-width: 200px;
         border-collapse: collapse;
         margin: 10px;
       }
-
       thead tr {
         border-bottom: 1px solid black;
       }
-
       th {
         text-align: left;
         border-bottom: 1px solid black;
       }
       td {
         vertical-align: top;
+        overflow-wrap: break-word;
+        white-space: normal;
       }
       td:first-child {
-        min-width: 180px;
-        max-width: 180px;
+        width: 180px;
       }
-
       td p {
         margin: 0;
         width: 100%;
       }
-
       td p:last-child {
         margin-bottom: 5px;
       }
-
-      .nested-list {
-        border: none;
-
-        .nested-header {
-          margin-left: 0px;
-          font-size: 14px;
-          font-weight: 600;
-          display: inline;
+    }
+    .nested-container {
+      width: 80%;
+      margin-left: 20px;
+      .nested-container-heading,
+      .nested-container-heading.nested-english-label {
+        font-size: 14px;
+        font-weight: 700;
+        display: inline;
+      }
+      .nested-wrapper {
+        width: auto;
+        margin-top: 20px;
+        .nested-div-content-heading {
+          margin-top: 10px;
         }
-
-        .nested-english-label {
-          font-size: 14px;
-          font-weight: 500;
-          font-style: italic;
-          display: inline;
+        .table-wrapper {
+          min-width: 500px;
+          table {
+            margin: 10px 0;
+            min-width: 500px;
+          }
         }
-
-        table {
-          margin-left: 0px;
-          min-width: 200px;
-          max-width: 700px;
-        }
-
-        table thead tr th {
-          border: none;
-        }
-
-        thead tr th {
-          font-weight: 500;
+        .table-quantity-wrapper {
+          margin: 10px 0;
+          min-width: 500px;
+          .table-quantity-metrics-horizontal,
+          .table-quantity-metrics-vertical {
+            margin: 0;
+            margin: 15px 0;
+            min-width: 500px;
+            th p {
+              margin: 3px 0;
+            }
+            th {
+              background-color: rgb(224, 224, 224);
+            }
+            th,
+            td {
+              text-align: center;
+              border: 1px solid black;
+              text-align: center;
+              vertical-align: middle;
+            }
+            .english-label {
+              font-size: 12px;
+              font-weight: 400;
+              font-style: italic;
+            }
+          }
+          .table-quantity-metrics-horizontal {
+            th p:first-child,
+            td p:first-child {
+              font-weight: 700;
+            }
+            td:first-child {
+              background-color: rgb(224, 224, 224);
+              width: 180px;
+            }
+          }
         }
       }
     }

@@ -70,6 +70,7 @@ import { DccService } from './services/dcc/dcc.service';
 import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
 import { DccContactComponent } from './components/dcc/dcc-contact/dcc-contact.component';
 import { DccHumanReadableComponent } from './components/dcc/dcc-human-readable/dcc-human-readable.component';
+import { DccHumanReadablePdfComponent } from './components/dcc/dcc-human-readable-pdf/dcc-human-readable-pdf.component';
 import { DccSoftwareComponent } from './components/dcc/dcc-software/dcc-software.component';
 import { DccUsedMethodsComponent } from './components/dcc/dcc-used-methods/dcc-used-methods.component';
 import { DccMeasurementEquipmentComponent } from './components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component';
@@ -106,6 +107,7 @@ import { FooterLicenceComponent } from './components/footer/footer-licence/foote
 import { GlobalErrorHandler } from './utils/global.error.handler';
 import { PageNotFoundComponent } from './components/common/not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 import { SimpleTestComponent } from './simple-test/simple-test.component';
 import { VersionComponent } from './version/version.component';
 

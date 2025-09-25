@@ -27,10 +27,17 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+} from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { CalibrationCertificateDto } from "src/app/generated/dcc/model/calibrationCertificateDto";
-import { DccService } from "src/app/services/dcc/dcc.service";
 
 @Component({
   selector: "app-dcc-human-readable",
@@ -39,12 +46,12 @@ import { DccService } from "src/app/services/dcc/dcc.service";
 })
 export class DccHumanReadableComponent implements OnChanges {
   @Input() humanReadableHtml: string = "";
+  @Input() pdfUrl: string = "";
   @Input() dcc!: CalibrationCertificateDto;
   @Input() idPrefix!: string;
   isExpanded: boolean = true;
 
   constructor(
-    private dccService: DccService,
     private renderer: Renderer2,
     private el: ElementRef,
     private cdr: ChangeDetectorRef,
@@ -59,9 +66,15 @@ export class DccHumanReadableComponent implements OnChanges {
   }
 
   private updateHtml() {
-    const wrapperDiv = this.el.nativeElement.querySelector(".wrapper-humanReadable");
+    const wrapperDiv = this.el.nativeElement.querySelector(
+      ".wrapper-humanReadable"
+    );
     if (wrapperDiv) {
-      this.renderer.setProperty(wrapperDiv, "innerHTML", this.humanReadableHtml);
+      this.renderer.setProperty(
+        wrapperDiv,
+        "innerHTML",
+        this.humanReadableHtml
+      );
     }
     if (this.titleService.getTitle() === "OP-Layer Web") {
       const existingStyle = document.getElementById("inline-style");
@@ -78,47 +91,20 @@ export class DccHumanReadableComponent implements OnChanges {
       this.renderer.setAttribute(link, "href", "assets/css/humanReadable.css");
       this.renderer.setAttribute(link, "id", "external-style");
       this.renderer.appendChild(document.head, link);
-      setTimeout(() => {
-        this.addLogos();
-      }, 300);
-    }
-  }
-  addLogos() {
-    const container = document.getElementById("logos-container");
-    if (container) {
-      container.innerHTML = `<div class="dcc-logos">
-          <img class="ptb-logo" src="assets/svg/PTB-black.svg" alt="ptb-logo"/>
-          <img class="bundesadler-logo" src="assets/svg/Bundesadler_Siegel.svg" alt="bundesadler-logo"/>
-        </div>`;
+      setTimeout(() => {}, 300);
     }
   }
 
-  async download(fileToDownload: boolean) {
-    if (fileToDownload) {
-      let htmlContent = "";
-      const wrapperDiv = this.el.nativeElement.querySelector(".wrapper-humanReadable");
-      htmlContent = wrapperDiv ? wrapperDiv.innerHTML : this.humanReadableHtml;
-
-      if (this.titleService.getTitle() === "OP-Layer Web") {
-        const [ptbSvgText, bundesadlerSvgText] = await Promise.all([
-          this.fetchSvgAsText("assets/svg/PTB-black.svg"),
-          this.fetchSvgAsText("assets/svg/Bundesadler_Siegel.svg"),
-        ]);
-
-        const ptbSvg = this.addClassToSvg(ptbSvgText, "ptb-logo");
-        const bundesadlerSvg = this.addClassToSvg(bundesadlerSvgText, "bundesadler-logo");
-        htmlContent = htmlContent
-          .replace(/<img[^>]+src=["']assets\/svg\/PTB-black\.svg["'][^>]*>/, ptbSvg)
-          .replace(/<img[^>]+src=["']assets\/svg\/Bundesadler_Siegel\.svg["'][^>]*>/, bundesadlerSvg);
-      }
-
-      const a = document.createElement("a");
-      const objectUrl = URL.createObjectURL(new Blob([htmlContent], { type: "application/html" }));
-      a.href = objectUrl;
-      a.download = "humanReadable.html";
-      a.click();
-      URL.revokeObjectURL(objectUrl);
+  async download() {
+    console.log(this.pdfUrl);
+    if (!this.pdfUrl) {
+      console.error("Keine PDF-URL vorhanden.");
+      return;
     }
+    const a = document.createElement("a");
+    a.href = this.pdfUrl;
+    a.download = "kalibrierzertifikat.pdf"; // frei wählbarer Dateiname
+    a.click();
   }
 
   async fetchSvgAsText(path: string): Promise<string> {
@@ -130,6 +116,7 @@ export class DccHumanReadableComponent implements OnChanges {
   addClassToSvg(svg: string, className: string): string {
     return svg.replace("<svg", `<svg class="${className}"`);
   }
+
   toggleCard() {
     this.isExpanded = !this.isExpanded;
   }
