@@ -229,6 +229,8 @@ export class AppDateAdapter extends NativeDateAdapter {
       serverLogLevel: NgxLoggerLevel.OFF,
     }),
     NgxTranslateModule,
+    SimpleNotificationsModule.forRoot(),
+    SimpleNotificationsModule,
   ],
   providers: [
     {
