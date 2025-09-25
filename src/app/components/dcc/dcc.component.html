@@ -252,12 +252,9 @@
         </mat-card>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>{{ "dcc.statements" | translate }}</ng-template>
-        <app-dcc-item-list
-            [itemList]="dcc.administrativeData!.items!"
-            [manufacturerAvailable]="manufacturerAvailable"
-            [idPrefix]="'statements-1-calibration'"
-        ></app-dcc-item-list>
+        <ng-template matStepLabel>{{ "dcc.calibrationItems" | translate }}</ng-template>
+        <app-dcc-item-list [itemList]="dcc.administrativeData!.items!"
+                           [manufacturerAvailable]="manufacturerAvailable"></app-dcc-item-list>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>{{ "dcc.statements" | translate }}</ng-template>
