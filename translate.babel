@@ -755,6 +755,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.charsXMLList</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.city</name>
 						<description/>
 						<comment/>
@@ -5690,6 +5725,41 @@
 						</translations>
 					</concept_node>
 					<concept_node>
+						<name>dcc.xmlStrings</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
 						<name>dcc.YYYYMMDD</name>
 						<description/>
 						<comment/>
@@ -5936,6 +6006,111 @@
 					</concept_node>
 					<concept_node>
 						<name>fileUpload.uploadFile</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>footer.imprint</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>footer.license</name>
+						<description/>
+						<comment/>
+						<translations>
+							<translation>
+								<language>de-DE</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>en-GB</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>es-ES</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>fr-FR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>it-IT</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>pt-BR</language>
+								<approved>false</approved>
+							</translation>
+							<translation>
+								<language>tr-TR</language>
+								<approved>false</approved>
+							</translation>
+						</translations>
+					</concept_node>
+					<concept_node>
+						<name>footer.privacy</name>
 						<description/>
 						<comment/>
 						<translations>
