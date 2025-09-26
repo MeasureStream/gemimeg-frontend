@@ -27,35 +27,35 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: "app-dcc-human-readable-pdf",
-  templateUrl: "./dcc-human-readable-pdf.component.html",
-  styleUrls: ["./dcc-human-readable-pdf.component.scss"],
+  selector: 'app-dcc-human-readable-pdf',
+  templateUrl: './dcc-human-readable-pdf.component.html',
+  styleUrls: ['./dcc-human-readable-pdf.component.scss'],
 })
 export class DccHumanReadablePdfComponent implements OnChanges {
-  @Input() pdfUrl: string = "";
-  sanitizedPdfUrl: SafeResourceUrl = "";
+  @Input() pdfUrl: string = '';
+  sanitizedPdfUrl: SafeResourceUrl = '';
   isExpanded: boolean = true;
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['pdfUrl'] && this.pdfUrl){
-      this.sanitizedPdfUrl=this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfUrl);
+    if (changes['pdfUrl'] && this.pdfUrl) {
+      this.sanitizedPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfUrl);
     }
   }
 
   async download() {
     console.log(this.pdfUrl);
     if (!this.pdfUrl) {
-      console.error("Keine PDF-URL vorhanden.");
+      console.error('Keine PDF-URL vorhanden.');
       return;
     }
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = this.pdfUrl;
-    a.download = "certificate.pdf"; // frei wählbarer Dateiname
+    a.download = 'certificate.pdf'; // frei wählbarer Dateiname
     a.click();
   }
 }

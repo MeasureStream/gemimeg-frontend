@@ -1,11 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, WritableSignal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  WritableSignal,
+} from '@angular/core';
 import { ItemDto } from 'src/app/generated/dcc/model/itemDto';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
   selector: 'app-dcc-item',
   templateUrl: './dcc-item.component.html',
-  styleUrls: ['./dcc-item.component.scss']
+  styleUrls: ['./dcc-item.component.scss'],
 })
 export class DccItemComponent implements OnInit, OnChanges {
   @Input() item!: ItemDto;
@@ -16,13 +25,10 @@ export class DccItemComponent implements OnInit, OnChanges {
   @Output() removeItem = new EventEmitter<number>();
 
   isCardExpanded: boolean = false;
-  constructor(private initializationService: InitializationService) {
-
-  }
+  constructor(private initializationService: InitializationService) {}
 
   ngOnInit(): void {
     this.isCardExpanded = this.isInitiallyExpanded === true ? this.isInitiallyExpanded : false;
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,19 +43,18 @@ export class DccItemComponent implements OnInit, OnChanges {
     if (this.item) {
       this.item.manufacturer = this.initializationService.getEmptyContactDto();
     }
-    this.manufacturerAvailable.update(state => ({ ...state, [index]: true }))
+    this.manufacturerAvailable.update((state) => ({ ...state, [index]: true }));
   }
 
   deleteManufacturer() {
     if (this.item) {
       this.item.manufacturer = this.initializationService.getEmptyContactDto();
       this.item.manufacturer!.location = this.initializationService.getEmptyLocationDto();
-      this.manufacturerAvailable.update(state => ({
+      this.manufacturerAvailable.update((state) => ({
         ...state,
-        [this.index]: false
+        [this.index]: false,
       }));
     }
-
   }
 
   toggleCard() {
@@ -58,7 +63,4 @@ export class DccItemComponent implements OnInit, OnChanges {
   onRemoveItem() {
     this.removeItem.emit();
   }
-
 }
-
-

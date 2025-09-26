@@ -27,26 +27,18 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  Renderer2,
-  SimpleChanges,
-} from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { CalibrationCertificateDto } from "src/app/generated/dcc/model/calibrationCertificateDto";
+import { ChangeDetectorRef, Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { CalibrationCertificateDto } from 'src/app/generated/dcc/model/calibrationCertificateDto';
 
 @Component({
-  selector: "app-dcc-human-readable",
-  templateUrl: "./dcc-human-readable.component.html",
-  styleUrls: ["./dcc-human-readable.component.scss"],
+  selector: 'app-dcc-human-readable',
+  templateUrl: './dcc-human-readable.component.html',
+  styleUrls: ['./dcc-human-readable.component.scss'],
 })
 export class DccHumanReadableComponent implements OnChanges {
-  @Input() humanReadableHtml: string = "";
-  @Input() pdfUrl: string = "";
+  @Input() humanReadableHtml: string = '';
+  @Input() pdfUrl: string = '';
   @Input() dcc!: CalibrationCertificateDto;
   @Input() idPrefix!: string;
   isExpanded: boolean = true;
@@ -59,37 +51,31 @@ export class DccHumanReadableComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["humanReadableHtml"] && this.humanReadableHtml !== "") {
+    if (changes['humanReadableHtml'] && this.humanReadableHtml !== '') {
       this.cdr.detectChanges();
       this.updateHtml();
     }
   }
 
   private updateHtml() {
-    const wrapperDiv = this.el.nativeElement.querySelector(
-      ".wrapper-humanReadable"
-    );
+    const wrapperDiv = this.el.nativeElement.querySelector('.wrapper-humanReadable');
     if (wrapperDiv) {
-      this.renderer.setProperty(
-        wrapperDiv,
-        "innerHTML",
-        this.humanReadableHtml
-      );
+      this.renderer.setProperty(wrapperDiv, 'innerHTML', this.humanReadableHtml);
     }
-    if (this.titleService.getTitle() === "OP-Layer Web") {
-      const existingStyle = document.getElementById("inline-style");
+    if (this.titleService.getTitle() === 'OP-Layer Web') {
+      const existingStyle = document.getElementById('inline-style');
       if (existingStyle) {
         existingStyle.remove();
       }
-      const existingLink = document.getElementById("external-style");
+      const existingLink = document.getElementById('external-style');
       if (existingLink) {
         existingLink.remove();
       }
-      const link = this.renderer.createElement("link");
-      this.renderer.setAttribute(link, "rel", "stylesheet");
-      this.renderer.setAttribute(link, "type", "text/css");
-      this.renderer.setAttribute(link, "href", "assets/css/humanReadable.css");
-      this.renderer.setAttribute(link, "id", "external-style");
+      const link = this.renderer.createElement('link');
+      this.renderer.setAttribute(link, 'rel', 'stylesheet');
+      this.renderer.setAttribute(link, 'type', 'text/css');
+      this.renderer.setAttribute(link, 'href', 'assets/css/humanReadable.css');
+      this.renderer.setAttribute(link, 'id', 'external-style');
       this.renderer.appendChild(document.head, link);
       setTimeout(() => {}, 300);
     }
@@ -98,12 +84,12 @@ export class DccHumanReadableComponent implements OnChanges {
   async download() {
     console.log(this.pdfUrl);
     if (!this.pdfUrl) {
-      console.error("Keine PDF-URL vorhanden.");
+      console.error('Keine PDF-URL vorhanden.');
       return;
     }
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = this.pdfUrl;
-    a.download = "kalibrierzertifikat.pdf"; // frei wählbarer Dateiname
+    a.download = 'kalibrierzertifikat.pdf'; // frei wählbarer Dateiname
     a.click();
   }
 
@@ -114,7 +100,7 @@ export class DccHumanReadableComponent implements OnChanges {
   }
 
   addClassToSvg(svg: string, className: string): string {
-    return svg.replace("<svg", `<svg class="${className}"`);
+    return svg.replace('<svg', `<svg class="${className}"`);
   }
 
   toggleCard() {

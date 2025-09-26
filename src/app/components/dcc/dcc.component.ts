@@ -100,7 +100,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   ];
   isExpanded: { [title: string]: boolean } = { 'DCC-Software*': true };
   humanReadableHtml = '';
-  pdfUrl = "";
+  pdfUrl = '';
   selectedPerformanceLoc: string = '';
   performanceLocation = ['laboratory', 'customer', 'laboratory branch', 'customer branch', 'other'];
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
@@ -533,7 +533,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   loadPdf() {
     this.dccService.jsonToPdf(this.dcc, this.isInternal).subscribe({
       next: (response: Blob) => {
-        const blob = new Blob([response], { type: "application/pdf" });
+        const blob = new Blob([response], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         this.pdfUrl = url;
       },

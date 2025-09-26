@@ -27,20 +27,20 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, ChangeDetectorRef } from "@angular/core";
-import { ConditionDto } from "src/app/generated/dcc/model/conditionDto";
-import { InitializationService } from "src/app/services/dcc/initialization.service";
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ConditionDto } from 'src/app/generated/dcc/model/conditionDto';
+import { InitializationService } from 'src/app/services/dcc/initialization.service';
 
 @Component({
-  selector: "app-dcc-influence-conditions",
-  templateUrl: "./dcc-influence-conditions.component.html",
-  styleUrls: ["./dcc-influence-conditions.component.scss"],
+  selector: 'app-dcc-influence-conditions',
+  templateUrl: './dcc-influence-conditions.component.html',
+  styleUrls: ['./dcc-influence-conditions.component.scss'],
 })
 export class DccInfluenceConditionsComponent implements OnInit {
   @Input() list: Array<ConditionDto>;
   @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
-  validRestrictions = ["beforeAdjustment", "afterAdjustment", "beforeRepair", "afterRepair"];
+  validRestrictions = ['beforeAdjustment', 'afterAdjustment', 'beforeRepair', 'afterRepair'];
   selectedOption: any;
   showExpandedUncertainty = false;
 
@@ -49,8 +49,7 @@ export class DccInfluenceConditionsComponent implements OnInit {
     this.addEmptyConditionDto();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addEmptyConditionDto() {
     this.list.push(this.initializationService.getEmptyConditionDto());
@@ -65,14 +64,14 @@ export class DccInfluenceConditionsComponent implements OnInit {
     valueExpanded: null,
     coverageFactor: null,
     coverageProbability: null,
-    distribution: "",
+    distribution: '',
   };
 
   realData = {
-    label: "",
+    label: '',
     value: null as number | null,
-    unit: "",
-    dateTime: "",
+    unit: '',
+    dateTime: '',
     expandedUncertainty: {
       valueExpanded: null as number | null,
       coverageFactor: null as number | null,
