@@ -80,6 +80,8 @@ deploy-production:
   image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
   before_script:
     - *set_environmentvariables
+    # update Openssl only for apline 3.22 because it is temporalily broken
+    - apk add openssl
     # install envsubst and ssh-add
     - apk add --no-cache gettext openssh-client
   script:
