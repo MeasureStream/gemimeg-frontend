@@ -150,6 +150,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccLocalisedStringComponent,
     DccContactComponent,
     DccHumanReadableComponent,
+    DccHumanReadablePdfComponent,
     DccSoftwareComponent,
     DccUsedMethodsComponent,
     DccMeasurementEquipmentComponent,
