@@ -27,98 +27,125 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { Component, Input, OnInit, ChangeDetectorRef, AfterContentChecked, ViewEncapsulation } from '@angular/core';
-import { LanguageSpecificStringsDto } from 'src/app/generated/dcc/model/languageSpecificStringsDto';
-import { LangTextPair } from 'src/app/generated/dcc/model/langTextPair';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+  AfterContentChecked,
+  ViewEncapsulation,
+} from "@angular/core";
+import { LanguageSpecificStringsDto } from "src/app/generated/dcc/model/languageSpecificStringsDto";
+import { LangTextPair } from "src/app/generated/dcc/model/langTextPair";
+import { LanguageService } from "src/app/services/common/language/language.service";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-dcc-localised-string',
-  templateUrl: './dcc-localised-string.component.html',
-  styleUrls: ['./dcc-localised-string.component.scss'],
+  selector: "app-dcc-localised-string",
+  templateUrl: "./dcc-localised-string.component.html",
+  styleUrls: ["./dcc-localised-string.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class DccLocalisedStringComponent implements OnInit, AfterContentChecked {
+export class DccLocalisedStringComponent
+  implements OnInit, AfterContentChecked
+{
   @Input() strings: LanguageSpecificStringsDto;
   @Input() placeholder: string;
-  @Input() type: string = 'NAME'; // 'NAME' or 'CONTENT', if not provided, defaults to 'NAME'.
+  @Input() type: string = "NAME"; // 'NAME' or 'CONTENT', if not provided, defaults to 'NAME'.
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
   @Input() idPrefix!: string;
-  selectedLang: string = 'en';
+  selectedLang: string = "en";
+  currentLanguage: string = "";
+  private langSub!: Subscription;
 
   locales = [
-    { lang: 'en', name: 'English', icon: 'fi fi-us' },
-    { lang: 'de', name: 'Deutsch', icon: 'fi fi-de' },
-    { lang: 'fr', name: 'Français', icon: 'fi fi-fr' },
-    { lang: 'es', name: 'Español', icon: 'fi fi-es' },
-    { lang: 'pt', name: 'Português', icon: 'fi fi-br' },
-    { lang: 'it', name: 'Italiano', icon: 'fi fi-it' },
-    { lang: 'tr', name: 'Türkçe', icon: 'fi fi-tr' },
+    { lang: "en", name: "English", icon: "fi fi-gb" },
+    { lang: "de", name: "Deutsch", icon: "fi fi-de" },
+    { lang: "fr", name: "Français", icon: "fi fi-fr" },
+    { lang: "es", name: "Español", icon: "fi fi-es" },
+    { lang: "pt", name: "Português", icon: "fi fi-br" },
+    { lang: "it", name: "Italiano", icon: "fi fi-it" },
+    { lang: "tr", name: "Türkçe", icon: "fi fi-tr" },
   ];
 
   languageMap = new Map<string, any>();
   inputType: string | undefined;
 
-  constructor(private cdref: ChangeDetectorRef) {
+  constructor(
+    private cdref: ChangeDetectorRef,
+    private languageService: LanguageService
+  ) {
     this.strings = <LanguageSpecificStringsDto>{};
-    this.placeholder = '';
+    this.placeholder = "";
   }
 
   ngOnInit(): void {
     if (!this.strings) {
       this.strings = this.getEmptyStringWithLangDto();
     }
-    this.initializeLanguageMap();
+    this.strings.content?.forEach((item) => {
+      if (!item.lang || item.lang === "**") {
+        item.lang = "de";
+      }
+    });
+    this.langSub = this.languageService.language.subscribe((lang) => {
+      this.currentLanguage = lang;
+      this.updateEmptyItemLangs();
+    });
   }
 
   ngAfterContentChecked() {
     this.cdref.detectChanges();
   }
 
-  initializeLanguageMap() {
-    this.languageMap.clear();
-    if (this.strings.content) {
-      this.strings.content!.forEach((item) => {
-        if (item.lang) {
-          const locale = this.locales.find((locale) => locale.lang === item.lang);
-          this.languageMap.set(item.lang, locale || this.locales[0]);
-        }
-      });
-    }
+  getLocale(lang?: string) {
+    return (
+      this.locales.find((locale) => locale.lang == lang) || this.locales[5]
+    );
   }
 
-  getEmptyStringWithLangDto(): LanguageSpecificStringsDto {
-    var result = <LanguageSpecificStringsDto>{};
-    result.content = new Array<LangTextPair>();
-    var preselected = <LangTextPair>{};
-    preselected.lang = this.locales[0].lang;
-    preselected.text = '';
-    result.content.push(preselected);
-    return result;
-  }
-
-  getEmptyStringWithLangText(): LangTextPair {
-    var result = <LangTextPair>{};
-    result.lang = this.locales[0].lang;
-    result.text = '';
-    return result;
+  updateEmptyItemLangs() {
+    this.strings.content?.forEach((item) => {
+      if (!item.text || item.text.trim() === "") {
+        item.lang = this.currentLanguage;
+      }
+    });
   }
 
   updateLanguageMap(item: LangTextPair) {
     if (item.lang) {
-      const selectedLang = this.locales.find((locale) => locale.lang === item.lang);
-      if (selectedLang) {
-        this.languageMap.set(item.lang, selectedLang);
+      const selectedLocale = this.locales.find(
+        (locale) => locale.lang === item.lang
+      );
+      console.log("selectedLocale: ", selectedLocale);
+      if (selectedLocale) {
+        this.languageMap.set(item.lang, selectedLocale);
       } else {
         this.languageMap.set(item.lang, this.locales[2]);
       }
     }
   }
 
-  getOrSetLang(item: any): string {
-    if (item.lang === '**' || item.lang === undefined) {
-      item.lang = 'de';
-    }
-    return item.lang;
+  getEmptyStringWithLangDto(): LanguageSpecificStringsDto {
+    var result = <LanguageSpecificStringsDto>{};
+    result.id = "";
+    result.refIds = [];
+    result.content = new Array<LangTextPair>();
+    var preselected = this.getEmptyStringWithLangText();
+    preselected.lang = this.locales[0].lang;
+    preselected.text = "";
+    result.content.push(preselected);
+    return result;
+  }
+
+  getEmptyStringWithLangText(): LangTextPair {
+    var result = <LangTextPair>{};
+    result.id = "";
+    result.refIds = [];
+    result.refTypes = [];
+    result.lang = this.currentLanguage;
+    result.text = "";
+    return result;
   }
 }

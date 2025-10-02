@@ -27,46 +27,28 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <div *ngFor="let item of strings.content; let i = index" class="dcc-row">
-  <ng-container *ngIf="getOrSetLang(item)">
+  <ng-container *ngIf="item.lang">
     <div class="label-container">
       <label [for]="placeholder.toLowerCase()">{{ placeholder }}<span *ngIf="isRequired" class="asterix">*</span>
       </label>
       <mat-form-field appearance="outline" class="mat-form-field-flag">
-        <mat-select
-            (selectionChange)="updateLanguageMap(item)"
-            [(ngModel)]="item.lang"
-            class="mat-select-flag"
-            mat-icon-button
-            panelClass="custom-dropdown-panel"
-            required
-        >
+        <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" class="mat-select-flag"
+                    mat-icon-button panelClass="custom-dropdown-panel" required>
           <mat-select-trigger class="mat-select-trigger">
-            <span class="{{ languageMap.get(item.lang || '')?.icon || 'fi fi-de' }} icon-flag"></span>
+            <span class="{{ getLocale(item.lang)?.icon  || 'fi fi-gb' }}"></span>
           </mat-select-trigger>
-          <mat-option *ngFor="let lang of locales" [value]="lang.lang"><span class="{{ lang.icon }}"></span>{{ lang.name
+          <mat-option *ngFor="let locale of locales" [value]="locale.lang"><span class="{{ locale.icon }}"></span>{{
+            locale.name
             }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <mat-form-field appearance="fill" id="localised-string">
-      <input
-          *ngIf="type === 'NAME'"
-          [(ngModel)]="item.text"
-          [required]="isRequired"
-          id="{{idPrefix}}-name-{{1+i}}"
-          matInput
-          name="item"
-      />
-      <textarea
-          *ngIf="type === 'CONTENT'"
-          [(ngModel)]="item.text"
-          [id]="placeholder.toLowerCase()"
-          [required]="isRequired"
-          class="localise-textarea"
-          matInput
-          rows="4"
-      >
+      <input *ngIf="type === 'NAME'" [(ngModel)]="item.text" [required]="isRequired" id="{{idPrefix}}-name-{{1+i}}"
+             matInput name="item"/>
+      <textarea *ngIf="type === 'CONTENT'" [(ngModel)]="item.text" [id]="placeholder.toLowerCase()"
+                [required]="isRequired" class="localise-textarea" matInput rows="4">
       </textarea>
     </mat-form-field>
     <div class="button-container">
@@ -74,15 +56,10 @@
               color="primary" id="{{idPrefix}}-name-add-button-{{i+1}}" mat-icon-button type="button">
         <mat-icon>add_circle</mat-icon>
       </button>
-      <button
-          (click)="strings.content?.splice(i, 1)"
-          [disabled]="strings.content?.length! < 2"
-          class="custom-circle-button-sm"
-          color="accent"
-          id="{{idPrefix}}-name-remove-button-{{i+1}}"
-          mat-icon-button
-          type="button"
-      >
+      <button (click)="strings.content?.splice(i, 1)" [disabled]="strings.content?.length! < 2"
+              class="custom-circle-button-sm" color="accent" id="{{idPrefix}}-name-remove-button-{{i+1}}"
+              mat-icon-button
+              type="button">
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 import { NavigationComponent } from '../navigation/navigation.component';
+import { LanguageService } from 'src/app/services/common/language/language.service';
 
 @Component({
   selector: 'app-settings-dialog',
@@ -13,7 +14,7 @@ export class SettingsDialogComponent {
   displaylanguages: Array<Language>;
   userLanguage: string;
 
-  constructor(private navigation: NavigationComponent) {
+  constructor(private navigation: NavigationComponent,private languageService:LanguageService) {
     this.displaylanguages = new Array<Language>();
     this.displaylanguages[0] = <Language>{};
     this.displaylanguages[0].name = 'English';
@@ -43,6 +44,7 @@ export class SettingsDialogComponent {
 
   applyLanguage(): void {
     this.navigation.setUserLanguage(this.userLanguage);
+    this.languageService.setLanguage(this.userLanguage);
     this.closeDialog();
   }
 
