@@ -11,6 +11,7 @@ import { CalibrationLaboratoryDto } from './calibrationLaboratoryDto';
 import { SoftwareDto } from './softwareDto';
 import { ItemDto } from './itemDto';
 import { ContactDto } from './contactDto';
+import { IdentificationDto } from './identificationDto';
 import { StatementDto } from './statementDto';
 
 
@@ -26,6 +27,7 @@ export interface AdministrativeDataDto {
     receiptDate?: string;
     startDate?: string;
     endDate?: string;
+    identifications?: Array<IdentificationDto>;
     performanceLocation?: string;
     responsiblePersons?: Array<ContactDto>;
     statements?: Array<StatementDto>;

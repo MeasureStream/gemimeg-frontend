@@ -399,6 +399,23 @@
             "type": "string",
             "format": "date"
           },
+          "identifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentificationDto"
+            },
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              },
+              "first": {
+                "$ref": "#/components/schemas/IdentificationDto"
+              },
+              "last": {
+                "$ref": "#/components/schemas/IdentificationDto"
+              }
+            }
+          },
           "performanceLocation": {
             "type": "string"
           },
