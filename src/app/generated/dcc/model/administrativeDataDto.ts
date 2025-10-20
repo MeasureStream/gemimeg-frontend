@@ -22,8 +22,8 @@ export interface AdministrativeDataDto {
     items?: Array<ItemDto>;
     uniqueIdentifier?: string;
     countryCode?: string;
-    mandatoryLanguageCodes?: Set<string>;
-    usedLanguageCodes?: Set<string>;
+    mandatoryLanguageCodes?: Array<string>;
+    usedLanguageCodes?: Array<string>;
     receiptDate?: string;
     startDate?: string;
     endDate?: string;

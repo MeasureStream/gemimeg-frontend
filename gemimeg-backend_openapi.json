@@ -377,15 +377,13 @@
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "uniqueItems": true
+            }
           },
           "usedLanguageCodes": {
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "uniqueItems": true
+            }
           },
           "receiptDate": {
             "type": "string",
