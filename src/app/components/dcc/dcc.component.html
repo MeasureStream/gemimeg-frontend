@@ -273,34 +273,6 @@
           </mat-card>
         </ng-container>
         <ng-container *ngIf="showEmptyStatement">
-          <mat-card appearance="outlined" class="blue-card">
-            <mat-card-header>
-              <div class="header-title">
-                <p class="title">CIPM-MRA</p>
-              </div>
-              <div class="header-menu">
-                <button (click)="toggleCard('CIPM-MRA')" class="blue-card-btn" mat-icon-button type="button"
-                        id="statements-2-cipm-toggle-button">
-                  <i class="material-icons">{{ isExpanded["CIPM-MRA"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                    }}</i>
-                </button>
-              </div>
-            </mat-card-header>
-          </mat-card>
-          <mat-card appearance="outlined" class="blue-card">
-            <mat-card-header>
-              <div class="header-title">
-                <p class="title">{{ "dcc.address" | translate }}</p>
-              </div>
-              <div class="header-menu">
-                <button (click)="toggleCard('Anschrift')" class="blue-card-btn" mat-icon-button type="button"
-                        name="statements-2-Anschrift-toggle-button" id="statements-2-Anschrift-toggle-button">
-                  <i class="material-icons">{{ isExpanded["CIPM-MRA"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                    }}</i>
-                </button>
-              </div>
-            </mat-card-header>
-          </mat-card>
           <app-dcc-measurement-metadata
               [header]="header_statement"
               [list]="dcc.administrativeData!.statements!"
