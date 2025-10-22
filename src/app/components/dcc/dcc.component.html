@@ -157,7 +157,7 @@
             <div class="dcc-row">
               <div class="label-container-big">
                 <!--suppress XmlInvalidId -->
-                <label for="performanceLocation">{{ "dcc.performanceLocation" | translate }}</label>
+                <label for="admin-core-data-performance-location">{{ "dcc.performanceLocation" | translate }}</label>
               </div>
               <mat-form-field appearance="fill">
                 <mat-select [(value)]="dcc.administrativeData!.performanceLocation"
@@ -188,6 +188,10 @@
               </button>
             </div>
           </mat-card-header>
+          <mat-card-content *ngIf="isExpanded['Kunde']">
+            <app-dcc-contact (fileSelected)="onFileSelected($event)" [contact]="dcc.administrativeData!.customer!"
+                             [idPrefix]="'admin-customer'"></app-dcc-contact>
+          </mat-card-content>
         </mat-card>
         <mat-card class="blue-card">
           <mat-card-header>
