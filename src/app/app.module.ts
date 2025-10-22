@@ -59,6 +59,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -96,7 +97,7 @@ import { DccMeasuringResultsComponent } from './components/dcc/dcc-measuring-res
 import { DccXmlPreviewComponent } from './components/dcc/dcc-xml-preview/dcc-xml-preview.component';
 import { DccAttachmentUploadComponent } from './components/dcc/dcc-attachment-upload/dcc-attachment-upload.component';
 
-import { GlobalLanguageDialogComponent } from './components/common/globalLanguage-dialog/globalLanguage-dialog.component';
+import { GlobalLanguageDialogComponent } from './components/common/global-language-dialog/global-language-dialog.component';
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
 import { ErrorComponent } from './components/common/error/error.component';
@@ -227,6 +228,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     MatProgressSpinnerModule,
     MathModule,
     MatSnackBarModule,
+    MatChipsModule,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.TRACE,
       serverLogLevel: NgxLoggerLevel.OFF,

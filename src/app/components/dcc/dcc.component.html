@@ -56,6 +56,22 @@
                                url="https://wiki.dcc.ptb.de/en/dcccoredata"></app-info-button>
             </div>
             <div class="header-menu">
+              <button [matMenuTriggerFor]="menu" class="blue-card-btn" id="admin-core-data-toggle-button"
+                      mat-icon-button name="admin-core-data-toggle-button" type="button">
+                <mat-icon>
+                  <i class="material-icons">add</i>
+                </mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button (click)="editMandatoryLanguage(translate.instant('dcc.mandatoryLanguage'))" id="admin-core-data-mandatoryLang-button"
+                        mat-menu-item>
+                  {{ "dcc.mandatoryLanguages" | translate }}
+                </button>
+                <button (click)="editUsedLanguage(translate.instant('dcc.usedLanguage'))" id="admin-core-data-usedLang-button"
+                        mat-menu-item>{{ "dcc.usedLanguages"
+                  | translate }}
+                </button>
+              </mat-menu>
               <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button type="button"
                       id="admin-core-data-toggle-button" name="admin-core-data-toggle-button">
                 <mat-icon>
@@ -66,6 +82,40 @@
             </div>
           </mat-card-header>
           <mat-card-content *ngIf="isExpanded['Basis-Daten']">
+            <div class="dcc-row language-container">
+              <div class="label-container-big"></div>
+              <div class="language-list">
+                <div class="mandatory-languages">
+                  <div class="chip-label-chip" disabled>{{ "dcc.mandatoryLanguages" | translate }}</div>
+                  <mat-chip-set aria-label="mandatoryLanguages" class="mat-mdc-chip-set-stacked">
+                    <mat-chip (removed)=" i !== 0 && removeMandatoryLanguage(lang)" *ngFor="let lang of languagesService.getMandatoryLanguages();index as i"
+                              [removable]="i !== 0" color="accent" selected>
+                      {{lang}}
+                      - {{languageMap.get(lang)}}
+                      <button [attr.aria-label]="'removeMandatoryLanguage ' + lang" matChipRemove>
+                        <mat-icon
+                          *ngIf="i !==0">delete
+                        </mat-icon>
+                      </button>
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+                <div class="used-languages">
+                  <div class="chip-label-chip" disabled>{{ "dcc.usedLanguages" | translate }}</div>
+                  <mat-chip-set aria-label="usedLanguages" class="mat-mdc-chip-set-stacked">
+                    <mat-chip (removed)=" i!==0 && removeUsedLanguage(lang)" *ngFor="let lang of languagesService.getUsedLanguages(); index as i"
+                              [removable]="i !== 0" color="accent" selected>{{lang}}
+                      - {{languageMap.get(lang)}}
+                      <button [attr.aria-label]="'removeUsedLanguage ' + lang" matChipRemove>
+                        <mat-icon
+                          *ngIf="i !==0">delete
+                        </mat-icon>
+                      </button>
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
+            </div>
             <div class="dcc-row">
               <div class="label-container-big">
                 <label for="admin-core-data-country-code">{{ "dcc.countryCode" | translate }}<span
@@ -75,30 +125,6 @@
                 <input [(ngModel)]="dcc.administrativeData!.countryCode" id="admin-core-data-country-code"
                        name="admin-core-data-country-code" matInput
                        oninput="this.value = this.value.toUpperCase()" required/>
-              </mat-form-field>
-            </div>
-            <div class="dcc-row">
-              <div class="label-container-big">
-                <label for="admin-core-data-mandatory-languages">{{ "dcc.mandatoryLanguages" | translate }}<span
-                    class="asterix">*</span></label>
-              </div>
-              <mat-form-field appearance="fill">
-                <input (ngModelChange)="dcc.administrativeData!.mandatoryLanguageCodes = $event.split(',')"
-                       [ngModel]="dcc.administrativeData!.mandatoryLanguageCodes"
-                       id="admin-core-data-mandatory-languages" name="admin-core-data-mandatory-languages" matInput
-                       required/>
-              </mat-form-field>
-            </div>
-            <div class="dcc-row">
-              <div class="label-container-big">
-                <label for="admin-core-data-used-language-codes">{{ "dcc.usedLanguages" | translate }}<span
-                    class="asterix">*</span></label>
-              </div>
-              <mat-form-field appearance="fill">
-                <input (ngModelChange)="dcc.administrativeData!.usedLanguageCodes = $event.split(',')"
-                       [ngModel]="dcc.administrativeData!.usedLanguageCodes" id="admin-core-data-used-language-codes"
-                       name="admin-core-data-used-language-codes"
-                       matInput required/>
               </mat-form-field>
             </div>
             <div class="dcc-row">

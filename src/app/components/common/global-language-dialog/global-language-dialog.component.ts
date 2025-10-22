@@ -33,9 +33,9 @@ import { NavigationComponent } from "../navigation/navigation.component";
 import { GlobalLanguageService } from "src/app/services/common/languages/globalLanguage.service";
 
 @Component({
-  selector: "app-globalLanguage-dialog",
-  templateUrl: "./globalLanguage-dialog.component.html",
-  styleUrls: ["./globalLanguage-dialog.component.scss"],
+  selector: "app-global-language-dialog",
+  templateUrl: "./global-language-dialog.component.html",
+  styleUrls: ["./global-language-dialog.component.scss"],
 })
 export class GlobalLanguageDialogComponent {
   @Output() close = new EventEmitter<void>();

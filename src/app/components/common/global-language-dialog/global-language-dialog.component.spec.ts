@@ -29,7 +29,7 @@
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GlobalLanguageDialogComponent } from './globalLanguage-dialog.component';
+import { GlobalLanguageDialogComponent } from './global-language-dialog.component';
 
 describe('GlobalLanguageDialogComponent', () => {
   let component: GlobalLanguageDialogComponent;

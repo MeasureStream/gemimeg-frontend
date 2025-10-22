@@ -153,6 +153,41 @@ mat-card.blue-card {
     margin-right: 120px;
   }
 
+  .language-list {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    margin-right: 120px;
+    // border: 2px solid blue;
+
+    .mandatory-languages,
+    .used-languages {
+      width: 49%;
+      // color: #757575
+    }
+
+    .chip-label-chip {
+      // border: 1px solid green;
+      margin-bottom:10px;
+    }
+
+    .mat-mdc-chip-set {
+     
+      .mat-mdc-chip {
+        width: 100% !important;
+        background-color: rgb(245, 245, 245) !important;
+        border-radius: 8px !important;
+        margin: 10px 0;
+        height: 56px;
+      }
+
+      .mdc-evolution-chip-set__chips {
+        margin: 0;
+      }
+    }
+  }
+
   .mat-form-field-flag {
     margin: 0;
   }

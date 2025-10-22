@@ -52,12 +52,16 @@ import { ErrorService } from 'src/app/services/common/error/error.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
 import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
+import { Overlay } from "@angular/cdk/overlay";
 import { MatStepper } from '@angular/material/stepper';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { signal } from '@angular/core';
 import { ResponsiblePersonDto } from 'src/app/generated/dcc/model/responsiblePersonDto';
+import { TranslateService } from "@ngx-translate/core";
+import { openLanguageDialog } from "../common/language-settings-dialog/language-settings-dialog.component";
+import { LanguagesService } from "src/app/services/common/languages/languages.service";
 
 @Component({
   selector: 'app-dcc',
@@ -107,15 +111,27 @@ export class DccComponent implements OnInit, AfterContentChecked {
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
   selectedFile: any;
   isInternal: boolean = false;
+  languageMap = new Map<string, string>([
+    ["de", "Deutsch"],
+    ["en", "English"],
+    ["fr", "Français"],
+    ["es", "Español"],
+    ["pt", "Português"],
+    ["it", "Italiano"],
+    ["tr", "Türkçe"]
+  ]);
 
   constructor(
     public dccService: DccService,
     public dialog: MatDialog,
+    public overlay: Overlay,
     private errorService: ErrorService,
     private initializationService: InitializationService,
     private sanitizer: DomSanitizer,
     public logger: NGXLogger,
-    private changeDetect: ChangeDetectorRef
+    private changeDetect: ChangeDetectorRef,
+    public translate: TranslateService,
+    public languagesService: LanguagesService
   ) {
     this.cardTitles.forEach((title) => {
       this.isExpanded[title] = true;
@@ -553,6 +569,60 @@ export class DccComponent implements OnInit, AfterContentChecked {
         this.showErrorMessages(error);
       },
     });
+  }
+
+  editMandatoryLanguage(title: string) {
+    openLanguageDialog(
+      this.dialog,
+      this.overlay,
+      title,
+      this.languagesService.getMandatoryLangSubject()
+    ).subscribe((selectedLang: string | undefined) => {
+      if (selectedLang) {
+        this.addMandatorylanguage(selectedLang);
+      }
+    });
+  }
+  editUsedLanguage(title: string) {
+    openLanguageDialog(
+      this.dialog,
+      this.overlay,
+      title,
+      this.languagesService.getUsedLangSubject()
+    ).subscribe((selectedLang: string) => {
+      if (selectedLang) {
+        this.addUsedlanguage(selectedLang);
+      }
+    });
+  }
+
+  addMandatorylanguage(lang: string) {
+    this.languagesService.addMandatoryLanguage(lang);
+    this.languagesService.addUsedLanguage(lang);
+    this.syncLanguagesToDto();
+  }
+
+  removeMandatoryLanguage(lang: string) {
+    this.languagesService.removeMandatoryLanguage(lang);
+    this.syncLanguagesToDto();
+  }
+
+  addUsedlanguage(lang: string) {
+    this.languagesService.addUsedLanguage(lang);
+    this.syncLanguagesToDto();
+  }
+
+  removeUsedLanguage(lang: string) {
+    this.languagesService.removeUsedLanguage(lang);
+    this.removeMandatoryLanguage(lang);
+    this.syncLanguagesToDto();
+  }
+
+  private syncLanguagesToDto() {
+    this.dcc.administrativeData!.mandatoryLanguageCodes =
+      this.languagesService.getMandatoryLanguages();
+    this.dcc.administrativeData!.usedLanguageCodes =
+      this.languagesService.getUsedLanguages();
   }
 
   showErrorMessages(error: any) {
