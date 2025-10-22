@@ -27,16 +27,16 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<!--ISO/IEC 17025:2017 7.8.2.1a-->
-<dcc:digitalCalibrationCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcc="https://ptb.de/dcc"
+<dcc:digitalCalibrationCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                   xmlns:dcc="https://ptb.de/dcc"
                                    xmlns:si="https://ptb.de/si"
-                                   xsi:schemaLocation="https://ptb.de/dcc https://www.ptb.de/dcc/dcc.xsd https://ptb.de/si https://www.ptb.de/si/SI_Format.xsd"
+                                   xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.3.0/dcc.xsd"
                                    schemaVersion="3.3.0">
   <dcc:administrativeData>
     <dcc:dccSoftware>
       <dcc:software>
         <dcc:name>
-          <dcc:content lang="en">Notepad++</dcc:content>
+          <dcc:content>Notepad++</dcc:content>
         </dcc:name>
         <dcc:release>v8.5.2</dcc:release>
       </dcc:software>
@@ -91,7 +91,7 @@
       </dcc:description>
       <dcc:manufacturer>
         <dcc:name>
-          <dcc:content lang="en">Weights Co Ltd.</dcc:content>
+          <dcc:content>Weights Co Ltd.</dcc:content>
         </dcc:name>
       </dcc:manufacturer>
       <dcc:identifications>
@@ -162,7 +162,7 @@
           </dcc:identification>
         </dcc:identifications>
         <dcc:itemQuantities>
-          <dcc:itemQuantity refType="basic_nominalValue" refId="WeighingInstrument1">
+          <dcc:itemQuantity refType="basic_nominalValue">
             <dcc:name>
               <dcc:content lang="en">Nominal mass</dcc:content>
             </dcc:name>
@@ -177,7 +177,7 @@
     <dcc:calibrationLaboratory><!--ISO/IEC 17025:2017 7.8.2.1 b)-->
       <dcc:contact>
         <dcc:name>
-          <dcc:content lang="en">Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
+          <dcc:content>Physikalisch-Technische Bundesanstalt (PTB)</dcc:content>
         </dcc:name>
         <dcc:eMail>info@ptb.de</dcc:eMail>
         <dcc:location>
@@ -196,7 +196,7 @@
       <dcc:respPerson>
         <dcc:person>
           <dcc:name>
-            <dcc:content lang="en">Michael</dcc:content>
+            <dcc:content>Michael</dcc:content>
           </dcc:name>
           <dcc:eMail>info@ptb.de</dcc:eMail>
         </dcc:person>
@@ -206,7 +206,7 @@
     </dcc:respPersons>
     <dcc:customer>
       <dcc:name>
-        <dcc:content lang="en">Customer</dcc:content>
+        <dcc:content>Customer</dcc:content>
       </dcc:name>
       <dcc:location>
         <dcc:streetNo>6</dcc:streetNo>
@@ -232,7 +232,7 @@
         <dcc:valid>true</dcc:valid>
         <dcc:respAuthority>
           <dcc:name>
-            <dcc:content lang="en">DAkkS</dcc:content>
+            <dcc:content>DAkkS</dcc:content>
           </dcc:name>
           <dcc:eMail>kontakt@dakks.de</dcc:eMail>
           <dcc:phone>+49 (0)30 670591-0</dcc:phone>

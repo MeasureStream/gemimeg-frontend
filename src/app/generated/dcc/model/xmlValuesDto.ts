@@ -10,13 +10,11 @@
 import { ExpandedUncDto } from './expandedUncDto';
 import { CoverageIntervalDto } from './coverageIntervalDto';
 import { DimensionDto } from './dimensionDto';
-import { ExpandedMUDto } from './expandedMUDto';
 
 
 export interface XmlValuesDto { 
     values?: Array<DimensionDto>;
-    expandedUncList?: Array<ExpandedUncDto>;
-    expandedMUList?: Array<ExpandedMUDto>;
+    uncertainties?: Array<ExpandedUncDto>;
     coverageIntervals?: Array<CoverageIntervalDto>;
 }
 

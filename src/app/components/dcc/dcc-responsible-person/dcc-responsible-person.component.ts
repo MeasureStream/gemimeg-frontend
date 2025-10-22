@@ -29,7 +29,7 @@
  */
 import { Component, Input } from "@angular/core";
 
-import { ContactDto } from "src/app/generated/dcc/model/contactDto";
+import { ResponsiblePersonDto } from "src/app/generated/dcc/model/responsiblePersonDto";
 import { InitializationService } from "src/app/services/dcc/initialization.service";
 
 @Component({
@@ -38,13 +38,13 @@ import { InitializationService } from "src/app/services/dcc/initialization.servi
   styleUrls: ["./dcc-responsible-person.component.scss"],
 })
 export class DccResponsiblePersonComponent {
-  @Input() list: Array<ContactDto>;
+  @Input() list: Array<ResponsiblePersonDto>;
   @Input() idPrefix!: string;
   isExpanded: boolean[] = [true];
 
   constructor(private initializationService: InitializationService) {
-    this.list = new Array<ContactDto>();
-    this.addEmptyContactDto();
+    this.list = new Array<ResponsiblePersonDto>();
+    this.addEmptyResponsiblePersonDto();
     this.addExpanded();
   }
 
@@ -58,7 +58,7 @@ export class DccResponsiblePersonComponent {
     this.isExpanded.push(true);
   }
 
-  addEmptyContactDto() {
-    this.list.push(this.initializationService.getEmptyContactDto());
+  addEmptyResponsiblePersonDto() {
+    this.list.push(this.initializationService.getEmptyResponsiblePersonDto());
   }
 }

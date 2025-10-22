@@ -9,6 +9,7 @@
  */
 import { CalibrationLaboratoryDto } from './calibrationLaboratoryDto';
 import { SoftwareDto } from './softwareDto';
+import { ResponsiblePersonDto } from './responsiblePersonDto';
 import { ItemDto } from './itemDto';
 import { ContactDto } from './contactDto';
 import { IdentificationDto } from './identificationDto';
@@ -27,9 +28,10 @@ export interface AdministrativeDataDto {
     receiptDate?: string;
     startDate?: string;
     endDate?: string;
+    issueDate?: string;
     identifications?: Array<IdentificationDto>;
     performanceLocation?: string;
-    responsiblePersons?: Array<ContactDto>;
+    responsiblePersons?: Array<ResponsiblePersonDto>;
     statements?: Array<StatementDto>;
 }
 

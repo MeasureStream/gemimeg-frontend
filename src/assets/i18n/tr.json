@@ -131,6 +131,8 @@
 	"dcc.responsibleAuthority": "Sorumlu kuruluş",
 	"dcc.responsiblePerson": "Sorumlu kişi",
 	"dcc.responsiblePersons": "Sorumlu kişiler",
+	"dcc.respPerson.mainSigner": "Ana imza sahibi",
+	"dcc.respPerson.role": "Rol",
 	"dcc.result": "Sonuç",
 	"dcc.results": "Sonuçlar",
 	"dcc.rich-content.file": "Dosya",

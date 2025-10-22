@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { LanguageSpecificStringsDto } from './languageSpecificStringsDto';
+import { QuantityDto } from './quantityDto';
 import { SoftwareDto } from './softwareDto';
 import { ContactDto } from './contactDto';
 import { RichContentDto } from './richContentDto';
@@ -21,6 +22,7 @@ export interface ItemDto {
     name?: LanguageSpecificStringsDto;
     model?: string;
     description?: RichContentDto;
+    itemQuantities?: Array<QuantityDto>;
     installedSoftwares?: Array<SoftwareDto>;
     manufacturer?: ContactDto;
     classId?: string;

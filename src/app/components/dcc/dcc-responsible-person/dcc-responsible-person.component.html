@@ -32,8 +32,8 @@
       <mat-card-title class="title">{{ "dcc.responsiblePerson" | translate }} {{ i + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button
-              id="{{idPrefix}}-person-{{i + 1}}-toogle-button">
+      <button (click)="toggleCard(i)" class="blue-card-btn" id="{{idPrefix}}-person-{{i + 1}}-toogle-button"
+              mat-icon-button>
         <mat-icon>
           <i class="material-icons">{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -42,18 +42,18 @@
   </mat-card-header>
   <mat-card-content *ngIf="isExpanded[i]">
     <app-dcc-localised-string
+        [idPrefix]="idPrefix + '-person-' + (1 + i)"
         [isRequired]="true"
         [placeholder]="'dcc.name' | translate"
-        [strings]="respPers.name!"
+        [strings]="respPers.contact!.name!"
         [type]="'NAME'"
-        [idPrefix]="idPrefix + '-person-' + (1 + i)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
         <label for="{{idPrefix}}-person-{{i + 1}}-email">{{ "dcc.emailAddress" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="respPers.emailAddress" matInput id="{{idPrefix}}-person-{{i + 1}}-email"/>
+        <input [(ngModel)]="respPers.contact!.emailAddress" id="{{idPrefix}}-person-{{i + 1}}-email" matInput/>
       </mat-form-field>
     </div>
     <div class="dcc-row">
@@ -61,29 +61,42 @@
         <label for="{{idPrefix}}-person-{{i + 1}}-phone-number">{{ "dcc.phoneNumber" | translate }}</label>
       </div>
       <mat-form-field appearance="fill">
-        <input [(ngModel)]="respPers.phoneNumber" matInput id="{{idPrefix}}-person-{{i + 1}}-phone-number"/>
+        <input [(ngModel)]="respPers.contact!.phoneNumber" id="{{idPrefix}}-person-{{i + 1}}-phone-number" matInput/>
       </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <div class="label-container">
+        <label for="{{idPrefix}}-person-{{i + 1}}-role">{{ "dcc.respPerson.role" | translate }}</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <input [(ngModel)]="respPers.role" id="{{idPrefix}}-person-{{i + 1}}-role" matInput/>
+      </mat-form-field>
+    </div>
+    <div class="dcc-row">
+      <mat-checkbox [(ngModel)]="respPers.mainSigner" id="{{idPrefix}}-person-{{i + 1}}-main-signer">{{
+        "dcc.respPerson.mainSigner" | translate }}
+      </mat-checkbox>
     </div>
     <button
         (click)="list!.splice(i, 1)"
         *ngIf="list!.length > 1"
         class="custom-circle-button-md"
         color="accent"
+        id="{{idPrefix}}-person-{{i + 1}}-remove-button"
         mat-icon-button
         type="button"
-        id="{{idPrefix}}-person-{{i + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>
   </mat-card-content>
 </mat-card>
 <button
-    (click)="addEmptyContactDto(); addExpanded()"
+    (click)="addEmptyResponsiblePersonDto(); addExpanded()"
     class="custom-circle-button-md"
     color="primary"
+    id="{{idPrefix}}-add-button"
     mat-icon-button
     type="button"
-    id="{{idPrefix}}-add-button"
 >
   <mat-icon>add_circle</mat-icon>
 </button>

@@ -397,6 +397,10 @@
             "type": "string",
             "format": "date"
           },
+          "issueDate": {
+            "type": "string",
+            "format": "date"
+          },
           "identifications": {
             "type": "array",
             "items": {
@@ -420,17 +424,17 @@
           "responsiblePersons": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ContactDto"
+              "$ref": "#/components/schemas/ResponsiblePersonDto"
             },
             "properties": {
               "empty": {
                 "type": "boolean"
               },
               "first": {
-                "$ref": "#/components/schemas/ContactDto"
+                "$ref": "#/components/schemas/ResponsiblePersonDto"
               },
               "last": {
-                "$ref": "#/components/schemas/ContactDto"
+                "$ref": "#/components/schemas/ResponsiblePersonDto"
               }
             }
           },
@@ -1047,6 +1051,23 @@
           "description": {
             "$ref": "#/components/schemas/RichContentDto"
           },
+          "itemQuantities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuantityDto"
+            },
+            "properties": {
+              "empty": {
+                "type": "boolean"
+              },
+              "first": {
+                "$ref": "#/components/schemas/QuantityDto"
+              },
+              "last": {
+                "$ref": "#/components/schemas/QuantityDto"
+              }
+            }
+          },
           "installedSoftwares": {
             "type": "array",
             "items": {
@@ -1490,6 +1511,44 @@
           }
         }
       },
+      "ResponsiblePersonDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "refIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "refTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contact": {
+            "$ref": "#/components/schemas/ContactDto"
+          },
+          "role": {
+            "type": "string"
+          },
+          "mainSigner": {
+            "type": "boolean"
+          },
+          "cryptElectronicSeal": {
+            "type": "boolean"
+          },
+          "cryptElectronicSignature": {
+            "type": "boolean"
+          },
+          "cryptElectronicTimeStamp": {
+            "type": "boolean"
+          }
+        }
+      },
       "ResultDto": {
         "type": "object",
         "properties": {
@@ -1800,7 +1859,7 @@
               "$ref": "#/components/schemas/DimensionDto"
             }
           },
-          "expandedUncList": {
+          "uncertainties": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ExpandedUncDto"
@@ -1814,23 +1873,6 @@
               },
               "last": {
                 "$ref": "#/components/schemas/ExpandedUncDto"
-              }
-            }
-          },
-          "expandedMUList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ExpandedMUDto"
-            },
-            "properties": {
-              "empty": {
-                "type": "boolean"
-              },
-              "first": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
-              },
-              "last": {
-                "$ref": "#/components/schemas/ExpandedMUDto"
               }
             }
           },

@@ -57,6 +57,7 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { InitializationService } from 'src/app/services/dcc/initialization.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { signal } from '@angular/core';
+import { ResponsiblePersonDto } from 'src/app/generated/dcc/model/responsiblePersonDto';
 
 @Component({
   selector: 'app-dcc',
@@ -209,10 +210,10 @@ export class DccComponent implements OnInit, AfterContentChecked {
         this.initializationService.getEmptyLanguageSpecificStringsDto();
     }
     if (!dcc.administrativeData.responsiblePersons) {
-      dcc.administrativeData.responsiblePersons = new Array<ContactDto>();
+      dcc.administrativeData.responsiblePersons = new Array<ResponsiblePersonDto>();
     }
     if (dcc.administrativeData.responsiblePersons.length == 0) {
-      dcc.administrativeData.responsiblePersons.push(this.initializationService.getEmptyContactDto());
+      dcc.administrativeData.responsiblePersons.push(this.initializationService.getEmptyResponsiblePersonDto());
     }
     if (!dcc.administrativeData.items) {
       dcc.administrativeData.items = new Array<ItemDto>();

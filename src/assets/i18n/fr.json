@@ -131,6 +131,8 @@
 	"dcc.responsibleAuthority": "Entité responsable",
 	"dcc.responsiblePerson": "Personne responsable",
 	"dcc.responsiblePersons": "Personnes responsables",
+	"dcc.respPerson.mainSigner": "Signataire principal",
+	"dcc.respPerson.role": "Rôle",
 	"dcc.result": "Résultat",
 	"dcc.results": "Résultats",
 	"dcc.rich-content.file": "Fichier",
