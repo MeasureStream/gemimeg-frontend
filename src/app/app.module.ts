@@ -96,15 +96,16 @@ import { DccMeasuringResultsComponent } from './components/dcc/dcc-measuring-res
 import { DccXmlPreviewComponent } from './components/dcc/dcc-xml-preview/dcc-xml-preview.component';
 import { DccAttachmentUploadComponent } from './components/dcc/dcc-attachment-upload/dcc-attachment-upload.component';
 
+import { GlobalLanguageDialogComponent } from './components/common/globalLanguage-dialog/globalLanguage-dialog.component';
 import { InfoButtonComponent } from './components/common/info-button/info-button.component';
 import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
-import { SettingsDialogComponent } from './components/common/settings-dialog/settings-dialog.component';
 import { ErrorComponent } from './components/common/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FooterImprintComponent } from './components/footer/footer-imprint/footer-imprint.component';
 import { FooterPrivacyComponent } from './components/footer/footer-privacy/footer-privacy.component';
 import { FooterLicenceComponent } from './components/footer/footer-licence/footer-licence.component';
 import { GlobalErrorHandler } from './utils/global.error.handler';
+import { LanguageSettingsDialogComponent } from './components/common/language-settings-dialog/language-settings-dialog.component';
 import { PageNotFoundComponent } from './components/common/not-found/page-not-found.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -187,8 +188,9 @@ export class AppDateAdapter extends NativeDateAdapter {
     DccMeasuringResultsComponent,
     InfoButtonComponent,
     InfoDialogComponent,
-    SettingsDialogComponent,
     DccAttachmentUploadComponent,
+    LanguageSettingsDialogComponent,
+    GlobalLanguageDialogComponent
   ],
   imports: [
     BrowserModule,

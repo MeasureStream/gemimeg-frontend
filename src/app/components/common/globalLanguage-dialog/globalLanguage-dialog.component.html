@@ -26,23 +26,25 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<mat-toolbar class="toolbar" color="primary">
-  <img alt="GEMIMEG-Tool powered by OP-Layer" class="logo-top" src="assets/gemimeg_oplayer_logo.jpg"/>
-  <span class="spacer"></span>
-  <app-globalLanguage-dialog (close)="hideSettingsDialog()" *ngIf="isSettingsDialogVisible"></app-globalLanguage-dialog>
-  <button (click)="openSettingsDialog()" mat-icon-button>
-    <mat-icon>settings</mat-icon>
-  </button>
-  <app-info-dialog (close)="hideInfoDialog()" *ngIf="isInfoDialogVisible"></app-info-dialog>
-  <button (click)="openInfoDialog()" mat-icon-button>
-    <mat-icon>info</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav-content>
-    <mat-toolbar></mat-toolbar>
-    <main class="router-container">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div (click)="closeDialog()" class="dialog-overlay">
+  <div (click)="$event.stopPropagation()" class="dialog-content">
+    <mat-card class="blue-card cockpit">
+      <mat-card-header>
+        <div class="header-title">
+          <mat-card-title class="title">{{ "settings-dialog.languageSelection" | translate }}</mat-card-title>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <mat-select [(ngModel)]="userLanguage" placeholder="Sprache auswählen">
+            <mat-option *ngFor="let lang of displaylanguages" [value]="lang.value" ng-size="15">{{ lang.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="applyLanguage()" color="primary" id="global-settings-dialog" mat-raised-button>
+          {{ "button.applyLanguage" | translate }}
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

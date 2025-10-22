@@ -1,0 +1,12 @@
+.mat-dialog-content {
+  padding: 10px;
+}
+
+.mat-card-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .mat-form-field-dialog .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}

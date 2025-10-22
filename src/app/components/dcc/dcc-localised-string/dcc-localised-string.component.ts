@@ -37,7 +37,7 @@ import {
 } from "@angular/core";
 import { LanguageSpecificStringsDto } from "src/app/generated/dcc/model/languageSpecificStringsDto";
 import { LangTextPair } from "src/app/generated/dcc/model/langTextPair";
-import { LanguageService } from "src/app/services/common/language/language.service";
+import { GlobalLanguageService } from "src/app/services/common/languages/globalLanguage.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -55,13 +55,13 @@ export class DccLocalisedStringComponent
   @Input() templateButtonState!: boolean;
   @Input() isRequired!: boolean;
   @Input() idPrefix!: string;
-  selectedLang: string = "en";
+  selectedLang: string = "de";
   currentLanguage: string = "";
   private langSub!: Subscription;
 
   locales = [
-    { lang: "en", name: "English", icon: "fi fi-gb" },
     { lang: "de", name: "Deutsch", icon: "fi fi-de" },
+    { lang: "en", name: "English", icon: "fi fi-gb" },
     { lang: "fr", name: "Français", icon: "fi fi-fr" },
     { lang: "es", name: "Español", icon: "fi fi-es" },
     { lang: "pt", name: "Português", icon: "fi fi-br" },
@@ -74,7 +74,7 @@ export class DccLocalisedStringComponent
 
   constructor(
     private cdref: ChangeDetectorRef,
-    private languageService: LanguageService
+    private globalLanguageService: GlobalLanguageService
   ) {
     this.strings = <LanguageSpecificStringsDto>{};
     this.placeholder = "";
@@ -89,7 +89,7 @@ export class DccLocalisedStringComponent
         item.lang = "de";
       }
     });
-    this.langSub = this.languageService.language.subscribe((lang) => {
+    this.langSub = this.globalLanguageService.language.subscribe((lang) => {
       this.currentLanguage = lang;
       this.updateEmptyItemLangs();
     });

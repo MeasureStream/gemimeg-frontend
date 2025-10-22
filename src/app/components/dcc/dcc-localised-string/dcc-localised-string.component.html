@@ -35,7 +35,7 @@
         <mat-select (selectionChange)="updateLanguageMap(item)" [(ngModel)]="item.lang" class="mat-select-flag"
                     mat-icon-button panelClass="custom-dropdown-panel" required>
           <mat-select-trigger class="mat-select-trigger">
-            <span class="{{ getLocale(item.lang)?.icon  || 'fi fi-gb' }}"></span>
+            <span class="{{ getLocale(item.lang)?.icon  || 'fi fi-de' }}"></span>
           </mat-select-trigger>
           <mat-option *ngFor="let locale of locales" [value]="locale.lang"><span class="{{ locale.icon }}"></span>{{
             locale.name
@@ -52,12 +52,14 @@
       </textarea>
     </mat-form-field>
     <div class="button-container">
-      <button (click)="strings.content?.push(getEmptyStringWithLangText())" class="custom-circle-button-sm"
+      <button (click)="strings.content?.push(getEmptyStringWithLangText())"
+              class="custom-circle-button-sm language-settings-btn"
               color="primary" id="{{idPrefix}}-name-add-button-{{i+1}}" mat-icon-button type="button">
         <mat-icon>add_circle</mat-icon>
       </button>
       <button (click)="strings.content?.splice(i, 1)" [disabled]="strings.content?.length! < 2"
-              class="custom-circle-button-sm" color="accent" id="{{idPrefix}}-name-remove-button-{{i+1}}"
+              class="custom-circle-button-sm language-settings-btn" color="accent"
+              id="{{idPrefix}}-name-remove-button-{{i+1}}"
               mat-icon-button
               type="button">
         <mat-icon>remove_circle</mat-icon>
