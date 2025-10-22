@@ -32,8 +32,8 @@
       <mat-card-title class="title">{{ "dcc.identifications.identifier" | translate }} {{ index + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-identifier-{{index + 1}}-toggle-button">
+      <button (click)="toggleCard()" class="blue-card-btn" id="{{idPrefix}}-identifier-{{index + 1}}-toggle-button" mat-icon-button
+              type="button">
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -44,7 +44,8 @@
     <div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-identifier-{{index + 1}}-publisher">{{ "dcc.identifications.issuer" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-identifier-{{index + 1}}-publisher">{{ "dcc.identifications.issuer" | translate
+            }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <mat-select [(value)]="identification.issuer" id="{{idPrefix}}-identifier-{{index + 1}}-publisher" required>
@@ -56,7 +57,8 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-identifier-{{index + 1}}-identifier">{{ "dcc.identifications.identifier" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-identifier-{{index + 1}}-identifier">{{ "dcc.identifications.identifier" | translate
+            }}<span class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="identification.value" id="{{idPrefix}}-identifier-{{index + 1}}-identifier" matInput
@@ -64,10 +66,10 @@
         </mat-form-field>
       </div>
       <app-dcc-localised-string
+          [idPrefix]="idPrefix + '-identifier-' + (index + 1)"
           [placeholder]="'dcc.name' | translate"
           [strings]="identification.name!"
           [type]="'NAME'"
-          [idPrefix]="idPrefix + '-identifier-' + (index + 1)"
       ></app-dcc-localised-string>
 
     </div>
@@ -76,9 +78,9 @@
         *ngIf="canRemove"
         class="custom-circle-button-md"
         color="accent"
+        id="{{idPrefix}}-identifier-{{index + 1}}-remove-button"
         mat-icon-button
         type="button"
-        id="{{idPrefix}}-identifier-{{index + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>

@@ -29,9 +29,9 @@
 -->
 <dcc:digitalCalibrationCertificate xmlns:si="https://ptb.de/si"
                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                   xmlns:dcc="https://ptb.de/dcc"
                                    xsi:schemaLocation="https://ptb.de/dcc https://ptb.de/dcc/v3.3.0/dcc.xsd"
-                                   schemaVersion="3.3.0"
-                                   xmlns:dcc="https://ptb.de/dcc">
+                                   schemaVersion="3.3.0">
   <dcc:administrativeData>
     <dcc:dccSoftware>
       <dcc:software id="software_calibrationProgram">

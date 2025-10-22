@@ -46,8 +46,8 @@
                  linear>
       <mat-step>
         <ng-template matStepLabel>{{ "dcc.administrativeData" | translate }}*</ng-template>
-        <app-dcc-software-list [softwareList]="dcc.administrativeData!.dccSoftware!" [title]="'DCC-Software'"
-                               [urlPart]="'dccdccSoftware'" [idPrefix]="'admin-dcc-software'"></app-dcc-software-list>
+        <app-dcc-software-list [idPrefix]="'admin-dcc-software'" [softwareList]="dcc.administrativeData!.dccSoftware!"
+                               [title]="'DCC-Software'" [urlPart]="'dccdccSoftware'"></app-dcc-software-list>
         <mat-card class="blue-card">
           <mat-card-header>
             <div class="header-title">
@@ -63,17 +63,19 @@
                 </mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button (click)="editMandatoryLanguage(translate.instant('dcc.mandatoryLanguage'))" id="admin-core-data-mandatoryLang-button"
+                <button (click)="editMandatoryLanguage(translate.instant('dcc.mandatoryLanguage'))"
+                        id="admin-core-data-mandatoryLang-button"
                         mat-menu-item>
                   {{ "dcc.mandatoryLanguages" | translate }}
                 </button>
-                <button (click)="editUsedLanguage(translate.instant('dcc.usedLanguage'))" id="admin-core-data-usedLang-button"
+                <button (click)="editUsedLanguage(translate.instant('dcc.usedLanguage'))"
+                        id="admin-core-data-usedLang-button"
                         mat-menu-item>{{ "dcc.usedLanguages"
                   | translate }}
                 </button>
               </mat-menu>
-              <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" mat-icon-button type="button"
-                      id="admin-core-data-toggle-button" name="admin-core-data-toggle-button">
+              <button (click)="toggleCard('Basis-Daten')" class="blue-card-btn" id="admin-core-data-toggle-button" mat-icon-button
+                      name="admin-core-data-toggle-button" type="button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Basis-Daten"] ? "keyboard_arrow_up" : "keyboard_arrow_down"
                     }}</i>
@@ -88,13 +90,14 @@
                 <div class="mandatory-languages">
                   <div class="chip-label-chip" disabled>{{ "dcc.mandatoryLanguages" | translate }}</div>
                   <mat-chip-set aria-label="mandatoryLanguages" class="mat-mdc-chip-set-stacked">
-                    <mat-chip (removed)=" i !== 0 && removeMandatoryLanguage(lang)" *ngFor="let lang of languagesService.getMandatoryLanguages();index as i"
+                    <mat-chip (removed)=" i !== 0 && removeMandatoryLanguage(lang)"
+                              *ngFor="let lang of languagesService.getMandatoryLanguages();index as i"
                               [removable]="i !== 0" color="accent" selected>
                       {{lang}}
                       - {{languageMap.get(lang)}}
                       <button [attr.aria-label]="'removeMandatoryLanguage ' + lang" matChipRemove>
                         <mat-icon
-                          *ngIf="i !==0">delete
+                            *ngIf="i !==0">delete
                         </mat-icon>
                       </button>
                     </mat-chip>
@@ -103,12 +106,13 @@
                 <div class="used-languages">
                   <div class="chip-label-chip" disabled>{{ "dcc.usedLanguages" | translate }}</div>
                   <mat-chip-set aria-label="usedLanguages" class="mat-mdc-chip-set-stacked">
-                    <mat-chip (removed)=" i!==0 && removeUsedLanguage(lang)" *ngFor="let lang of languagesService.getUsedLanguages(); index as i"
+                    <mat-chip (removed)=" i!==0 && removeUsedLanguage(lang)"
+                              *ngFor="let lang of languagesService.getUsedLanguages(); index as i"
                               [removable]="i !== 0" color="accent" selected>{{lang}}
                       - {{languageMap.get(lang)}}
                       <button [attr.aria-label]="'removeUsedLanguage ' + lang" matChipRemove>
                         <mat-icon
-                          *ngIf="i !==0">delete
+                            *ngIf="i !==0">delete
                         </mat-icon>
                       </button>
                     </mat-chip>
@@ -123,7 +127,7 @@
               </div>
               <mat-form-field appearance="fill">
                 <input [(ngModel)]="dcc.administrativeData!.countryCode" id="admin-core-data-country-code"
-                       name="admin-core-data-country-code" matInput
+                       matInput name="admin-core-data-country-code"
                        oninput="this.value = this.value.toUpperCase()" required/>
               </mat-form-field>
             </div>
@@ -144,7 +148,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.receiptDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="receiptDate" [ngModel]="dcc.administrativeData!.receiptDate"
-                       name="admin-core-data-receipt-date" id="admin-core-data-receipt-date" matInput readonly/>
+                       id="admin-core-data-receipt-date" matInput name="admin-core-data-receipt-date" readonly/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="receiptDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #receiptDate></mat-datepicker>
@@ -158,7 +162,7 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.startDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="beginPerformanceDate" [ngModel]="dcc.administrativeData!.startDate"
-                       name="admin-core-data-start-date" id="admin-core-data-start-date" matInput readonly required/>
+                       id="admin-core-data-start-date" matInput name="admin-core-data-start-date" readonly required/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="beginPerformanceDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #beginPerformanceDate></mat-datepicker>
@@ -172,8 +176,8 @@
               <mat-form-field appearance="fill">
                 <input (ngModelChange)="dcc.administrativeData!.endDate = dccService.marshalCustomDate($event)"
                        [matDatepicker]="endPerformanceDate" [ngModel]="dcc.administrativeData!.endDate"
-                       name="admin-core-data-end-date" id="admin-core-data-end-date"
-                       matInput readonly required/>
+                       id="admin-core-data-end-date" matInput
+                       name="admin-core-data-end-date" readonly required/>
                 <mat-hint>{{ "dcc.YYYYMMDD" | translate }}</mat-hint>
                 <mat-datepicker-toggle [for]="endPerformanceDate" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #endPerformanceDate></mat-datepicker>
@@ -206,8 +210,8 @@
               ></app-info-button>
             </div>
             <div class="header-menu">
-              <button (click)="toggleCard('Kunde')" class="blue-card-btn" mat-icon-button type="button"
-                      name="admin-customer-toggle-button" id="admin-customer-toggle-button">
+              <button (click)="toggleCard('Kunde')" class="blue-card-btn" id="admin-customer-toggle-button" mat-icon-button
+                      name="admin-customer-toggle-button" type="button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Kunde"] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
                 </mat-icon>
@@ -229,8 +233,8 @@
               ></app-info-button>
             </div>
             <div class="header-menu">
-              <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" mat-icon-button type="button"
-                      name="admin-calibration-laboratory-toggle-button" id="admin-calibration-laboratory-toggle-button">
+              <button (click)="toggleCard('Kalibrierlabor')" class="blue-card-btn" id="admin-calibration-laboratory-toggle-button" mat-icon-button
+                      name="admin-calibration-laboratory-toggle-button" type="button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Kalibrierlabor"] ? "keyboard_arrow_up" :
                     "keyboard_arrow_down" }}</i>
@@ -244,8 +248,8 @@
                 <label for="admin-calibration-laboratory-code">{{ "dcc.calibrationLaboratoryCode" | translate }}</label>
               </div>
               <mat-form-field appearance="fill">
-                <input [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode" matInput
-                       name="admin-calibration-laboratory-code" id="admin-calibration-laboratory-code"/>
+                <input [(ngModel)]="dcc.administrativeData!.calibrationLaboratory!.calibrationLaboratoryCode" id="admin-calibration-laboratory-code"
+                       matInput name="admin-calibration-laboratory-code"/>
               </mat-form-field>
             </div>
             <mat-divider></mat-divider>
@@ -265,8 +269,8 @@
               ></app-info-button>
             </div>
             <div class="header-menu">
-              <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" mat-icon-button
-                      type="button" name="admin-responsible-person-button" id="admin-responsible-person-button">
+              <button (click)="toggleCard('Verantwortliche-Personen')" class="blue-card-btn" id="admin-responsible-person-button"
+                      mat-icon-button name="admin-responsible-person-button" type="button">
                 <mat-icon>
                   <i class="material-icons">{{ isExpanded["Verantwortliche-Personen"] ? "keyboard_arrow_up" :
                     "keyboard_arrow_down" }}</i>
@@ -276,8 +280,8 @@
           </mat-card-header>
           <mat-card-content *ngIf="isExpanded['Verantwortliche-Personen']">
             <app-dcc-responsible-person
-                [list]="dcc.administrativeData!.responsiblePersons!"
-                [idPrefix]="'admin-responsible-person'"></app-dcc-responsible-person>
+                [idPrefix]="'admin-responsible-person'"
+                [list]="dcc.administrativeData!.responsiblePersons!"></app-dcc-responsible-person>
           </mat-card-content>
         </mat-card>
       </mat-step>
@@ -291,8 +295,8 @@
         <ng-container *ngIf="!showEmptyStatement">
           <mat-card appearance="outlined" class="statements">
             <mat-card-content>
-              <button (click)="showStatement()" class="statements-btn" color="accent" mat-flat-button type="button"
-                      id="statements-2-add-statement-button">
+              <button (click)="showStatement()" class="statements-btn" color="accent" id="statements-2-add-statement-button" mat-flat-button
+                      type="button">
                 {{ "dcc.addStatement" | translate }}
               </button>
             </mat-card-content>
@@ -301,8 +305,8 @@
         <ng-container *ngIf="showEmptyStatement">
           <app-dcc-measurement-metadata
               [header]="header_statement"
-              [list]="dcc.administrativeData!.statements!"
               [idPrefix]="'statements-2-statement'"
+              [list]="dcc.administrativeData!.statements!"
           ></app-dcc-measurement-metadata>
         </ng-container>
       </mat-step>
@@ -312,9 +316,9 @@
             (addMeasurementResult)="dcc.measurementResults!.push($event)"
             (removeMeasurementResult)="dcc.measurementResults!.splice($event, 1)"
             [headerMetaData]="header_meta_data"
+            [idPrefix]="'measurement-results'"
             [isExpanded]="isExpanded"
             [measurementResults]="dcc.measurementResults"
-            [idPrefix]="'measurement-results'"
         >
         </app-dcc-measuring-results>
       </mat-step>
@@ -341,12 +345,12 @@
 </div>
 <div class="footer-container">
   <div class="footer-navigation">
-    <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" mat-button
-            id="previous-step-button" name="previous-step-button">
+    <button (click)="previousStep(stepper)" [disabled]="currentStepIndex === 0" class="previous-button" id="previous-step-button"
+            mat-button name="previous-step-button">
       {{ "dcc.previousStep" | translate }}
     </button>
-    <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" mat-button
-            id="next-step-button" name="next-step-button">
+    <button (click)="nextStep(stepper)" [disabled]="currentStepIndex === totalSteps - 1" class="next-button" id="next-step-button"
+            mat-button name="next-step-button">
       {{ "dcc.nextStep" | translate }}
     </button>
   </div>

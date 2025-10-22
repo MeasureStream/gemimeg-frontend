@@ -32,8 +32,8 @@
       <mat-card-title class="title">{{ "dcc.software" | translate }} {{ index + 1 }}</mat-card-title>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button
-              id="{{idPrefix}}-software-{{index + 1}}-toggle-button">
+      <button (click)="toggleCard()" class="blue-card-btn" id="{{idPrefix}}-software-{{index + 1}}-toggle-button"
+              mat-icon-button>
         <mat-icon>
           <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i></mat-icon
         >
@@ -42,11 +42,11 @@
   </mat-card-header>
   <mat-card-content *ngIf="isCardExpanded">
     <app-dcc-localised-string
+        [idPrefix]="idPrefix + '-software-' + (index + 1)"
         [isRequired]="true"
         [placeholder]="'dcc.name' | translate"
         [strings]="software.name!"
         [type]="'NAME'"
-        [idPrefix]="idPrefix + '-software-' + (index + 1)"
     ></app-dcc-localised-string>
     <div class="dcc-row">
       <div class="label-container">
@@ -62,9 +62,9 @@
         *ngIf="canRemove"
         class="custom-circle-button-md"
         color="accent"
+        id="{{idPrefix}}-software-{{index + 1}}-remove-button"
         mat-icon-button
         type="button"
-        id="{{idPrefix}}-software-{{index + 1}}-remove-button"
     >
       <mat-icon>remove_circle</mat-icon>
     </button>

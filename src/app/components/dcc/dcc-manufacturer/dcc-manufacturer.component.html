@@ -36,7 +36,7 @@
       ></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="delete()" class="blue-card-btn" mat-icon-button id="{{idPrefix}}-manufacturer-delete-button">
+      <button (click)="delete()" class="blue-card-btn" id="{{idPrefix}}-manufacturer-delete-button" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -45,9 +45,9 @@
     <app-dcc-contact
         (fileSelected)="onFileSelected($event)"
         [contact]="manufacturer!"
+        [idPrefix]="idPrefix + '-manufacturer'"
         [parent]="'manufacturer'"
         [strict]="false"
-        [idPrefix]="idPrefix + '-manufacturer'"
     ></app-dcc-contact>
   </mat-card-content>
 </mat-card>

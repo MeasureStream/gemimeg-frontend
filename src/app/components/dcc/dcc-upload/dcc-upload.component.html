@@ -27,6 +27,6 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <input #fileUpload (change)="onChange($event)" [accept]="requiredFileType" class="file-input" type="file"/>
-<button (click)="fileUpload.click()" color="primary" mat-raised-button type="button" id="dcc-template-upload-button">
+<button (click)="fileUpload.click()" color="primary" id="dcc-template-upload-button" mat-raised-button type="button">
   {{ "dcc.uploadDcc" | translate }}
 </button>

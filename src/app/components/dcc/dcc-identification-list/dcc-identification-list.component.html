@@ -36,8 +36,8 @@
       ></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard()" class="blue-card-btn" mat-icon-button type="button"
-              id="{{idPrefix}}-identifiers-calibration-item-toggle-button">
+      <button (click)="toggleCard()" class="blue-card-btn" id="{{idPrefix}}-identifiers-calibration-item-toggle-button" mat-icon-button
+              type="button">
         <i class="material-icons">{{ isCardExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</i>
       </button>
     </div>
@@ -47,10 +47,10 @@
       <app-dcc-identification
           (removeIdentification)="removeItemFromList(i)"
           [canRemove]="identificationList.length > 1"
+          [idPrefix]="idPrefix + '-identifiers-calibration-item'"
           [identification]="identification"
           [index]="i"
           [isInitiallyExpanded]="i === 0"
-          [idPrefix]="idPrefix + '-identifiers-calibration-item'"
       >
       </app-dcc-identification>
     </div>
@@ -58,9 +58,9 @@
         (click)="addEmptyIdentificationDto()"
         class="custom-circle-button-md"
         color="primary"
+        id="{{idPrefix}}-identifiers-calibration-item-add-button"
         mat-icon-button
         type="button"
-        id="{{idPrefix}}-identifiers-calibration-item-add-button"
     >
       <mat-icon>add_circle</mat-icon>
     </button>

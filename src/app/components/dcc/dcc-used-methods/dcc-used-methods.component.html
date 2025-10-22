@@ -36,7 +36,7 @@
       ></app-info-button>
     </div>
     <div class="header-menu">
-      <button (click)="toggleCard(i)" class="blue-card-btn" mat-icon-button id="{{idPrefix}}-used-method-{{i+1}}">
+      <button (click)="toggleCard(i)" class="blue-card-btn" id="{{idPrefix}}-used-method-{{i+1}}" mat-icon-button>
         <mat-icon>{{ isExpanded[i] ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
       </button>
     </div>
@@ -44,11 +44,11 @@
   <mat-card-content *ngIf="isExpanded[i]">
     <div>
       <app-dcc-localised-string
+          [idPrefix]="idPrefix + '-used-method-' + (i+1)"
           [isRequired]="true"
           [placeholder]="'dcc.name' | translate"
           [strings]="item.name!"
           [type]="'NAME'"
-          [idPrefix]="idPrefix + '-used-method-' + (i+1)"
       ></app-dcc-localised-string>
       <div class="dcc-row">
         <div class="label-container">
@@ -64,7 +64,7 @@
           <label for="norm"> {{ "dcc.norm" | translate }}</label>
         </div>
         <mat-form-field appearance="fill" class="full-width">
-          <input [(ngModel)]="item.norms![0]" matInput name="norm" id="{{idPrefix}}-used-method-{{i+1}}-norm"/>
+          <input [(ngModel)]="item.norms![0]" id="{{idPrefix}}-used-method-{{i+1}}-norm" matInput name="norm"/>
         </mat-form-field>
       </div>
       <h4>{{ "dcc.description" | translate }}</h4>
@@ -76,15 +76,15 @@
           (click)="list.splice(i, 1); isExpanded.splice(i, 1)"
           class="custom-circle-button-md"
           color="accent"
-          mat-icon-button
           id="{{idPrefix}}-used-method-{{i+1}}-remove-button"
+          mat-icon-button
       >
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>
   </mat-card-content>
 </mat-card>
-<button (click)="addEmptyMethodDto(); addExpanded()" class="custom-circle-button-md" color="primary" mat-icon-button
-        id="{{idPrefix}}-used-method-add-button">
+<button (click)="addEmptyMethodDto(); addExpanded()" class="custom-circle-button-md" color="primary" id="{{idPrefix}}-used-method-add-button"
+        mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>

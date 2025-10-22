@@ -29,18 +29,18 @@
 <mat-toolbar color="normal">
   <div class="icon-container">
     <button
-      (click)="toggleComponent('lang')"
-      mat-icon-button
-      matTooltip="{{ 'dcc.selectLanguage' | translate }}"
-      type="button"
+        (click)="toggleComponent('lang')"
+        mat-icon-button
+        matTooltip="{{ 'dcc.selectLanguage' | translate }}"
+        type="button"
     >
       <mat-icon>language</mat-icon>
     </button>
     <button
-      (click)="toggleComponent('file')"
-      mat-icon-button
-      matTooltip="{{ 'dcc.uploadFile' | translate }}"
-      type="button"
+        (click)="toggleComponent('file')"
+        mat-icon-button
+        matTooltip="{{ 'dcc.uploadFile' | translate }}"
+        type="button"
     >
       <mat-icon>file_upload</mat-icon>
     </button>
@@ -51,22 +51,22 @@
 </mat-toolbar>
 <div class="elements">
   <app-dcc-localised-string
-    *ngIf="showLanguageComponent"
-    [isRequired]="true"
-    [placeholder]="'dcc.name' | translate"
-    [type]="'NAME'"
-    [strings]="richContent.name!"
+      *ngIf="showLanguageComponent"
+      [isRequired]="true"
+      [placeholder]="'dcc.name' | translate"
+      [strings]="richContent.name!"
+      [type]="'NAME'"
   ></app-dcc-localised-string>
   <app-dcc-localised-string
-    *ngIf="showLanguageComponent"
-    [isRequired]="true"
-    [placeholder]="'dcc.content' | translate"
-    [type]="'CONTENT'"
-    [strings]="richContent.textContent!"
+      *ngIf="showLanguageComponent"
+      [isRequired]="true"
+      [placeholder]="'dcc.content' | translate"
+      [strings]="richContent.textContent!"
+      [type]="'CONTENT'"
   ></app-dcc-localised-string>
   <app-dcc-attachment-upload
-    *ngIf="showFileComponent"
-    (fileSelected)="onFileSelected($event)"
+      (fileSelected)="onFileSelected($event)"
+      *ngIf="showFileComponent"
   ></app-dcc-attachment-upload>
   <app-math *ngIf="showMathComponent" [mathml]="richContent.formulaContent.content"></app-math>
 </div>

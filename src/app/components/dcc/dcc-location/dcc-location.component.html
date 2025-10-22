@@ -31,7 +31,7 @@
     <label for="{{idPrefix}}-city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.location!.city" [required]="strict" matInput id="{{idPrefix}}-city"/>
+    <input [(ngModel)]="contact.location!.city" [required]="strict" id="{{idPrefix}}-city" matInput/>
   </mat-form-field>
 </div>
 <div class="dcc-row">

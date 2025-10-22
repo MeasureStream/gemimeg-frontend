@@ -27,18 +27,18 @@
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <app-dcc-localised-string
+    [idPrefix]="idPrefix"
     [isRequired]="true"
     [placeholder]="'dcc.name' | translate"
     [strings]="contact.name!"
     [type]="'NAME'"
-    [idPrefix]="idPrefix"
 ></app-dcc-localised-string>
 <div class="dcc-row">
   <div class="label-container">
     <label for="{{idPrefix}}-contact-phone-number">{{ "dcc.phoneNumber" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.phoneNumber" matInput name="phoneNumber" id="{{idPrefix}}-contact-phone-number"/>
+    <input [(ngModel)]="contact.phoneNumber" id="{{idPrefix}}-contact-phone-number" matInput name="phoneNumber"/>
   </mat-form-field>
 </div>
 <div class="dcc-row">
@@ -46,7 +46,7 @@
     <label for="{{idPrefix}}-contact-email">{{ "dcc.emailAddress" | translate }}</label>
   </div>
   <mat-form-field appearance="fill">
-    <input [(ngModel)]="contact.emailAddress" matInput name="emailAddress" id="{{idPrefix}}-contact-email"/>
+    <input [(ngModel)]="contact.emailAddress" id="{{idPrefix}}-contact-email" matInput name="emailAddress"/>
   </mat-form-field>
 </div>
 <mat-divider></mat-divider>

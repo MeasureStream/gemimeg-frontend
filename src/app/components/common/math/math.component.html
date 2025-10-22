@@ -32,17 +32,17 @@
   </div>
   <mat-form-field appearance="fill">
     <textarea
-      [(ngModel)]="mathml"
-      id="mathml"
-      matInput
-      name="mathml"
-      rows="4"
-      placeholder="{{ 'mathml.placeholder' | translate }}"
+        [(ngModel)]="mathml"
+        id="mathml"
+        matInput
+        name="mathml"
+        placeholder="{{ 'mathml.placeholder' | translate }}"
+        rows="4"
     ></textarea>
   </mat-form-field>
 </div>
 <div class="dcc-row">
-  <div *ngIf="mathml; else noExpression" class="math-container" [appMath]="mathml"></div>
+  <div *ngIf="mathml; else noExpression" [appMath]="mathml" class="math-container"></div>
   <ng-template #noExpression>
     <div class="math-container">
       <span class="no-expression-text">{{ "mathml.noExpression" | translate }}</span>

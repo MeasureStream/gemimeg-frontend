@@ -168,7 +168,8 @@
     <ng-container *ngIf="item.location">
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-city">{{ "dcc.city" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-city">{{ "dcc.city" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.city" id="{{idPrefix}}-{{i+1}}-location-city" matInput name="city"
@@ -177,7 +178,8 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-country-code">{{ "dcc.countryCode" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-country-code">{{ "dcc.countryCode" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input
@@ -192,7 +194,8 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-postal-code">{{ "dcc.postalCode" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-postal-code">{{ "dcc.postalCode" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.postalCode" id="{{idPrefix}}-{{i+1}}-location-postal-code" matInput
@@ -219,7 +222,8 @@
       </div>
       <div class="dcc-row">
         <div class="label-container">
-          <label for="{{idPrefix}}-{{i+1}}-location-house-number">{{ "dcc.houseNumber" | translate }}<span class="asterix">*</span></label>
+          <label for="{{idPrefix}}-{{i+1}}-location-house-number">{{ "dcc.houseNumber" | translate }}<span
+              class="asterix">*</span></label>
         </div>
         <mat-form-field appearance="fill">
           <input [(ngModel)]="item.location!.houseNumber" id="{{idPrefix}}-{{i+1}}-location-house-number" matInput
