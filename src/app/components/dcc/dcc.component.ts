@@ -527,6 +527,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   onTabChange(event: MatTabChangeEvent): void {
     if (event.index === 0) {
       this.loadHumanReadable();
+      this.loadPdf();
     }
     if (event.index === 1) {
       this.loadXML();
