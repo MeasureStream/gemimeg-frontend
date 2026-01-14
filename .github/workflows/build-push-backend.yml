@@ -1,0 +1,47 @@
+name: Build & Push Backend Docker Image
+
+on:
+  push:
+    branches: ["work/patches"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Estrai versione da package.json
+      - name: Extract version from package.json
+        id: version
+        run: |
+          echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+
+      # Setup Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Login Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build e push DEV
+      - name: Build and push DEV Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            API_URL=https://dev.christiandellisanti.uk
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/gemimeg-frontend:latest-dev-mario
+            ${{ secrets.DOCKER_USERNAME }}/gemimeg-frontend:${{ steps.version.outputs.VERSION }}-dev-mario

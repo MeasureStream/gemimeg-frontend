@@ -1,0 +1,24 @@
+From 4c75a145e4a154ba58d64f819a8844db2b18fee8 Mon Sep 17 00:00:00 2001
+From: Mario Attrovio <marioleonardo.attrovio@dentsu.com>
+Date: Wed, 14 Jan 2026 16:35:55 +0100
+Subject: [PATCH] patch: dockerfile
+
+---
+ src/app/components/dcc/dcc.component.ts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/app/components/dcc/dcc.component.ts b/src/app/components/dcc/dcc.component.ts
+index 7e529f6..c4621c2 100644
+--- a/src/app/components/dcc/dcc.component.ts
++++ b/src/app/components/dcc/dcc.component.ts
+@@ -527,6 +527,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
+   onTabChange(event: MatTabChangeEvent): void {
+     if (event.index === 0) {
+       this.loadHumanReadable();
++      this.loadPdf();
+     }
+     if (event.index === 1) {
+       this.loadXML();
+-- 
+2.49.0.windows.1
+
