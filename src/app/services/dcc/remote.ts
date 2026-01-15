@@ -37,7 +37,7 @@ import { CalibrationCertificateDto } from "../../generated/dcc/model/calibration
 })
 export class RemoteDccService {
   // Remote URL variable for easy configuration
-  private remoteUrl = "http://100.127.76.43:3050";
+  private remoteUrl = "/dcc-service";
 
   constructor(private http: HttpClient) {}
 
@@ -51,7 +51,7 @@ export class RemoteDccService {
 
   /**
    * Checks if the remote service is connected and working.
-   */ 
+   */
   getStatus(): Observable<{ status: string; connected: boolean }> {
     console.log("[RemoteDccService] Checking status...");
     return this.http.get<{ status: string; connected: boolean }>(`${this.remoteUrl}/status`);

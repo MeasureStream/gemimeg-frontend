@@ -25,41 +25,35 @@
  *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { TranslateService } from "@ngx-translate/core";
-import { AuthService } from "./services/common/auth/auth.service";
 
-@Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
-})
-export class AppComponent implements OnInit {
-  title = "gemimeg-frontend";
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
-  constructor(
-    private translate: TranslateService,
-    private authService: AuthService,
-    private http: HttpClient,
-  ) {
-    this.translate.setDefaultLang("en");
-    this.translate.addLangs(["en", "de", "fr", "es", "pt", "it", "tr"]);
-    this.translate.use("en");
-  }
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
 
-  ngOnInit(): void {
-    this.authService.fetchMe().subscribe({
-      next: (me) => {
-        console.log("Auth success", me);
-        // Test verify-token after successful auth
-        this.http.get("/dcc-service/verify-token").subscribe((res) => {
-          console.log("Token verification result:", res);
-        });
-      },
-      error: (err) => console.error("Auth error", err),
-    });
+  constructor(private authService: AuthService) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const xsrfToken = this.authService.getXsrfToken();
+
+    // If we have a token, we clone the request and add the X-XSRF-TOKEN header
+    if (xsrfToken) {
+      request = request.clone({
+        setHeaders: {
+          'X-XSRF-TOKEN': xsrfToken
+        }
+      });
+    }
+
+    return next.handle(request);
   }
 }

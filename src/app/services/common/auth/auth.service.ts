@@ -25,41 +25,57 @@
  *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
-import { Component, OnInit } from "@angular/core";
+
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { TranslateService } from "@ngx-translate/core";
-import { AuthService } from "./services/common/auth/auth.service";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 
-@Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+export interface MeInterface {
+  name: string;
+  loginUrl: string;
+  principal: any;
+  xsrfToken: string;
+  logoutUrl: string;
+}
+
+@Injectable({
+  providedIn: "root",
 })
-export class AppComponent implements OnInit {
-  title = "gemimeg-frontend";
+export class AuthService {
+  private readonly API_URL = "";
+  private xsrfTokenSubject = new BehaviorSubject<string | null>(null);
+  private userSubject = new BehaviorSubject<MeInterface | null>(null);
 
-  constructor(
-    private translate: TranslateService,
-    private authService: AuthService,
-    private http: HttpClient,
-  ) {
-    this.translate.setDefaultLang("en");
-    this.translate.addLangs(["en", "de", "fr", "es", "pt", "it", "tr"]);
-    this.translate.use("en");
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Fetches the current user information and XSRF token from the backend.
+   */
+  fetchMe(): Observable<MeInterface> {
+    return this.http.get<MeInterface>(`${this.API_URL}/me`).pipe(
+      tap((me) => {
+        if (me.xsrfToken) {
+          this.xsrfTokenSubject.next(me.xsrfToken);
+        }
+        this.userSubject.next(me);
+      }),
+    );
   }
 
-  ngOnInit(): void {
-    this.authService.fetchMe().subscribe({
-      next: (me) => {
-        console.log("Auth success", me);
-        // Test verify-token after successful auth
-        this.http.get("/dcc-service/verify-token").subscribe((res) => {
-          console.log("Token verification result:", res);
-        });
-      },
-      error: (err) => console.error("Auth error", err),
-    });
+  getXsrfToken(): string | null {
+    return this.xsrfTokenSubject.value;
+  }
+
+  getUser(): MeInterface | null {
+    return this.userSubject.value;
+  }
+
+  get xsrfToken$(): Observable<string | null> {
+    return this.xsrfTokenSubject.asObservable();
+  }
+
+  get user$(): Observable<MeInterface | null> {
+    return this.userSubject.asObservable();
   }
 }
