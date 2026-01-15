@@ -27,56 +27,58 @@
  *  OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { AfterContentChecked, ViewChild, ChangeDetectorRef, Component, OnInit, SecurityContext } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute } from "@angular/router";
 
-import { AdministrativeDataDto } from '../../generated/dcc/model/administrativeDataDto';
-import { CalibrationCertificateDto } from '../../generated/dcc/model/calibrationCertificateDto';
-import { ConditionDto } from '../../generated/dcc/model/conditionDto';
-import { ContactDto } from '../../generated/dcc/model/contactDto';
-import { DataDto } from '../../generated/dcc/model/dataDto';
-import { EquipmentDto } from '../../generated/dcc/model/equipmentDto';
-import { ItemDto } from '../../generated/dcc/model/itemDto';
-import { LocationDto } from '../../generated/dcc/model/locationDto';
-import { MeasurementResultDto } from '../../generated/dcc/model/measurementResultDto';
-import { MethodDto } from '../../generated/dcc/model/methodDto';
-import { ResultDto } from '../../generated/dcc/model/resultDto';
-import { RichContentDto } from '../../generated/dcc/model/richContentDto';
-import { SoftwareDto } from '../../generated/dcc/model/softwareDto';
-import { StatementDto } from '../../generated/dcc/model/statementDto';
-import { FormulaDto } from 'src/app/generated/dcc/model/formulaDto';
+import { AdministrativeDataDto } from "../../generated/dcc/model/administrativeDataDto";
+import { CalibrationCertificateDto } from "../../generated/dcc/model/calibrationCertificateDto";
+import { ConditionDto } from "../../generated/dcc/model/conditionDto";
+import { ContactDto } from "../../generated/dcc/model/contactDto";
+import { DataDto } from "../../generated/dcc/model/dataDto";
+import { EquipmentDto } from "../../generated/dcc/model/equipmentDto";
+import { ItemDto } from "../../generated/dcc/model/itemDto";
+import { LocationDto } from "../../generated/dcc/model/locationDto";
+import { MeasurementResultDto } from "../../generated/dcc/model/measurementResultDto";
+import { MethodDto } from "../../generated/dcc/model/methodDto";
+import { ResultDto } from "../../generated/dcc/model/resultDto";
+import { RichContentDto } from "../../generated/dcc/model/richContentDto";
+import { SoftwareDto } from "../../generated/dcc/model/softwareDto";
+import { StatementDto } from "../../generated/dcc/model/statementDto";
+import { FormulaDto } from "src/app/generated/dcc/model/formulaDto";
 
-import { DccService } from 'src/app/services/dcc/dcc.service';
-import { NGXLogger } from 'ngx-logger';
-import { ErrorService } from 'src/app/services/common/error/error.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ByteDataDto } from 'src/app/generated/dcc/model/byteDataDto';
-import { DccMeasurementMetadataComponent } from './dcc-measurement-metadata/dcc-measurement-metadata.component';
+import { DccService } from "src/app/services/dcc/dcc.service";
+import { RemoteDccService } from "src/app/services/dcc/remote";
+import { NGXLogger } from "ngx-logger";
+import { ErrorService } from "src/app/services/common/error/error.service";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ByteDataDto } from "src/app/generated/dcc/model/byteDataDto";
+import { DccMeasurementMetadataComponent } from "./dcc-measurement-metadata/dcc-measurement-metadata.component";
 import { Overlay } from "@angular/cdk/overlay";
-import { MatStepper } from '@angular/material/stepper';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { InitializationService } from 'src/app/services/dcc/initialization.service';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { signal } from '@angular/core';
-import { ResponsiblePersonDto } from 'src/app/generated/dcc/model/responsiblePersonDto';
+import { MatStepper } from "@angular/material/stepper";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { InitializationService } from "src/app/services/dcc/initialization.service";
+import { MatTabChangeEvent } from "@angular/material/tabs";
+import { signal } from "@angular/core";
+import { ResponsiblePersonDto } from "src/app/generated/dcc/model/responsiblePersonDto";
 import { TranslateService } from "@ngx-translate/core";
 import { openLanguageDialog } from "../common/language-settings-dialog/language-settings-dialog.component";
 import { LanguagesService } from "src/app/services/common/languages/languages.service";
 
 @Component({
-  selector: 'app-dcc',
-  templateUrl: './dcc.component.html',
-  styleUrls: ['./dcc.component.scss'],
+  selector: "app-dcc",
+  templateUrl: "./dcc.component.html",
+  styleUrls: ["./dcc.component.scss"],
 })
 export class DccComponent implements OnInit, AfterContentChecked {
   dcc: CalibrationCertificateDto;
   xml!: string;
   templateFileUrl!: string;
   uploadedFileUrl!: string;
-  validPerformanceLocations = ['LABORATORY', 'CUSTOMER', 'LABORATORY_BRANCH', 'CUSTOMER_BRANCH', 'OTHER'];
-  validConformityStatementStatusTypes = ['pass', 'fail', 'conditionalPass', 'conditionalFail', 'noPass', 'noFail'];
-  header_meta_data = 'Meta-Data';
-  header_statement = 'Statement';
+  validPerformanceLocations = ["LABORATORY", "CUSTOMER", "LABORATORY_BRANCH", "CUSTOMER_BRANCH", "OTHER"];
+  validConformityStatementStatusTypes = ["pass", "fail", "conditionalPass", "conditionalFail", "noPass", "noFail"];
+  header_meta_data = "Meta-Data";
+  header_statement = "Statement";
   currentStepIndex = 0;
   totalSteps = 5;
   isLastStep = false;
@@ -87,27 +89,27 @@ export class DccComponent implements OnInit, AfterContentChecked {
   showEmptyStatement = false;
 
   cardTitles: string[] = [
-    'DCC-Software',
-    'Basis-Daten',
-    'Kunde',
-    'Verantwortliche-Personen',
-    'Kalibrierlabor',
-    'Identifikatoren',
-    'Installierte-Software',
-    'Kalibriergut1',
-    'Messergebnis1',
-    'Verwendete-Methoden',
-    'Verwendete-Messinstrumente',
-    'Einflussfaktoren',
-    'Ergebnisse',
-    'Meta-Daten',
-    'Verwendete-Software',
+    "DCC-Software",
+    "Basis-Daten",
+    "Kunde",
+    "Verantwortliche-Personen",
+    "Kalibrierlabor",
+    "Identifikatoren",
+    "Installierte-Software",
+    "Kalibriergut1",
+    "Messergebnis1",
+    "Verwendete-Methoden",
+    "Verwendete-Messinstrumente",
+    "Einflussfaktoren",
+    "Ergebnisse",
+    "Meta-Daten",
+    "Verwendete-Software",
   ];
-  isExpanded: { [title: string]: boolean } = { 'DCC-Software*': true };
-  humanReadableHtml = '';
-  pdfUrl = '';
-  selectedPerformanceLoc: string = '';
-  performanceLocation = ['laboratory', 'customer', 'laboratory branch', 'customer branch', 'other'];
+  isExpanded: { [title: string]: boolean } = { "DCC-Software*": true };
+  humanReadableHtml = "";
+  pdfUrl = "";
+  selectedPerformanceLoc: string = "";
+  performanceLocation = ["laboratory", "customer", "laboratory branch", "customer branch", "other"];
   @ViewChild(DccMeasurementMetadataComponent) metadataComponent!: DccMeasurementMetadataComponent;
   selectedFile: any;
   isInternal: boolean = false;
@@ -118,11 +120,12 @@ export class DccComponent implements OnInit, AfterContentChecked {
     ["es", "Español"],
     ["pt", "Português"],
     ["it", "Italiano"],
-    ["tr", "Türkçe"]
+    ["tr", "Türkçe"],
   ]);
 
   constructor(
     public dccService: DccService,
+    public remoteDccService: RemoteDccService,
     public dialog: MatDialog,
     public overlay: Overlay,
     private errorService: ErrorService,
@@ -131,7 +134,8 @@ export class DccComponent implements OnInit, AfterContentChecked {
     public logger: NGXLogger,
     private changeDetect: ChangeDetectorRef,
     public translate: TranslateService,
-    public languagesService: LanguagesService
+    public languagesService: LanguagesService,
+    private route: ActivatedRoute,
   ) {
     this.cardTitles.forEach((title) => {
       this.isExpanded[title] = true;
@@ -143,6 +147,30 @@ export class DccComponent implements OnInit, AfterContentChecked {
     if (!this.dcc.measurementResults) {
       this.dcc.measurementResults = [];
     }
+
+    this.remoteDccService.getStatus().subscribe((status) => {
+      console.log("[DccComponent] Remote service status:", status);
+    });
+
+    this.route.queryParams.subscribe((params) => {
+      const dccId = params["dccId"];
+      if (dccId) {
+        this.remoteDccService.getDccById(dccId).subscribe((dcc) => {
+          this.dcc = this.initialiseEmptyFields(dcc);
+        });
+      }
+    });
+  }
+
+  saveToRemote() {
+    this.route.queryParams.subscribe((params) => {
+      const dccId = params["dccId"] || "default-id";
+      this.remoteDccService.saveDcc(dccId, this.dcc).subscribe((response) => {
+        if (response.success) {
+          console.log("DCC saved successfully");
+        }
+      });
+    });
   }
 
   ngAfterContentChecked(): void {
@@ -152,7 +180,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   onCheckboxChange() {
     this.changeDetect.detectChanges();
     setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
     }, 0);
   }
 
@@ -329,7 +357,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
             subentry.norms = new Array<string>();
           }
           if (subentry.norms.length == 0) {
-            subentry.norms.push('');
+            subentry.norms.push("");
           }
           if (subentry.description == null || undefined) {
             subentry.description = this.initializationService.getEmptyRichContentDto();
@@ -474,11 +502,11 @@ export class DccComponent implements OnInit, AfterContentChecked {
     this.attachFileToByteDataContent();
     this.dccService.jsonToXml(this.dcc).subscribe({
       next: (response: string) => {
-        this.logger.trace('Got XML from dcc.jsonToXml: ' + response);
-        const a = document.createElement('a');
-        const objectUrl = URL.createObjectURL(new Blob([response], { type: 'application/xml' }));
+        this.logger.trace("Got XML from dcc.jsonToXml: " + response);
+        const a = document.createElement("a");
+        const objectUrl = URL.createObjectURL(new Blob([response], { type: "application/xml" }));
         a.href = objectUrl;
-        a.download = this.dcc.administrativeData?.uniqueIdentifier + '.xml';
+        a.download = this.dcc.administrativeData?.uniqueIdentifier + ".xml";
         a.click();
         URL.revokeObjectURL(objectUrl);
       },
@@ -489,7 +517,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   formula: FormulaDto | any = {
-    id: '1',
+    id: "1",
     content: [
       '<math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mi>z</mi></mrow></math>',
     ],
@@ -519,7 +547,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
 
   onStepChange(event: StepperSelectionEvent): void {
     if (event.selectedIndex === 4)
-      this.onTabChange({ index: 0, tab: { textLabel: 'Human Readable' } } as MatTabChangeEvent);
+      this.onTabChange({ index: 0, tab: { textLabel: "Human Readable" } } as MatTabChangeEvent);
     this.currentStepIndex = event.selectedIndex;
     this.updateStepState();
   }
@@ -551,7 +579,7 @@ export class DccComponent implements OnInit, AfterContentChecked {
   loadPdf() {
     this.dccService.jsonToPdf(this.dcc, this.isInternal).subscribe({
       next: (response: Blob) => {
-        const blob = new Blob([response], { type: 'application/pdf' });
+        const blob = new Blob([response], { type: "application/pdf" });
         const url = window.URL.createObjectURL(blob);
         this.pdfUrl = url;
       },
@@ -573,28 +601,22 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   editMandatoryLanguage(title: string) {
-    openLanguageDialog(
-      this.dialog,
-      this.overlay,
-      title,
-      this.languagesService.getMandatoryLangSubject()
-    ).subscribe((selectedLang: string | undefined) => {
-      if (selectedLang) {
-        this.addMandatorylanguage(selectedLang);
-      }
-    });
+    openLanguageDialog(this.dialog, this.overlay, title, this.languagesService.getMandatoryLangSubject()).subscribe(
+      (selectedLang: string | undefined) => {
+        if (selectedLang) {
+          this.addMandatorylanguage(selectedLang);
+        }
+      },
+    );
   }
   editUsedLanguage(title: string) {
-    openLanguageDialog(
-      this.dialog,
-      this.overlay,
-      title,
-      this.languagesService.getUsedLangSubject()
-    ).subscribe((selectedLang: string) => {
-      if (selectedLang) {
-        this.addUsedlanguage(selectedLang);
-      }
-    });
+    openLanguageDialog(this.dialog, this.overlay, title, this.languagesService.getUsedLangSubject()).subscribe(
+      (selectedLang: string) => {
+        if (selectedLang) {
+          this.addUsedlanguage(selectedLang);
+        }
+      },
+    );
   }
 
   addMandatorylanguage(lang: string) {
@@ -620,10 +642,8 @@ export class DccComponent implements OnInit, AfterContentChecked {
   }
 
   private syncLanguagesToDto() {
-    this.dcc.administrativeData!.mandatoryLanguageCodes =
-      this.languagesService.getMandatoryLanguages();
-    this.dcc.administrativeData!.usedLanguageCodes =
-      this.languagesService.getUsedLanguages();
+    this.dcc.administrativeData!.mandatoryLanguageCodes = this.languagesService.getMandatoryLanguages();
+    this.dcc.administrativeData!.usedLanguageCodes = this.languagesService.getUsedLanguages();
   }
 
   showErrorMessages(error: any) {

@@ -139,6 +139,7 @@
   "dcc.rich-content.file": "File",
   "dcc.rich-content.language": "Language",
   "dcc.rich-content.mathml": "MathML",
+  "dcc.saveRemote": "Save to remote",
   "dcc.selectDccTemplate": "Select template",
   "dcc.selectLanguage": "Select language",
   "dcc.selectTemplate": "Select template",

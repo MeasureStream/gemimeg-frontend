@@ -3,7 +3,7 @@
   "version": "1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --live-reload=false",
+    "start": "ng serve --host 0.0.0.0 --configuration=development --live-reload=true",
     "build": "ng build --watch=false",
     "testserve": "ng serve --configuration=test"
   },
