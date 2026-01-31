@@ -166,8 +166,8 @@ export class DccComponent implements OnInit, AfterContentChecked {
     this.route.queryParams.subscribe((params) => {
       const dccId = params["dccId"] || "default-id";
       this.remoteDccService.saveDcc(dccId, this.dcc).subscribe((response) => {
-        if (response.success) {
-          console.log("DCC saved successfully");
+        if (response) {
+          console.log("DCC saved successfully", response);
         }
       });
     });

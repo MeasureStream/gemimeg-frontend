@@ -42,6 +42,9 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             API_URL=https://dev.christiandellisanti.uk
+            BACKEND_URL=http://gemimeg-backend:10001
+            GATEWAY_URL=http://gateway-iam:8080
+            KAFKA_URL=kafka:29092
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/gemimeg-frontend:latest-dev-mario
             ${{ secrets.DOCKER_USERNAME }}/gemimeg-frontend:${{ steps.version.outputs.VERSION }}-dev-mario

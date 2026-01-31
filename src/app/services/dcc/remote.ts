@@ -30,6 +30,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { CalibrationCertificateDto } from "../../generated/dcc/model/calibrationCertificateDto";
 
 @Injectable({
@@ -37,7 +38,7 @@ import { CalibrationCertificateDto } from "../../generated/dcc/model/calibration
 })
 export class RemoteDccService {
   // Remote URL variable for easy configuration
-  private remoteUrl = "/dcc-service";
+  private remoteUrl = "/dcc-service/api";
 
   constructor(private http: HttpClient) {}
 
@@ -46,7 +47,19 @@ export class RemoteDccService {
    */
   getDccById(dccId: string): Observable<CalibrationCertificateDto> {
     console.log(`[RemoteDccService] Fetching DCC with ID: ${dccId}`);
-    return this.http.get<CalibrationCertificateDto>(`${this.remoteUrl}/dcc/${dccId}`);
+    return this.http.get<any>(`${this.remoteUrl}/dcc/${dccId}`).pipe(
+      map((response) => {
+        if (response && response.dccJson) {
+          try {
+            return JSON.parse(response.dccJson) as CalibrationCertificateDto;
+          } catch (e) {
+            console.error("[RemoteDccService] Error parsing dccJson:", e);
+            return response as CalibrationCertificateDto;
+          }
+        }
+        return response as CalibrationCertificateDto;
+      }),
+    );
   }
 
   /**
@@ -60,8 +73,11 @@ export class RemoteDccService {
   /**
    * Saves a DCC given its ID and the JSON object to the remote service.
    */
-  saveDcc(dccId: string, dcc: CalibrationCertificateDto): Observable<{ success: boolean }> {
+  saveDcc(dccId: string, dcc: CalibrationCertificateDto): Observable<any> {
     console.log(`[RemoteDccService] Saving DCC with ID: ${dccId}`, dcc);
-    return this.http.post<{ success: boolean }>(`${this.remoteUrl}/dcc/${dccId}`, dcc);
+    const request = {
+      dccJson: JSON.stringify(dcc),
+    };
+    return this.http.put<any>(`${this.remoteUrl}/dcc/${dccId}`, request);
   }
 }

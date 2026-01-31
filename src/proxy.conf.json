@@ -1,38 +1,44 @@
 {
   "/me": {
-    "target": "http://100.127.76.43:8080",
+    "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
-  "/dcc-service/**": {
-    "target": "http://100.127.76.43:3050",
+  "/login/**": {
+    "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/dcc-service": ""
-    }
+    "logLevel": "debug"
   },
-  "/api/v1/dcc/*": {
+  "/logout": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/API/**": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/dcc/**": {
     "target": "http://localhost:3007",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
-  "/api/v1/cache/*": {
+  "/api/v1/cache/**": {
     "target": "http://localhost:3007",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
-  "/dcc/v3/api-docs/*": {
+  "/v3/api-docs/**": {
     "target": "http://localhost:3007",
     "secure": false,
     "changeOrigin": true,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/dcc": ""
-    }
+    "logLevel": "debug"
   }
 }
