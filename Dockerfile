@@ -33,9 +33,9 @@ FROM nginx:alpine
 
 # Environment Variables
 ENV NGINX_PORT=80
-ENV BACKEND_HOST=gemimeg-backend
+ENV BACKEND_HOST=172.20.0.129
 ENV BACKEND_PORT=10001
-ENV GATEWAY_HOST=gateway-iam
+ENV GATEWAY_HOST=172.20.0.200
 ENV GATEWAY_PORT=8080
 
 # Copy built application from build stage
