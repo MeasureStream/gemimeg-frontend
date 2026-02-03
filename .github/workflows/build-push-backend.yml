@@ -2,7 +2,7 @@ name: Build & Push Backend Docker Image
 
 on:
   push:
-    branches: ["work/patchessss"]
+    branches: ["work/patches"]
 
 jobs:
   build:
