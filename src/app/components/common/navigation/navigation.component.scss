@@ -27,18 +27,30 @@
 *  OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-.logo-top {
-  height: 70%;
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #212529;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  padding-left: 10px;
+  font-family: "Inter", sans-serif;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.toolbar {
+  background-color: #f8f9fa !important;
+  color: #212529 !important;
+  border-bottom: 1px solid #dee2e6;
 }
 
-mat-toolbar.mat-primary {
+mat-toolbar.toolbar {
   position: fixed;
   top: 0;
   z-index: 100;
+}
+
+.logo-top {
+  height: 70%;
 }
 
 .active-link {

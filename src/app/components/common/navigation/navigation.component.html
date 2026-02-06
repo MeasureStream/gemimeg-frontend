@@ -26,8 +26,8 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<mat-toolbar class="toolbar" color="primary">
-  <img alt="GEMIMEG-Tool powered by OP-Layer" class="logo-top" src="assets/gemimeg_oplayer_logo.jpg"/>
+<mat-toolbar class="toolbar">
+  <span class="brand-text" (click)="goToCertificates()" style="cursor: pointer;">MeasureStream</span>
   <span class="spacer"></span>
   <app-global-language-dialog (close)="hideSettingsDialog()"
                               *ngIf="isSettingsDialogVisible"></app-global-language-dialog>

@@ -31,6 +31,9 @@
     <mat-card class="blue-card cockpit">
       <mat-card-header>
         <div class="header-title">
+          <button (click)="goToCertificates()" mat-icon-button type="button">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
           <mat-card-title class="title">{{ "dcc.dccTemplates" | translate }}</mat-card-title>
         </div>
         <div class="header-menu"></div>
@@ -48,6 +51,15 @@
           type="button"
         >
           {{ "dcc.saveRemote" | translate }}
+        </button>
+        <button
+          (click)="goToCertificates()"
+          color=""
+          id="dcc-remote-close-button"
+          mat-raised-button
+          type="button"
+        >
+          {{ "button.close" | translate }}
         </button>
       </mat-card-content>
     </mat-card>

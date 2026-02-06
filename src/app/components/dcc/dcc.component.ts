@@ -162,6 +162,10 @@ export class DccComponent implements OnInit, AfterContentChecked {
     });
   }
 
+  goToCertificates() {
+    window.location.href = "https://dev.christiandellisanti.uk/ui/dcc/certificates";
+  }
+
   saveToRemote() {
     this.route.queryParams.subscribe((params) => {
       const dccId = params["dccId"] || "default-id";

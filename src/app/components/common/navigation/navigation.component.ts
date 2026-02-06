@@ -85,4 +85,8 @@ export class NavigationComponent {
     this.userLanguage = lang;
     this.translate.use(this.userLanguage);
   }
+
+  goToCertificates() {
+    window.location.href = "https://dev.christiandellisanti.uk/ui/dcc/certificates";
+  }
 }
