@@ -1,0 +1,510 @@
+From a89058df4d687a7204c2d8a1ec2bef19282ead2f Mon Sep 17 00:00:00 2001
+From: mario attrovio <mattrovio@measurestream-dev.polito.it>
+Date: Thu, 15 Jan 2026 20:17:07 +0100
+Subject: [PATCH 06/11] patch: add token support
+
+---
+ src/app/app.component.ts                      |  41 +++-
+ src/app/app.module.ts                         | 196 +++++++++---------
+ .../services/common/auth/auth.interceptor.ts  |  59 ++++++
+ src/app/services/common/auth/auth.service.ts  |  81 ++++++++
+ src/app/services/dcc/remote.ts                |   4 +-
+ src/proxy.conf.json                           |  15 ++
+ 6 files changed, 288 insertions(+), 108 deletions(-)
+ create mode 100644 src/app/services/common/auth/auth.interceptor.ts
+ create mode 100644 src/app/services/common/auth/auth.service.ts
+
+diff --git a/src/app/app.component.ts b/src/app/app.component.ts
+index 8f879e7..5d6ea58 100644
+--- a/src/app/app.component.ts
++++ b/src/app/app.component.ts
+@@ -27,20 +27,39 @@
+  *  OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  */
+-import { Component } from '@angular/core';
+-import { TranslateService } from '@ngx-translate/core';
++import { Component, OnInit } from "@angular/core";
++import { HttpClient } from "@angular/common/http";
++import { TranslateService } from "@ngx-translate/core";
++import { AuthService } from "./services/common/auth/auth.service";
+ 
+ @Component({
+-  selector: 'app-root',
+-  templateUrl: './app.component.html',
+-  styleUrls: ['./app.component.scss'],
++  selector: "app-root",
++  templateUrl: "./app.component.html",
++  styleUrls: ["./app.component.scss"],
+ })
+-export class AppComponent {
+-  title = 'gemimeg-frontend';
++export class AppComponent implements OnInit {
++  title = "gemimeg-frontend";
+ 
+-  constructor(private translate: TranslateService) {
+-    this.translate.setDefaultLang('en');
+-    this.translate.addLangs(['en', 'de', 'fr', 'es', 'pt', 'it', 'tr']);
+-    this.translate.use('en');
++  constructor(
++    private translate: TranslateService,
++    private authService: AuthService,
++    private http: HttpClient,
++  ) {
++    this.translate.setDefaultLang("en");
++    this.translate.addLangs(["en", "de", "fr", "es", "pt", "it", "tr"]);
++    this.translate.use("en");
++  }
++
++  ngOnInit(): void {
++    this.authService.fetchMe().subscribe({
++      next: (me) => {
++        console.log("Auth success", me);
++        // Test verify-token after successful auth
++        this.http.get("/dcc-service/verify-token").subscribe((res) => {
++          console.log("Token verification result:", res);
++        });
++      },
++      error: (err) => console.error("Auth error", err),
++    });
+   }
+ }
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index 2a4bf0d..fe249f6 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -27,116 +27,117 @@
+  *  OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  */
+-import { ErrorHandler, NgModule } from '@angular/core';
+-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+-import { BrowserModule } from '@angular/platform-browser';
+-import { HttpClientModule } from '@angular/common/http';
+-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+-import { LayoutModule } from '@angular/cdk/layout';
+-import { MatToolbarModule } from '@angular/material/toolbar';
+-import { MatButtonModule } from '@angular/material/button';
+-import { MatSidenavModule } from '@angular/material/sidenav';
+-import { MatIconModule } from '@angular/material/icon';
+-import { MatListModule } from '@angular/material/list';
+-import { MatTableModule } from '@angular/material/table';
+-import { MatPaginatorModule } from '@angular/material/paginator';
+-import { MatSortModule } from '@angular/material/sort';
+-import { MatGridListModule } from '@angular/material/grid-list';
+-import { MatCardModule } from '@angular/material/card';
+-import { MatMenuModule } from '@angular/material/menu';
+-import { MatTooltipModule } from '@angular/material/tooltip';
+-import { MatInputModule } from '@angular/material/input';
+-import { MatProgressBarModule } from '@angular/material/progress-bar';
+-import { MatSelectModule } from '@angular/material/select';
+-import { MatRadioModule } from '@angular/material/radio';
+-import { MatDialogModule } from '@angular/material/dialog';
+-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+-import { MatStepperModule } from '@angular/material/stepper';
+-import { MatExpansionModule } from '@angular/material/expansion';
+-import { MatDatepickerModule } from '@angular/material/datepicker';
+-import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+-import { MatCheckboxModule } from '@angular/material/checkbox';
+-import { MatDividerModule } from '@angular/material/divider';
+-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+-import { MatTabsModule } from '@angular/material/tabs';
+-import { MatChipsModule } from '@angular/material/chips';
+-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
++import { ErrorHandler, NgModule } from "@angular/core";
++import { LocationStrategy, PathLocationStrategy } from "@angular/common";
++import { BrowserModule } from "@angular/platform-browser";
++import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
++import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
++import { LayoutModule } from "@angular/cdk/layout";
++import { MatToolbarModule } from "@angular/material/toolbar";
++import { MatButtonModule } from "@angular/material/button";
++import { MatSidenavModule } from "@angular/material/sidenav";
++import { MatIconModule } from "@angular/material/icon";
++import { MatListModule } from "@angular/material/list";
++import { MatTableModule } from "@angular/material/table";
++import { MatPaginatorModule } from "@angular/material/paginator";
++import { MatSortModule } from "@angular/material/sort";
++import { MatGridListModule } from "@angular/material/grid-list";
++import { MatCardModule } from "@angular/material/card";
++import { MatMenuModule } from "@angular/material/menu";
++import { MatTooltipModule } from "@angular/material/tooltip";
++import { MatInputModule } from "@angular/material/input";
++import { MatProgressBarModule } from "@angular/material/progress-bar";
++import { MatSelectModule } from "@angular/material/select";
++import { MatRadioModule } from "@angular/material/radio";
++import { MatDialogModule } from "@angular/material/dialog";
++import { FormsModule, ReactiveFormsModule } from "@angular/forms";
++import { MatStepperModule } from "@angular/material/stepper";
++import { MatExpansionModule } from "@angular/material/expansion";
++import { MatDatepickerModule } from "@angular/material/datepicker";
++import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, NativeDateAdapter } from "@angular/material/core";
++import { MatCheckboxModule } from "@angular/material/checkbox";
++import { MatDividerModule } from "@angular/material/divider";
++import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
++import { MatTabsModule } from "@angular/material/tabs";
++import { MatChipsModule } from "@angular/material/chips";
++import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
+ 
+-import { AppRoutingModule } from './app-routing.module';
+-import { NgxTranslateModule } from './translate/translate.module';
+-import { AppComponent } from './app.component';
+-import { NavigationComponent } from './components/common/navigation/navigation.component';
+-import { DccComponent } from './components/dcc/dcc.component';
+-import { DccService } from './services/dcc/dcc.service';
+-import { DccLocalisedStringComponent } from './components/dcc/dcc-localised-string/dcc-localised-string.component';
+-import { DccContactComponent } from './components/dcc/dcc-contact/dcc-contact.component';
+-import { DccHumanReadableComponent } from './components/dcc/dcc-human-readable/dcc-human-readable.component';
+-import { DccHumanReadablePdfComponent } from './components/dcc/dcc-human-readable-pdf/dcc-human-readable-pdf.component';
+-import { DccSoftwareComponent } from './components/dcc/dcc-software/dcc-software.component';
+-import { DccUsedMethodsComponent } from './components/dcc/dcc-used-methods/dcc-used-methods.component';
+-import { DccMeasurementEquipmentComponent } from './components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component';
+-import { DccInfluenceConditionsComponent } from './components/dcc/dcc-influence-conditions/dcc-influence-conditions.component';
+-import { DccResultsComponent } from './components/dcc/dcc-results/dcc-results.component';
+-import { DccMeasurementMetadataComponent } from './components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component';
+-import { DccQuantityComponent } from './components/dcc/dcc-quantity/dcc-quantity.component';
+-import { DccDataComponent } from './components/dcc/dcc-data/dcc-data.component';
+-import { DccRichContentComponent } from './components/dcc/dcc-richcontent/dcc-richcontent.component';
+-import { DccByteDataComponent } from './components/dcc/dcc-byte-data/dcc-byte-data.component';
+-import { DccUploadComponent } from './components/dcc/dcc-upload/dcc-upload.component';
+-import { DccDownloadComponent } from './components/dcc/dcc-download/dcc-download.component';
+-import { DccResponsiblePersonComponent } from './components/dcc/dcc-responsible-person/dcc-responsible-person.component';
+-import { DccTemplatePickerComponent } from './components/dcc/dcc-template-picker/dcc-template-picker.component';
+-import { DccLocationComponent } from './components/dcc/dcc-location/dcc-location.component';
+-import { DccManufacturerComponent } from './components/dcc/dcc-manufacturer/dcc-manufacturer.component';
+-import { DccItemListComponent } from './components/dcc/dcc-item-list/dcc-item-list.component';
+-import { DccItemComponent } from './components/dcc/dcc-item/dcc-item.component';
+-import { DccIdentificationComponent } from './components/dcc/dcc-identification/dcc-identification.component';
+-import { DccInstalledSoftwareListComponent } from './components/dcc/dcc-software-list/dcc-software-list.component';
+-import { DccIdentificationListComponent } from './components/dcc/dcc-identification-list/dcc-identification-list.component';
+-import { DccMeasuringResultsComponent } from './components/dcc/dcc-measuring-results/dcc-measuring-results.component';
+-import { DccXmlPreviewComponent } from './components/dcc/dcc-xml-preview/dcc-xml-preview.component';
+-import { DccAttachmentUploadComponent } from './components/dcc/dcc-attachment-upload/dcc-attachment-upload.component';
++import { AppRoutingModule } from "./app-routing.module";
++import { NgxTranslateModule } from "./translate/translate.module";
++import { AppComponent } from "./app.component";
++import { NavigationComponent } from "./components/common/navigation/navigation.component";
++import { DccComponent } from "./components/dcc/dcc.component";
++import { DccService } from "./services/dcc/dcc.service";
++import { DccLocalisedStringComponent } from "./components/dcc/dcc-localised-string/dcc-localised-string.component";
++import { DccContactComponent } from "./components/dcc/dcc-contact/dcc-contact.component";
++import { DccHumanReadableComponent } from "./components/dcc/dcc-human-readable/dcc-human-readable.component";
++import { DccHumanReadablePdfComponent } from "./components/dcc/dcc-human-readable-pdf/dcc-human-readable-pdf.component";
++import { DccSoftwareComponent } from "./components/dcc/dcc-software/dcc-software.component";
++import { DccUsedMethodsComponent } from "./components/dcc/dcc-used-methods/dcc-used-methods.component";
++import { DccMeasurementEquipmentComponent } from "./components/dcc/dcc-measurement-equipment/dcc-measurement-equipment.component";
++import { DccInfluenceConditionsComponent } from "./components/dcc/dcc-influence-conditions/dcc-influence-conditions.component";
++import { DccResultsComponent } from "./components/dcc/dcc-results/dcc-results.component";
++import { DccMeasurementMetadataComponent } from "./components/dcc/dcc-measurement-metadata/dcc-measurement-metadata.component";
++import { DccQuantityComponent } from "./components/dcc/dcc-quantity/dcc-quantity.component";
++import { DccDataComponent } from "./components/dcc/dcc-data/dcc-data.component";
++import { DccRichContentComponent } from "./components/dcc/dcc-richcontent/dcc-richcontent.component";
++import { DccByteDataComponent } from "./components/dcc/dcc-byte-data/dcc-byte-data.component";
++import { DccUploadComponent } from "./components/dcc/dcc-upload/dcc-upload.component";
++import { DccDownloadComponent } from "./components/dcc/dcc-download/dcc-download.component";
++import { DccResponsiblePersonComponent } from "./components/dcc/dcc-responsible-person/dcc-responsible-person.component";
++import { DccTemplatePickerComponent } from "./components/dcc/dcc-template-picker/dcc-template-picker.component";
++import { DccLocationComponent } from "./components/dcc/dcc-location/dcc-location.component";
++import { DccManufacturerComponent } from "./components/dcc/dcc-manufacturer/dcc-manufacturer.component";
++import { DccItemListComponent } from "./components/dcc/dcc-item-list/dcc-item-list.component";
++import { DccItemComponent } from "./components/dcc/dcc-item/dcc-item.component";
++import { DccIdentificationComponent } from "./components/dcc/dcc-identification/dcc-identification.component";
++import { DccInstalledSoftwareListComponent } from "./components/dcc/dcc-software-list/dcc-software-list.component";
++import { DccIdentificationListComponent } from "./components/dcc/dcc-identification-list/dcc-identification-list.component";
++import { DccMeasuringResultsComponent } from "./components/dcc/dcc-measuring-results/dcc-measuring-results.component";
++import { DccXmlPreviewComponent } from "./components/dcc/dcc-xml-preview/dcc-xml-preview.component";
++import { DccAttachmentUploadComponent } from "./components/dcc/dcc-attachment-upload/dcc-attachment-upload.component";
+ 
+-import { GlobalLanguageDialogComponent } from './components/common/global-language-dialog/global-language-dialog.component';
+-import { InfoButtonComponent } from './components/common/info-button/info-button.component';
+-import { InfoDialogComponent } from './components/common/info-dialog/info-dialog.component';
+-import { ErrorComponent } from './components/common/error/error.component';
+-import { FooterComponent } from './components/footer/footer.component';
+-import { FooterImprintComponent } from './components/footer/footer-imprint/footer-imprint.component';
+-import { FooterPrivacyComponent } from './components/footer/footer-privacy/footer-privacy.component';
+-import { FooterLicenceComponent } from './components/footer/footer-licence/footer-licence.component';
+-import { GlobalErrorHandler } from './utils/global.error.handler';
+-import { LanguageSettingsDialogComponent } from './components/common/language-settings-dialog/language-settings-dialog.component';
+-import { PageNotFoundComponent } from './components/common/not-found/page-not-found.component';
+-import { MatSnackBarModule } from '@angular/material/snack-bar';
+-import { SimpleNotificationsModule } from 'angular2-notifications';
+-import { SimpleTestComponent } from './simple-test/simple-test.component';
+-import { VersionComponent } from './version/version.component';
++import { GlobalLanguageDialogComponent } from "./components/common/global-language-dialog/global-language-dialog.component";
++import { InfoButtonComponent } from "./components/common/info-button/info-button.component";
++import { InfoDialogComponent } from "./components/common/info-dialog/info-dialog.component";
++import { ErrorComponent } from "./components/common/error/error.component";
++import { FooterComponent } from "./components/footer/footer.component";
++import { FooterImprintComponent } from "./components/footer/footer-imprint/footer-imprint.component";
++import { FooterPrivacyComponent } from "./components/footer/footer-privacy/footer-privacy.component";
++import { FooterLicenceComponent } from "./components/footer/footer-licence/footer-licence.component";
++import { GlobalErrorHandler } from "./utils/global.error.handler";
++import { LanguageSettingsDialogComponent } from "./components/common/language-settings-dialog/language-settings-dialog.component";
++import { PageNotFoundComponent } from "./components/common/not-found/page-not-found.component";
++import { MatSnackBarModule } from "@angular/material/snack-bar";
++import { SimpleNotificationsModule } from "angular2-notifications";
++import { SimpleTestComponent } from "./simple-test/simple-test.component";
++import { VersionComponent } from "./version/version.component";
++import { AuthInterceptor } from "./services/common/auth/auth.interceptor";
+ 
+-import { MathModule } from './components/common/math/math.module';
+-import { MathComponent } from './components/common/math/math.component';
++import { MathModule } from "./components/common/math/math.module";
++import { MathComponent } from "./components/common/math/math.component";
+ 
+ const MY_DATE_FORMATS = {
+   parse: {
+-    dateInput: { day: 'numeric', month: 'numeric', year: 'numeric' },
++    dateInput: { day: "numeric", month: "numeric", year: "numeric" },
+   },
+   display: {
+-    dateInput: 'input',
+-    monthYearLabel: { year: 'numeric', month: 'short' },
+-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
++    dateInput: "input",
++    monthYearLabel: { year: "numeric", month: "short" },
++    dateA11yLabel: { year: "numeric", month: "long", day: "numeric" },
++    monthYearA11yLabel: { year: "numeric", month: "long" },
+   },
+ };
+ 
+ export class AppDateAdapter extends NativeDateAdapter {
+   override format(date: Date, displayFormat: Object): string {
+-    if (displayFormat === 'input') {
++    if (displayFormat === "input") {
+       const day = date.getDate();
+       const month = date.getMonth() + 1;
+       const year = date.getFullYear();
+-      let dayString = (day < 10 ? '0' : '') + day;
+-      let monthString = (month < 10 ? '0' : '') + month;
+-      let yearString = '' + year;
++      let dayString = (day < 10 ? "0" : "") + day;
++      let monthString = (month < 10 ? "0" : "") + month;
++      let yearString = "" + year;
+       return `${yearString}-${monthString}-${dayString}`;
+     } else {
+       return date.toDateString();
+@@ -191,7 +192,7 @@ export class AppDateAdapter extends NativeDateAdapter {
+     InfoDialogComponent,
+     DccAttachmentUploadComponent,
+     LanguageSettingsDialogComponent,
+-    GlobalLanguageDialogComponent
++    GlobalLanguageDialogComponent,
+   ],
+   imports: [
+     BrowserModule,
+@@ -245,6 +246,11 @@ export class AppDateAdapter extends NativeDateAdapter {
+     { provide: DateAdapter, useClass: AppDateAdapter },
+     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+     DccService,
++    {
++      provide: HTTP_INTERCEPTORS,
++      useClass: AuthInterceptor,
++      multi: true,
++    },
+     {
+       provide: LocationStrategy,
+       useClass: PathLocationStrategy,
+diff --git a/src/app/services/common/auth/auth.interceptor.ts b/src/app/services/common/auth/auth.interceptor.ts
+new file mode 100644
+index 0000000..23ba7b9
+--- /dev/null
++++ b/src/app/services/common/auth/auth.interceptor.ts
+@@ -0,0 +1,59 @@
++/**
++ *  Copyright 2025 Physikalisch-Technische Bundesanstalt
++ *
++ *  Redistribution and use in source and binary forms, with or without
++ *  modification, are permitted provided that the following conditions are met:
++ *
++ *  1. Redistributions of source code must retain the above copyright notice,
++ *  this list of conditions and the following disclaimer.
++ *
++ *  2. Redistributions in binary form must reproduce the above copyright notice,
++ *  this list of conditions and the following disclaimer in the documentation
++ *  and/or other materials provided with the distribution.
++ *
++ *  3. Neither the name of the copyright holder nor the names of its contributors
++ *  may be used to endorse or promote products derived from this software without
++ *  specific prior written permission.
++ *
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
++ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
++ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ *  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
++ *  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
++ *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
++ *  OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++import { Injectable } from '@angular/core';
++import {
++  HttpRequest,
++  HttpHandler,
++  HttpEvent,
++  HttpInterceptor
++} from '@angular/common/http';
++import { Observable } from 'rxjs';
++import { AuthService } from './auth.service';
++
++@Injectable()
++export class AuthInterceptor implements HttpInterceptor {
++
++  constructor(private authService: AuthService) {}
++
++  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
++    const xsrfToken = this.authService.getXsrfToken();
++
++    // If we have a token, we clone the request and add the X-XSRF-TOKEN header
++    if (xsrfToken) {
++      request = request.clone({
++        setHeaders: {
++          'X-XSRF-TOKEN': xsrfToken
++        }
++      });
++    }
++
++    return next.handle(request);
++  }
++}
+\ No newline at end of file
+diff --git a/src/app/services/common/auth/auth.service.ts b/src/app/services/common/auth/auth.service.ts
+new file mode 100644
+index 0000000..fb2dc21
+--- /dev/null
++++ b/src/app/services/common/auth/auth.service.ts
+@@ -0,0 +1,81 @@
++/**
++ *  Copyright 2025 Physikalisch-Technische Bundesanstalt
++ *
++ *  Redistribution and use in source and binary forms, with or without
++ *  modification, are permitted provided that the following conditions are met:
++ *
++ *  1. Redistributions of source code must retain the above copyright notice,
++ *  this list of conditions and the following disclaimer.
++ *
++ *  2. Redistributions in binary form must reproduce the above copyright notice,
++ *  this list of conditions and the following disclaimer in the documentation
++ *  and/or other materials provided with the distribution.
++ *
++ *  3. Neither the name of the copyright holder nor the names of its contributors
++ *  may be used to endorse or promote products derived from this software without
++ *  specific prior written permission.
++ *
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
++ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
++ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
++ *  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
++ *  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ *  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ *  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
++ *  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
++ *  OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++import { Injectable } from "@angular/core";
++import { HttpClient } from "@angular/common/http";
++import { BehaviorSubject, Observable, tap } from "rxjs";
++
++export interface MeInterface {
++  name: string;
++  loginUrl: string;
++  principal: any;
++  xsrfToken: string;
++  logoutUrl: string;
++}
++
++@Injectable({
++  providedIn: "root",
++})
++export class AuthService {
++  private readonly API_URL = "";
++  private xsrfTokenSubject = new BehaviorSubject<string | null>(null);
++  private userSubject = new BehaviorSubject<MeInterface | null>(null);
++
++  constructor(private http: HttpClient) {}
++
++  /**
++   * Fetches the current user information and XSRF token from the backend.
++   */
++  fetchMe(): Observable<MeInterface> {
++    return this.http.get<MeInterface>(`${this.API_URL}/me`).pipe(
++      tap((me) => {
++        if (me.xsrfToken) {
++          this.xsrfTokenSubject.next(me.xsrfToken);
++        }
++        this.userSubject.next(me);
++      }),
++    );
++  }
++
++  getXsrfToken(): string | null {
++    return this.xsrfTokenSubject.value;
++  }
++
++  getUser(): MeInterface | null {
++    return this.userSubject.value;
++  }
++
++  get xsrfToken$(): Observable<string | null> {
++    return this.xsrfTokenSubject.asObservable();
++  }
++
++  get user$(): Observable<MeInterface | null> {
++    return this.userSubject.asObservable();
++  }
++}
+diff --git a/src/app/services/dcc/remote.ts b/src/app/services/dcc/remote.ts
+index 512faff..b096ac6 100644
+--- a/src/app/services/dcc/remote.ts
++++ b/src/app/services/dcc/remote.ts
+@@ -37,7 +37,7 @@ import { CalibrationCertificateDto } from "../../generated/dcc/model/calibration
+ })
+ export class RemoteDccService {
+   // Remote URL variable for easy configuration
+-  private remoteUrl = "http://100.127.76.43:3050";
++  private remoteUrl = "/dcc-service";
+ 
+   constructor(private http: HttpClient) {}
+ 
+@@ -51,7 +51,7 @@ export class RemoteDccService {
+ 
+   /**
+    * Checks if the remote service is connected and working.
+-   */ 
++   */
+   getStatus(): Observable<{ status: string; connected: boolean }> {
+     console.log("[RemoteDccService] Checking status...");
+     return this.http.get<{ status: string; connected: boolean }>(`${this.remoteUrl}/status`);
+diff --git a/src/proxy.conf.json b/src/proxy.conf.json
+index de7e9c8..c61da58 100644
+--- a/src/proxy.conf.json
++++ b/src/proxy.conf.json
+@@ -1,4 +1,19 @@
+ {
++  "/me": {
++    "target": "http://100.127.76.43:8080",
++    "secure": false,
++    "changeOrigin": true,
++    "logLevel": "debug"
++  },
++  "/dcc-service/**": {
++    "target": "http://100.127.76.43:3050",
++    "secure": false,
++    "changeOrigin": true,
++    "logLevel": "debug",
++    "pathRewrite": {
++      "^/dcc-service": ""
++    }
++  },
+   "/api/v1/dcc/*": {
+     "target": "http://localhost:3007",
+     "secure": false,
+-- 
+2.49.0.windows.1
+

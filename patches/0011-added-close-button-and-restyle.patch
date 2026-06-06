@@ -1,0 +1,233 @@
+From 9e0d7e9a1783dd16a700f59fcfb4f3eafac727d2 Mon Sep 17 00:00:00 2001
+From: Mario Attrovio <marioleonardo.attrovio@dentsu.com>
+Date: Fri, 6 Feb 2026 10:46:33 +0100
+Subject: [PATCH 11/11] added close button and restyle
+
+---
+ .../navigation/navigation.component.html      |  4 ++--
+ .../navigation/navigation.component.scss      | 22 ++++++++++++++-----
+ .../common/navigation/navigation.component.ts |  4 ++++
+ src/app/components/dcc/dcc.component.html     | 12 ++++++++++
+ src/app/components/dcc/dcc.component.scss     |  2 +-
+ src/app/components/dcc/dcc.component.ts       |  4 ++++
+ src/proxy.conf.json                           |  1 +
+ src/styles.scss                               | 20 ++++++++++-------
+ 8 files changed, 53 insertions(+), 16 deletions(-)
+
+diff --git a/src/app/components/common/navigation/navigation.component.html b/src/app/components/common/navigation/navigation.component.html
+index 2e3970f..0724549 100644
+--- a/src/app/components/common/navigation/navigation.component.html
++++ b/src/app/components/common/navigation/navigation.component.html
+@@ -26,8 +26,8 @@
+   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+   OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+-<mat-toolbar class="toolbar" color="primary">
+-  <img alt="GEMIMEG-Tool powered by OP-Layer" class="logo-top" src="assets/gemimeg_oplayer_logo.jpg"/>
++<mat-toolbar class="toolbar">
++  <span class="brand-text" (click)="goToCertificates()" style="cursor: pointer;">MeasureStream</span>
+   <span class="spacer"></span>
+   <app-global-language-dialog (close)="hideSettingsDialog()"
+                               *ngIf="isSettingsDialogVisible"></app-global-language-dialog>
+diff --git a/src/app/components/common/navigation/navigation.component.scss b/src/app/components/common/navigation/navigation.component.scss
+index 3a49832..d40f9cc 100644
+--- a/src/app/components/common/navigation/navigation.component.scss
++++ b/src/app/components/common/navigation/navigation.component.scss
+@@ -27,20 +27,32 @@
+ *  OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+-.logo-top {
+-  height: 70%;
++.brand-text {
++  font-size: 1.5rem;
++  font-weight: 600;
++  color: #212529;
++  text-decoration: none;
++  margin-right: 1.5rem;
++  padding-left: 10px;
++  font-family: "Inter", sans-serif;
+ }
+ 
+-.spacer {
+-  flex: 1 1 auto;
++.toolbar {
++  background-color: #f8f9fa !important;
++  color: #212529 !important;
++  border-bottom: 1px solid #dee2e6;
+ }
+ 
+-mat-toolbar.mat-primary {
++mat-toolbar.toolbar {
+   position: fixed;
+   top: 0;
+   z-index: 100;
+ }
+ 
++.logo-top {
++  height: 70%;
++}
++
+ .active-link {
+   background-color: rgb(182, 178, 178);
+   color: #313ee9;
+diff --git a/src/app/components/common/navigation/navigation.component.ts b/src/app/components/common/navigation/navigation.component.ts
+index bff63a1..9f375b2 100644
+--- a/src/app/components/common/navigation/navigation.component.ts
++++ b/src/app/components/common/navigation/navigation.component.ts
+@@ -85,4 +85,8 @@ export class NavigationComponent {
+     this.userLanguage = lang;
+     this.translate.use(this.userLanguage);
+   }
++
++  goToCertificates() {
++    window.location.href = "https://dev.christiandellisanti.uk/ui/dcc/certificates";
++  }
+ }
+diff --git a/src/app/components/dcc/dcc.component.html b/src/app/components/dcc/dcc.component.html
+index 9e591a0..3ea8336 100644
+--- a/src/app/components/dcc/dcc.component.html
++++ b/src/app/components/dcc/dcc.component.html
+@@ -31,6 +31,9 @@
+     <mat-card class="blue-card cockpit">
+       <mat-card-header>
+         <div class="header-title">
++          <button (click)="goToCertificates()" mat-icon-button type="button">
++            <mat-icon>arrow_back</mat-icon>
++          </button>
+           <mat-card-title class="title">{{ "dcc.dccTemplates" | translate }}</mat-card-title>
+         </div>
+         <div class="header-menu"></div>
+@@ -49,6 +52,15 @@
+         >
+           {{ "dcc.saveRemote" | translate }}
+         </button>
++        <button
++          (click)="goToCertificates()"
++          color=""
++          id="dcc-remote-close-button"
++          mat-raised-button
++          type="button"
++        >
++          {{ "button.close" | translate }}
++        </button>
+       </mat-card-content>
+     </mat-card>
+     <mat-stepper
+diff --git a/src/app/components/dcc/dcc.component.scss b/src/app/components/dcc/dcc.component.scss
+index a34c933..9ec4a6c 100644
+--- a/src/app/components/dcc/dcc.component.scss
++++ b/src/app/components/dcc/dcc.component.scss
+@@ -162,7 +162,7 @@ mat-stepper {
+   padding: 10px 20px;
+   font-size: 15px;
+   border-radius: 5px;
+-  background-color: #002039;
++  background-color: #0d6efd; // Bootstrap primary
+   color: #ffffff;
+ }
+ 
+diff --git a/src/app/components/dcc/dcc.component.ts b/src/app/components/dcc/dcc.component.ts
+index a55161a..72904e6 100644
+--- a/src/app/components/dcc/dcc.component.ts
++++ b/src/app/components/dcc/dcc.component.ts
+@@ -162,6 +162,10 @@ export class DccComponent implements OnInit, AfterContentChecked {
+     });
+   }
+ 
++  goToCertificates() {
++    window.location.href = "https://dev.christiandellisanti.uk/ui/dcc/certificates";
++  }
++
+   saveToRemote() {
+     this.route.queryParams.subscribe((params) => {
+       const dccId = params["dccId"] || "default-id";
+diff --git a/src/proxy.conf.json b/src/proxy.conf.json
+index fa72a75..8a920c4 100644
+--- a/src/proxy.conf.json
++++ b/src/proxy.conf.json
+@@ -51,3 +51,4 @@
+     }
+   }
+ }
++
+diff --git a/src/styles.scss b/src/styles.scss
+index f6dcbfb..7cc7baa 100644
+--- a/src/styles.scss
++++ b/src/styles.scss
+@@ -30,6 +30,7 @@
+ 
+ /* You can add global styles to this file, and also import other style files */
+ @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
++@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+ 
+ html,
+ body {
+@@ -45,7 +46,7 @@ body {
+ 
+ body {
+   margin: 0;
+-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
++  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+     "Helvetica Neue", sans-serif;
+ }
+ 
+@@ -64,13 +65,13 @@ mat-divider {
+ 
+ .notif-success {
+   .mdc-snackbar__surface {
+-    background-color: rgb(5, 175, 5) !important;
++    background-color: #198754 !important; // Bootstrap success
+   }
+ }
+ 
+ .notif-fail {
+   .mdc-snackbar__surface {
+-    background-color: rgb(220, 53, 69) !important;
++    background-color: #dc3545 !important; // Bootstrap danger
+   }
+ }
+ 
+@@ -82,15 +83,17 @@ mat-card.blue-card {
+   padding: 0;
+   margin: 15px 0px;
+   border-radius: 4px;
++  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; // Bootstrap shadow-sm
+ 
+   mat-card-header {
+-    height: 36px;
+-    background-color: #002039;
+-    color: white;
++    height: 40px;
++    background-color: #e9ecef; // Bootstrap light gray
++    color: #212529;
+     border-top-left-radius: 4px;
+     border-top-right-radius: 4px;
+     padding: 0 3px 0 16px;
+     display: flex;
++    border-bottom: 1px solid #dee2e6;
+ 
+     .header-title {
+       width: 80%;
+@@ -99,8 +102,8 @@ mat-card.blue-card {
+ 
+       .title {
+         margin: 0;
+-        font-size: 14px;
+-        font-weight: 500;
++        font-size: 15px;
++        font-weight: 600;
+       }
+     }
+ 
+@@ -115,6 +118,7 @@ mat-card.blue-card {
+         display: flex;
+         align-items: center;
+         justify-content: center;
++        color: #212529; // Dark color for buttons in light header
+ 
+         .material-icons {
+           font-size: 20px;
+-- 
+2.49.0.windows.1
+

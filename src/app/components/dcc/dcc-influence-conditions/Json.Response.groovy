@@ -962,7 +962,7 @@
                         },
                         {
                           "lang" : "en" ,
-                          "text" : "Measurement error"
+                          "text" : "M_e"
                         }
                     ]
                   } ,

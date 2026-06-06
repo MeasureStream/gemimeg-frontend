@@ -1,0 +1,115 @@
+From 2c5a508ed5d4f20d4e27c7683afcaab2ba8cd240 Mon Sep 17 00:00:00 2001
+From: Mario Attrovio <marioleonardo.attrovio@dentsu.com>
+Date: Mon, 2 Feb 2026 23:23:14 +0100
+Subject: [PATCH 08/11] first deploy dcc
+
+---
+ .github/workflows/build-push-backend.yml |  2 +-
+ Dockerfile                               | 19 +++++++++++--------
+ nginx.conf                               | 18 +++++++++++++-----
+ 3 files changed, 25 insertions(+), 14 deletions(-)
+
+diff --git a/.github/workflows/build-push-backend.yml b/.github/workflows/build-push-backend.yml
+index f04d0d6..4d2276d 100644
+--- a/.github/workflows/build-push-backend.yml
++++ b/.github/workflows/build-push-backend.yml
+@@ -2,7 +2,7 @@ name: Build & Push Backend Docker Image
+ 
+ on:
+   push:
+-    branches: ["work/patches"]
++    branches: ["work/patchessss"]
+ 
+ jobs:
+   build:
+diff --git a/Dockerfile b/Dockerfile
+index b45462a..fe84030 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,7 +1,7 @@
+ # Multi-stage build for Angular application
+ 
+ # Stage 1: Build the Angular application
+-FROM node:18-alpine AS build
++FROM node:20-alpine AS build
+ 
+ # Set working directory
+ WORKDIR /app
+@@ -15,17 +15,17 @@ RUN npm ci
+ # Copy source code
+ COPY . .
+ 
+-# Build the application with environment variables
+-ARG API_URL
+-ARG BACKEND_URL
+-ARG GATEWAY_URL
+-ARG KAFKA_URL
++# Build the application with increased memory (matching GitLab CI)
++ARG API_URL="http://gateway-iam:8080"
++ARG BACKEND_URL="http://gemimeg-backend:10001"
++ARG GATEWAY_URL="http://gateway-iam:8080"
++ARG KAFKA_URL="http://kafka:29092"
+ 
+ ENV VITE_API_URL=$API_URL
+ ENV VITE_BACKEND_URL=$BACKEND_URL
+ ENV VITE_GATEWAY_URL=$GATEWAY_URL
+ ENV VITE_KAFKA_URL=$KAFKA_URL
+-
++ENV NODE_OPTIONS="--max-old-space-size=4096"
+ RUN npm run build
+ 
+ # Stage 2: Serve the application with nginx
+@@ -39,7 +39,8 @@ ENV GATEWAY_HOST=gateway-iam
+ ENV GATEWAY_PORT=8080
+ 
+ # Copy built application from build stage
+-COPY --from=build /app/dist/gemimeg-frontend /usr/share/nginx/html
++# Copy into a subdirectory that matches the baseHref and Gateway path
++COPY --from=build /app/dist/gemimeg-frontend /usr/share/nginx/html/gemimegdcc
+ 
+ # Copy nginx configuration
+ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+@@ -53,3 +54,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+ 
+ # Start nginx
+ CMD ["nginx", "-g", "daemon off;"]
++
++
+diff --git a/nginx.conf b/nginx.conf
+index 0cd3a52..d93e96b 100644
+--- a/nginx.conf
++++ b/nginx.conf
+@@ -2,11 +2,19 @@ server {
+   listen 80;
+   server_name localhost;
+ 
+-  # Frontend static files
+-  location / {
+-    root /usr/share/nginx/html;
++  # Include mime types
++  include /etc/nginx/mime.types;
++
++  # Frontend static files under the baseHref path
++  location /gemimegdcc/ {
++    alias /usr/share/nginx/html/gemimegdcc/;
+     index index.html;
+-    try_files $uri $uri/index.html /index.html =404;
++    try_files $uri $uri/ /gemimegdcc/index.html;
++  }
++
++  # Redirect root to the application path
++  location = / {
++    return 301 /gemimegdcc/;
+   }
+ 
+   # Auth endpoints - proxy to gateway-iam
+@@ -74,4 +82,4 @@ server {
+   location = /50x.html {
+     root /usr/share/nginx/html;
+   }
+-}
+\ No newline at end of file
++}
+-- 
+2.49.0.windows.1
+
